@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eficiencia de Energías Renovables - Termodinámica</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #1a2a6c, #b21f1f, #1a2a6c);
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        header {
+            text-align: center;
+            padding: 30px 0;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            margin-bottom: 30px;
+        }
+        
+        h1 {
+            color: #1a2a6c;
+            font-size: 2.8rem;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        .subtitle {
+            color: #e44d26;
+            font-size: 1.4rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .content-wrapper {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+        
+        .card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25);
+        }
+        
+        .card-title {
+            color: #1a2a6c;
+            border-bottom: 3px solid #e44d26;
+            padding-bottom: 12px;
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .card-title i {
+            color: #e44d26;
+            font-size: 1.5rem;
+        }
+        
+        .formula-box {
+            background: #f8f9fa;
+            border-left: 5px solid #e44d26;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 0 10px 10px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 1.4rem;
+            text-align: center;
+        }
+        
+        .examples {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-top: 30px;
+        }
+        
+        .example-card {
+            background: #e3f2fd;
+            border-radius: 12px;
+            padding: 20px;
+            border: 2px dashed #1a2a6c;
+        }
+        
+        .example-title {
+            color: #1a2a6c;
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .efficiency-bar {
+            height: 40px;
+            background: #e0e0e0;
+            border-radius: 20px;
+            margin: 15px 0;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .efficiency-fill {
+            height: 100%;
+            border-radius: 20px;
+            background: linear-gradient(90deg, #4CAF50, #8BC34A);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            transition: width 1.5s ease-in-out;
+            width: 0;
+        }
+        
+        .thermo-laws {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+            margin-top: 30px;
+        }
+        
+        .law-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+            border-top: 5px solid #e44d26;
+        }
+        
+        .law-title {
+            color: #1a2a6c;
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 25px;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            border-radius: 15px;
+            margin-top: 30px;
+            font-size: 1.1rem;
+        }
+        
+        .conclusion {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+            margin-top: 30px;
+            border-left: 5px solid #4CAF50;
+        }
+        
+        .conclusion-title {
+            color: #1a2a6c;
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        @media (max-width: 900px) {
+            .content-wrapper, .examples, .thermo-laws {
+                grid-template-columns: 1fr;
+            }
+            
+            h1 {
+                font-size: 2.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><i class="fas fa-solar-panel"></i> Eficiencia en Procesos de Energía Renovable</h1>
+            <p class="subtitle">Cómo medir la eficiencia usando principios de la termodinámica</p>
+        </header>
+        
+        <div class="content-wrapper">
+            <div class="card">
+                <h2 class="card-title"><i class="fas fa-calculator"></i> Concepto de Eficiencia</h2>
+                <p>La eficiencia (η) mide qué tan bien un sistema convierte la energía de entrada en energía útil. En termodinámica, se define como:</p>
+                
+                <div class="formula-box">
+                    η = (Energía útil obtenida / Energía total suministrada) × 100%
+                </div>
+                
+                <p>Esto se basa en el <strong>Primer Principio de la Termodinámica</strong> (conservación de la energía), que establece que la energía no se crea ni destruye, solo se transforma.</p>
+                
+                <p>Sin embargo, el <strong>Segundo Principio</strong> nos dice que nunca podemos convertir toda la energía de entrada en trabajo útil. Siempre hay pérdidas debido a la entropía (desorden).</p>
+                
+                <div class="examples">
+                    <div class="example-card">
+                        <h3 class="example-title"><i class="fas fa-sun"></i> Panel Solar</h3>
+                        <p><strong>Energía de entrada:</strong> Radiación solar</p>
+                        <p><strong>Energía útil:</strong> Electricidad generada</p>
+                        <p><strong>Eficiencia típica:</strong> 15-22%</p>
+                        <div class="efficiency-bar">
+                            <div class="efficiency-fill" style="width: 18%;">18%</div>
+                        </div>
+                    </div>
+                    
+                    <div class="example-card">
+                        <h3 class="example-title"><i class="fas fa-wind"></i> Aerogenerador</h3>
+                        <p><strong>Energía de entrada:</strong> Energía cinética del viento</p>
+                        <p><strong>Energía útil:</strong> Electricidad generada</p>
+                        <p><strong>Eficiencia típica:</strong> 30-45% (Límite de Betz: 59.3%)</p>
+                        <div class="efficiency-bar">
+                            <div class="efficiency-fill" style="width: 40%;">40%</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card">
+                <h2 class="card-title"><i class="fas fa-fire"></i> Principios Termodinámicos</h2>
+                
+                <div class="thermo-laws">
+                    <div class="law-card">
+                        <h3 class="law-title"><i class="fas fa-1"></i> Primer Principio</h3>
+                        <p>"La energía no se crea ni se destruye, solo se transforma".</p>
+                        <p>En cualquier sistema:</p>
+                        <p><strong>Energía entrada = Energía útil + Pérdidas</strong></p>
+                        <p>Las pérdidas se manifiestan como calor no aprovechado, fricción, resistencia, etc.</p>
+                    </div>
+                    
+                    <div class="law-card">
+                        <h3 class="law-title"><i class="fas fa-2"></i> Segundo Principio</h3>
+                        <p>"Es imposible convertir completamente el calor en trabajo".</p>
+                        <p>Este principio introduce el concepto de entropía (desorden). En cualquier proceso real:</p>
+                        <p><strong>Parte de la energía siempre se degrada</strong> y no puede convertirse en trabajo útil.</p>
+                    </div>
+                </div>
+                
+                <h3 style="margin-top: 30px; color: #1a2a6c;"><i class="fas fa-lightbulb"></i> Implicaciones prácticas</h3>
+                <ul style="padding-left: 20px; margin-top: 15px;">
+                    <li>Ningún sistema puede tener 100% de eficiencia</li>
+                    <li>Las pérdidas siempre existen (calor disipado, sonido, vibración)</li>
+                    <li>La eficiencia máxima teórica está limitada por la termodinámica</li>
+                    <li>Los sistemas reales siempre tienen eficiencias menores que las teóricas</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="card">
+            <h2 class="card-title"><i class="fas fa-bolt"></i> Cálculo de Eficiencia</h2>
+            
+            <div class="examples" style="grid-template-columns: 1fr 1fr 1fr; margin-top: 20px;">
+                <div class="example-card">
+                    <h3 class="example-title"><i class="fas fa-solar-panel"></i> Energía Solar</h3>
+                    <p>η = (Energía eléctrica generada / Energía solar incidente) × 100%</p>
+                    <p><strong>Ejemplo:</strong></p>
+                    <p>Panel de 2 m² recibe 1000 W/m² de radiación</p>
+                    <p>Energía entrada: 2000 W</p>
+                    <p>Electricidad generada: 400 W</p>
+                    <p>η = (400 / 2000) × 100% = 20%</p>
+                </div>
+                
+                <div class="example-card">
+                    <h3 class="example-title"><i class="fas fa-wind"></i> Energía Eólica</h3>
+                    <p>η = (Energía eléctrica generada / Energía cinética del viento) × 100%</p>
+                    <p><strong>Ejemplo:</strong></p>
+                    <p>Viento: 10 m/s, densidad 1.2 kg/m³</p>
+                    <p>Área barrida: 200 m²</p>
+                    <p>Energía entrada: 120 kW</p>
+                    <p>Electricidad generada: 48 kW</p>
+                    <p>η = (48 / 120) × 100% = 40%</p>
+                </div>
+                
+                <div class="example-card">
+                    <h3 class="example-title"><i class="fas fa-water"></i> Energía Hidroeléctrica</h3>
+                    <p>η = (Energía eléctrica generada / Energía potencial del agua) × 100%</p>
+                    <p><strong>Ejemplo:</strong></p>
+                    <p>Salto: 50 m, caudal: 10 m³/s</p>
+                    <p>Energía entrada: 4.9 MW</p>
+                    <p>Electricidad generada: 4.2 MW</p>
+                    <p>η = (4.2 / 4.9) × 100% ≈ 85%</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="conclusion">
+            <h2 class="conclusion-title"><i class="fas fa-graduation-cap"></i> Conclusiones Clave</h2>
+            <div style="display: flex; align-items: center; gap: 20px; margin-top: 20px;">
+                <div style="flex: 1;">
+                    <ul style="padding-left: 20px; font-size: 1.2rem;">
+                        <li>La eficiencia se calcula como: <strong>Energía útil / Energía entrada × 100%</strong></li>
+                        <li>Las leyes de la termodinámica establecen límites fundamentales a la eficiencia</li>
+                        <li>Ningún sistema real alcanza el 100% de eficiencia debido a pérdidas inevitables</li>
+                        <li>Mejorar la eficiencia reduce costos y el impacto ambiental</li>
+                        <li>La investigación busca constantemente aumentar la eficiencia de las energías renovables</li>
+                    </ul>
+                </div>
+                <div style="flex: 1; text-align: center;">
+                    <div style="width: 200px; height: 200px; margin: 0 auto; background: #e3f2fd; border-radius: 50%; display: flex; align-items: center; justify-content: center; border: 5px solid #4CAF50; position: relative;">
+                        <div style="font-size: 2.5rem; font-weight: bold; color: #1a2a6c;">η &lt; 100%</div>
+                        <div style="position: absolute; bottom: 20px; font-style: italic; color: #e44d26;">Límite termodinámico</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <footer>
+            <p>Desarrollado para estudiantes de Secundaria | Principios de Termodinámica y Energías Renovables</p>
+            <p style="margin-top: 15px;">&copy; 2023 - Recursos Educativos de Física y Sostenibilidad</p>
+        </footer>
+    </div>
+
+    <script>
+        // Animación para las barras de eficiencia
+        document.addEventListener('DOMContentLoaded', function() {
+            const efficiencyBars = document.querySelectorAll('.efficiency-fill');
+            
+            efficiencyBars.forEach(bar => {
+                // Guardar el ancho original
+                const originalWidth = bar.style.width;
+                // Resetear a 0 para la animación
+                bar.style.width = '0';
+                
+                // Pequeño retraso para que la animación sea visible
+                setTimeout(() => {
+                    bar.style.width = originalWidth;
+                }, 300);
+            });
+        });
+    </script>
+</body>
+</html>

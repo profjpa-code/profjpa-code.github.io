@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Póster Mejorado: Energía Hidroeléctrica</title>
+    <style>
+        /* --- FUENTES Y ESTILOS GLOBALES --- */
+        @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&family=Roboto+Condensed:wght@400;700&display=swap');
+        
+        body {
+            background-color: #D2B48C; /* Color papel madera */
+            font-family: 'Roboto Condensed', sans-serif;
+            color: #3D2B1F;
+            margin: 0;
+            padding: 40px 20px;
+        }
+
+        /* --- CONTENEDOR PRINCIPAL DEL AFICHE --- */
+        .poster {
+            max-width: 900px;
+            margin: auto;
+            text-align: center;
+        }
+
+        /* --- TÍTULO PRINCIPAL --- */
+        .header {
+            background-color: #005f73; /* Azul oscuro vibrante */
+            color: #FFFFFF;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+        h1 {
+            font-family: 'Oswald', sans-serif;
+            font-size: 4.5em;
+            margin: 0;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        h1 span {
+            font-size: 0.5em;
+            font-weight: 400;
+            display: block;
+            color: #ade8f4; /* Azul claro */
+        }
+
+        /* --- ESTILO DE CADA SECCIÓN --- */
+        .seccion {
+            background-color: #f8f7f2; /* Blanco hueso */
+            margin-top: 40px;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            text-align: left;
+        }
+        h2 {
+            font-family: 'Oswald', sans-serif;
+            font-size: 2.5em;
+            color: #0077b6; /* Azul medio */
+            margin: 0 0 20px 0;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #90e0ef;
+        }
+
+        /* --- 1. DIAGRAMA DE FLUJO: MARCO TEÓRICO --- */
+        .flow-diagram {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            text-align: center;
+            margin: 30px 0;
+        }
+        .flow-step {
+            width: 150px;
+            padding: 15px;
+            background-color: #e0fbfc;
+            border: 2px solid #90e0ef;
+            border-radius: 8px;
+            position: relative;
+        }
+        .flow-step h3 {
+            margin: 0 0 5px 0;
+            font-family: 'Oswald';
+            color: #03045e;
+        }
+        .arrow {
+            font-size: 3em;
+            color: #0077b6;
+            font-weight: bold;
+        }
+
+        /* --- 2. MAPA CONCEPTUAL: PROS Y CONTRAS --- */
+        .pros-contras-mapa {
+            display: flex;
+            justify-content: space-around;
+            gap: 20px;
+        }
+        .mapa-columna {
+            flex: 1;
+            padding: 20px;
+            border-radius: 8px;
+        }
+        .pros {
+            background-color: #e6fffa;
+            border: 2px solid #52b788;
+        }
+        .contras {
+            background-color: #ffdde5;
+            border: 2px solid #d00000;
+        }
+        .mapa-columna h3 {
+            font-family: 'Oswald';
+            text-align: center;
+            font-size: 1.8em;
+            margin-top: 0;
+        }
+        .pros h3 { color: #2d6a4f; }
+        .contras h3 { color: #9d0208; }
+        .mapa-columna ul { list-style-type: none; padding: 0; }
+        .mapa-columna li { margin-bottom: 10px; }
+        
+        /* --- 3. MAPA MUNDIAL --- */
+        .mapa-container img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            border: 3px solid #6c757d;
+        }
+        .mapa-container p { font-style: italic; text-align: center; }
+
+        /* --- 4. FUENTES QR --- */
+        .qr-gallery {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            text-align: center;
+        }
+        .qr-item p { font-weight: bold; }
+        
+        /* --- 5. CONCLUSIONES Y PREGUNTAS --- */
+        .pregunta-box {
+            background-color: #fff3b0;
+            border-left: 5px solid #fca311;
+            padding: 15px;
+            margin-top: 15px;
+            font-style: italic;
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="poster">
+    
+    <div class="header">
+        <h1>Energía Hidroeléctrica <span>El Poder del Agua en Movimiento</span></h1>
+    </div>
+
+    <div class="seccion">
+        <h2>💡 1. ¿Cómo se Genera? El Viaje de la Energía</h2>
+        <p>La generación de electricidad en una central hidroeléctrica es una cadena de transformaciones de energía. Este diagrama muestra el proceso:</p>
+        <div class="flow-diagram">
+            <div class="flow-step"><h3>Energía Potencial</h3><p>Agua almacenada a gran altura en el embalse.</p></div>
+            <div class="arrow">→</div>
+            <div class="flow-step"><h3>Energía Cinética</h3><p>El agua cae con velocidad por una tubería.</p></div>
+            <div class="arrow">→</div>
+            <div class="flow-step"><h3>Energía Mecánica</h3><p>El flujo de agua hace girar una turbina.</p></div>
+            <div class="arrow">→</div>
+            <div class="flow-step"><h3>Energía Eléctrica</h3><p>Un generador convierte el giro en electricidad.</p></div>
+        </div>
+        <p><b>La Termodinámica nos dice:</b> La energía total se conserva (1ª Ley), pero en cada paso parte de ella se "pierde" como calor por la fricción (2ª Ley), lo que impide que la eficiencia sea del 100%.</p>
+    </div>
+
+    <div class="seccion">
+        <h2>⚖️ 2. Balanza de Impactos: Pros y Contras</h2>
+        <div class="pros-contras-mapa">
+            <div class="mapa-columna pros">
+                <h3>✔ VENTAJAS</h3>
+                <ul>
+                    <li>Produce energía limpia, sin emitir CO₂.</li>
+                    <li>Muy alta eficiencia (~90%).</li>
+                    <li>Fuente de energía constante y predecible.</li>
+                    <li>Larga vida útil de las centrales.</li>
+                    <li>Permite almacenar agua para consumo y riego.</li>
+                </ul>
+            </div>
+            <div class="mapa-columna contras">
+                <h3>✖ DESVENTAJAS</h3>
+                <ul>
+                    <li>Costo de construcción altísimo.</li>
+                    <li>Inunda valles y destruye ecosistemas.</li>
+                    <li>Desplaza a comunidades enteras.</li>
+                    <li>Altera el curso de los ríos y daña la fauna.</li>
+                    <li>Vulnerable a sequías prolongadas.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="seccion">
+        <h2>🌍 3. La Hidroeléctrica en el Mundo y Argentina</h2>
+        <p>Es la energía renovable más usada globalmente. China es el líder indiscutido, seguido por países con grandes recursos hídricos como Brasil, Canadá y EE.UU.</p>
+        <div class="mapa-container">
+            
+            <p><b>En Argentina,</b> las represas de <b>Yacyretá</b> e <b>Itaipú</b> (compartida) son gigantes de la generación eléctrica nacional.</p>
+        </div>
+    </div>
+
+    <div class="seccion">
+        <h2>🔗 4. Fuentes de Investigación</h2>
+        <p>Usa la cámara de tu celular para escanear los códigos y explorar las fuentes que usamos para este póster. Puedes crear los tuyos en páginas como `qrcode-monkey.com`.</p>
+        <div class="qr-gallery">
+            <div class="qr-item">
+                <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://www.argentina.gob.ar/economia/energia/energia-electrica" alt="QR Code 1">
+                <p>Secretaría de Energía<br>(Argentina)</p>
+            </div>
+            <div class="qr-item">
+                <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://www.nationalgeographic.org/encyclopedia/hydropower/" alt="QR Code 2">
+                <p>National Geographic<br>(Hidroeléctricas)</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="seccion">
+        <h2>🤔 5. Conclusiones y Preguntas para Debatir</h2>
+        <p>La energía hidroeléctrica es una paradoja: es una fuente de energía renovable y potente, pero con un costo ambiental y social que no podemos ignorar. Es una pieza clave del presente, pero su futuro rol es incierto frente a alternativas más flexibles y menos invasivas.</p>
+        <div class="pregunta-box">
+            <p>Si tuvieras que decidir hoy, ¿aprobarías la construcción de una nueva mega-represa en un río de la Patagonia? ¿Qué factores pesarían más en tu decisión?</p>
+        </div>
+        <div class="pregunta-box">
+            <p>¿Cómo puede la tecnología ayudar a que las futuras centrales hidroeléctricas sean menos dañinas para el medio ambiente?</p>
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>
