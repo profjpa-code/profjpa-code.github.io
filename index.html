@@ -3,53 +3,454 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Material de Matemática</title>
+    <title>Matemáticas Divertidas | Material Educativo</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
     <style>
-        body {
-            font-family: sans-serif;
-            margin: 40px;
-            background-color: #f4f4f4;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(135deg, #1a2980, #26d0ce);
+            background-attachment: fixed;
+            color: #333;
+            line-height: 1.6;
+            min-height: 100vh;
+            padding: 20px;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(255,255,255,0.1) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(255,255,255,0.1) 0%, transparent 20%);
+            z-index: -1;
+        }
+
+        .math-elements {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            opacity: 0.7;
+        }
+
+        .math-element {
+            position: absolute;
+            font-size: 24px;
+            color: rgba(255, 255, 255, 0.3);
+            font-weight: bold;
+        }
+
         .container {
             max-width: 800px;
-            margin: auto;
-            background: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin: 40px auto;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+            position: relative;
+            z-index: 1;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
         }
-        h1 {
-            color: #333;
+
+        .header {
+            background: linear-gradient(to right, #4A00E0, #8E2DE2);
+            color: white;
+            padding: 30px 40px;
+            text-align: center;
+            border-bottom: 5px solid #FFD700;
+            position: relative;
         }
-        ul {
-            list-style: none;
-            padding: 0;
+
+        .header::after {
+            content: "";
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80%;
+            height: 20px;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 10"><path d="M0,0 Q25,10 50,0 T100,0" fill="%23FFD700"/></svg>') center/cover no-repeat;
         }
-        li {
+
+        .header h1 {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            font-size: 2.8rem;
             margin-bottom: 10px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
         }
-        a {
+
+        .header p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto;
+            opacity: 0.9;
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        .welcome-text {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .welcome-text h2 {
+            font-family: 'Poppins', sans-serif;
+            color: #4A00E0;
+            font-size: 2.2rem;
+            margin-bottom: 20px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .welcome-text h2::after {
+            content: "";
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80%;
+            height: 4px;
+            background: linear-gradient(to right, #FFD700, #FFA500);
+            border-radius: 2px;
+        }
+
+        .welcome-text p {
+            font-size: 1.1rem;
+            color: #555;
+            max-width: 600px;
+            margin: 20px auto 0;
+        }
+
+        .links-section {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        .link-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            border: 2px solid #f0f0f0;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .link-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+            border-color: #8E2DE2;
+        }
+
+        .card-header {
+            background: linear-gradient(to right, #654ea3, #da98b4);
+            color: white;
+            padding: 15px 25px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .card-header i {
+            font-size: 1.8rem;
+            color: #FFD700;
+        }
+
+        .card-header h3 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin: 0;
+        }
+
+        .card-body {
+            padding: 25px;
+        }
+
+        .card-body p {
+            color: #555;
+            margin-bottom: 20px;
+            font-size: 1.05rem;
+        }
+
+        .btn {
+            display: inline-block;
+            background: linear-gradient(to right, #4A00E0, #8E2DE2);
+            color: white;
+            padding: 14px 35px;
+            border-radius: 50px;
             text-decoration: none;
-            color: #007BFF;
-            font-size: 1.2em;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(138, 43, 226, 0.3);
+            position: relative;
+            overflow: hidden;
+            text-align: center;
         }
-        a:hover {
-            text-decoration: underline;
+
+        .btn::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            transition: 0.5s;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(138, 43, 226, 0.4);
+        }
+
+        .btn:hover::after {
+            left: 100%;
+        }
+
+        .btn i {
+            margin-left: 8px;
+            transition: transform 0.3s ease;
+        }
+
+        .btn:hover i {
+            transform: translateX(5px);
+        }
+
+        .motivation {
+            background: linear-gradient(to right, #FFD700, #FFA500);
+            border-radius: 15px;
+            padding: 25px;
+            margin-top: 40px;
+            text-align: center;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.5);
+        }
+
+        .motivation p {
+            font-style: italic;
+            font-size: 1.3rem;
+            color: #333;
+            font-weight: 500;
+            margin: 0;
+            position: relative;
+        }
+
+        .motivation p::before, .motivation p::after {
+            content: """;
+            font-size: 3rem;
+            color: rgba(0, 0, 0, 0.1);
+            position: absolute;
+            font-family: serif;
+        }
+
+        .motivation p::before {
+            top: -20px;
+            left: -10px;
+        }
+
+        .motivation p::after {
+            bottom: -40px;
+            right: -10px;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 25px;
+            background: rgba(0, 0, 0, 0.05);
+            margin-top: 30px;
+            border-top: 1px solid rgba(0, 0, 0, 0.08);
+            color: #555;
+            font-size: 0.95rem;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                margin: 20px auto;
+            }
+            
+            .header {
+                padding: 25px 20px;
+            }
+            
+            .header h1 {
+                font-size: 2.2rem;
+            }
+            
+            .content {
+                padding: 25px;
+            }
+            
+            .welcome-text h2 {
+                font-size: 1.8rem;
+            }
+            
+            .card-header h3 {
+                font-size: 1.3rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header h1 {
+                font-size: 1.8rem;
+            }
+            
+            .header p {
+                font-size: 1rem;
+            }
+            
+            .btn {
+                padding: 12px 25px;
+                font-size: 1rem;
+                width: 100%;
+            }
+            
+            .motivation p {
+                font-size: 1.1rem;
+            }
+        }
+
+        /* Animaciones */
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+            100% { transform: translateY(0px); }
+        }
+
+        .floating {
+            animation: float 4s ease-in-out infinite;
+        }
+
+        .delay-1 {
+            animation-delay: 0.5s;
+        }
+
+        .delay-2 {
+            animation-delay: 1s;
         }
     </style>
 </head>
 <body>
-
-    <div class="container">
-        <h1>Bienvenido a mis Apuntes de Matemática</h1>
-        <p>Aquí encontrarás el material de estudio para la clase. Haz clic en el tema que quieras ver:</p>
-
-        <ul>
-            <li><a href="derivada.html">Comencemos con un problema</a></li>
-            <li><a href="Derivada2.html">profundicemos en las relaciones</a></li>
-            </ul>
+    <!-- Elementos matemáticos flotantes -->
+    <div class="math-elements">
+        <div class="math-element" style="top: 10%; left: 5%;">∫</div>
+        <div class="math-element floating" style="top: 20%; left: 15%;">π</div>
+        <div class="math-element" style="top: 30%; left: 85%;">∞</div>
+        <div class="math-element floating delay-1" style="top: 50%; left: 10%;">∑</div>
+        <div class="math-element" style="top: 60%; left: 90%;">Δ</div>
+        <div class="math-element floating delay-2" style="top: 75%; left: 80%;">θ</div>
+        <div class="math-element" style="top: 85%; left: 15%;">√</div>
+        <div class="math-element" style="top: 40%; left: 75%;">≈</div>
+        <div class="math-element floating" style="top: 65%; left: 25%;">f(x)</div>
     </div>
 
+    <div class="container">
+        <div class="header">
+            <h1>Matemáticas Divertidas</h1>
+            <p>Donde los números cobran vida y los problemas se convierten en aventuras</p>
+        </div>
+
+        <div class="content">
+            <div class="welcome-text">
+                <h2>Bienvenido a tus Apuntes de Matemática</h2>
+                <p>Aquí encontrarás el material de estudio para la clase, diseñado especialmente para que aprender sea una experiencia emocionante. Selecciona uno de los temas para comenzar tu viaje matemático:</p>
+            </div>
+
+            <div class="links-section">
+                <div class="link-card">
+                    <div class="card-header">
+                        <i class="fas fa-lightbulb"></i>
+                        <h3>Descubre Conceptos</h3>
+                    </div>
+                    <div class="card-body">
+                        <p>Sumérgete en problemas fascinantes que te ayudarán a entender los fundamentos de las matemáticas de una manera práctica y entretenida.</p>
+                        <a href="derivada.html" class="btn">Comencemos con un problema <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+
+                <div class="link-card">
+                    <div class="card-header">
+                        <i class="fas fa-chart-line"></i>
+                        <h3>Explora Relaciones</h3>
+                    </div>
+                    <div class="card-body">
+                        <p>Profundiza en las conexiones entre diferentes conceptos matemáticos y descubre cómo se relacionan para formar un panorama completo.</p>
+                        <a href="Derivada2.html" class="btn">Profundicemos en las relaciones <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="motivation">
+                <p>Las matemáticas no son solo números y fórmulas, son el lenguaje del universo que nos permite comprender el mundo que nos rodea.</p>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>© 2023 Material de Matemáticas para Secundaria | Diseñado con pasión por la enseñanza</p>
+        </div>
+    </div>
+
+    <script>
+        // Animación para los elementos matemáticos
+        document.addEventListener('DOMContentLoaded', function() {
+            const mathElements = document.querySelectorAll('.math-element');
+            
+            mathElements.forEach(el => {
+                // Posiciones aleatorias para los elementos
+                if(!el.classList.contains('floating')) {
+                    const randomTop = Math.floor(Math.random() * 80) + 5;
+                    const randomLeft = Math.floor(Math.random() * 90) + 5;
+                    el.style.top = `${randomTop}%`;
+                    el.style.left = `${randomLeft}%`;
+                }
+                
+                // Tamaños aleatorios
+                const randomSize = Math.floor(Math.random() * 12) + 20;
+                el.style.fontSize = `${randomSize}px`;
+                
+                // Rotación aleatoria
+                const randomRotate = Math.floor(Math.random() * 60) - 30;
+                el.style.transform = `rotate(${randomRotate}deg)`;
+            });
+            
+            // Efecto hover para las tarjetas
+            const cards = document.querySelectorAll('.link-card');
+            cards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.querySelector('i').style.transform = 'rotate(10deg) scale(1.1)';
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    this.querySelector('i').style.transform = '';
+                });
+            });
+        });
+    </script>
 </body>
 </html>
-
