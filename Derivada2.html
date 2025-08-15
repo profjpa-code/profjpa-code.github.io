@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guía 2: La Interpretación Gráfica de la Derivada</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; margin: 20px; background-color: #f4f4f4; color: #333; }
+        .container { max-width: 800px; margin: auto; background: #fff; padding: 25px; border-radius: 8px; box-shadow: 0 0 15px rgba(0,0,0,0.1); }
+        h1, h2, h3 { color: #2c3e50; border-bottom: 2px solid #3498db; padding-bottom: 5px; }
+        .recap-box { background-color: #ecf0f1; border-left: 5px solid #95a5a6; padding: 15px; margin: 20px 0; border-radius: 5px; }
+        .concept-box { background-color: #e8f6f3; border-left: 5px solid #1abc9c; padding: 15px; margin: 20px 0; border-radius: 5px; }
+        .formula { background-color: #f0f0f0; padding: 15px; border-radius: 5px; font-family: 'Courier New', Courier, monospace; font-size: 1.1em; text-align: center; margin: 20px 0; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { border: 1px solid #ddd; padding: 10px; text-align: center; }
+        th { background-color: #3498db; color: white; }
+        .emoji { font-size: 1.5em; }
+        img { max-width: 100%; height: auto; border-radius: 5px; margin-top: 15px; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1><span class="emoji">📈</span> Guía 2: Viendo la Derivada</h1>
+        <p>En la actividad anterior, calculamos la velocidad instantánea de un objeto en caída. Ahora, vamos a interpretar ese cálculo de manera gráfica para entender qué son las <strong>rectas secantes</strong> y <strong>tangentes</strong>.</p>
+
+        <div class="recap-box">
+            <h3><span class="emoji">⏪</span> Recordemos el Problema</h3>
+            <p>La posición del objeto estaba dada por <strong>d(t) = 4.9t²</strong>. Calculamos la velocidad instantánea en <strong>t = 2</strong> usando un límite y obtuvimos:</p>
+            <div class="formula">d'(2) = 19.6 m/s</div>
+            <p>Este valor es la <strong>derivada</strong> de la función en el punto t=2.</p>
+        </div>
+
+        <h2>1. Velocidad Media y Rectas Secantes</h2>
+        <p>Cada vez que calculamos una <strong>velocidad media</strong>, como por ejemplo en el intervalo [2, 3], estábamos tomando dos puntos en el tiempo y viendo el cambio en la distancia. Gráficamente, esto es equivalente a trazar una línea recta que pasa por dos puntos de la curva de la función. ¡A esta recta la llamamos <strong>recta secante</strong>!</p>
+        
+        <div class="concept-box">
+            <p>La <strong>pendiente de una recta secante</strong> que pasa por los puntos $(t_1, d(t_1))$ y $(t_2, d(t_2))$ se calcula como:</p>
+            <div class="formula">m_secante = (d(t₂) - d(t₁)) / (t₂ - t₁)</div>
+            <p>¡Es exactamente la misma fórmula que usamos para la <strong>velocidad media</strong>!</p>
+        </div>
+
+        <p>Observemos la tabla de la actividad anterior, pero ahora pensando en "pendientes":</p>
+        <table>
+            <tr>
+                <th>Intervalo [2, t]</th>
+                <th>Puntos en la gráfica</th>
+                <th>Pendiente de la Recta Secante (Velocidad Media)</th>
+            </tr>
+            <tr>
+                <td>[2, 3]</td>
+                <td>(2, 19.6) y (3, 44.1)</td>
+                <td>24.5</td>
+            </tr>
+            <tr>
+                <td>[2, 2.5]</td>
+                <td>(2, 19.6) y (2.5, 30.625)</td>
+                <td>22.05</td>
+            </tr>
+            <tr>
+                <td>[2, 2.1]</td>
+                <td>(2, 19.6) y (2.1, 21.609)</td>
+                <td>20.09</td>
+            </tr>
+            <tr>
+                <td>[2, 2.01]</td>
+                <td>(2, 19.6) y (2.01, 19.796)</td>
+                <td>19.649</td>
+            </tr>
+        </table>
+
+        <h2>2. El Límite Gráfico: La Recta Tangente <span class="emoji">✨</span></h2>
+        <p>Si graficamos la función $d(t) = 4.9t^2$ y trazamos estas rectas secantes, notaremos algo fascinante. A medida que el segundo punto se acerca más y más al punto fijo (2, 19.6), las rectas secantes parecen "pivotar" hasta llegar a una posición límite.</p>
+        
+        
+
+        <p>Esta recta límite, que "toca" a la curva en un solo punto y lleva la misma dirección que la curva en ese instante, es la <strong>recta tangente</strong>.</p>
+        
+        <div class="concept-box">
+            <h3>La Gran Conexión</h3>
+            <p>La <strong>velocidad instantánea</strong> en un punto es el valor de la <strong>derivada</strong> en ese punto.</p>
+            <p>La <strong>derivada</strong> en un punto es la <strong>pendiente de la recta tangente</strong> a la gráfica de la función en ese punto.</p>
+        </div>
+
+        <h2>3. Construyendo la Ecuación de la Recta Tangente</h2>
+        <p>Ahora tenemos todo para encontrar la ecuación de la recta tangente a la curva $d(t) = 4.9t^2$ en el punto donde $t=2$. Necesitamos dos cosas:</p>
+        <ol>
+            <li><strong>Un punto:</strong> Ya lo tenemos, es el punto de tangencia $(2, d(2)) = (2, 4.9 \cdot 2^2) = (2, 19.6)$.</li>
+            <li><strong>La pendiente:</strong> ¡Es la derivada que ya calculamos! $m_{tangente} = d'(2) = 19.6$.</li>
+        </ol>
+        <p>Usando la ecuación punto-pendiente de la recta $y - y_1 = m(x - x_1)$:</p>
+        <div class="formula">
+            y - 19.6 = 19.6 (t - 2)
+        </div>
+        <p>Si distribuimos y simplificamos, obtenemos la ecuación explícita:</p>
+        <div class="formula">
+            y = 19.6t - 39.2 + 19.6 <br>
+            <strong>y = 19.6t - 19.6</strong>
+        </div>
+        <p>Esta es la ecuación de la recta que mejor aproxima a nuestra curva cerca del punto $t=2$. ¡Felicitaciones, han encontrado la conexión geométrica de la derivada!</p>
+
+    </div>
+</body>
+</html>

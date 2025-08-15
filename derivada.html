@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guía de Actividades: Introducción a la Derivada</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            margin: 20px;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+            background: #fff;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.1);
+        }
+        h1, h2, h3 {
+            color: #0056b3;
+            border-bottom: 2px solid #0056b3;
+            padding-bottom: 5px;
+        }
+        .problem-box {
+            background-color: #e9f5ff;
+            border-left: 5px solid #007bff;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: center;
+        }
+        th {
+            background-color: #007bff;
+            color: white;
+        }
+        .formula {
+            background-color: #f0f0f0;
+            padding: 15px;
+            border-radius: 5px;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 1.1em;
+            text-align: center;
+            margin: 20px 0;
+        }
+        .conclusion {
+            background-color: #d4edda;
+            border-left: 5px solid #28a745;
+            padding: 15px;
+            margin-top: 25px;
+            border-radius: 5px;
+        }
+        .emoji {
+            font-size: 1.5em;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1><span class="emoji">🎢</span> Guía de Actividades: Introducción a la Derivada</h1>
+        <p>¡Hola! En esta guía vamos a conectar lo que ya sabemos sobre <strong>límites</strong> con un concepto nuevo y muy poderoso en matemática: la <strong>derivada</strong>. Lo haremos a través de un problema físico: calcular la velocidad de un objeto en un instante preciso.</p>
+
+        <hr>
+
+        <h2><span class="emoji">🎯</span> Problema: El Salto Valiente</h2>
+        <div class="problem-box">
+            <p>Imagina que un objeto (¡una pequeña piedra!) se deja caer desde un acantilado muy alto. Gracias a la física, sabemos que la distancia (en metros) que ha caído después de <i>t</i> segundos está dada por la función:</p>
+            <div class="formula">
+                <strong>d(t) = 4.9t²</strong>
+            </div>
+            <p><strong>La gran pregunta es:</strong> ¿Cuál es la velocidad <strong>exacta</strong> de la piedra en el instante <strong>t = 2</strong> segundos?</p>
+            
+            <p><small>Nota: Estamos despreciando la resistencia del aire para simplificar el modelo.</small></p>
+        </div>
+
+        <h3>1. Una primera idea: La Velocidad Media</h3>
+        <p>No podemos calcular directamente la velocidad en un solo instante, pero sí podemos calcular la <strong>velocidad media</strong> en un intervalo de tiempo. Recuerda la fórmula:</p>
+        <div class="formula">
+            Velocidad Media = (Cambio en la distancia) / (Cambio en el tiempo) = Δd / Δt
+        </div>
+        <p>Vamos a calcular la velocidad media en intervalos cada vez más cercanos a t = 2.</p>
+        <ul>
+            <li>Calcula la velocidad media en el intervalo de tiempo [2, 3].</li>
+            <li>Calcula la velocidad media en el intervalo de tiempo [2, 2.5].</li>
+            <li>Calcula la velocidad media en el intervalo de tiempo [2, 2.1].</li>
+            <li>Calcula la velocidad media en el intervalo de tiempo [2, 2.01].</li>
+        </ul>
+
+        <h3>2. Organizando los datos: ¡A la tabla! <span class="emoji">📊</span></h3>
+        <p>Para ver si hay alguna tendencia, completemos la siguiente tabla con los valores que calculaste y algunos más. Esto nos recordará a cómo buscábamos el valor de un límite de forma intuitiva.</p>
+        <table>
+            <tr>
+                <th>Intervalo de tiempo [2, t]</th>
+                <th>Δd = d(t) - d(2)</th>
+                <th>Δt = t - 2</th>
+                <th>Velocidad Media (Δd / Δt)</th>
+            </tr>
+            <tr>
+                <td>[2, 3]</td>
+                <td>d(3) - d(2) = 44.1 - 19.6 = 24.5</td>
+                <td>1</td>
+                <td>24.5 m/s</td>
+            </tr>
+            <tr>
+                <td>[2, 2.5]</td>
+                <td>d(2.5) - d(2) = 30.625 - 19.6 = 11.025</td>
+                <td>0.5</td>
+                <td>22.05 m/s</td>
+            </tr>
+            <tr>
+                <td>[2, 2.1]</td>
+                <td>2.009</td>
+                <td>0.1</td>
+                <td>20.09 m/s</td>
+            </tr>
+            <tr>
+                <td>[2, 2.01]</td>
+                <td>0.19649</td>
+                <td>0.01</td>
+                <td>19.649 m/s</td>
+            </tr>
+            <tr>
+                <td>[2, 2.001]</td>
+                <td>0.0196049</td>
+                <td>0.001</td>
+                <td>19.6049 m/s</td>
+            </tr>
+        </table>
+        <p><strong>Pregunta para pensar:</strong> A medida que el intervalo de tiempo se hace más y más pequeño, ¿a qué valor parece acercarse la velocidad media?</p>
+
+        <h3>3. La solución exacta: ¡El Límite! <span class="emoji">💡</span></h3>
+        <p>Tu intuición probablemente te dice que la velocidad instantánea es el valor al que se acercan las velocidades medias. Para encontrar el valor exacto, necesitamos que el intervalo de tiempo sea "infinitamente pequeño". ¡Y para eso usamos los límites!</p>
+        <p>La velocidad instantánea en <strong>t = 2</strong> es el límite de la velocidad media cuando el tiempo <i>t</i> se acerca a 2.</p>
+        <div class="formula">
+            v(2) = lim (t→2) [ (d(t) - d(2)) / (t - 2) ]
+        </div>
+        <p>Sustituyamos la función d(t):</p>
+        <div class="formula">
+            v(2) = lim (t→2) [ (4.9t² - 4.9(2)²) / (t - 2) ]
+        </div>
+        <p><strong>Desafío:</strong> ¡Resuelve este límite! Te encontrarás con una indeterminación "0/0". Recuerda las técnicas que usabas para funciones racionales (factorización, diferencia de cuadrados...).</p>
+
+        <h3>4. Formalizando el concepto: El Cociente Incremental y la Derivada</h3>
+        <p>La expresión que acabas de resolver es fundamental. Generalicemos un poco. Si en lugar de <i>t</i> usamos una variable <i>h</i> que representa el "pequeño incremento" de tiempo (es decir, h = t - 2), entonces cuando t → 2, h → 0. La expresión se reescribe así:</p>
+        <div class="formula">
+            v(2) = lim (h→0) [ (d(2+h) - d(2)) / h ]
+        </div>
+        <p>A esta expresión la llamamos <strong>cociente incremental</strong>.</p>
+        <div class="conclusion">
+            <h3>¡Eureka! <span class="emoji">🚀</span></h3>
+            <p>El valor de este límite representa la <strong>velocidad instantánea</strong> en t=2.</p>
+            <p>A este valor también lo llamamos la <strong>derivada</strong> de la función d(t) en el punto t=2, y lo denotamos como <strong>d'(2)</strong>.</p>
+            <p>¡Acabas de calcular tu primera derivada! Has encontrado la razón de cambio instantánea de la posición respecto al tiempo. El resultado es <strong>19.6 m/s</strong>.</p>
+        </div>
+
+    </div>
+
+</body>
+</html>
