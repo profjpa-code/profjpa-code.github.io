@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Matemáticas Divertidas | Material Educativo</title>
+    <title>Portal Educativo - Matemáticas</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
     <style>
@@ -57,7 +57,7 @@
         }
 
         .container {
-            max-width: 800px;
+            max-width: 1000px;
             margin: 40px auto;
             background: rgba(255, 255, 255, 0.95);
             border-radius: 20px;
@@ -104,6 +104,33 @@
             opacity: 0.9;
         }
 
+        .breadcrumb {
+            background: #f0f0f0;
+            padding: 15px 40px;
+            border-bottom: 1px solid #ddd;
+            display: flex;
+            align-items: center;
+            font-size: 1.1rem;
+        }
+
+        .breadcrumb a {
+            text-decoration: none;
+            color: #4A00E0;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+        }
+
+        .breadcrumb a:hover {
+            color: #8E2DE2;
+            transform: translateX(-3px);
+        }
+
+        .breadcrumb span {
+            margin: 0 10px;
+            color: #888;
+        }
+
         .content {
             padding: 40px;
         }
@@ -141,14 +168,14 @@
             margin: 20px auto 0;
         }
 
-        .links-section {
-            display: flex;
-            flex-direction: column;
+        .selection-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 25px;
             margin-top: 30px;
         }
 
-        .link-card {
+        .selection-card {
             background: white;
             border-radius: 15px;
             overflow: hidden;
@@ -157,9 +184,10 @@
             border: 2px solid #f0f0f0;
             display: flex;
             flex-direction: column;
+            height: 100%;
         }
 
-        .link-card:hover {
+        .selection-card:hover {
             transform: translateY(-8px);
             box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
             border-color: #8E2DE2;
@@ -188,12 +216,16 @@
 
         .card-body {
             padding: 25px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
         }
 
         .card-body p {
             color: #555;
             margin-bottom: 20px;
             font-size: 1.05rem;
+            flex-grow: 1;
         }
 
         .btn {
@@ -212,6 +244,7 @@
             position: relative;
             overflow: hidden;
             text-align: center;
+            align-self: flex-start;
         }
 
         .btn::after {
@@ -241,6 +274,71 @@
 
         .btn:hover i {
             transform: translateX(5px);
+        }
+
+        .topic-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        .topic-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            border: 2px solid #f0f0f0;
+        }
+
+        .topic-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+            border-color: #8E2DE2;
+        }
+
+        .topic-header {
+            background: linear-gradient(to right, #4A00E0, #8E2DE2);
+            color: white;
+            padding: 15px 25px;
+            text-align: center;
+        }
+
+        .topic-header h3 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin: 0;
+        }
+
+        .topic-body {
+            padding: 20px;
+        }
+
+        .topic-body p {
+            color: #555;
+            margin-bottom: 20px;
+            font-size: 1.05rem;
+        }
+
+        .topic-btn {
+            display: block;
+            background: linear-gradient(to right, #FFD700, #FFA500);
+            color: #333;
+            padding: 10px 20px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            text-align: center;
+            box-shadow: 0 3px 10px rgba(255, 165, 0, 0.3);
+        }
+
+        .topic-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(255, 165, 0, 0.4);
         }
 
         .motivation {
@@ -290,6 +388,11 @@
             font-size: 0.95rem;
         }
 
+        /* Estados de navegación */
+        #school-selection { display: block; }
+        #course-selection { display: none; }
+        #topic-selection { display: none; }
+
         @media (max-width: 768px) {
             .container {
                 margin: 20px auto;
@@ -314,6 +417,11 @@
             .card-header h3 {
                 font-size: 1.3rem;
             }
+            
+            .breadcrumb {
+                padding: 10px 20px;
+                font-size: 1rem;
+            }
         }
 
         @media (max-width: 480px) {
@@ -333,6 +441,10 @@
             
             .motivation p {
                 font-size: 1.1rem;
+            }
+            
+            .selection-section {
+                grid-template-columns: 1fr;
             }
         }
 
@@ -372,51 +484,223 @@
 
     <div class="container">
         <div class="header">
-            <h1>Matemáticas Divertidas</h1>
-            <p>Donde los números cobran vida y los problemas se convierten en aventuras</p>
+            <h1>Portal Educativo - Matemáticas</h1>
+            <p>Selecciona tu escuela, curso y temas de estudio</p>
+        </div>
+        
+        <div class="breadcrumb">
+            <a href="#" id="home-link"><i class="fas fa-home"></i> Inicio</a>
+            <span id="school-crumb" style="display: none;"><i class="fas fa-chevron-right"></i> <a href="#" id="school-link">Escuela</a></span>
+            <span id="course-crumb" style="display: none;"><i class="fas fa-chevron-right"></i> <a href="#" id="course-link">Curso</a></span>
         </div>
 
         <div class="content">
-            <div class="welcome-text">
-                <h2>Bienvenido a tus Apuntes de Matemática</h2>
-                <p>Aquí encontrarás el material de estudio para la clase, diseñado especialmente para que aprender sea una experiencia emocionante. Selecciona uno de los temas para comenzar tu viaje matemático:</p>
-            </div>
-
-            <div class="links-section">
-                <div class="link-card">
-                    <div class="card-header">
-                        <i class="fas fa-lightbulb"></i>
-                        <h3>Descubre Conceptos</h3>
-                    </div>
-                    <div class="card-body">
-                        <p>Sumérgete en problemas fascinantes que te ayudarán a entender los fundamentos de las matemáticas de una manera práctica y entretenida.</p>
-                        <a href="derivada.html" class="btn">Comencemos con un problema <i class="fas fa-arrow-right"></i></a>
-                    </div>
+            <!-- Selección de Escuela -->
+            <div id="school-selection">
+                <div class="welcome-text">
+                    <h2>Selecciona tu Escuela</h2>
+                    <p>Por favor, elige la escuela a la que perteneces para acceder al material educativo.</p>
                 </div>
 
-                <div class="link-card">
-                    <div class="card-header">
-                        <i class="fas fa-chart-line"></i>
-                        <h3>Explora Relaciones</h3>
+                <div class="selection-section">
+                    <div class="selection-card">
+                        <div class="card-header">
+                            <i class="fas fa-school"></i>
+                            <h3>Instituto San Fransisco de Asís</h3>
+                        </div>
+                        <div class="card-body">
+                            <p>Material educativo para estudiantes del Instituto San Fransisco de Asís. El material es un complemento para las clases del cole.</p>
+                            <a href="#" class="btn" onclick="selectSchool('Instituto San Fransisco de Asís')">Seleccionar <i class="fas fa-arrow-right"></i></a>
+                        </div>
                     </div>
-                    <div class="card-body">
-                        <p>Profundiza en las conexiones entre diferentes conceptos matemáticos y descubre cómo se relacionan para formar un panorama completo.</p>
-                        <a href="Derivada2.html" class="btn">Profundicemos en las relaciones <i class="fas fa-arrow-right"></i></a>
+
+                    <div class="selection-card">
+                        <div class="card-header">
+                            <i class="fas fa-graduation-cap"></i>
+                            <h3>Colegio Aleman VGB</h3>
+                        </div>
+                        <div class="card-body">
+                            <p>Recursos complementarios para estudiantes del Colegio Aleman VGB. Contenido adaptado a nuestro programa.</p>
+                            <a href="#" class="btn" onclick="selectSchool('Colegio Aleman VGB')">Seleccionar <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+
+                    <div class="selection-card">
+                        <div class="card-header">
+                            <i class="fas fa-book"></i>
+                            <h3>Colegio Santa María</h3>
+                        </div>
+                        <div class="card-body">
+                            <p>Programa de matemáticas para estudiantes de secundaria del Colegio Santa María.</p>
+                            <a href="#" class="btn" onclick="selectSchool('Colegio Santa María')">Seleccionar <i class="fas fa-arrow-right"></i></a>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <div class="motivation">
-                <p>Las matemáticas no son solo números y fórmulas, son el lenguaje del universo que nos permite comprender el mundo que nos rodea.</p>
+            <!-- Selección de Curso -->
+            <div id="course-selection">
+                <div class="welcome-text">
+                    <h2>Selecciona tu Curso</h2>
+                    <p>Elige el curso en el que estás matriculado para ver los temas disponibles.</p>
+                </div>
+
+                <div class="selection-section">
+                    <div class="selection-card">
+                        <div class="card-header">
+                            <i class="fas fa-user-graduate"></i>
+                            <h3>Primer Año</h3>
+                        </div>
+                        <div class="card-body">
+                            <p>Material introductorio para estudiantes de primer año. Fundamentos de álgebra y geometría.</p>
+                            <a href="#" class="btn" onclick="selectCourse('Primer Año')">Seleccionar <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+
+                    <div class="selection-card">
+                        <div class="card-header">
+                            <i class="fas fa-user-graduate"></i>
+                            <h3>Segundo Año</h3>
+                        </div>
+                        <div class="card-body">
+                            <p>Contenido para estudiantes de segundo año. Funciones, trigonometría y estadística básica.</p>
+                            <a href="#" class="btn" onclick="selectCourse('Segundo Año')">Seleccionar <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+
+                    <div class="selection-card">
+                        <div class="card-header">
+                            <i class="fas fa-user-graduate"></i>
+                            <h3>Tercer Año</h3>
+                        </div>
+                        <div class="card-body">
+                            <p>Temas avanzados para tercer año. Cálculo, probabilidad y matemáticas financieras.</p>
+                            <a href="#" class="btn" onclick="selectCourse('Tercer Año')">Seleccionar <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Selección de Temas -->
+            <div id="topic-selection">
+                <div class="welcome-text">
+                    <h2>Temas de Matemáticas</h2>
+                    <p>Explora los temas disponibles para tu curso. Haz clic en uno para comenzar tu aprendizaje.</p>
+                </div>
+
+                <div class="topic-grid">
+                    <div class="topic-card">
+                        <div class="topic-header">
+                            <h3>Introducción a las Derivadas</h3>
+                        </div>
+                        <div class="topic-body">
+                            <p>Aprende los conceptos básicos de las derivadas y su aplicación en problemas prácticos.</p>
+                            <a href="derivada.html" class="topic-btn">Ver tema <i class="fas fa-book-open"></i></a>
+                        </div>
+                    </div>
+
+                    <div class="topic-card">
+                        <div class="topic-header">
+                            <h3>Relaciones Matemáticas</h3>
+                        </div>
+                        <div class="topic-body">
+                            <p>Profundiza en las relaciones entre diferentes conceptos matemáticos y su aplicación.</p>
+                            <a href="Derivada2.html" class="topic-btn">Ver tema <i class="fas fa-book-open"></i></a>
+                        </div>
+                    </div>
+
+                    <div class="topic-card">
+                        <div class="topic-header">
+                            <h3>Geometría Analítica</h3>
+                        </div>
+                        <div class="topic-body">
+                            <p>Estudio de figuras geométricas mediante coordenadas y principios algebraicos.</p>
+                            <a href="geometria.html" class="topic-btn">Ver tema <i class="fas fa-book-open"></i></a>
+                        </div>
+                    </div>
+
+                    <div class="topic-card">
+                        <div class="topic-header">
+                            <h3>Probabilidad y Estadística</h3>
+                        </div>
+                        <div class="topic-body">
+                            <p>Fundamentos de probabilidad, análisis de datos y aplicaciones estadísticas.</p>
+                            <a href="probabilidad.html" class="topic-btn">Ver tema <i class="fas fa-book-open"></i></a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="motivation">
+                    <p>Las matemáticas son el alfabeto con el cual Dios ha escrito el universo. - Galileo Galilei</p>
+                </div>
             </div>
         </div>
 
         <div class="footer">
-            <p>© 2023 Material de Matemáticas para Secundaria | Diseñado con pasión por la enseñanza</p>
+            <p>© 2023 Portal Educativo - Matemáticas | Material diseñado para estudiantes de secundaria</p>
         </div>
     </div>
 
     <script>
+        // Variables para almacenar las selecciones
+        let selectedSchool = "";
+        let selectedCourse = "";
+        
+        // Función para seleccionar escuela
+        function selectSchool(school) {
+            selectedSchool = school;
+            document.getElementById('school-selection').style.display = 'none';
+            document.getElementById('course-selection').style.display = 'block';
+            
+            // Actualizar breadcrumb
+            document.getElementById('school-crumb').style.display = 'inline';
+            document.getElementById('school-link').textContent = school;
+            document.getElementById('school-link').onclick = function() {
+                goBackToSchool();
+                return false;
+            };
+        }
+        
+        // Función para seleccionar curso
+        function selectCourse(course) {
+            selectedCourse = course;
+            document.getElementById('course-selection').style.display = 'none';
+            document.getElementById('topic-selection').style.display = 'block';
+            
+            // Actualizar breadcrumb
+            document.getElementById('course-crumb').style.display = 'inline';
+            document.getElementById('course-link').textContent = course;
+            document.getElementById('course-link').onclick = function() {
+                goBackToCourse();
+                return false;
+            };
+            
+            // Actualizar título de temas
+            document.querySelector('#topic-selection .welcome-text h2').textContent = 
+                `Temas de Matemáticas - ${selectedCourse}`;
+        }
+        
+        // Funciones de navegación
+        function goBackToSchool() {
+            document.getElementById('topic-selection').style.display = 'none';
+            document.getElementById('course-selection').style.display = 'none';
+            document.getElementById('school-selection').style.display = 'block';
+            
+            document.getElementById('course-crumb').style.display = 'none';
+        }
+        
+        function goBackToCourse() {
+            document.getElementById('topic-selection').style.display = 'none';
+            document.getElementById('course-selection').style.display = 'block';
+            document.getElementById('school-selection').style.display = 'none';
+        }
+        
+        // Navegación desde el breadcrumb
+        document.getElementById('home-link').addEventListener('click', function(e) {
+            e.preventDefault();
+            goBackToSchool();
+        });
+        
         // Animación para los elementos matemáticos
         document.addEventListener('DOMContentLoaded', function() {
             const mathElements = document.querySelectorAll('.math-element');
@@ -437,18 +721,6 @@
                 // Rotación aleatoria
                 const randomRotate = Math.floor(Math.random() * 60) - 30;
                 el.style.transform = `rotate(${randomRotate}deg)`;
-            });
-            
-            // Efecto hover para las tarjetas
-            const cards = document.querySelectorAll('.link-card');
-            cards.forEach(card => {
-                card.addEventListener('mouseenter', function() {
-                    this.querySelector('i').style.transform = 'rotate(10deg) scale(1.1)';
-                });
-                
-                card.addEventListener('mouseleave', function() {
-                    this.querySelector('i').style.transform = '';
-                });
             });
         });
     </script>
