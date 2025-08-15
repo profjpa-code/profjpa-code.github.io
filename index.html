@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portal Educativo - Matemáticas</title>
+    <title>Portal Educativo - Matemáticas con AguggIA</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
     <style>
@@ -111,6 +111,7 @@
             display: flex;
             align-items: center;
             font-size: 1.1rem;
+            flex-wrap: wrap;
         }
 
         .breadcrumb a {
@@ -119,16 +120,21 @@
             transition: all 0.3s;
             display: flex;
             align-items: center;
+            white-space: nowrap;
         }
 
         .breadcrumb a:hover {
             color: #8E2DE2;
-            transform: translateX(-3px);
         }
 
         .breadcrumb span {
             margin: 0 10px;
             color: #888;
+            white-space: nowrap;
+        }
+
+        .breadcrumb i {
+            margin: 0 5px;
         }
 
         .content {
@@ -334,11 +340,48 @@
             transition: all 0.3s ease;
             text-align: center;
             box-shadow: 0 3px 10px rgba(255, 165, 0, 0.3);
+            margin-bottom: 10px;
         }
 
         .topic-btn:hover {
             transform: translateY(-3px);
             box-shadow: 0 5px 15px rgba(255, 165, 0, 0.4);
+        }
+
+        .subtopic-container {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .subtopic-btn {
+            display: block;
+            background: linear-gradient(to right, #5DADE2, #3498DB);
+            color: white;
+            padding: 8px 15px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            text-align: left;
+            box-shadow: 0 2px 5px rgba(52, 152, 219, 0.2);
+            position: relative;
+            padding-left: 40px;
+        }
+
+        .subtopic-btn i {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .subtopic-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(52, 152, 219, 0.3);
+            background: linear-gradient(to right, #3498DB, #2E86C1);
         }
 
         .motivation {
@@ -422,6 +465,12 @@
                 padding: 10px 20px;
                 font-size: 1rem;
             }
+            
+            .btn {
+                padding: 12px 25px;
+                font-size: 1rem;
+                width: 100%;
+            }
         }
 
         @media (max-width: 480px) {
@@ -434,8 +483,6 @@
             }
             
             .btn {
-                padding: 12px 25px;
-                font-size: 1rem;
                 width: 100%;
             }
             
@@ -445,6 +492,14 @@
             
             .selection-section {
                 grid-template-columns: 1fr;
+            }
+            
+            .breadcrumb a, .breadcrumb span {
+                font-size: 0.9rem;
+            }
+            
+            .breadcrumb i {
+                margin: 0 3px;
             }
         }
 
@@ -484,7 +539,7 @@
 
     <div class="container">
         <div class="header">
-            <h1>Portal Educativo - Matemáticas</h1>
+            <h1>Portal Educativo - Matemáticas con AguggIA</h1>
             <p>Selecciona tu escuela, curso y temas de estudio</p>
         </div>
         
@@ -506,33 +561,22 @@
                     <div class="selection-card">
                         <div class="card-header">
                             <i class="fas fa-school"></i>
-                            <h3>Instituto San Fransisco de Asís</h3>
+                            <h3>Instituto San Francisco de Asís</h3>
                         </div>
                         <div class="card-body">
-                            <p>Material educativo para estudiantes del Instituto San Fransisco de Asís. El material es un complemento para las clases del cole.</p>
-                            <a href="#" class="btn" onclick="selectSchool('Instituto San Fransisco de Asís')">Seleccionar <i class="fas fa-arrow-right"></i></a>
+                            <p>Material educativo para estudiantes del Instituto San Francisco de Asís. El material es un complemento para las clases del cole.</p>
+                            <a href="#" class="btn" onclick="selectSchool('Instituto San Francisco de Asís')">Seleccionar <i class="fas fa-arrow-right"></i></a>
                         </div>
                     </div>
 
                     <div class="selection-card">
                         <div class="card-header">
                             <i class="fas fa-graduation-cap"></i>
-                            <h3>Colegio Aleman VGB</h3>
+                            <h3>Colegio Alemán VGB</h3>
                         </div>
                         <div class="card-body">
-                            <p>Recursos complementarios para estudiantes del Colegio Aleman VGB. Contenido adaptado a nuestro programa.</p>
-                            <a href="#" class="btn" onclick="selectSchool('Colegio Aleman VGB')">Seleccionar <i class="fas fa-arrow-right"></i></a>
-                        </div>
-                    </div>
-
-                    <div class="selection-card">
-                        <div class="card-header">
-                            <i class="fas fa-book"></i>
-                            <h3>Colegio Santa María</h3>
-                        </div>
-                        <div class="card-body">
-                            <p>Programa de matemáticas para estudiantes de secundaria del Colegio Santa María.</p>
-                            <a href="#" class="btn" onclick="selectSchool('Colegio Santa María')">Seleccionar <i class="fas fa-arrow-right"></i></a>
+                            <p>Recursos complementarios para estudiantes del Colegio Alemán VGB. Contenido adaptado a nuestro programa.</p>
+                            <a href="#" class="btn" onclick="selectSchool('Colegio Alemán VGB')">Seleccionar <i class="fas fa-arrow-right"></i></a>
                         </div>
                     </div>
                 </div>
@@ -545,89 +589,20 @@
                     <p>Elige el curso en el que estás matriculado para ver los temas disponibles.</p>
                 </div>
 
-                <div class="selection-section">
-                    <div class="selection-card">
-                        <div class="card-header">
-                            <i class="fas fa-user-graduate"></i>
-                            <h3>Primer Año</h3>
-                        </div>
-                        <div class="card-body">
-                            <p>Material introductorio para estudiantes de primer año. Fundamentos de álgebra y geometría.</p>
-                            <a href="#" class="btn" onclick="selectCourse('Primer Año')">Seleccionar <i class="fas fa-arrow-right"></i></a>
-                        </div>
-                    </div>
-
-                    <div class="selection-card">
-                        <div class="card-header">
-                            <i class="fas fa-user-graduate"></i>
-                            <h3>Segundo Año</h3>
-                        </div>
-                        <div class="card-body">
-                            <p>Contenido para estudiantes de segundo año. Funciones, trigonometría y estadística básica.</p>
-                            <a href="#" class="btn" onclick="selectCourse('Segundo Año')">Seleccionar <i class="fas fa-arrow-right"></i></a>
-                        </div>
-                    </div>
-
-                    <div class="selection-card">
-                        <div class="card-header">
-                            <i class="fas fa-user-graduate"></i>
-                            <h3>Tercer Año</h3>
-                        </div>
-                        <div class="card-body">
-                            <p>Temas avanzados para tercer año. Cálculo, probabilidad y matemáticas financieras.</p>
-                            <a href="#" class="btn" onclick="selectCourse('Tercer Año')">Seleccionar <i class="fas fa-arrow-right"></i></a>
-                        </div>
-                    </div>
+                <div class="selection-section" id="course-selection-content">
+                    <!-- Los cursos se cargarán dinámicamente según la escuela seleccionada -->
                 </div>
             </div>
 
             <!-- Selección de Temas -->
             <div id="topic-selection">
                 <div class="welcome-text">
-                    <h2>Temas de Matemáticas</h2>
+                    <h2 id="topic-title">Temas de Matemáticas</h2>
                     <p>Explora los temas disponibles para tu curso. Haz clic en uno para comenzar tu aprendizaje.</p>
                 </div>
 
-                <div class="topic-grid">
-                    <div class="topic-card">
-                        <div class="topic-header">
-                            <h3>Introducción a las Derivadas</h3>
-                        </div>
-                        <div class="topic-body">
-                            <p>Aprende los conceptos básicos de las derivadas y su aplicación en problemas prácticos.</p>
-                            <a href="derivada.html" class="topic-btn">Ver tema <i class="fas fa-book-open"></i></a>
-                        </div>
-                    </div>
-
-                    <div class="topic-card">
-                        <div class="topic-header">
-                            <h3>Relaciones Matemáticas</h3>
-                        </div>
-                        <div class="topic-body">
-                            <p>Profundiza en las relaciones entre diferentes conceptos matemáticos y su aplicación.</p>
-                            <a href="Derivada2.html" class="topic-btn">Ver tema <i class="fas fa-book-open"></i></a>
-                        </div>
-                    </div>
-
-                    <div class="topic-card">
-                        <div class="topic-header">
-                            <h3>Geometría Analítica</h3>
-                        </div>
-                        <div class="topic-body">
-                            <p>Estudio de figuras geométricas mediante coordenadas y principios algebraicos.</p>
-                            <a href="geometria.html" class="topic-btn">Ver tema <i class="fas fa-book-open"></i></a>
-                        </div>
-                    </div>
-
-                    <div class="topic-card">
-                        <div class="topic-header">
-                            <h3>Probabilidad y Estadística</h3>
-                        </div>
-                        <div class="topic-body">
-                            <p>Fundamentos de probabilidad, análisis de datos y aplicaciones estadísticas.</p>
-                            <a href="probabilidad.html" class="topic-btn">Ver tema <i class="fas fa-book-open"></i></a>
-                        </div>
-                    </div>
+                <div class="topic-grid" id="topic-grid">
+                    <!-- Los temas se cargarán dinámicamente según el curso seleccionado -->
                 </div>
                 
                 <div class="motivation">
@@ -646,6 +621,53 @@
         let selectedSchool = "";
         let selectedCourse = "";
         
+        // Datos de cursos y temas
+        const schoolCourses = {
+            "Instituto San Francisco de Asís": [
+                "Tercer Año", 
+                "Cuarto Año", 
+                "Quinto Año", 
+                "Sexto Año"
+            ],
+            "Colegio Alemán VGB": [
+                "Quinto Año"
+            ]
+        };
+        
+        const courseTopics = {
+            "Quinto Año": {
+                "Instituto San Francisco de Asís": [
+                    { 
+                        title: "Introducción a las Derivadas", 
+                        description: "Aprende los conceptos básicos de las derivadas y su aplicación en problemas prácticos.",
+                        link: "derivada.html"
+                    },
+                    { 
+                        title: "Relaciones Matemáticas", 
+                        description: "Profundiza en las relaciones entre diferentes conceptos matemáticos y su aplicación.",
+                        link: "Derivada2.html"
+                    },
+                    { 
+                        title: "Factorización General", 
+                        description: "Aprende a factorizar expresiones algebraicas complejas.",
+                        link: "FactorizaciónGeneral.html"
+                    }
+                ],
+                "Colegio Alemán VGB": [
+                    { 
+                        title: "Termodinámica", 
+                        description: "Estudio de la energía y su transformación en sistemas físicos.",
+                        subtopics: [
+                            { title: "Biomasa", link: "biomasa.html" },
+                            { title: "Eficiencia en ER", link: "EficienciaEnER.html" },
+                            { title: "Poster de Física", link: "poster física.html" }
+                        ]
+                    }
+                ]
+            },
+            // Puedes agregar más cursos y temas aquí
+        };
+        
         // Función para seleccionar escuela
         function selectSchool(school) {
             selectedSchool = school;
@@ -659,6 +681,33 @@
                 goBackToSchool();
                 return false;
             };
+            
+            // Cargar cursos para esta escuela
+            loadCourses(school);
+        }
+        
+        // Función para cargar cursos según la escuela
+        function loadCourses(school) {
+            const coursesContainer = document.getElementById('course-selection-content');
+            coursesContainer.innerHTML = '';
+            
+            if (schoolCourses[school]) {
+                schoolCourses[school].forEach(course => {
+                    const courseCard = document.createElement('div');
+                    courseCard.className = 'selection-card';
+                    courseCard.innerHTML = `
+                        <div class="card-header">
+                            <i class="fas fa-user-graduate"></i>
+                            <h3>${course}</h3>
+                        </div>
+                        <div class="card-body">
+                            <p>Material organizado por temas para ${course}</p>
+                            <a href="#" class="btn" onclick="selectCourse('${course}')">Seleccionar <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    `;
+                    coursesContainer.appendChild(courseCard);
+                });
+            }
         }
         
         // Función para seleccionar curso
@@ -676,8 +725,58 @@
             };
             
             // Actualizar título de temas
-            document.querySelector('#topic-selection .welcome-text h2').textContent = 
-                `Temas de Matemáticas - ${selectedCourse}`;
+            document.getElementById('topic-title').textContent = 
+                `Temas de Matemáticas - ${selectedCourse} (${selectedSchool})`;
+            
+            // Cargar temas para este curso
+            loadTopics(course);
+        }
+        
+        // Función para cargar temas según el curso
+        function loadTopics(course) {
+            const topicsContainer = document.getElementById('topic-grid');
+            topicsContainer.innerHTML = '';
+            
+            if (courseTopics[course] && courseTopics[course][selectedSchool]) {
+                courseTopics[course][selectedSchool].forEach(topic => {
+                    const topicCard = document.createElement('div');
+                    topicCard.className = 'topic-card';
+                    
+                    if (topic.subtopics) {
+                        // Caso especial para termodinámica con subtemas
+                        topicCard.innerHTML = `
+                            <div class="topic-header">
+                                <h3>${topic.title}</h3>
+                            </div>
+                            <div class="topic-body">
+                                <p>${topic.description}</p>
+                                <div class="subtopic-container">
+                                    ${topic.subtopics.map(subtopic => `
+                                        <a href="${subtopic.link}" class="subtopic-btn">
+                                            <i class="fas fa-arrow-circle-right"></i> ${subtopic.title}
+                                        </a>
+                                    `).join('')}
+                                </div>
+                            </div>
+                        `;
+                    } else {
+                        // Temas normales
+                        topicCard.innerHTML = `
+                            <div class="topic-header">
+                                <h3>${topic.title}</h3>
+                            </div>
+                            <div class="topic-body">
+                                <p>${topic.description}</p>
+                                <a href="${topic.link}" class="topic-btn">Ver tema <i class="fas fa-book-open"></i></a>
+                            </div>
+                        `;
+                    }
+                    
+                    topicsContainer.appendChild(topicCard);
+                });
+            } else {
+                topicsContainer.innerHTML = '<p class="no-topics">No hay temas disponibles para este curso.</p>';
+            }
         }
         
         // Funciones de navegación
@@ -685,7 +784,6 @@
             document.getElementById('topic-selection').style.display = 'none';
             document.getElementById('course-selection').style.display = 'none';
             document.getElementById('school-selection').style.display = 'block';
-            
             document.getElementById('course-crumb').style.display = 'none';
         }
         
