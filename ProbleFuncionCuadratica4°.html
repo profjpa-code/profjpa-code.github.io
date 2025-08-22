@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aplicaciones del Modelo Cuadrático - Con Consignas</title>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --secondary: #3498db;
+            --accent: #e74c3c;
+            --light: #ecf0f1;
+            --dark: #2c3e50;
+            --success: #27ae60;
+            --warning: #f39c12;
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        
+        header {
+            background: var(--primary);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+        
+        h1 {
+            margin: 0;
+            font-size: 2.8rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            font-style: italic;
+            font-size: 1.3rem;
+            opacity: 0.9;
+        }
+        
+        .content {
+            padding: 30px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+        
+        .problem {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            padding: 25px;
+            transition: transform 0.3s ease;
+            border-top: 5px solid var(--secondary);
+            break-inside: avoid;
+        }
+        
+        .problem:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .problem-title {
+            color: var(--secondary);
+            border-bottom: 2px solid var(--light);
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+        }
+        
+        .problem-content {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .problem-image {
+            text-align: center;
+            margin: 15px 0;
+            height: 160px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .theory-box {
+            background: #e8f4fc;
+            border-left: 4px solid var(--secondary);
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        
+        .theory-title {
+            font-weight: bold;
+            color: var(--secondary);
+            margin-bottom: 8px;
+            font-size: 1.1rem;
+        }
+        
+        .task-box {
+            background: #fff4e6;
+            border-left: 4px solid var(--warning);
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        
+        .task-title {
+            font-weight: bold;
+            color: var(--warning);
+            margin-bottom: 8px;
+            font-size: 1.1rem;
+        }
+        
+        .solution {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 5px;
+            margin-top: 15px;
+        }
+        
+        .step {
+            margin-bottom: 15px;
+            padding-left: 15px;
+            border-left: 3px solid #ddd;
+        }
+        
+        .final-answer {
+            background: #e7f5e9;
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 15px;
+            border-left: 4px solid var(--success);
+            font-weight: bold;
+        }
+        
+        .formula {
+            padding: 10px;
+            background: #f8f9fa;
+            border-radius: 5px;
+            margin: 10px 0;
+            text-align: center;
+            overflow-x: auto;
+        }
+        
+        .mjx-chtml {
+            font-size: 1.1em !important;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 30px;
+            background: var(--dark);
+            color: white;
+            margin-top: 30px;
+        }
+        
+        @media (max-width: 992px) {
+            .content {
+                grid-template-columns: 1fr;
+            }
+            
+            h1 {
+                font-size: 2.2rem;
+            }
+            
+            .subtitle {
+                font-size: 1.1rem;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            header {
+                padding: 25px;
+            }
+            
+            h1 {
+                font-size: 1.8rem;
+            }
+            
+            .problem {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Aplicaciones del Modelo Cuadrático</h1>
+            <div class="subtitle">Ejemplos prácticos con funciones cuadráticas en contextos reales</div>
+        </header>
+        
+        <div class="content">
+            <!-- Columna 1 -->
+            <div class="column">
+                <!-- Problema 1 -->
+                <div class="problem">
+                    <h2 class="problem-title">Trayectoria de un Proyectil</h2>
+                    
+                    <div class="problem-content">
+                        <div class="problem-image">
+                            <svg width="200" height="150" viewBox="0 0 200 150">
+                                <defs>
+                                    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+                                        <polygon points="0 0, 10 3.5, 0 7" fill="#3498db"/>
+                                    </marker>
+                                </defs>
+                                <path d="M20,130 Q100,30 180,130" stroke="#3498db" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+                                <line x1="20" y1="130" x2="180" y2="130" stroke="#7f8c8d" stroke-width="1" stroke-dasharray="4"/>
+                                <text x="100" y="145" text-anchor="middle" fill="#7f8c8d">Distancia (m)</text>
+                                <text x="30" y="120" text-anchor="middle" fill="#7f8c8d">Altura (m)</text>
+                            </svg>
+                        </div>
+                        
+                        <p>Un arquero lanza una flecha que sigue una trayectoria parabólica modelada por la función:</p>
+                        <div class="formula">\[ h(x) = -0.02x^2 + 0.8x + 1.8 \]</div>
+                        <p>donde \( h \) es la altura en metros y \( x \) es la distancia horizontal en metros.</p>
+                        
+                        <div class="task-box">
+                            <div class="task-title">Consigna</div>
+                            <ol>
+                                <li>¿Cuál es la altura máxima que alcanza la flecha?</li>
+                                <li>¿A qué distancia del lanzamiento alcanza esta altura máxima?</li>
+                                <li>¿Cuál es el alcance total de la flecha (distancia horizontal que recorre)?</li>
+                            </ol>
+                        </div>
+                        
+                        <div class="theory-box">
+                            <div class="theory-title">Concepto Clave: Vértice de una Parábola</div>
+                            <p>En una función cuadrática \( f(x) = ax^2 + bx + c \), el vértice se encuentra en:</p>
+                            <p>\[ x = -\frac{b}{2a} \]</p>
+                            <p>Este punto representa el valor máximo o mínimo de la función.</p>
+                        </div>
+                        
+                        <div class="solution">
+                            <h3>Solución:</h3>
+                            <div class="step">1. Para encontrar la altura máxima, calculamos la coordenada x del vértice:</div>
+                            <p>\[ x = -\frac{b}{2a} = -\frac{0.8}{2 \times (-0.02)} = \frac{0.8}{0.04} = 20 \]</p>
+                            
+                            <div class="step">2. Evaluamos la función en x = 20:</div>
+                            <p>\[ h(20) = -0.02(20)^2 + 0.8(20) + 1.8 = -8 + 16 + 1.8 = 9.8 \]</p>
+                            
+                            <div class="step">3. Para determinar el alcance, resolvemos h(x) = 0:</div>
+                            <p>\[ -0.02x^2 + 0.8x + 1.8 = 0 \]</p>
+                            <p>\[ x = \frac{-0.8 \pm \sqrt{0.8^2 - 4(-0.02)(1.8)}}{2(-0.02)} \]</p>
+                            <p>\[ x \approx 42.1 \text{ metros} \]</p>
+                            
+                            <div class="final-answer">
+                                Respuesta: La flecha alcanza una altura máxima de 9.8 metros a los 20 metros de distancia, y tiene un alcance de aproximadamente 42.1 metros.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Problema 2 -->
+                <div class="problem">
+                    <h2 class="problem-title">Optimización de Beneficios</h2>
+                    
+                    <div class="problem-content">
+                        <div class="problem-image">
+                            <svg width="200" height="150" viewBox="0 0 200 150">
+                                <defs>
+                                    <linearGradient id="gradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                                        <stop offset="0%" stop-color="#3498db" />
+                                        <stop offset="100%" stop-color="#2c3e50" />
+                                    </linearGradient>
+                                </defs>
+                                <path d="M30,130 C80,30 120,30 170,130" stroke="url(#gradient)" stroke-width="3" fill="none"/>
+                                <line x1="30" y1="130" x2="170" y2="130" stroke="#7f8c8d" stroke-width="1"/>
+                                <line x1="100" y1="20" x2="100" y2="130" stroke="#7f8c8d" stroke-width="1"/>
+                                <circle cx="100" cy="50" r="5" fill="#e74c3c"/>
+                                <text x="100" y="145" text-anchor="middle" fill="#7f8c8d">Unidades vendidas</text>
+                                <text x="20" y="70" text-anchor="middle" fill="#7f8c8d" transform="rotate(-90,20,70)">Beneficio ($)</text>
+                            </svg>
+                        </div>
+                        
+                        <p>Una empresa modela sus beneficios mensuales con la función:</p>
+                        <div class="formula">\[ B(x) = -0.5x^2 + 60x - 1000 \]</div>
+                        <p>donde \( x \) representa las unidades vendidas y \( B(x) \) el beneficio en miles de pesos.</p>
+                        
+                        <div class="task-box">
+                            <div class="task-title">Consigna</div>
+                            <ol>
+                                <li>¿Cuántas unidades deben venderse para maximizar el beneficio?</li>
+                                <li>¿Cuál es el beneficio máximo posible?</li>
+                                <li>¿Entre qué rangos de producción la empresa obtiene ganancias?</li>
+                            </ol>
+                        </div>
+                        
+                        <div class="theory-box">
+                            <div class="theory-title">Concepto Clave: Optimización</div>
+                            <p>Las funciones cuadráticas son útiles para modelar problemas de optimización donde buscamos maximizar o minimizar una cantidad.</p>
+                            <p>El vértice de la parábola nos indica el punto óptimo (máximo beneficio, mínimo costo, etc.).</p>
+                        </div>
+                        
+                        <div class="solution">
+                            <h3>Solución:</h3>
+                            <div class="step">1. Encontramos el número de unidades que maximiza el beneficio:</div>
+                            <p>\[ x = -\frac{b}{2a} = -\frac{60}{2 \times (-0.5)} = \frac{60}{1} = 60 \]</p>
+                            
+                            <div class="step">2. Calculamos el beneficio máximo:</div>
+                            <p>\[ B(60) = -0.5(60)^2 + 60(60) - 1000 = -1800 + 3600 - 1000 = 800 \]</p>
+                            
+                            <div class="step">3. Determinamos el rango de unidades para tener ganancias (B(x) > 0):</div>
+                            <p>\[ -0.5x^2 + 60x - 1000 > 0 \]</p>
+                            <p>\[ x^2 - 120x + 2000 < 0 \]</p>
+                            <p>\[ x \approx 20 \quad \text{y} \quad x \approx 100 \]</p>
+                            <p>La empresa tiene ganancias cuando produce entre 20 y 100 unidades.</p>
+                            
+                            <div class="final-answer">
+                                Respuesta: El beneficio máximo es de $800,000 con 60 unidades vendidas. Hay ganancias entre 20 y 100 unidades.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Columna 2 -->
+            <div class="column">
+                <!-- Problema 3 -->
+                <div class="problem">
+                    <h2 class="problem-title">Diseño de un Jardín</h2>
+                    
+                    <div class="problem-content">
+                        <div class="problem-image">
+                            <svg width="200" height="150" viewBox="0 0 200 150">
+                                <rect x="50" y="50" width="100" height="60" fill="none" stroke="#27ae60" stroke-width="2"/>
+                                <line x1="50" y1="50" x2="50" y2="20" stroke="#7f8c8d" stroke-width="1" stroke-dasharray="4"/>
+                                <line x1="150" y1="50" x2="150" y2="20" stroke="#7f8c8d" stroke-width="1" stroke-dasharray="4"/>
+                                <line x1="50" y1="110" x2="50" y2="140" stroke="#7f8c8d" stroke-width="1" stroke-dasharray="4"/>
+                                <line x1="150" y1="110" x2="150" y2="140" stroke="#7f8c8d" stroke-width="1" stroke-dasharray="4"/>
+                                <text x="100" y="40" text-anchor="middle" fill="#7f8c8d">x</text>
+                                <text x="160" y="80" text-anchor="middle" fill="#7f8c8d">y</text>
+                                <text x="100" y="130" text-anchor="middle" fill="#7f8c8d">x</text>
+                                <text x="40" y="80" text-anchor="middle" fill="#7f8c8d">y</text>
+                                <rect x="30" y="140" width="140" height="5" fill="#95a5a6"/>
+                            </svg>
+                        </div>
+                        
+                        <p>Se desea construir un jardín rectangular con 100 metros de cerca disponible. Un lado del jardín limita con una pared, por lo que no requiere cerca.</p>
+                        
+                        <div class="task-box">
+                            <div class="task-title">Consigna</div>
+                            <ol>
+                                <li>Encuentra la función que modela el área del jardín en términos de una de sus dimensiones.</li>
+                                <li>Determina las dimensiones que maximizan el área del jardín.</li>
+                                <li>Calcula el área máxima posible.</li>
+                            </ol>
+                        </div>
+                        
+                        <div class="theory-box">
+                            <div class="theory-title">Concepto Clave: Modelado con Restricciones</div>
+                            <p>Muchos problemas de optimización involucran restricciones que se traducen en ecuaciones.</p>
+                            <p>Estas ecuaciones nos permiten expresar una variable en términos de otra y plantear una función a optimizar.</p>
+                        </div>
+                        
+                        <div class="solution">
+                            <h3>Solución:</h3>
+                            <div class="step">1. Definimos variables: sea x el ancho (lados que necesitan cerca) y y el largo (lado junto a la pared).</div>
+                            
+                            <div class="step">2. Planteamos la restricción de cerca:</div>
+                            <p>\[ 2x + y = 100 \quad \Rightarrow \quad y = 100 - 2x \]</p>
+                            
+                            <div class="step">3. Expresamos el área en función de x:</div>
+                            <p>\[ A = x \cdot y = x(100 - 2x) = 100x - 2x^2 \]</p>
+                            
+                            <div class="step">4. Encontramos el valor de x que maximiza el área:</div>
+                            <p>\[ x = -\frac{b}{2a} = -\frac{100}{2 \times (-2)} = \frac{100}{4} = 25 \]</p>
+                            
+                            <div class="step">5. Calculamos y y el área máxima:</div>
+                            <p>\[ y = 100 - 2(25) = 50 \]</p>
+                            <p>\[ A = 25 \times 50 = 1250 \text{ m}^2 \]</p>
+                            
+                            <div class="final-answer">
+                                Respuesta: Las dimensiones óptimas son 25 m de ancho y 50 m de largo, con un área máxima de 1250 m².
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Problema 4 -->
+                <div class="problem">
+                    <h2 class="problem-title">Arquitectura de un Puente</h2>
+                    
+                    <div class="problem-content">
+                        <div class="problem-image">
+                            <svg width="200" height="150" viewBox="0 0 200 150">
+                                <path d="M20,130 Q100,50 180,130" stroke="#3498db" stroke-width="3" fill="none"/>
+                                <line x1="20" y1="130" x2="20" y2="150" stroke="#7f8c8d" stroke-width="3"/>
+                                <line x1="180" y1="130" x2="180" y2="150" stroke="#7f8c8d" stroke-width="3"/>
+                                <line x1="20" y1="150" x2="180" y2="150" stroke="#7f8c8d" stroke-width="3"/>
+                                <line x1="100" y1="50" x2="100" y2="70" stroke="#e74c3c" stroke-width="1" stroke-dasharray="4"/>
+                                <text x="100" y="85" text-anchor="middle" fill="#e74c3c">Altura máxima</text>
+                                <text x="20" y="145" text-anchor="middle" fill="#7f8c8d">Pilar</text>
+                                <text x="180" y="145" text-anchor="middle" fill="#7f8c8d">Pilar</text>
+                            </svg>
+                        </div>
+                        
+                        <p>El cable principal de un puente colgante sigue una forma parabólica descrita por la función:</p>
+                        <div class="formula">\[ y = -0.02x^2 + 1.5x \]</div>
+                        <p>donde \( y \) es la altura del cable en metros y \( x \) es la distancia horizontal desde el extremo izquierdo.</p>
+                        
+                        <div class="task-box">
+                            <div class="task-title">Consigna</div>
+                            <ol>
+                                <li>¿Cuál es la altura máxima del cable?</li>
+                                <li>¿A qué distancia del extremo izquierdo se alcanza esta altura máxima?</li>
+                                <li>¿Cuál es la longitud total del puente entre los dos pilares?</li>
+                            </ol>
+                        </div>
+                        
+                        <div class="theory-box">
+                            <div class="theory-title">Concepto Clave: Aplicaciones en Ingeniería</div>
+                            <p>Las parábolas son frecuentes en arquitectura e ingeniería porque distribuyen eficientemente las cargas.</p>
+                            <p>En puentes colgantes, los cables adoptan forma parabólica bajo carga uniforme.</p>
+                        </div>
+                        
+                        <div class="solution">
+                            <h3>Solución:</h3>
+                            <div class="step">1. Para encontrar la altura máxima, calculamos el vértice de la parábola:</div>
+                            <p>\[ x = -\frac{b}{2a} = -\frac{1.5}{2 \times (-0.02)} = \frac{1.5}{0.04} = 37.5 \]</p>
+                            
+                            <div class="step">2. Evaluamos la función en x = 37.5:</div>
+                            <p>\[ y = -0.02(37.5)^2 + 1.5(37.5) = -28.125 + 56.25 = 28.125 \]</p>
+                            
+                            <div class="step">3. Para encontrar la longitud entre pilares, resolvemos y = 0:</div>
+                            <p>\[ -0.02x^2 + 1.5x = 0 \]</p>
+                            <p>\[ x(-0.02x + 1.5) = 0 \]</p>
+                            <p>\[ x = 0 \quad \text{o} \quad x = 75 \]</p>
+                            
+                            <div class="final-answer">
+                                Respuesta: El cable alcanza una altura máxima de 28.125 m a 37.5 m del extremo, con una longitud total de 75 m entre pilares.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <footer>
+            <p>Matemática Aplicada - Cuarto Año | Escuela Secundaria, Córdoba, Argentina</p>
+        </footer>
+    </div>
+</body>
+</html>
