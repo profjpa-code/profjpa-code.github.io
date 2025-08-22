@@ -12,7 +12,6 @@
             padding: 0;
             box-sizing: border-box;
         }
-
         body {
             font-family: 'Roboto', sans-serif;
             background: linear-gradient(135deg, #1a2980, #26d0ce);
@@ -24,7 +23,6 @@
             position: relative;
             overflow-x: hidden;
         }
-
         body::before {
             content: "";
             position: absolute;
@@ -37,7 +35,6 @@
                 radial-gradient(circle at 90% 80%, rgba(255,255,255,0.1) 0%, transparent 20%);
             z-index: -1;
         }
-
         .math-elements {
             position: absolute;
             top: 0;
@@ -48,14 +45,12 @@
             z-index: -1;
             opacity: 0.7;
         }
-
         .math-element {
             position: absolute;
             font-size: 24px;
             color: rgba(255, 255, 255, 0.3);
             font-weight: bold;
         }
-
         .container {
             max-width: 1000px;
             margin: 40px auto;
@@ -68,7 +63,6 @@
             backdrop-filter: blur(5px);
             border: 1px solid rgba(255, 255, 255, 0.3);
         }
-
         .header {
             background: linear-gradient(to right, #4A00E0, #8E2DE2);
             color: white;
@@ -77,7 +71,6 @@
             border-bottom: 5px solid #FFD700;
             position: relative;
         }
-
         .header::after {
             content: "";
             position: absolute;
@@ -88,7 +81,6 @@
             height: 20px;
             background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 10"><path d="M0,0 Q25,10 50,0 T100,0" fill="%23FFD700"/></svg>') center/cover no-repeat;
         }
-
         .header h1 {
             font-family: 'Poppins', sans-serif;
             font-weight: 700;
@@ -96,14 +88,12 @@
             margin-bottom: 10px;
             text-shadow: 0 2px 4px rgba(0,0,0,0.2);
         }
-
         .header p {
             font-size: 1.2rem;
             max-width: 600px;
             margin: 0 auto;
             opacity: 0.9;
         }
-
         .breadcrumb {
             background: #f0f0f0;
             padding: 15px 40px;
@@ -113,7 +103,6 @@
             font-size: 1.1rem;
             flex-wrap: wrap;
         }
-
         .breadcrumb a {
             text-decoration: none;
             color: #4A00E0;
@@ -122,30 +111,24 @@
             align-items: center;
             white-space: nowrap;
         }
-
         .breadcrumb a:hover {
             color: #8E2DE2;
         }
-
         .breadcrumb span {
             margin: 0 10px;
             color: #888;
             white-space: nowrap;
         }
-
         .breadcrumb i {
             margin: 0 5px;
         }
-
         .content {
             padding: 40px;
         }
-
         .welcome-text {
             text-align: center;
             margin-bottom: 40px;
         }
-
         .welcome-text h2 {
             font-family: 'Poppins', sans-serif;
             color: #4A00E0;
@@ -154,7 +137,6 @@
             position: relative;
             display: inline-block;
         }
-
         .welcome-text h2::after {
             content: "";
             position: absolute;
@@ -166,21 +148,18 @@
             background: linear-gradient(to right, #FFD700, #FFA500);
             border-radius: 2px;
         }
-
         .welcome-text p {
             font-size: 1.1rem;
             color: #555;
             max-width: 600px;
             margin: 20px auto 0;
         }
-
         .selection-section {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 25px;
             margin-top: 30px;
         }
-
         .selection-card {
             background: white;
             border-radius: 15px;
@@ -192,13 +171,11 @@
             flex-direction: column;
             height: 100%;
         }
-
         .selection-card:hover {
             transform: translateY(-8px);
             box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
             border-color: #8E2DE2;
         }
-
         .card-header {
             background: linear-gradient(to right, #654ea3, #da98b4);
             color: white;
@@ -207,33 +184,28 @@
             align-items: center;
             gap: 15px;
         }
-
         .card-header i {
             font-size: 1.8rem;
             color: #FFD700;
         }
-
         .card-header h3 {
             font-family: 'Poppins', sans-serif;
             font-size: 1.5rem;
             font-weight: 600;
             margin: 0;
         }
-
         .card-body {
             padding: 25px;
             flex-grow: 1;
             display: flex;
             flex-direction: column;
         }
-
         .card-body p {
             color: #555;
             margin-bottom: 20px;
             font-size: 1.05rem;
             flex-grow: 1;
         }
-
         .btn {
             display: inline-block;
             background: linear-gradient(to right, #4A00E0, #8E2DE2);
@@ -246,14 +218,12 @@
             transition: all 0.3s ease;
             border: none;
             cursor: pointer;
-            box-shadow: 0 5px 15px rgba(138, 43, 226, 极速赛车开奖结果
             box-shadow: 0 5px 15px rgba(138, 43, 226, 0.3);
             position: relative;
             overflow: hidden;
             text-align: center;
             align-self: flex-start;
         }
-
         .btn::after {
             content: "";
             position: absolute;
@@ -264,34 +234,26 @@
             background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
             transition: 0.5s;
         }
-
-极速赛车开奖结果
         .btn:hover {
             transform: translateY(-3px);
             box-shadow: 0 8px 20px rgba(138, 43, 226, 0.4);
         }
-
         .btn:hover::after {
             left: 100%;
         }
-
         .btn i {
             margin-left: 8px;
             transition: transform 0.3s ease;
         }
-
         .btn:hover i {
             transform: translateX(5px);
         }
-
         .topic-grid {
             display: grid;
-            grid-template极速赛车开奖结果
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 25px;
             margin-top: 30px;
         }
-
         .topic-card {
             background: white;
             border-radius: 15px;
@@ -300,40 +262,31 @@
             transition: all 0.3s ease;
             border: 2px solid #f0f0f0;
         }
-
         .topic-card:hover {
             transform: translateY(-5px);
             box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
-            border-color: #8极速赛车开奖结果
             border-color: #8E2DE2;
         }
-
         .topic-header {
-            background: linear-gradient(to right, #4A00E0, #8E极速赛车开奖结果
             background: linear-gradient(to right, #4A00E0, #8E2DE2);
             color: white;
             padding: 15px 25px;
             text-align: center;
         }
-
         .topic-header h3 {
             font-family: 'Poppins', sans-serif;
             font-size: 1.4rem;
             font-weight: 600;
             margin: 0;
         }
-
         .topic-body {
             padding: 20px;
         }
-
         .topic-body p {
             color: #555;
-            margin-bottom: 20极速赛车开奖结果
             margin-bottom: 20px;
             font-size: 1.05rem;
         }
-
         .topic-btn {
             display: block;
             background: linear-gradient(to right, #FFD700, #FFA500);
@@ -348,19 +301,16 @@
             box-shadow: 0 3px 10px rgba(255, 165, 0, 0.3);
             margin-bottom: 10px;
         }
-
         .topic-btn:hover {
             transform: translateY(-3px);
             box-shadow: 0 5px 15px rgba(255, 165, 0, 0.4);
         }
-
         .subtopic-container {
             display: flex;
             flex-direction: column;
             gap: 10px;
             margin-top: 15px;
         }
-
         .subtopic-btn {
             display: block;
             background: linear-gradient(to right, #5DADE2, #3498DB);
@@ -376,22 +326,17 @@
             position: relative;
             padding-left: 40px;
         }
-
         .subtopic-btn i {
             position: absolute;
-            left极速赛车开奖结果
-            left: 15极速赛车开奖结果
             left: 15px;
             top: 50%;
             transform: translateY(-50%);
         }
-
         .subtopic-btn:hover {
             transform: translateY(-2px);
             box-shadow: 0 4px 8px rgba(52, 152, 219, 0.3);
             background: linear-gradient(to right, #3498DB, #2E86C1);
         }
-
         .motivation {
             background: linear-gradient(to right, #FFD700, #FFA500);
             border-radius: 15px;
@@ -401,7 +346,6 @@
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
             border: 2px solid rgba(255, 255, 255, 0.5);
         }
-
         .motivation p {
             font-style: italic;
             font-size: 1.3rem;
@@ -410,29 +354,23 @@
             margin: 0;
             position: relative;
         }
-
         .motivation p::before, .motivation p::after {
             content: """;
             font-size: 3rem;
             color: rgba(0, 0, 0, 0.1);
             position: absolute;
             font-family: serif;
-极速赛车开奖结果
         }
-
         .motivation p::before {
             top: -20px;
             left: -10px;
         }
-
         .motivation p::after {
             bottom: -40px;
             right: -10px;
         }
-
         .footer {
             text-align: center;
-            padding: 25极速赛车开奖结果
             padding: 25px;
             background: rgba(0, 0, 0, 0.05);
             margin-top: 30px;
@@ -440,12 +378,10 @@
             color: #555;
             font-size: 0.95rem;
         }
-
         /* Estados de navegación */
         #school-selection { display: block; }
         #course-selection { display: none; }
         #topic-selection { display: none; }
-
         @media (max-width: 768px) {
             .container {
                 margin: 20px auto;
@@ -455,7 +391,6 @@
                 padding: 25px 20px;
             }
             
-            .header h极速赛车开奖结果
             .header h1 {
                 font-size: 2.2rem;
             }
@@ -483,7 +418,6 @@
                 width: 100%;
             }
         }
-
         @media (max-width: 480px) {
             .header h1 {
                 font-size: 1.8rem;
@@ -502,35 +436,29 @@
             }
             
             .selection-section {
-                grid-template-column极速赛车开奖结果
                 grid-template-columns: 1fr;
             }
             
             .breadcrumb a, .breadcrumb span {
                 font-size: 0.9rem;
-极速赛车开奖结果
             }
             
             .breadcrumb i {
                 margin: 0 3px;
             }
         }
-
         /* Animaciones */
         @keyframes float {
             0% { transform: translateY(0px); }
             50% { transform: translateY(-15px); }
             100% { transform: translateY(0px); }
         }
-
         .floating {
             animation: float 4s ease-in-out infinite;
         }
-
         .delay-1 {
             animation-delay: 0.5s;
         }
-
         .delay-2 {
             animation-delay: 1s;
         }
@@ -542,9 +470,6 @@
         <div class="math-element" style="top: 10%; left: 5%;">∫</div>
         <div class="math-element floating" style="top: 20%; left: 15%;">π</div>
         <div class="math-element" style="top: 30%; left: 85%;">∞</div>
-        <div class极速赛车开奖结果
-        <div class="math-element floating delay-1" style="top: 50%; left: 10%;极速赛车开奖结果
-        <div class="math-element floating delay-1极速赛车开奖结果
         <div class="math-element floating delay-1" style="top: 50%; left: 10%;">∑</div>
         <div class="math-element" style="top: 60%; left: 90%;">Δ</div>
         <div class="math-element floating delay-2" style="top: 75%; left: 80%;">θ</div>
@@ -552,11 +477,9 @@
         <div class="math-element" style="top: 40%; left: 75%;">≈</div>
         <div class="math-element floating" style="top: 65%; left: 25%;">f(x)</div>
     </div>
-
     <div class="container">
         <div class="header">
             <h1>Portal Educativo - Matemáticas con AguggIA</h1>
-            <p>Selecciona tu escuela, curso y temas de estudio</极速赛车开奖结果
             <p>Selecciona tu escuela, curso y temas de estudio</p>
         </div>
         
@@ -565,7 +488,6 @@
             <span id="school-crumb" style="display: none;"><i class="fas fa-chevron-right"></i> <a href="#" id="school-link">Escuela</a></span>
             <span id="course-crumb" style="display: none;"><i class="fas fa-chevron-right"></i> <a href="#" id="course-link">Curso</a></span>
         </div>
-
         <div class="content">
             <!-- Selección de Escuela -->
             <div id="school-selection">
@@ -573,7 +495,6 @@
                     <h2>Selecciona tu Escuela</h2>
                     <p>Por favor, elige la escuela a la que perteneces para acceder al material educativo.</p>
                 </div>
-
                 <div class="selection-section">
                     <div class="selection-card">
                         <div class="card-header">
@@ -585,7 +506,6 @@
                             <a href="#" class="btn" onclick="selectSchool('Instituto San Francisco de Asís')">Seleccionar <i class="fas fa-arrow-right"></i></a>
                         </div>
                     </div>
-
                     <div class="selection-card">
                         <div class="card-header">
                             <i class="fas fa-graduation-cap"></i>
@@ -598,29 +518,22 @@
                     </div>
                 </div>
             </div>
-
             <!-- Selección de Curso -->
             <div id="course-selection">
-                <div class极速赛车开奖结果
                 <div class="welcome-text">
                     <h2>Selecciona tu Curso</h2>
-                    <极速赛车开奖结果
                     <p>Elige el curso en el que estás matriculado para ver los temas disponibles.</p>
                 </div>
-
                 <div class="selection-section" id="course-selection-content">
                     <!-- Los cursos se cargarán dinámicamente según la escuela seleccionada -->
                 </div>
             </div>
-
             <!-- Selección de Temas -->
             <div id="topic-selection">
                 <div class="welcome-text">
                     <h2 id="topic-title">Temas de Matemáticas</h2>
                     <p>Explora los temas disponibles para tu curso. Haz clic en uno para comenzar tu aprendizaje.</p>
                 </div>
-
-                <div class="topic-grid极速赛车开奖结果
                 <div class="topic-grid" id="topic-grid">
                     <!-- Los temas se cargarán dinámicamente según el curso seleccionado -->
                 </div>
@@ -630,12 +543,10 @@
                 </div>
             </div>
         </div>
-
         <div class="footer">
             <p>© 2023 Portal Educativo - Matemáticas | Material diseñado para estudiantes de secundaria</p>
         </div>
     </div>
-
     <script>
         // Variables para almacenar las selecciones
         let selectedSchool = "";
@@ -678,7 +589,6 @@
                     { 
                         title: "Relaciones Matemáticas", 
                         description: "Profundiza en las relaciones entre diferentes conceptos matemáticos y su aplicación.",
-                        link极速赛车开奖结果
                         link: "Derivada2.html"
                     },
                     { 
@@ -687,7 +597,6 @@
                         link: "FactorizaciónGeneral.html"
                     }
                 ],
-                "Colegio Alemán V极速赛车开奖结果
                 "Colegio Alemán VGB": [
                     { 
                         title: "Termodinámica", 
@@ -696,7 +605,7 @@
                             { title: "Biomasa", link: "biomasa.html" },
                             { title: "Eficiencia en ER", link: "EficienciaEnER.html" },
                             { title: "Poster de Física", link: "poster física.html" },
-                            { title: "¿Cómo se integra la termodinámica a la generación de energía?", link: "FisicaAvanzado.html" }
+                            { title: "¿cómo se integra la termodinámica a la generación de energía?", link: "FisicaAvanzado.html" }
                         ]
                     }
                 ]
@@ -713,9 +622,9 @@
             // Actualizar breadcrumb
             document.getElementById('school-crumb').style.display = 'inline';
             document.getElementById('school-link').textContent = school;
-            document.getElementById('school-link').onclick = function(e) {
-                e.preventDefault();
+            document.getElementById('school-link').onclick = function() {
                 goBackToSchool();
+                return false;
             };
             
             // Cargar cursos para esta escuela
@@ -733,7 +642,6 @@
                     courseCard.className = 'selection-card';
                     courseCard.innerHTML = `
                         <div class="card-header">
-                            <i class="fas极速赛车开奖结果
                             <i class="fas fa-user-graduate"></i>
                             <h3>${course}</h3>
                         </div>
@@ -756,9 +664,9 @@
             // Actualizar breadcrumb
             document.getElementById('course-crumb').style.display = 'inline';
             document.getElementById('course-link').textContent = course;
-            document.getElementById('course-link').onclick = function(e) {
-                e.preventDefault();
+            document.getElementById('course-link').onclick = function() {
                 goBackToCourse();
+                return false;
             };
             
             // Actualizar título de temas
@@ -775,7 +683,6 @@
             topicsContainer.innerHTML = '';
             
             if (courseTopics[course] && courseTopics[course][selectedSchool]) {
-                courseTopics[course][selected极速赛车开奖结果
                 courseTopics[course][selectedSchool].forEach(topic => {
                     const topicCard = document.createElement('div');
                     topicCard.className = 'topic-card';
@@ -823,7 +730,6 @@
             document.getElementById('course-selection').style.display = 'none';
             document.getElementById('school-selection').style.display = 'block';
             document.getElementById('course-crumb').style.display = 'none';
-            document.getElementById('school-crumb').style.display = 'none';
         }
         
         function goBackToCourse() {
@@ -852,7 +758,6 @@
                 }
                 
                 // Tamaños aleatorios
-                const randomSize = Math.floor(Math.random() * 12极速赛车开奖结果
                 const randomSize = Math.floor(Math.random() * 12) + 20;
                 el.style.fontSize = `${randomSize}px`;
                 
