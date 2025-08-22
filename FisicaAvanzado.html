@@ -1,0 +1,1717 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Termodinámica y Energía Limpia - Portal Educativo</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #2E7D32;
+            --secondary: #1976D2;
+            --accent: #FFC107;
+            --light: #F5F5F5;
+            --dark: #263238;
+            --bg-gradient: linear-gradient(135deg, #E8F5E9 0%, #E3F2FD 100%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Open Sans', sans-serif;
+            background: var(--bg-gradient);
+            color: var(--dark);
+            line-height: 1.6;
+        }
+
+        .poster-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background: white;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            border-radius: 15px;
+            overflow: hidden;
+        }
+
+        .header {
+            text-align: center;
+            padding: 30px 20px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            border-radius: 15px 15px 0 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            animation: pulse 4s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.5; }
+            50% { transform: scale(1.1); opacity: 0.3; }
+        }
+
+        .header h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2.8rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            position: relative;
+            z-index: 2;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .header p {
+            font-size: 1.3rem;
+            font-weight: 400;
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .flow-diagram {
+            padding: 30px;
+            text-align: center;
+            position: relative;
+        }
+
+        .flow-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+            margin: 20px 0;
+        }
+
+        .flow-container::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 10%;
+            right: 10%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            z-index: 1;
+        }
+
+        .flow-item {
+            background: white;
+            border-radius: 50%;
+            width: 120px;
+            height: 120px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            z-index: 2;
+            transition: transform 0.3s ease;
+            border: 3px solid var(--accent);
+        }
+
+        .flow-item:hover {
+            transform: scale(1.1);
+        }
+
+        .flow-item i {
+            font-size: 2rem;
+            color: var(--secondary);
+            margin-bottom: 5px;
+        }
+
+        .flow-item span {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: var(--primary);
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            padding: 30px;
+        }
+
+        .section {
+            background: var(--light);
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease;
+        }
+
+        .section:hover {
+            transform: translateY(-5px);
+        }
+
+        .section h2 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.8rem;
+            color: var(--primary);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .concept-box {
+            background: white;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 15px 0;
+            border-left: 4px solid var(--secondary);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .concept-box:hover {
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .concept-box::after {
+            content: '\f054';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--accent);
+            opacity: 0.7;
+        }
+
+        .concept-box h4 {
+            color: var(--primary);
+            font-size: 1.1rem;
+            margin-bottom: 8px;
+        }
+
+        .concept-box p {
+            font-size: 0.95rem;
+        }
+
+        .formula {
+            background: rgba(25, 118, 210, 0.1);
+            padding: 10px;
+            border-radius: 5px;
+            font-family: 'Courier New', monospace;
+            text-align: center;
+            margin: 10px 0;
+            font-weight: 600;
+            color: var(--secondary);
+        }
+
+        .tech-card {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            background: white;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 15px 0;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .tech-card:hover {
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transform: translateX(5px);
+        }
+
+        .tech-card::after {
+            content: '\f054';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--accent);
+            opacity: 0.7;
+        }
+
+        .tech-icon {
+            font-size: 2.5rem;
+            color: var(--secondary);
+        }
+
+        .tech-info h4 {
+            color: var(--primary);
+            font-size: 1.1rem;
+            margin-bottom: 5px;
+        }
+
+        .tech-info p {
+            font-size: 0.9rem;
+        }
+
+        .research-section {
+            grid-column: span 2;
+            background: linear-gradient(135deg, #E1F5FE, #E8F5E9);
+            border-radius: 12px;
+            padding: 30px;
+            margin-top: 20px;
+        }
+
+        .research-section h2 {
+            color: var(--primary);
+            font-size: 2rem;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .research-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 25px;
+        }
+
+        .research-card {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: 2px solid transparent;
+            position: relative;
+        }
+
+        .research-card:hover {
+            border-color: var(--accent);
+            transform: scale(1.05);
+        }
+
+        .research-card::after {
+            content: '\f054';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            position: absolute;
+            right: 15px;
+            bottom: 15px;
+            color: var(--accent);
+            opacity: 0.7;
+        }
+
+        .research-card i {
+            font-size: 2.5rem;
+            color: var(--secondary);
+            margin-bottom: 15px;
+        }
+
+        .research-card h4 {
+            color: var(--primary);
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+        }
+
+        .research-card p {
+            font-size: 0.9rem;
+            color: #555;
+            margin-bottom: 15px;
+        }
+
+        .research-questions {
+            background: rgba(255, 193, 7, 0.1);
+            border-radius: 8px;
+            padding: 10px;
+            margin-top: 10px;
+        }
+
+        .research-questions h5 {
+            color: var(--primary);
+            font-size: 0.9rem;
+            margin-bottom: 5px;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .research-questions ul {
+            padding-left: 20px;
+            font-size: 0.85rem;
+            color: #555;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 20px;
+            background: var(--dark);
+            color: white;
+            border-radius: 0 0 15px 15px;
+            font-size: 0.9rem;
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            overflow-y: auto;
+        }
+
+        .modal-content {
+            background-color: white;
+            margin: 5% auto;
+            padding: 30px;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 800px;
+            position: relative;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            position: absolute;
+            right: 20px;
+            top: 15px;
+            cursor: pointer;
+        }
+
+        .close:hover {
+            color: var(--dark);
+        }
+
+        .modal-header {
+            border-bottom: 2px solid var(--accent);
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+        }
+
+        .modal-header h2 {
+            color: var(--primary);
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .modal-body {
+            margin-bottom: 20px;
+        }
+
+        .expandable {
+            background: var(--light);
+            border-radius: 8px;
+            padding: 15px;
+            margin: 15px 0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-left: 4px solid var(--secondary);
+        }
+
+        .expandable:hover {
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .expandable-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .expandable-header h4 {
+            color: var(--primary);
+            font-size: 1.1rem;
+        }
+
+        .expandable-header i {
+            color: var(--accent);
+            transition: transform 0.3s ease;
+        }
+
+        .expandable-content {
+            display: none;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid #ddd;
+        }
+
+        .expandable.active .expandable-header i {
+            transform: rotate(180deg);
+        }
+
+        .expandable.active .expandable-content {
+            display: block;
+        }
+
+        .deep-content {
+            background: rgba(25, 118, 210, 0.05);
+            border-radius: 8px;
+            padding: 15px;
+            margin: 15px 0;
+            border-left: 4px solid var(--accent);
+        }
+
+        .deep-content h5 {
+            color: var(--secondary);
+            margin-bottom: 10px;
+        }
+
+        .deep-content p {
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+        }
+
+        .deep-content ul {
+            padding-left: 20px;
+            margin-top: 10px;
+        }
+
+        .deep-content li {
+            margin-bottom: 5px;
+        }
+
+        .formula-large {
+            background: rgba(25, 118, 210, 0.1);
+            padding: 15px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            text-align: center;
+            margin: 15px 0;
+            font-weight: 600;
+            color: var(--secondary);
+            font-size: 1.2rem;
+        }
+
+        .highlight {
+            background: rgba(255, 193, 7, 0.2);
+            padding: 2px 4px;
+            border-radius: 3px;
+            font-weight: 600;
+        }
+
+        @media (max-width: 768px) {
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .research-section {
+                grid-column: span 1;
+            }
+            
+            .header h1 {
+                font-size: 2.2rem;
+            }
+            
+            .header p {
+                font-size: 1.1rem;
+            }
+
+            .flow-container {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .flow-container::before {
+                display: none;
+            }
+
+            .modal-content {
+                width: 95%;
+                margin: 10% auto;
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="poster-container">
+        <div class="header">
+            <h1>Termodinámica y Energía Limpia</h1>
+            <p>Conexiones fundamentales entre los principios físicos y la búsqueda de energía sostenible</p>
+        </div>
+
+        <div class="flow-diagram">
+            <h3 style="font-family: 'Montserrat', sans-serif; color: var(--primary); margin-bottom: 20px;">Relación entre Teoría y Aplicación</h3>
+            <div class="flow-container">
+                <div class="flow-item">
+                    <i class="fas fa-atom"></i>
+                    <span>Teoría</span>
+                </div>
+                <div class="flow-item">
+                    <i class="fas fa-cogs"></i>
+                    <span>Principios</span>
+                </div>
+                <div class="flow-item">
+                    <i class="fas fa-lightbulb"></i>
+                    <span>Tecnologías</span>
+                </div>
+                <div class="flow-item">
+                    <i class="fas fa-leaf"></i>
+                    <span>Sostenibilidad</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-grid">
+            <div class="section">
+                <h2><i class="fas fa-atom"></i> Conceptos Clave de Termodinámica</h2>
+                
+                <div class="concept-box" onclick="openModal('concepto', 'primera-ley')">
+                    <h4>Primera Ley de la Termodinámica</h4>
+                    <p>Conservación de la energía: La energía no se crea ni se destruye, solo se transforma.</p>
+                    <div class="formula">ΔU = Q - W</div>
+                    <p><strong>Conexión:</strong> Las tecnologías limpias buscan transformar eficientemente energía renovable en trabajo útil.</p>
+                </div>
+
+                <div class="concept-box" onclick="openModal('concepto', 'segunda-ley')">
+                    <h4>Segunda Ley de la Termodinámica</h4>
+                    <p>La entropía de un sistema aislado siempre aumenta. Los procesos naturales son irreversibles.</p>
+                    <div class="formula">ΔS ≥ 0</div>
+                    <p><strong>Conexión:</strong> Los sistemas de energía limpia deben minimizar la generación de entropía.</p>
+                </div>
+
+                <div class="concept-box" onclick="openModal('concepto', 'rendimiento')">
+                    <h4>Rendimiento Térmico</h4>
+                    <p>Relación entre trabajo útil y energía consumida.</p>
+                    <div class="formula">η = W<sub>útil</sub> / Q<sub>entrada</sub></div>
+                    <p><strong>Conexión:</strong> Las energías renovables buscan maximizar η aprovechando fuentes naturales.</p>
+                </div>
+
+                <div class="concept-box" onclick="openModal('concepto', 'ciclos')">
+                    <h4>Ciclos Termodinámicos</h4>
+                    <p>Procesos cíclicos que convierten calor en trabajo (Rankine, Brayton, Stirling).</p>
+                    <p><strong>Conexión:</strong> Las centrales geotérmicas y de biomasa utilizan ciclos optimizados.</p>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2><i class="fas fa-leaf"></i> Tecnologías de Energía Limpia</h2>
+                
+                <div class="tech-card" onclick="openModal('tecnologia', 'solar')">
+                    <div class="tech-icon"><i class="fas fa-solar-panel"></i></div>
+                    <div class="tech-info">
+                        <h4>Energía Solar Fotovoltaica</h4>
+                        <p>Convierte radiación solar en electricidad mediante efecto fotoeléctrico. η ≈ 15-22%.</p>
+                    </div>
+                </div>
+
+                <div class="tech-card" onclick="openModal('tecnologia', 'eolica')">
+                    <div class="tech-icon"><i class="fas fa-wind"></i></div>
+                    <div class="tech-info">
+                        <h4>Energía Eólica</h4>
+                        <p>Aprovecha energía cinética del viento. Limitada por ley de Betz (máximo 59.3% de extracción).</p>
+                    </div>
+                </div>
+
+                <div class="tech-card" onclick="openModal('tecnologia', 'geotermica')">
+                    <div class="tech-icon"><i class="fas fa-fire"></i></div>
+                    <div class="tech-info">
+                        <h4>Energía Geotérmica</h4>
+                        <p>Utiliza calor interno de la Tierra mediante ciclos termodinámicos (Rankine orgánico).</p>
+                    </div>
+                </div>
+
+                <div class="tech-card" onclick="openModal('tecnologia', 'hidroelectrica')">
+                    <div class="tech-icon"><i class="fas fa-water"></i></div>
+                    <div class="tech-info">
+                        <h4>Energía Hidroeléctrica</h4>
+                        <p>Transforma energía potencial gravitatoria en eléctrica. Alta eficiencia (η > 85%).</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="research-section">
+            <h2><i class="fas fa-microscope"></i> Investigación de Casos Prácticos</h2>
+            <p>Investiga estos casos de aplicación real de energía limpia en Argentina y Córdoba:</p>
+            
+            <div class="research-grid">
+                <div class="research-card" onclick="openModal('caso', 'canada-honda')">
+                    <i class="fas fa-sun"></i>
+                    <h4>Parque Solar Cañada Honda</h4>
+                    <p>Ubicado en San Luis, es uno de los parques solares más grandes de Argentina con 100 MW de capacidad.</p>
+                    <div class="research-questions">
+                        <h5>Preguntas guía:</h5>
+                        <ul>
+                            <li>¿Cómo aplica la Primera Ley?</li>
+                            <li>¿Qué limitaciones impone la Segunda Ley?</li>
+                            <li>¿Cuál es su rendimiento real vs. teórico?</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="research-card" onclick="openModal('caso', 'arauco')">
+                    <i class="fas fa-wind"></i>
+                    <h4>Parque Eólico Arauco</h4>
+                    <p>Situado en La Rioja, cuenta con 50 aerogeneradores que generan 100 MW aprovechando los vientos regionales.</p>
+                    <div class="research-questions">
+                        <h5>Preguntas guía:</h5>
+                        <ul>
+                            <li>¿Cómo aplica la Primera Ley?</li>
+                            <li>¿Qué limitaciones impone la Segunda Ley?</li>
+                            <li>¿Cuál es su rendimiento real vs. teórico?</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="research-card" onclick="openModal('caso', 'rio-tercero')">
+                    <i class="fas fa-water"></i>
+                    <h4>Central Hidroeléctrica Río Tercero</h4>
+                    <p>Ubicada en Córdoba, genera energía a partir del embalse de Río Tercero con 46 MW de potencia instalada.</p>
+                    <div class="research-questions">
+                        <h5>Preguntas guía:</h5>
+                        <ul>
+                            <li>¿Cómo aplica la Primera Ley?</li>
+                            <li>¿Qué limitaciones impone la Segunda Ley?</li>
+                            <li>¿Cuál es su rendimiento real vs. teórico?</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="research-card" onclick="openModal('caso', 'biomasa')">
+                    <i class="fas fa-industry"></i>
+                    <h4>Proyecto de Biomasa Villa María</h4>
+                    <p>En Córdoba, esta planta genera 15 MW utilizando residuos agrícolas de la región, principalmente cáscara de maní.</p>
+                    <div class="research-questions">
+                        <h5>Preguntas guía:</h5>
+                        <ul>
+                            <li>¿Cómo aplica la Primera Ley?</li>
+                            <li>¿Qué limitaciones impone la Segunda Ley?</li>
+                            <li>¿Cuál es su rendimiento real vs. teórico?</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>Profesor: Juan Pablo Aguggia | Prof. de Matemática (UNC) | 
+            <i class="fas fa-envelope"></i> prof.jpa@gmail.com | 
+            <i class="fas fa-graduation-cap"></i> Año 2025</p>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div class="modal-header">
+                <h2 id="modal-title"></h2>
+            </div>
+            <div class="modal-body" id="modal-body">
+                <!-- Content will be dynamically loaded here -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Content database for different levels
+        const contentDatabase = {
+            concepto: {
+                'primera-ley': {
+                    title: 'Primera Ley de la Termodinámica - Nivel Avanzado',
+                    content: `
+                        <p>La <span class="highlight">Primera Ley de la Termodinámica</span>, también conocida como ley de conservación de la energía, establece que la energía no se crea ni se destruye, solo se transforma de una forma a otra. Este principio fundamental rige todos los procesos energéticos en el universo.</p>
+                        
+                        <div class="formula-large">ΔU = Q - W</div>
+                        
+                        <p>Donde:</p>
+                        <ul>
+                            <li><strong>ΔU</strong>: Cambio en la energía interna del sistema</li>
+                            <li><strong>Q</strong>: Calor transferido al sistema</li>
+                            <li><strong>W</strong>: Trabajo realizado por el sistema</li>
+                        </ul>
+                        
+                        <div class="expandable" onclick="toggleExpandable(this)">
+                            <div class="expandable-header">
+                                <h4>Aplicaciones en Energías Renovables</h4>
+                                <i class="fas fa-chevron-down"></i>
+                            </div>
+                            <div class="expandable-content">
+                                <p>En las tecnologías de energía limpia, esta ley se manifiesta en:</p>
+                                <ul>
+                                    <li><strong>Solar fotovoltaica</strong>: Transforma energía radiante en eléctrica</li>
+                                    <li><strong>Eólica</strong>: Convierte energía cinética del viento en mecánica y luego eléctrica</li>
+                                    <li><strong>Hidroeléctrica</strong>: Transforma energía potencial gravitatoria en eléctrica</li>
+                                </ul>
+                                
+                                <div class="deep-content">
+                                    <h5>Profundización: Eficiencia de Conversión</h5>
+                                    <p>La Primera Ley nos dice que la energía total se conserva, pero no nos dice nada sobre la <span class="highlight">calidad</span> de la energía. Por eso, aunque la energía se conserve, no toda puede convertirse en trabajo útil. Esto nos lleva directamente a la Segunda Ley.</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="expandable" onclick="toggleExpandable(this)">
+                            <div class="expandable-header">
+                                <h4>Sistemas Termodinámicos</h4>
+                                <i class="fas fa-chevron-down"></i>
+                            </div>
+                            <div class="expandable-content">
+                                <p>Para aplicar correctamente la Primera Ley, debemos clasificar los sistemas:</p>
+                                <ul>
+                                    <li><strong>Sistema abierto</strong>: Intercambia materia y energía con el entorno</li>
+                                    <li><strong>Sistema cerrado</strong>: Intercambia solo energía, no materia</li>
+                                    <li><strong>Sistema aislado</strong>: No intercambia ni materia ni energía</li>
+                                </ul>
+                                
+                                <div class="deep-content">
+                                    <h5>Ejemplo Práctico: Central Solar</h5>
+                                    <p>Una central termosolar es un sistema <span class="highlight">cerrado</span>: recibe energía solar (calor) y produce trabajo (electricidad), pero no intercambia materia con el entorno. El fluido de trabajo circula en un circuito cerrado.</p>
+                                </div>
+                            </div>
+                        </div>
+                    `
+                },
+                'segunda-ley': {
+                    title: 'Segunda Ley de la Termodinámica - Nivel Avanzado',
+                    content: `
+                        <p>La <span class="highlight">Segunda Ley de la Termodinámica</span> introduce el concepto de <span class="highlight">entropía</span> (S) y establece que en cualquier proceso espontáneo, la entropía total del universo siempre aumenta. Esta ley define la dirección de los procesos naturales y establece límites fundamentales a la conversión de calor en trabajo.</p>
+                        
+                        <div class="formula-large">ΔS<sub>universo</sub> = ΔS<sub>sistema</sub> + ΔS<sub>entorno</sub> ≥ 0</div>
+                        
+                        <p>Para un proceso reversible: ΔS = 0<br>Para un proceso irreversible: ΔS > 0</p>
+                        
+                        <div class="expandable" onclick="toggleExpandable(this)">
+                            <div class="expandable-header">
+                                <h4>Implicaciones para Energías Renovables</h4>
+                                <i class="fas fa-chevron-down"></i>
+                            </div>
+                            <div class="expandable-content">
+                                <p>La Segunda Ley impone limitaciones fundamentales:</p>
+                                <ul>
+                                    <li><strong>Rendimiento máximo</strong>: Ninguna máquina térmica puede tener rendimiento del 100%</li>
+                                    <li><strong>Irreversibilidades</strong>: Todo proceso real genera entropía</li>
+                                    <li><strong>Calidad de la energía</strong>: La energía se degrada con cada transformación</li>
+                                </ul>
+                                
+                                <div class="deep-content">
+                                    <h5>Profundización: Rendimiento de Carnot</h5>
+                                    <p>El rendimiento máximo teórico de cualquier máquina térmica está dado por el ciclo de Carnot:</p>
+                                    <div class="formula">η<sub>máx</sub> = 1 - T<sub>f</sub>/T<sub>c</sub></div>
+                                    <p>Donde T<sub>c</sub> es la temperatura de la fuente caliente y T<sub>f</sub> la de la fuente fría. Esto explica por qué las centrales geotérmicas tienen menor rendimiento que las térmicas convencionales.</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="expandable" onclick="toggleExpandable(this)">
+                            <div class="expandable-header">
+                                <h4>Entropía y Sostenibilidad</h4>
+                                <i class="fas fa-chevron-down"></i>
+                            </div>
+                            <div class="expandable-content">
+                                <p>La entropía está relacionada con el concepto de sostenibilidad:</p>
+                                <ul>
+                                    <li><strong>Minimización de entropía</strong>: Los sistemas eficientes generan menos entropía</li>
+                                    <li><strong>Recursos finitos</strong>: La entropía creciente implica degradación de recursos</li>
+                                    <li><strong>Ciclos cerrados</strong>: La economía circular busca minimizar la generación de entropía</li>
+                                </ul>
+                                
+                                <div class="deep-content">
+                                    <h5>Ejemplo: Energía Eólica vs. Térmica</h5>
+                                    <p>Una central eólica genera menos entropía por kWh producido que una central térmica porque convierte directamente energía mecánica en eléctrica, sin pasar por la etapa intermedia de calor. Esto la hace más sostenible desde la perspectiva termodinámica.</p>
+                                </div>
+                            </div>
+                        </div>
+                    `
+                },
+                'rendimiento': {
+                    title: 'Rendimiento Térmico - Nivel Avanzado',
+                    content: `
+                        <p>El <span class="highlight">rendimiento térmico</span> (η) es una medida de qué tan eficientemente un sistema convierte energía de entrada en trabajo útil. Es un parámetro fundamental para evaluar cualquier tecnología de generación de energía.</p>
+                        
+                        <div class="formula-large">η = (Trabajo útil / Energía suministrada) × 100%</div>
+                        
+                        <p>En términos termodinámicos: η = W<sub>útil</sub> / Q<sub>entrada</sub></p>
+                        
+                        <div class="expandable" onclick="toggleExpandable(this)">
+                            <div class="expandable-header">
+                                <h4>Factores que Afectan el Rendimiento</h4>
+                                <i class="fas fa-chevron-down"></i>
+                            </div>
+                            <div class="expandable-content">
+                                <p>El rendimiento real siempre es menor que el teórico debido a:</p>
+                                <ul>
+                                    <li><strong>Pérdidas por fricción</strong>: En componentes mecánicos</li>
+                                    <li><strong>Pérdidas térmicas</strong>: Por conducción, convección y radiación</li>
+                                    <li><strong>Irreversibilidades</strong>: Procesos no ideales</li>
+                                    <li><strong>Limitaciones de materiales</strong>: Temperaturas máximas operativas</li>
+                                </ul>
+                                
+                                <div class="deep-content">
+                                    <h5>Profundización: Rendimiento Exergético</h5>
+                                    <p>Más allá del rendimiento energético, el <span class="highlight">rendimiento exergético</span> considera la calidad de la energía:</p>
+                                    <div class="formula">η<sub>ex</sub> = (Exergía útil / Exergía suministrada) × 100%</div>
+                                    <p>La exergía es la parte de la energía que puede convertirse en trabajo. Este concepto es crucial para evaluar verdaderamente la eficiencia de las tecnologías renovables.</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="expandable" onclick="toggleExpandable(this)">
+                            <div class="expandable-header">
+                                <h4>Comparación de Tecnologías</h4>
+                                <i class="fas fa-chevron-down"></i>
+                            </div>
+                            <div class="expandable-content">
+                                <p>Rendimientos típicos de diferentes tecnologías:</p>
+                                <ul>
+                                    <li><strong>Hidroeléctrica</strong>: 85-90% (conversión directa mecánica-eléctrica)</li>
+                                    <li><strong>Eólica</strong>: 35-45% (limitada por ley de Betz)</li>
+                                    <li><strong>Solar fotovoltaica</strong>: 15-22% (depende de la tecnología del panel)</li>
+                                    <li><strong>Térmica convencional</strong>: 30-40% (limitada por ciclo de Carnot)</li>
+                                    <li><strong>Geotérmica</strong>: 10-20% (bajas temperaturas de operación)</li>
+                                </ul>
+                                
+                                <div class="deep-content">
+                                    <h5>Análisis: Por qué la Hidroelectricidad es tan Eficiente</h5>
+                                    <p>La alta eficiencia de las centrales hidroeléctricas se debe a que convierten directamente energía potencial en mecánica (turbina) y luego en eléctrica (generador), evitando las pérdidas inherentes a los ciclos térmicos. No están limitadas por el rendimiento de Carnot.</p>
+                                </div>
+                            </div>
+                        </div>
+                    `
+                },
+                'ciclos': {
+                    title: 'Ciclos Termodinámicos - Nivel Avanzado',
+                    content: `
+                        <p>Los <span class="highlight">ciclos termodinámicos</span> son secuencias de procesos que retornan un sistema a su estado inicial, permitiendo la conversión continua de calor en trabajo. Son la base de todas las plantas de generación de energía.</p>
+                        
+                        <div class="expandable" onclick="toggleExpandable(this)">
+                            <div class="expandable-header">
+                                <h4>Ciclo de Rankine</h4>
+                                <i class="fas fa-chevron-down"></i>
+                            </div>
+                            <div class="expandable-content">
+                                <p>Es el ciclo más utilizado en centrales térmicas:</p>
+                                <ul>
+                                    <li><strong>Procesos</strong>: Compresión (bomba) → Calentamiento (caldera) → Expansión (turbina) → Enfriamiento (condensador)</li>
+                                    <li><strong>Fluido de trabajo</strong>: Agua/ vapor</li>
+                                    <li><strong>Rendimiento típico</strong>: 30-40%</li>
+                                </ul>
+                                
+                                <div class="deep-content">
+                                    <h5>Variante: Ciclo de Rankine Orgánico (ORC)</h5>
+                                    <p>Utiliza fluidos orgánicos con bajo punto de ebullición. Es ideal para:</p>
+                                    <ul>
+                                        <li>Centrales geotérmicas de baja temperatura</li>
+                                        <li>Aprovechamiento de calor residual industrial</li>
+                                        <li>Plantas de biomasa</li>
+                                    </ul>
+                                    <p>El ORC permite operar con fuentes de calor de menor temperatura, aunque con rendimientos menores (10-20%).</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="expandable" onclick="toggleExpandable(this)">
+                            <div class="expandable-header">
+                                <h4>Ciclo de Brayton</h4>
+                                <i class="fas fa-chevron-down"></i>
+                            </div>
+                            <div class="expandable-content">
+                                <p>Base de las turbinas de gas:</p>
+                                <ul>
+                                    <li><strong>Procesos</strong>: Compresión → Combustión → Expansión → Escape</li>
+                                    <li><strong>Aplicaciones</strong>: Centrales de ciclo combinado, turbinas de aviación</li>
+                                    <li><strong>Rendimiento</strong>: 25-40% (simple), hasta 60% (combinado)</li>
+                                </ul>
+                                
+                                <div class="deep-content">
+                                    <h5>Ciclo Combinado: Máxima Eficiencia</h5>
+                                    <p>Combina una turbina de gas (Brayton) con una de vapor (Rankine). Los gases de escape de la turbina de gas generan vapor para la turbina de vapor. Esto aprovecha mejor la energía del combustible, alcanzando rendimientos superiores al 60%.</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="expandable" onclick="toggleExpandable(this)">
+                            <div class="expandable-header">
+                                <h4>Ciclo de Stirling</h4>
+                                <i class="fas fa-chevron-down"></i>
+                            </div>
+                            <div class="expandable-content">
+                                <p>Ciclo de combustión externa con gran potencial:</p>
+                                <ul>
+                                    <li><strong>Procesos</strong>: Compresión isotérmica → Calentamiento isocórico → Expansión isotérmica → Enfriamiento isocórico</li>
+                                    <li><strong>Ventajas</strong>: Silencioso, multi-combustible, teóricamente eficiente</li>
+                                    <li><strong>Desafíos</strong>: Sellado, materiales, costo</li>
+                                </ul>
+                                
+                                <div class="deep-content">
+                                    <h5>Aplicaciones en Energías Renovables</h5>
+                                    <p>Los motores Stirling son prometedores para:</p>
+                                    <ul>
+                                        <li>Concentradores solares de disco</li>
+                                        <li>Generación distribuida con biomasa</li>
+                                        <li>Aprovechamiento de calor residual</li>
+                                    </ul>
+                                    <p>Su eficiencia teórica se acerca al ciclo de Carnot, aunque en la práctica aún no se alcanzan estos valores.</p>
+                                </div>
+                            </div>
+                        </div>
+                    `
+                }
+            },
+            tecnologia: {
+                'solar': {
+                    title: 'Energía Solar Fotovoltaica - Nivel Avanzado',
+                    content: `
+                        <p>La <span class="highlight">energía solar fotovoltaica</span> convierte directamente la radiación solar en electricidad mediante el efecto fotoeléctrico. Es una de las tecnologías de energía limpia con mayor potencial de crecimiento.</p>
+                        
+                        <div class="expandable" onclick="toggleExpandable(this)">
+                            <div class="expandable-header">
+                                <h4>Principio de Funcionamiento</h4>
+                                <i class="fas fa-chevron-down"></i>
+                            </div>
+                            <div class="expandable-content">
+                                <p>El efecto fotoeléctrico se basa en:</p>
+                                <ul>
+                                    <li><strong>Fotones</strong>: Partículas de luz que transportan energía E = hν</li>
+                                    <li><strong>Semiconductores</strong>: Materiales con banda de energía prohibida</li>
+                                    <li><strong>Juntura PN</strong>: Crea un campo eléctrico interno</li>
+                                </ul>
+                                
+                                <div class="deep-content">
+                                    <h5>Profundización: Estructura de una Celda Solar</h5>
+                                    <p>Una celda fotovoltaica típica consiste en:</p>
+                                    <ul>
+                                        <li><span class="highlight">Capa antirreflejo</span>: Maximiza la absorción de luz</li>
+                                        <li><span class="highlight">Capa N</span>: Silicio dopado con fósforo (exceso de electrones)</li>
+                                        <li><span class="highlight">Capa P</span>: Silicio dopado con boro (defecto de electrones)</li>
+                                        <li><span class="highlight">Contactos metálicos</span>: Recogen la corriente generada</li>
+                                    </ul>
+                                    <p>Cuando un fotón con energía suficiente golpea la juntura, crea un par electrón-hueco que es separado por el campo eléctrico, generando corriente.</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="expandable" onclick="toggleExpandable(this)">
+                            <div class="expandable-header">
+                                <h4>Factores que Afectan el Rendimiento</h4>
+                                <i class="fas fa-chevron-down"></i>
+                            </div>
+                            <div class="expandable-content">
+                                <p>El rendimiento de los paneles solares depende de:</p>
+                                <ul>
+                                    <li><strong>Temperatura</strong>: El rendimiento disminuye ~0.5% por °C encima de 25°C</li>
+                                    <li><strong>Ángulo de incidencia</strong>: Máximo cuando los rayos son perpendiculares</li>
+                                    <li><strong>Espectro solar</strong>: Diferentes tecnologías responden a distintas longitudes de onda</li>
+                                    <li><strong>Sombreado</strong>: Incluso sombreado parcial reduce significativamente la salida</li>
+                                </ul>
+                                
+                                <div class="deep-content">
+                                    <h5>Límite Teórico: Eficiencia de Shockley-Queisser</h5>
+                                    <p>Para una juntura PN simple, el límite teórico máximo es ~33%. Esto se debe a:</p>
+                                    <ul>
+                                        <li>Fotones con energía inferior al bandgap no son absorbidos</li>
+                                        <li>Fotones con energía superior pierden el exceso como calor</li>
+                                        <li>Pérdidas por recombinación de portadores</li>
+                                    </ul>
+                                    <p>Las tecnologías de múltiples junturas (tándem) pueden superar este límite, alcanzando en laboratorio eficiencias superiores al 45%.</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="expandable" onclick="toggleExpandable(this)">
+                            <div class="expandable-header">
+                                <h4>Tecnologías de Paneles Solares</h4>
+                                <i class="fas fa-chevron-down"></i>
+                            </div>
+                            <div class="expandable-content">
+                                <p>Principales tipos de tecnologías fotovoltaicas:</p>
+                                <ul>
+                                    <li><strong>Silicio monocristalino</strong>: Eficiencia 15-22%, costo moderado</li>
+                                    <li><strong>Silicio policristalino</strong>: Eficiencia 13-18%, menor costo</li>
+                                    <li><strong>Capa delgada (CdTe, CIGS)</strong>: Eficiencia 10-15%, flexibles</li>
+                                    <li><strong>Perovskita</strong>: Tecnología emergente, eficiencia >25% en laboratorio</li>
+                                </ul>
+                                
+                                <div class="deep-content">
+                                    <h5>Análisis Comparativo para Argentina</h5>
+                                    <p>En las condiciones de Córdoba:</p>
+                                    <ul>
+                                        <li><strong>Monocristalino</span>: Mejor opción para espacios limitados</li>
+                                        <li><strong>Policristalino</span>: Relación costo-beneficio óptima</li>
+                                        <li><strong>Capa delgada</span>: Ideal para aplicaciones curvas o portátiles</li>
+                                    </ul>
+                                    <p>La alta radiación solar de la región (5.5 kWh/m²/día promedio) favorece todas las tecnologías, pero el monocristalino ofrece mejor retorno de inversión a largo plazo.</p>
+                                </div>
+                            </div>
+                        </div>
+                    `
+                },
+                'eolica': {
+                    title: 'Energía Eólica - Nivel Avanzado',
+                    content: `
+                        <p>La <span class="highlight">energía eólica</span> aprovecha la energía cinética del viento para generar electricidad mediante aerogeneradores. Es una de las fuentes renovables más maduras y competitivas económicamente.</p>
+                        
+                        <div class="expandable" onclick="toggleExpandable(this)">
+                            <div class="expandable-header">
+                                <h4>Principio de Funcionamiento</h4>
+                                <i class="fas fa-chevron-down"></i>
+                            </div>
+                            <div class="expandable-content">
+                                <p>El proceso de conversión energética:</p>
+                                <ul>
+                                    <li><strong>Energía cinética del viento</strong>: E<sub>c</sub> = ½mv²</li>
+                                    <li><strong>Rotor</strong>: Convierte energía cinética en mecánica de rotación</li>
+                                    <li><strong>Generador</strong>: Transforma energía mecánica en eléctrica</li>
+                                </ul>
+                                
+                                <div class="deep-content">
+                                    <h5>Profundización: Ley de Betz</h5>
+                                    <p>Albert Betz demostró en 1919 que ningún aerogenerador puede extraer más del 59.3% de la energía cinética del viento. Este límite teórico se debe a:</p>
+                                    <ul>
+                                        <li>El viento debe continuar fluyendo después de pasar por las palas</li>
+                                        <li>Si se extrajera el 100%, el viento se detendría completamente</li>
+                                        <li>La extracción óptima ocurre cuando la velocidad del viento a la salida es 1/3 de la entrada</li>
+                                    </ul>
+                                    <p>Los aerogeneradores modernos alcanzan eficiencias del 45-50% del límite de Betz, es decir, 25-30% de la energía total del viento.</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="expandable" onclick="toggleExpandable(this)">
+                            <div class="expandable-header">
+                                <h4>Diseño del Aerogenerador</h4>
+                                <i class="fas fa-chevron-down"></i>
+                            </div>
+                            <div class="expandable-content">
+                                <p>Componentes clave de un aerogenerador moderno:</p>
+                                <ul>
+                                    <li><strong>Rotor</strong>: Palas con perfil aerodinámico, diámetro hasta 150m</li>
+                                    <li><strong>Góndola</strong>: Contiene el multiplicador y generador</li>
+                                    <li><strong>Torre</strong>: Altura 80-120m para acceder a vientos más constantes</li>
+                                    <li><strong>Sistema de orientación</strong>: Sigue la dirección del viento</li>
+                                </ul>
+                                
+                                <div class="deep-content">
+                                    <h5>Control de Potencia y Seguridad</h5>
+                                    <p>Los sistemas modernos incluyen:</p>
+                                    <ul>
+                                        <li><span class="highlight">Control de paso</span>: Ajusta el ángulo de las palas para regular potencia</li>
+                                        <li><span class="highlight">Frenado aerodinámico</span>: Para vientos extremos (>25m/s)</li>
+                                        <li><span class="highlight">Sistema de orientación</span>: Motores que giran la góndola</li>
+                                        <li><span class="highlight">Control electrónico</span>: Optimiza la extracción de energía</li>
+                                    </ul>
+                                    <p>Estos sistemas permiten operar en rangos de viento de 3-25 m/s, maximizando la generación mientras protegen el equipo.</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="expandable" onclick="toggleExpandable(this)">
+                            <div class="expandable-header">
+                                <h4>Factores de Sitio y Rendimiento</h4>
+                                <i class="fas fa-chevron-down"></i>
+                            </div>
+                            <div class="expandable-content">
+                                <p>La selección del emplazamiento es crucial:</p>
+                                <ul>
+                                    <li><strong>Distribución de Weibull</strong>: Describe la frecuencia de velocidades del viento</li>
+                                    <li><strong>Rugosidad del terreno</strong>: Afecta el perfil del viento</li>
+                                    <li><strong>Obstáculos</strong>: Crean turbulencias que reducen eficiencia</li>
+                                    <li><strong>Efecto estela</strong>: Los aerogeneradores se espacían 5-9 diámetros</li>
+                                </ul>
+                                
+                                <div class="deep-content">
+                                    <h5>Análisis para Argentina</h5>
+                                    <p>Las regiones más favorables en Argentina:</p>
+                                    <ul>
+                                        <li><strong>Patagonia</strong>: Vientos constantes >8m/s, factor de capacidad 40-50%</li>
+                                        <li><strong>La Rioja/San Luis</strong>: Vientos estacionales, factor 30-35%</li>
+                                        <li><strong>Costa atlántica</strong>: Buen recurso, factor 35-40%</li>
+                                    </ul>
+                                    <p>El factor de capacidad (energía real/energía máxima posible) en Argentina varía del 25% en zonas marginales al 50% en la Patagonia, comparado con el 20-30% típico en Europa.</p>
+                                </div>
+                            </div>
+                        </div>
+                    `
+                },
+                'geotermica': {
+                    title: 'Energía Geotérmica - Nivel Avanzado',
+                    content: `
+                        <p>La <span class="highlight">energía geotérmica</span> aprovecha el calor interno de la Tierra para generar electricidad o proporcionar calefacción. Es una fuente de energía constante y predecible, independiente de las condiciones climáticas.</p>
+                        
+                        <div class="expandable" onclick="toggleExpandable(this)">
+                            <div class="expandable-header">
+                                <h4>Fuentes de Calor Geotérmico</h4>
+                                <i class="fas fa-chevron-down"></i>
+                            </div>
+                            <div class="expandable-content">
+                                <p>El calor interno de la Tierra proviene de:</p>
+                                <ul>
+                                    <li><strong>Calor primordial</strong>: Residual de la formación del planeta (45-50%)</li>
+                                    <li><strong>Desintegración radiactiva</strong>: U-238, Th-232, K-40 (50-55%)</li>
+                                    <li><strong>Fricción por mareas</strong>: Contribución menor (<1%)</li>
+                                </ul>
+                                
+                                <div class="deep-content">
+                                    <h5>Gradiente Geotérmico</h5>
+                                    <p>La temperatura aumenta con la profundidad:</p>
+                                    <ul>
+                                        <li><span class="highlight">Promedio mundial</span>: 25-30°C/km</li>
+                                        <li><span class="highlight">Zonas volcánicas</span>: 50-100°C/km</li>
+                                        <li><span class="highlight">Placas tectónicas</span>: Hasta 200°C/km</li>
+                                    </ul>
+                                    <p>En Argentina, el gradiente varía de 20°C/km en la plataforma a 40°C/km en la Puna. Esto hace que la energía geotérmica sea viable principalmente en el noroeste.</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="expandable" onclick="toggleExpandable(this)">
+                            <div class="expandable-header">
+                                <h4>Tecnologías de Conversión</h4>
+                                <i class="fas fa-chevron-down"></i>
+                            </div>
+                            <div class="expandable-content">
+                                <p>Según la temperatura del recurso:</p>
+                                <ul>
+                                    <li><strong>Alta temperatura (>150°C)</strong>: Ciclos de Rankine con vapor directo</li>
+                                    <li><strong>Media temperatura (90-150°C)</strong>: Ciclo de Rankine orgánico (ORC)</li>
+                                    <li><strong>Baja temperatura (<90°C)</strong>: Bombas de calor para calefacción</li>
+                                </ul>
+                                
+                                <div class="deep-content">
+                                    <h5>Ciclo de Rankine Orgánico (ORC)</h5>
+                                    <p>Es la tecnología clave para geotermia de media temperatura:</p>
+                                    <ul>
+                                        <li><span class="highlight">Fluidos orgánicos</span>: Hidrocarburos, refrigerantes con bajo punto de ebullición</li>
+                                        <li><span class="highlight">Ventajas</span>: Opera con temperaturas más bajas que el agua</li>
+                                        <li><span class="highlight">Rendimiento</span>: 10-20% (vs 30-40% de vapor directo)</li>
+                                    </ul>
+                                    <p>El ORC permite aprovechar recursos que serían inviables con ciclos convencionales, expandiendo significativamente el potencial geotérmico.</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="expandable" onclick="toggleExpandable(this)">
+                            <div class="expandable-header">
+                                <h4>Tipos de Sistemas Geotérmicos</h4>
+                                <i class="fas fa-chevron-down"></i>
+                            </div>
+                            <div class="expandable-content">
+                                <p>Clasificación según características del yacimiento:</p>
+                                <ul>
+                                    <li><strong>Sistemas dominados por vapor</strong>: Recursos de alta temperatura (>235°C)</li>
+                                    <li><strong>Sistemas dominados por agua caliente</strong>: Más comunes, temperaturas medias</li>
+                                    <li><strong>Sistemas EGS (Enhanced Geothermal)</strong>: Estimulación hidráulica de roca seca</li>
+                                </ul>
+                                
+                                <div class="deep-content">
+                                    <h5>Potencial en Argentina</h5>
+                                    <p>Las principales zonas con potencial geotérmico:</p>
+                                    <ul>
+                                        <li><span class="highlight">Puna</span>: Zonas volcánicas con gradientes elevados</li>
+                                        <li><span class="highlight">Cerro Pabellón</span>: Proyecto en desarrollo en Catamarca</li>
+                                        <li><span class="highlight">Copahue</span>: Campo geotérmico en Neuquén</li>
+                                    </ul>
+                                    <p>Argentina tiene un potencial estimado de 3000 MW, pero solo se han desarrollado proyectos piloto. Los principales desafíos son la alta inversión inicial y la ubicación remota de los recursos.</p>
+                                </div>
+                            </div>
+                        </div>
+                    `
+                },
+                'hidroelectrica': {
+                    title: 'Energía Hidroeléctrica - Nivel Avanzado',
+                    content: `
+                        <p>La <span class="highlight">energía hidroeléctrica</span> aprovecha la energía potencial gravitatoria del agua almacenada en embalses para generar electricidad. Es la fuente renovable más madura y de mayor contribución a la matriz energética mundial.</p>
+                        
+                        <div class="expandable" onclick="toggleExpandable(this)">
+                            <div class="expandable-header">
+                                <h4>Principio de Conversión Energética</h4>
+                                <i class="fas fa-chevron-down"></i>
+                            </div>
+                            <div class="expandable-content">
+                                <p>El proceso de transformación de energía:</p>
+                                <ul>
+                                    <li><strong>Energía potencial</strong>: E<sub>p</sub> = mgh</li>
+                                    <li><strong>Turbina</strong>: Convierte energía potencial en mecánica</li>
+                                    <li><strong>Generador</strong>: Transforma energía mecánica en eléctrica</li>
+                                </ul>
+                                
+                                <div class="deep-content">
+                                    <h5>Profundización: Ecuación de Potencia Hidráulica</h5>
+                                    <p>La potencia teórica disponible es:</p>
+                                    <div class="formula">P = ρ × g × Q × H</div>
+                                    <p>Donde:</p>
+                                    <ul>
+                                        <li><strong>ρ</strong>: Densidad del agua (1000 kg/m³)</li>
+                                        <li><strong>g</strong>: Aceleración gravitatoria (9.81 m/s²)</li>
+                                        <li><strong>Q</strong>: Caudal (m³/s)</li>
+                                        <li><strong>H</strong>: Altura neta (m)</li>
+                                    </ul>
+                                    <p>La potencia real es menor debido a pérdidas en tuberías, turbina y generador. La eficiencia global típica es del 85-90%.</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="expandable" onclick="toggleExpandable(this)">
+                            <div class="expandable-header">
+                                <h4>Tipos de Centrales Hidroeléctricas</h4>
+                                <i class="fas fa-chevron-down"></i>
+                            </div>
+                            <div class="expandable-content">
+                                <p>Clasificación según características de operación:</p>
+                                <ul>
+                                    <li><strong>De embalse</strong>: Gran capacidad de almacenamiento, regulación estacional</li>
+                                    <li><strong>De pasada</strong>: Bajo impacto ambiental, depende del caudal del río</li>
+                                    <li><strong>Bombeo</strong>: Almacena energía bombeando agua a embalse superior</li>
+                                </ul>
+                                
+                                <div class="deep-content">
+                                    <h5>Selección de Turbinas</h5>
+                                    <p>Según altura y caudal:</p>
+                                    <ul>
+                                        <li><span class="highlight">Pelton</span>: Alturas >300m, caudales bajos</li>
+                                        <li><span class="highlight">Francis</span>: Alturas 70-500m, caudales medios</li>
+                                        <li><span class="highlight">Kaplan</span>: Alturas <70m, caudales altos</li>
+                                        <li><span class="highlight">Bulbo</span>: Muy bajas alturas, caudales muy altos</li>
+                                    </ul>
+                                    <p>La selección correcta de la turbina es crucial para maximizar la eficiencia. En Argentina, las turbinas Francis son las más comunes debido a las características de los ríos de montaña.</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="expandable" onclick="toggleExpandable(this)">
+                            <div class="expandable-header">
+                                <h4>Impacto Ambiental y Sostenibilidad</h4>
+                                <i class="fas fa-chevron-down"></i>
+                            </div>
+                            <div class="expandable-content">
+                                <p>Aspectos ambientales a considerar:</p>
+                                <ul>
+                                    <li><strong>Alteración de ecosistemas</strong>: Fragmentación de hábitats acuáticos</li>
+                                    <li><strong>Emisiones de GEI</strong>: Descomposición de materia orgánica en embalses</li>
+                                    <li><strong>Sedimentación</strong>: Reducción de vida útil del embalse</li>
+                                    <li><strong>Reasentamiento humano</strong>: En proyectos de gran escala</li>
+                                </ul>
+                                
+                                <div class="deep-content">
+                                    <h5>Análisis de Ciclo de Vida</h5>
+                                    <p>Comparación con otras fuentes:</p>
+                                    <ul>
+                                        <li><span class="highlight">Emisiones</span>: 10-30 g CO₂eq/kWh (vs 400-1000 de carbón)</li>
+                                        <li><span class="highlight">Huella hídrica</span>: Alta por evaporación en embalses</li>
+                                        <span class="highlight">Vida útil</span>: 50-100 años (la mayor entre renovables)</li>
+                                    </ul>
+                                    <p>A pesar de los impactos, la hidroelectricidad tiene una de las huellas de carbono más bajas entre todas las fuentes de energía. Los proyectos pequeños y de pasada minimizan los impactos ambientales.</p>
+                                </div>
+                            </div>
+                        </div>
+                    `
+                }
+            },
+            caso: {
+                'canada-honda': {
+                    title: 'Parque Solar Cañada Honda - Análisis Detallado',
+                    content: `
+                        <p>El <span class="highlight">Parque Solar Cañada Honda</span>, ubicado en la provincia de San Luis, es uno de los proyectos fotovoltaicos más importantes de Argentina. Con una capacidad instalada de 100 MW, representa un hito en la transición energética del país.</p>
+                        
+                        <div class="expandable" onclick="toggleExpandable(this)">
+                            <div class="expandable-header">
+                                <h4>Características Técnicas</h4>
+                                <i class="fas fa-chevron-down"></i>
+                            </div>
+                            <div class="expandable-content">
+                                <p>Especificaciones principales del parque:</p>
+                                <ul>
+                                    <li><strong>Capacidad instalada</strong>: 100 MW</li>
+                                    <li><strong>Tecnología</strong>: Paneles policristalinos de 330W</li>
+                                    <li><strong>Extensión</strong>: 280 hectáreas</li>
+                                    <li><strong>Número de paneles</strong>: ~303,000 módulos</li>
+                                    <li><strong>Generación anual</strong>: ~220 GWh</li>
+                                </ul>
+                                
+                                <div class="deep-content">
+                                    <h5>Análisis Termodinámico</h5>
+                                    <p>Aplicación de la Primera Ley:</p>
+                                    <ul>
+                                        <li><span class="highlight">Energía incidente</span>: 1,800 kWh/m²/año (radiación solar)</li>
+                                        <li><span class="highlight">Energía convertida</span>: ~400 kWh/m²/año (electricidad)</li>
+                                        <li><span class="highlight">Pérdidas</span>: Conversión térmica (35%), reflexión (10%), óhmicas (5%)</li>
+                                    </ul>
+                                    <p>El rendimiento global del sistema es del ~22%, dentro del rango esperado para la tecnología policristalina en la región.</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="expandable" onclick="toggleExpandable(this)">
+                            <div class="expandable-header">
+                                <h4>Conexión con la Red Eléctrica</h4>
+                                <i class="fas fa-chevron-down"></i>
+                            </div>
+                            <div class="expandable-content">
+                                <p>Integración al sistema eléctrico argentino:</p>
+                                <ul>
+                                    <li><strong>Subestación elevadora</strong>: Convierte 600V a 33kV</li>
+                                    <li><strong>Línea de transmisión</strong>: 15 km hasta la subestación Villa Mercedes</li>
+                                    <li><strong>Control de potencia reactiva</strong>: Inversores con capacidad de factor de potencia ajustable</li>
+                                    <li><strong>Sincronización</strong>: Cumple con normativas de CAMMESA</li>
+                                </ul>
+                                
+                                <div class="deep-content">
+                                    <h5>Desafíos de Integración</h5>
+                                    <p>Principales aspectos técnicos:</p>
+                                    <ul>
+                                        <li><span class="highlight">Intermitencia</span>: Variabilidad diaria y estacional</li>
+                                        <li><span class="highlight">Rampas de potencia</span>: Cambios rápidos por nubosidad</li>
+                                        <li><span class="highlight">Calidad de onda</span>: Armónicos generados por inversores</li>
+                                    </ul>
+                                    <p>El parque incluye sistemas de monitoreo y control que permiten una integración estable a la red, manteniendo los parámetros de calidad dentro de los límites regulatorios.</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="expandable" onclick="toggleExpandable(this)">
+                            <div class="expandable-header">
+                                <h4>Impacto Económico y Social</h4>
+                                <i class="fas fa-chevron-down"></i>
+                            </div>
+                            <div class="expandable-content">
+                                <p>Beneficios para la región:</p>
+                                <ul>
+                                    <li><strong>Inversión</strong>: ~120 millones de dólares</li>
+                                    <li><strong>Empleos directos</strong>: 150 durante construcción, 25 permanentes</li>
+                                    <li><strong>Impuestos locales</strong>: Contribución significativa a las finanzas municipales</li>
+                                    <li><strong>Desarrollo tecnológico</strong>: Capacitación de personal local</li>
+                                </ul>
+                                
+                                <div class="deep-content">
+                                    <h5>Análisis de Rentabilidad</h5>
+                                    <p>Parámetros económicos:</p>
+                                    <ul>
+                                        <li><span class="highlight">LCOE</span>: ~60 USD/MWh (competitivo con térmicas convencionales)</li>
+                                        <li><span class="highlight">Período de retorno</span>: 8-10 años</li>
+                                        <li><span class="highlight">Vida útil</span>: 25 años (paneles), 30 años (estructura)</li>
+                                    </ul>
+                                    <p>El proyecto fue financiado a través de licitaciones públicas (RenovAr), garantizando precios estables a largo plazo y atrayendo inversión internacional.</p>
+                                </div>
+                            </div>
+                        </div>
+                    `
+                },
+                'arauco': {
+                    title: 'Parque Eólico Arauco - Análisis Detallado',
+                    content: `
+                        <p>El <span class="highlight">Parque Eólico Arauco</span>, localizado en la provincia de La Rioja, es un proyecto emblemático de energía eólica en Argentina. Con 50 aerogeneradores y 100 MW de capacidad, aprovecha los excelentes recursos eólicos de la región.</p>
+                        
+                        <div class="expandable" onclick="toggleExpandable(this)">
+                            <div class="expandable-header">
+                                <h4>Características Técnicas</h4>
+                                <i class="fas fa-chevron-down"></i>
+                            </div>
+                            <div class="expandable-content">
+                                <p>Especificaciones principales del parque:</p>
+                                <ul>
+                                    <li><strong>Capacidad instalada</strong>: 100 MW (50 × 2 MW)</li>
+                                    <li><strong>Modelo de aerogenerador</strong>: Gamesa G114-2.0 MW</li>
+                                    <li><strong>Altura de torre</strong>: 80 metros</li>
+                                    <li><strong>Diámetro de rotor</strong>: 114 metros</li>
+                                    <li><strong>Velocidad de viento</strong>: 7.5 m/s promedio a 80m</li>
+                                </ul>
+                                
+                                <div class="deep-content">
+                                    <h5>Análisis Termodinámico</h5>
+                                    <p>Aplicación de la Primera y Segunda Ley:</p>
+                                    <ul>
+                                        <li><span class="highlight">Energía cinética disponible</span>: ~1,200 W/m² (a 12 m/s)</li>
+                                        <li><span class="highlight">Extracción según Betz</span>: Máximo 710 W/m² (59.3%)</li>
+                                        <li><span class="highlight">Eficiencia real</span>: ~45% de Betz = 320 W/m²</li>
+                                        <li><span class="highlight">Pérdidas</span>: Conversión mecánica-eléctrica (5%), transmisión (3%)</li>
+                                    </ul>
+                                    <p>El factor de capacidad del parque es del 35%, superior al promedio argentino, debido a las excelentes condiciones del sitio.</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="expandable" onclick="toggleExpandable(this)">
+                            <div class="expandable-header">
+                                <h4>Estudios de Viento y Micrositing</h4>
+                                <i class="fas fa-chevron-down"></i>
+                            </div>
+                            <div class="expandable-content">
+                                <p>Proceso de selección del emplazamiento:</p>
+                                <ul>
+                                    <li><strong>Medición</strong>: 2 años con torres anemométricas a 60m y 80m</li>
+                                    <li><strong>Modelización</strong>: Software WAsP y WindPro</li>
+                                    <li><strong>Optimización</strong>: Minimizar pérdidas por estela</li>
+                                    <li><strong>Distanciamiento</strong>: 5 diámetros entre aerogeneradores</li>
+                                </ul>
+                                
+                                <div class="deep-content">
+                                    <h5>Características del Viento Local</h5>
+                                    <p>Análisis del recurso eólico:</p>
+                                    <ul>
+                                        <li><span class="highlight">Rosa de los vientos</span>: Predominio del sector SE (60%)</li>
+                                        <li><span class="highlight">Distribución de Weibull</span>: Parámetro k=2.1, A=8.5 m/s</li>
+                                        <li><span class="highlight">Rugosidad</span>: Terreno plano, rugosidad 0.03m</li>
+                                    </ul>
+                                    <p>La alta consistencia del viento y la baja turbulencia del sitio permiten un rendimiento superior al 90% de lo proyectado inicialmente.</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="expandable" onclick="toggleExpandable(this)">
+                            <div class="expandable-header">
+                                <h4>Operación y Mantenimiento</h4>
+                                <i class="fas fa-chevron-down"></i>
+                            </div>
+                            <div class="expandable-content">
+                                <p>Estrategias para maximizar disponibilidad:</p>
+                                <ul>
+                                    <li><strong>SCADA</strong>: Monitoreo remoto en tiempo real</li>
+                                    <li><strong>Mantenimiento predictivo</strong>: Análisis de vibraciones y temperatura</li>
+                                    <li><strong>Planificación</strong>: Ventanas de mantenimiento en baja demanda</li>
+                                    <li><strong>Repuestos</strong>: Stock crítico en sitio</li>
+                                </ul>
+                                
+                                <div class="deep-content">
+                                    <h5>Indicadores de Performance</h5>
+                                    <p>Métricas operativas clave:</p>
+                                    <ul>
+                                        <li><span class="highlight">Disponibilidad</span>: 97.5% (superior al 95% contractual)</li>
+                                        <li><span class="highlight">Factor de planta</span>: 35.2% (promedio anual)</li>
+                                        <li><span class="highlight">MTBF</span>: 2,100 horas (tiempo medio entre fallas)</li>
+                                        <li><span class="highlight">MTTR</span>: 8 horas (tiempo medio de reparación)</li>
+                                    </ul>
+                                    <p>El parque ha superado las proyecciones de generación en un 8% durante los primeros 3 años de operación, gracias a las excelentes condiciones del viento y un programa de mantenimiento eficiente.</p>
+                                </div>
+                            </div>
+                        </div>
+                    `
+                },
+                'rio-tercero': {
+                    title: 'Central Hidroeléctrica Río Tercero - Análisis Detallado',
+                    content: `
+                        <p>La <span class="highlight">Central Hidroeléctrica Río Tercero</span>, ubicada en la provincia de Córdoba, es una de las centrales hidroeléctricas más importantes de la región. Con una potencia instalada de 46 MW, juega un papel crucial en el abastecimiento energético local.</p>
+                        
+                        <div class="expandable" onclick="toggleExpandable(this)">
+                            <div class="expandable-header">
+                                <h4>Características Técnicas</h4>
+                                <i class="fas fa-chevron-down"></i>
+                            </div>
+                            <div class="expandable-content">
+                                <p>Especificaciones principales de la central:</p>
+                                <ul>
+                                    <li><strong>Potencia instalada</strong>: 46 MW (3 × 15.33 MW)</li>
+                                    <li><strong>Tipo de turbina</strong>: Francis, eje vertical</li>
+                                    <li><strong>Altura neta</strong>: 58 metros</li>
+                                    <li><strong>Caudal máximo</strong>: 90 m³/s por turbina</li>
+                                    <li><strong>Velocidad de rotación</strong>: 300 RPM</li>
+                                </ul>
+                                
+                                <div class="deep-content">
+                                    <h5>Análisis Termodinámico</h5>
+                                    <p>Aplicación de las leyes de la termodinámica:</p>
+                                    <ul>
+                                        <li><span class="highlight">Primera Ley</span>: Conservación de energía en la conversión</li>
+                                        <li><span class="highlight">Energía potencial</span>: E<sub>p</sub> = mgh = 1000 × 9.81 × 58 = 569 kJ/kg</li>
+                                        <li><span class="highlight">Eficiencia global</span>: 88% (turbina 92%, generador 96%)</li>
+                                        <li><span class="highlight">Pérdidas</span>: Fricción en tuberías (4%), mecánicas (3%), eléctricas (5%)</li>
+                                    </ul>
+                                    <p>La alta eficiencia se debe a la conversión directa de energía mecánica a eléctrica, sin etapa térmica intermedia.</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="expandable" onclick="toggleExpandable(this)">
+                            <div class="expandable-header">
+                                <h4>Infraestructura y Operación</h4>
+                                <i class="fas fa-chevron-down"></i>
+                            </div>
+                            <div class="expandable-content">
+                                <p>Componentes principales del sistema:</p>
+                                <ul>
+                                    <li><strong>Embalse</strong>: 1,200 hectáreas, capacidad 1,100 hm³</li>
+                                    <li><strong>Presa</strong>: Tipo gravedad, 35 metros de altura</li>
+                                    <li><strong>Tubería forzada</strong>: 120 metros de longitud, 4 metros de diámetro</li>
+                                    <li><strong>Casa de máquinas</strong>: 3 unidades generadoras</li>
+                                </ul>
+                                
+                                <div class="deep-content">
+                                    <h5>Control de Generación</h5>
+                                    <p>Sistema de regulación:</p>
+                                    <ul>
+                                        <li><span class="highlight">Regulador de velocidad</span>: Controla el caudal a las turbinas</li>
+                                        <li><span class="highlight">Excitatriz estática</span>: Regula la tensión de salida</li>
+                                        <li><span class="highlight">Sincronización automática</span>: Conecta a la red cuando cumple condiciones</li>
+                                    </ul>
+                                    <p>La central puede operar en modo isla (desconectada de la red) para abastecer localidades cercanas en caso de emergencias, demostrando su flexibilidad operativa.</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="expandable" onclick="toggleExpandable(this)">
+                            <div class="expandable-header">
+                                <h4>Múltiples Usos del Agua</h4>
+                                <i class="fas fa-chevron-down"></i>
+                            </div>
+                            <div class="expandable-content">
+                                <p>El embalse sirve para múltiples propósitos:</p>
+                                <ul>
+                                    <li><strong>Generación eléctrica</strong>: Prioridad en épocas húmedas</li>
+                                    <li><strong>Riego agrícola</strong>: 50,000 hectáreas en el valle</li>
+                                    <li><strong>Abastecimiento urbano</strong>: Río Tercero y localidades cercanas</li>
+                                    <li><strong>Control de inundaciones</strong>: Regula caudales máximos</li>
+                                </ul>
+                                
+                                <div class="deep-content">
+                                    <h5>Gestión Integrada de Recursos</h5>
+                                    <p>Desafíos de operación:</p>
+                                    <ul>
+                                        <li><span class="highlight">Conflictos de uso</span>: Generación vs. riego en estación seca</li>
+                                        <li><span class="highlight">Sedimentación</span>: 0.5% anual de pérdida de capacidad</li>
+                                        <li><span class="highlight">Variabilidad climática</span>: Impacto de sequías prolongadas</li>
+                                    </ul>
+                                    <p>La gestión del embalse requiere una coordinación interinstitucional entre el operador eléctrico, entes de riego y proveedores de agua potable, optimizando el uso del recurso hídrico para todos los sectores.</p>
+                                </div>
+                            </div>
+                        </div>
+                    `
+                },
+                'biomasa': {
+                    title: 'Proyecto de Biomasa Villa María - Análisis Detallado',
+                    content: `
+                        <p>El <span class="highlight">Proyecto de Biomasa en Villa María</span>, Córdoba, es una iniciativa innovadora que aprovecha residuos agrícolas de la región para generar energía. Con 15 MW de capacidad, demuestra el potencial de la bioenergía en Argentina.</p>
+                        
+                        <div class="expandable" onclick="toggleExpandable(this)">
+                            <div class="expandable-header">
+                                <h4>Características Técnicas</h4>
+                                <i class="fas fa-chevron-down"></i>
+                            </div>
+                            <div class="expandable-content">
+                                <p>Especificaciones principales de la planta:</p>
+                                <ul>
+                                    <li><strong>Capacidad instalada</strong>: 15 MW (1 turbina de vapor)</li>
+                                    <li><strong>Tecnología</strong>: Ciclo de Rankine con caldera de lecho fluidizado</li>
+                                    <li><strong>Combustible principal</strong>: Cáscara de maní (70%), otros residuos (30%)</li>
+                                    <li><strong>Consumo de biomasa</strong>: 120,000 toneladas/año</li>
+                                    <li><strong>Rendimiento</strong>: 28% (típico para biomasa de baja temperatura)</li>
+                                </ul>
+                                
+                                <div class="deep-content">
+                                    <h5>Análisis Termodinámico</h5>
+                                    <p>Aplicación de los principios termodinámicos:</p>
+                                    <ul>
+                                        <li><span class="highlight">Primera Ley</span>: Conservación de energía en la combustión</li>
+                                        <li><span class="highlight">Poder calorífico</span>: Cáscara de maní ~16 MJ/kg</li>
+                                        <li><span class="highlight">Segunda Ley</span>: Limitaciones por temperatura de operación (350°C)</li>
+                                        <li><span class="highlight">Rendimiento de Carnot</span>: η<sub>máx</sub> = 1 - (300+273)/(350+273) = 13.5%</li>
+                                    </ul>
+                                    <p>El rendimiento real (28%) supera el límite de Carnot porque se considera la energía útil total (electricidad + vapor para proceso), no solo la generación eléctrica.</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="expandable" onclick="toggleExpandable(this)">
+                            <div class="expandable-header">
+                                <h4>Cadena de Suministro de Biomasa</h4>
+                                <i class="fas fa-chevron-down"></i>
+                            </div>
+                            <div class="expandable-content">
+                                <p>Logística de aprovisionamiento:</p>
+                                <ul>
+                                    <li><strong>Radio de recolección</strong>: 100 km alrededor de la planta</li>
+                                    <li><strong>Proveedores</strong>: 120 agricultores y 5 acopios</li>
+                                    <li><strong>Almacenamiento</strong>: 30 días de capacidad en silos cubiertos</li>
+                                    <li><strong>Preprocesamiento</strong>: Molienda y secado previo a combustión</li>
+                                </ul>
+                                
+                                <div class="deep-content">
+                                    <h5>Desafíos Logísticos</h5>
+                                    <p>Aspectos críticos de la cadena:</p>
+                                    <ul>
+                                        <li><span class="highlight">Estacionalidad</span>: Cosecha de maní (abril-junio) concentra el 80% del suministro</li>
+                                        <li><span class="highlight">Calidad variable</span>: Contenido de humedad 8-25% requiere control</li>
+                                        <li><span class="highlight">Transporte</span>: Costo representa 25% del costo total del combustible</li>
+                                    </ul>
+                                    <p>La planta ha desarrollado contratos de largo plazo con proveedores y sistemas de bonificación por calidad para estabilizar la cadena de suministro.</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="expandable" onclick="toggleExpandable(this)">
+                            <div class="expandable-header">
+                                <h4>Impacto Ambiental y Económico</h4>
+                                <i class="fas fa-chevron-down"></i>
+                            </div>
+                            <div class="expandable-content">
+                                <p>Beneficios multidimensionales del proyecto:</p>
+                                <ul>
+                                    <li><strong>Reducción de emisiones</strong>: 45,000 ton CO₂eq/año evitadas</li>
+                                    <li><strong>Valorización de residuos</strong>: Problema ambiental se convierte en recurso</li>
+                                    <li><strong>Generación de empleo</strong>: 80 puestos directos, 300 indirectos</li>
+                                    <li><strong>Diversificación energética</strong>: Reduce dependencia de gas natural</li>
+                                </ul>
+                                
+                                <div class="deep-content">
+                                    <h5>Análisis de Sostenibilidad</h5>
+                                    <p>Balance ambiental completo:</p>
+                                    <ul>
+                                        <li><span class="highlight">Huella de carbono</span>: 15 g CO₂eq/kWh (vs 450 de gas natural)</li>
+                                        <li><span class="highlight">Uso del suelo</span>: Competencia con cultivos alimenticios mínima</li>
+                                        <li><span class="highlight">Ciclo de nutrientes</span>: Cenizas retornadas como fertilizante</li>
+                                    </ul>
+                                    <p>El proyecto demuestra que la bioenergía puede ser sostenible cuando se utilizan residuos agrícolas sin competir con la producción de alimentos, cerrando ciclos materiales en la región.</p>
+                                </div>
+                            </div>
+                        </div>
+                    `
+                }
+            }
+        };
+
+        // Modal functionality
+        function openModal(type, id) {
+            const modal = document.getElementById('modal');
+            const modalTitle = document.getElementById('modal-title');
+            const modalBody = document.getElementById('modal-body');
+            
+            const content = contentDatabase[type][id];
+            
+            modalTitle.textContent = content.title;
+            modalBody.innerHTML = content.content;
+            
+            modal.style.display = 'block';
+        }
+
+        // Close modal
+        document.querySelector('.close').onclick = function() {
+            document.getElementById('modal').style.display = 'none';
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            const modal = document.getElementById('modal');
+            if (event.target == modal) {
+                modal.style.display = 'none';
+            }
+        }
+
+        // Toggle expandable sections
+        function toggleExpandable(element) {
+            element.classList.toggle('active');
+        }
+
+        // Add keyboard navigation
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                document.getElementById('modal').style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>
