@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teorema de Tales Interactivo - Versión Mejorada</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        MathJax = {
+          tex: {
+            inlineMath: [['$', '$'], ['\\(', '\\)']],
+            displayMath: [['$$', '$$'], ['\\[', '\\]']]
+          },
+          svg: {
+            fontCache: 'global'
+          }
+        };
+    </script>
+    <script type="text/javascript" id="MathJax-script" async
+      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js">
+    </script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc;
+        }
+        .header-gradient {
+            background: linear-gradient(135deg, #4f46e5, #7c3aed);
+        }
+        .visualization-container {
+            background: linear-gradient(to bottom right, #f1f5f9, #e2e8f0);
+            border: 1px solid #cbd5e1;
+            border-radius: 12px;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.05);
+        }
+        .controls-panel {
+            background: #f9fafb;
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+        }
+        .proportion-display {
+            background: linear-gradient(to right, #dbeafe, #ede9fe);
+            border: 1px solid #c7d2fe;
+            border-radius: 12px;
+        }
+        .exercise-card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        .exercise-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px rgba(0,0,0,0.1);
+        }
+        .segment-label {
+            font-size: 14px;
+            font-weight: bold;
+            text-anchor: middle;
+            fill: white;
+            paint-order: stroke;
+            stroke: rgba(0,0,0,0.5);
+            stroke-width: 2px;
+        }
+        input[type=range]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            background: #4f46e5;
+            cursor: pointer;
+            border-radius: 50%;
+            margin-top: -8px;
+        }
+        input[type=range]::-moz-range-thumb {
+            width: 20px;
+            height: 20px;
+            background: #4f46e5;
+            cursor: pointer;
+            border-radius: 50%;
+        }
+        .highlight-box {
+            animation: highlight 2s ease;
+        }
+        @keyframes highlight {
+            0% { background-color: #fffbeb; }
+            100% { background-color: white; }
+        }
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-800">
+
+    <div class="container mx-auto p-4 sm:p-6 md:p-8 max-w-5xl">
+        <!-- Encabezado -->
+        <header class="header-gradient text-white p-6 rounded-2xl shadow-xl mb-8 text-center">
+            <h1 class="text-3xl md:text-4xl font-bold">Teorema de Tales Interactivo</h1>
+            <p class="mt-2 text-indigo-200">Descubre el poder de las proporciones en geometría</p>
+        </header>
+
+        <!-- Sección Interactiva -->
+        <section class="exercise-card mb-10">
+            <div class="p-6">
+                <h2 class="text-2xl font-bold text-indigo-800 mb-4">Demostración Interactiva</h2>
+                <p class="text-lg mb-4">Ajusta los controles para ver cómo funcionan las proporciones en el Teorema de Tales:</p>
+                
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center mt-6">
+                    <!-- Controles -->
+                    <div class="controls-panel p-6">
+                        <h3 class="text-xl font-semibold mb-4 text-gray-700">Controles</h3>
+                        <div class="space-y-4">
+                            <div>
+                                <div class="flex justify-between mb-1">
+                                    <label for="slider1" class="font-medium">Ángulo Transversal 1</label>
+                                    <span id="angle1-value" class="text-indigo-600 font-mono">20°</span>
+                                </div>
+                                <input id="slider1" type="range" min="-40" max="40" value="20" class="w-full h-2 bg-gray-300 rounded-lg cursor-pointer">
+                            </div>
+                            <div>
+                                <div class="flex justify-between mb-1">
+                                    <label for="slider2" class="font-medium">Ángulo Transversal 2</label>
+                                    <span id="angle2-value" class="text-indigo-600 font-mono">-15°</span>
+                                </div>
+                                <input id="slider2" type="range" min="-40" max="40" value="-15" class="w-full h-2 bg-gray-300 rounded-lg cursor-pointer">
+                            </div>
+                            <div>
+                                <div class="flex justify-between mb-1">
+                                    <label for="sliderParallel" class="font-medium">Distancia Paralelas</label>
+                                    <span id="distance-value" class="text-indigo-600 font-mono">200px</span>
+                                </div>
+                                <input id="sliderParallel" type="range" min="120" max="280" value="200" class="w-full h-2 bg-gray-300 rounded-lg cursor-pointer">
+                            </div>
+                        </div>
+                        <div class="mt-6 flex gap-4">
+                            <button id="btn-reset" class="flex-1 bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold py-2 px-4 rounded-lg transition-colors">
+                                Reiniciar
+                            </button>
+                            <button id="btn-random" class="flex-1 bg-indigo-100 hover:bg-indigo-200 text-indigo-800 font-bold py-2 px-4 rounded-lg transition-colors">
+                                Aleatorio
+                            </button>
+                        </div>
+                        <hr class="my-6 border-gray-200">
+                        
+                        <h3 class="text-xl font-semibold mb-4 text-gray-700">Medidas</h3>
+                        <div class="grid grid-cols-2 gap-4 text-lg">
+                            <div class="font-medium flex items-center gap-2">
+                                <span class="w-4 h-4 rounded-full bg-blue-500 inline-block"></span>
+                                Segmento AB:
+                            </div>
+                            <div id="val-ab" class="font-mono text-right"></div>
+                            <div class="font-medium flex items-center gap-2">
+                                <span class="w-4 h-4 rounded-full bg-green-500 inline-block"></span>
+                                Segmento BC:
+                            </div>
+                            <div id="val-bc" class="font-mono text-right"></div>
+                            <div class="font-medium text-red-600 flex items-center gap-2">
+                                <span class="w-4 h-4 rounded-full bg-red-500 inline-block"></span>
+                                Segmento A'B':
+                            </div>
+                            <div id="val-a-b" class="font-mono text-right text-red-600"></div>
+                            <div class="font-medium text-red-600 flex items-center gap-2">
+                                <span class="w-4 h-4 rounded-full bg-red-500 inline-block"></span>
+                                Segmento B'C':
+                            </div>
+                            <div id="val-b-c" class="font-mono text-right text-red-600"></div>
+                        </div>
+                        
+                        <div class="mt-6 proportion-display p-4 rounded-xl text-center">
+                            <p class="text-lg font-semibold text-indigo-800">Proporción Constante</p>
+                            <p class="text-2xl font-mono mt-2 tracking-wider" id="proporcion"></p>
+                            <div class="mt-2 text-sm text-indigo-600">$$ \frac{AB}{BC} = \frac{A'B'}{B'C'} $$</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Visualización SVG -->
+                    <div class="visualization-container flex items-center justify-center p-4 min-h-[350px]">
+                        <svg id="thales-svg" viewBox="0 0 400 400" class="w-full h-full"></svg>
+                    </div>
+                </div>
+                
+                <div class="mt-8 bg-indigo-50 border-l-4 border-indigo-500 p-4 rounded-lg">
+                    <p class="text-indigo-800"><strong>Teorema de Tales:</strong> Si dos rectas cualesquiera son cortadas por varias rectas paralelas, los segmentos correspondientes determinados en ellas son proporcionales.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Ejercicio Corregido -->
+        <section class="exercise-card">
+            <div class="p-6">
+                <h2 class="text-2xl font-bold text-indigo-800 mb-4">Ejercicio 4 - Versión Corregida</h2>
+                <p class="text-lg mb-4">Calcula el valor de $x$ sabiendo que las rectas horizontales son paralelas, pero las transversales <strong>no son paralelas</strong> entre sí.</p>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                    <div>
+                        <div class="bg-gray-100 p-4 rounded-lg flex items-center justify-center">
+                            <svg width="300" height="200" viewBox="0 0 300 200">
+                                <!-- Rectas paralelas -->
+                                <line x1="50" y1="50" x2="250" y2="50" stroke="#4b5563" stroke-width="2" />
+                                <line x1="50" y1="100" x2="250" y2="100" stroke="#4b5563" stroke-width="2" />
+                                <line x1="50" y1="150" x2="250" y2="150" stroke="#4b5563" stroke-width="2" />
+                                
+                                <!-- Rectas transversales (no paralelas) -->
+                                <line x1="80" y1="0" x2="180" y2="200" stroke="#3b82f6" stroke-width="3" />
+                                <line x1="180" y1="0" x2="100" y2="200" stroke="#ef4444" stroke-width="3" />
+                                
+                                <!-- Puntos de intersección -->
+                                <circle cx="100" cy="50" r="5" fill="#3b82f6" />
+                                <circle cx="120" cy="100" r="5" fill="#3b82f6" />
+                                <circle cx="140" cy="150" r="5" fill="#3b82f6" />
+                                
+                                <circle cx="140" cy="50" r="5" fill="#ef4444" />
+                                <circle cx="130" cy="100" r="5" fill="#ef4444" />
+                                <circle cx="120" cy="150" r="5" fill="#ef4444" />
+                                
+                                <!-- Etiquetas -->
+                                <text x="100" y="40" fill="#3b82f6" font-family="Arial" font-size="14">A</text>
+                                <text x="120" y="90" fill="#3b82f6" font-family="Arial" font-size="14">B</text>
+                                <text x="140" y="140" fill="#3b82f6" font-family="Arial" font-size="14">C</text>
+                                
+                                <text x="140" y="40" fill="#ef4444" font-family="Arial" font-size="14">A'</text>
+                                <text x="130" y="90" fill="#ef4444" font-family="Arial" font-size="14">B'</text>
+                                <text x="120" y="140" fill="#ef4444" font-family="Arial" font-size="14">C'</text>
+                                
+                                <!-- Medidas -->
+                                <text x="110" y="75" fill="#3b82f6" font-family="Arial" font-size="12">8 cm</text>
+                                <text x="130" y="125" fill="#3b82f6" font-family="Arial" font-size="12">12 cm</text>
+                                
+                                <text x="150" y="75" fill="#ef4444" font-family="Arial" font-size="12">x</text>
+                                <text x="140" y="125" fill="#ef4444" font-family="Arial" font-size="12">18 cm</text>
+                            </svg>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <div class="bg-white p-4 rounded-lg">
+                            <p class="text-lg"><strong>Datos:</strong></p>
+                            <ul class="list-disc pl-6 mt-2 space-y-2">
+                                <li>AB = 8 cm</li>
+                                <li>BC = 12 cm</li>
+                                <li>A'B' = x</li>
+                                <li>B'C' = 18 cm</li>
+                            </ul>
+                            
+                            <div class="mt-6">
+                                <button id="btn-solution" class="bg-indigo-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-indigo-700 transition-colors">
+                                    Mostrar Solución
+                                </button>
+                            </div>
+                            
+                            <div id="solution" class="hidden mt-6 space-y-3 bg-indigo-50 p-4 rounded-lg">
+                                <p class="text-lg"><strong>1. Planteamos la proporción:</strong></p>
+                                <p class="text-xl text-center font-mono bg-white p-3 rounded-md">$$ \frac{AB}{BC} = \frac{A'B'}{B'C'} $$</p>
+                                
+                                <p class="text-lg"><strong>2. Sustituimos valores:</strong></p>
+                                <p class="text-xl text-center font-mono bg-white p-3 rounded-md">$$ \frac{8}{12} = \frac{x}{18} $$</p>
+                                
+                                <p class="text-lg"><strong>3. Resolvemos:</strong></p>
+                                <p class="text-xl text-center font-mono bg-white p-3 rounded-md">$$ 8 \times 18 = 12 \times x $$</p>
+                                <p class="text-xl text-center font-mono bg-white p-3 rounded-md">$$ 144 = 12x $$</p>
+                                
+                                <p class="text-lg"><strong>4. Solución:</strong></p>
+                                <p class="text-2xl text-center font-mono bg-green-100 text-green-800 p-3 rounded-md font-bold">$$ x = \frac{144}{12} = 12 \text{ cm} $$</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Explicación del Teorema -->
+        <section class="exercise-card mt-10">
+            <div class="p-6">
+                <h2 class="text-2xl font-bold text-indigo-800 mb-4">¿Cómo funciona el Teorema de Tales?</h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6">
+                    <div class="bg-indigo-50 p-4 rounded-lg">
+                        <div class="text-center text-indigo-600 mb-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                            </svg>
+                        </div>
+                        <h3 class="text-lg font-bold text-indigo-800 mb-2">Proporcionalidad</h3>
+                        <p>El teorema establece que cuando dos rectas paralelas son cortadas por dos transversales, los segmentos correspondientes son proporcionales.</p>
+                    </div>
+                    
+                    <div class="bg-indigo-50 p-4 rounded-lg">
+                        <div class="text-center text-indigo-600 mb-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 18.657A8 8 0 016.343 7.343S7 9 9 10c0-2 .5-5 2.986-7C14 5 16.09 5.777 17.656 7.343A7.975 7.975 0 0120 13a7.975 7.975 0 01-2.343 5.657z" />
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.879 16.121A3 3 0 1012.015 11L11 14H9c0 .768.293 1.536.879 2.121z" />
+                            </svg>
+                        </div>
+                        <h3 class="text-lg font-bold text-indigo-800 mb-2">Aplicaciones</h3>
+                        <p>Se utiliza en topografía, arquitectura, astronomía y cualquier situación donde se necesite calcular distancias inaccesibles.</p>
+                    </div>
+                    
+                    <div class="bg-indigo-50 p-4 rounded-lg">
+                        <div class="text-center text-indigo-600 mb-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                            </svg>
+                        </div>
+                        <h3 class="text-lg font-bold text-indigo-800 mb-2">Confirmación</h3>
+                        <p>La demostración interactiva te permite verificar que las proporciones se mantienen sin importar cómo cambien los ángulos o distancias.</p>
+                    </div>
+                </div>
+                
+                <div class="mt-8 bg-gradient-to-r from-indigo-100 to-purple-100 p-6 rounded-xl">
+                    <h3 class="text-xl font-bold text-indigo-800 mb-3">Fórmula Fundamental</h3>
+                    <div class="text-2xl text-center font-mono bg-white p-4 rounded-lg">
+                        $$ \frac{AB}{A'B'} = \frac{BC}{B'C'} = \frac{AC}{A'C'} $$
+                    </div>
+                    <p class="mt-4 text-center text-indigo-700">La razón entre cualquier par de segmentos correspondientes es constante</p>
+                </div>
+            </div>
+        </section>
+        
+        <footer class="mt-12 text-center text-gray-600 pb-8">
+            <p>© 2023 Geometría Interactiva - Teorema de Tales</p>
+            <p class="mt-2 text-sm">Herramienta educativa para comprender las proporciones en geometría</p>
+        </footer>
+    </div>
+
+    <script>
+        // --- LÓGICA MEJORADA PARA LA VISUALIZACIÓN INTERACTIVA ---
+        const svg = document.getElementById('thales-svg');
+        const slider1 = document.getElementById('slider1');
+        const slider2 = document.getElementById('slider2');
+        const sliderParallel = document.getElementById('sliderParallel');
+        const angle1Value = document.getElementById('angle1-value');
+        const angle2Value = document.getElementById('angle2-value');
+        const distanceValue = document.getElementById('distance-value');
+        const btnReset = document.getElementById('btn-reset');
+        const btnRandom = document.getElementById('btn-random');
+        const btnSolution = document.getElementById('btn-solution');
+        const solutionDiv = document.getElementById('solution');
+        const proportionElement = document.getElementById('proporcion');
+        const namespace = "http://www.w3.org/2000/svg";
+
+        // Función para crear elementos SVG
+        function createSVGElement(tag, attributes) {
+            const el = document.createElementNS(namespace, tag);
+            for (let attr in attributes) {
+                el.setAttribute(attr, attributes[attr]);
+            }
+            return el;
+        }
+
+        // Función principal actualizada
+        function updateVisualization() {
+            svg.innerHTML = '';
+
+            const angle1 = parseFloat(slider1.value);
+            const angle2 = parseFloat(slider2.value);
+            const middleParallelY = parseInt(sliderParallel.value);
+            const y_parallels = [80, middleParallelY, 320];
+            
+            // Actualizar valores mostrados
+            angle1Value.textContent = `${angle1}°`;
+            angle2Value.textContent = `${angle2}°`;
+            distanceValue.textContent = `${middleParallelY}px`;
+
+            // Dibujar rectas paralelas
+            y_parallels.forEach(y => {
+                const line = createSVGElement('line', {
+                    x1: 0, y1: y, x2: 400, y2: y,
+                    stroke: '#94a3b8', 'stroke-width': 2, 'stroke-dasharray': '5 5'
+                });
+                svg.appendChild(line);
+            });
+
+            // Calcular y dibujar rectas transversales
+            const t1 = getTransversalCoords(angle1, y_parallels, 100);
+            const t2 = getTransversalCoords(angle2, y_parallels, 300);
+
+            const transversal1 = createSVGElement('line', {
+                x1: t1.startX, y1: 0, x2: t1.endX, y2: 400,
+                stroke: '#3b82f6', 'stroke-width': 3
+            });
+            const transversal2 = createSVGElement('line', {
+                x1: t2.startX, y1: 0, x2: t2.endX, y2: 400,
+                stroke: '#ef4444', 'stroke-width': 3
+            });
+            svg.appendChild(transversal1);
+            svg.appendChild(transversal2);
+            
+            // Calcular puntos de intersección
+            const points1 = y_parallels.map(y => ({ x: t1.getXatY(y), y: y }));
+            const points2 = y_parallels.map(y => ({ x: t2.getXatY(y), y: y }));
+
+            // Dibujar segmentos coloreados
+            drawSegmentWithLabel(points1[0], points1[1], 'AB', '#3b82f6');
+            drawSegmentWithLabel(points1[1], points1[2], 'BC', '#10b981');
+            drawSegmentWithLabel(points2[0], points2[1], "A'B'", '#ef4444');
+            drawSegmentWithLabel(points2[1], points2[2], "B'C'", '#f97316');
+            
+            // Dibujar líneas punteadas de relación
+            for (let i = 0; i < 3; i++) {
+                const dashLine = createSVGElement('line', {
+                    x1: points1[i].x, y1: points1[i].y,
+                    x2: points2[i].x, y2: points2[i].y,
+                    stroke: '#9ca3af', 'stroke-width': 1.5, 'stroke-dasharray': '5 5'
+                });
+                svg.appendChild(dashLine);
+            }
+
+            // Dibujar puntos y etiquetas
+            drawPointAndLabel(points1[0].x, points1[0].y, 'A', '#1e40af');
+            drawPointAndLabel(points1[1].x, points1[1].y, 'B', '#1e40af');
+            drawPointAndLabel(points1[2].x, points1[2].y, 'C', '#1e40af');
+            drawPointAndLabel(points2[0].x, points2[0].y, "A'", '#b91c1c');
+            drawPointAndLabel(points2[1].x, points2[1].y, "B'", '#b91c1c');
+            drawPointAndLabel(points2[2].x, points2[2].y, "C'", '#b91c1c');
+
+            // Calcular distancias y proporciones
+            const dist_ab = distance(points1[0], points1[1]);
+            const dist_bc = distance(points1[1], points1[2]);
+            const dist_a_b_ = distance(points2[0], points2[1]);
+            const dist_b_c_ = distance(points2[1], points2[2]);
+
+            const ratio1 = dist_ab / dist_bc;
+            const ratio2 = dist_a_b_ / dist_b_c_;
+
+            // Actualizar valores
+            document.getElementById('val-ab').textContent = dist_ab.toFixed(2);
+            document.getElementById('val-bc').textContent = dist_bc.toFixed(2);
+            document.getElementById("val-a-b").textContent = dist_a_b_.toFixed(2);
+            document.getElementById("val-b-c").textContent = dist_b_c_.toFixed(2);
+            
+            // Actualizar proporción
+            proportionElement.innerHTML = `
+                <span class="text-blue-600">${ratio1.toFixed(3)}</span> 
+                <span class="text-gray-800 font-bold mx-2">=</span> 
+                <span class="text-red-600">${ratio2.toFixed(3)}</span>`;
+            
+            // Destacar cuando las razones son iguales
+            if (Math.abs(ratio1 - ratio2) < 0.01) {
+                proportionElement.parentElement.classList.add('highlight-box');
+                setTimeout(() => {
+                    proportionElement.parentElement.classList.remove('highlight-box');
+                }, 2000);
+            }
+        }
+
+        // Funciones auxiliares mejoradas
+        function getTransversalCoords(angle, y_parallels, centerX) {
+            const tan = Math.tan(angle * Math.PI / 180);
+            const midY = y_parallels[1];
+            
+            // Calcular puntos extremos para la línea
+            const startX = centerX - (midY - 0) * tan;
+            const endX = centerX + (400 - midY) * tan;
+            
+            // Función para calcular x en cualquier y
+            const getX = (y) => centerX + (y - midY) * tan;
+            
+            return { 
+                startX: startX, 
+                endX: endX, 
+                getXatY: getX
+            };
+        }
+
+        function drawPointAndLabel(x, y, label, color = '#1e40af') {
+            // Punto
+            const point = createSVGElement('circle', {
+                cx: x, cy: y, r: 7, fill: color, stroke: 'white', 'stroke-width': 2
+            });
+            svg.appendChild(point);
+            
+            // Etiqueta
+            const text = createSVGElement('text', {
+                x: x + 12, y: y + 5, fill: color, 'font-size': '16px', 
+                'font-weight': 'bold', 'text-anchor': 'start'
+            });
+            text.textContent = label;
+            svg.appendChild(text);
+        }
+
+        function drawSegmentWithLabel(p1, p2, label, color) {
+            // Segmento
+            const segment = createSVGElement('line', {
+                x1: p1.x, y1: p1.y, x2: p2.x, y2: p2.y,
+                stroke: color, 'stroke-width': 5, 'stroke-linecap': 'round'
+            });
+            svg.appendChild(segment);
+            
+            // Etiqueta en el centro del segmento
+            const midX = (p1.x + p2.x) / 2;
+            const midY = (p1.y + p2.y) / 2;
+            
+            const text = createSVGElement('text', {
+                x: midX, y: midY + 5, fill: 'white', 'font-size': '12px',
+                'font-weight': 'bold', 'text-anchor': 'middle'
+            });
+            text.textContent = label;
+            svg.appendChild(text);
+        }
+
+        function distance(p1, p2) {
+            return Math.sqrt(Math.pow(p2.x - p1.x, 2) + Math.pow(p2.y - p1.y, 2));
+        }
+        
+        function resetControls() {
+            slider1.value = 20;
+            slider2.value = -15;
+            sliderParallel.value = 200;
+            updateVisualization();
+        }
+        
+        function randomizeControls() {
+            slider1.value = Math.floor(Math.random() * 80) - 40;
+            slider2.value = Math.floor(Math.random() * 80) - 40;
+            sliderParallel.value = Math.floor(Math.random() * 160) + 120;
+            updateVisualization();
+        }
+
+        // Event Listeners
+        slider1.addEventListener('input', updateVisualization);
+        slider2.addEventListener('input', updateVisualization);
+        sliderParallel.addEventListener('input', updateVisualization);
+        btnReset.addEventListener('click', resetControls);
+        btnRandom.addEventListener('click', randomizeControls);
+        btnSolution.addEventListener('click', () => {
+            solutionDiv.classList.toggle('hidden');
+        });
+
+        // Inicialización
+        window.onload = updateVisualization;
+    </script>
+</body>
+</html>

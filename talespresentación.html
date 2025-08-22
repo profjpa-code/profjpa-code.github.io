@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mate con Mote: Teorema de Tales</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+    <script>
+        MathJax = {
+          tex: {
+            inlineMath: [['$', '$'], ['\\(', '\\)']],
+            displayMath: [['$$', '$$'], ['\\[', '\\]']]
+          },
+          svg: {
+            fontCache: 'global'
+          }
+        };
+    </script>
+    <script type="text/javascript" id="MathJax-script" async
+      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js">
+    </script>
+    <style>
+        body { font-family: 'Inter', sans-serif; scroll-behavior: smooth; }
+        .proportion-box.highlight {
+            background-color: #fef3c7;
+            box-shadow: 0 10px 20px rgba(251, 191, 36, 0.4);
+            transform: scale(1.03);
+            transition: all 0.3s ease-in-out;
+        }
+        details > summary { list-style: none; }
+        details > summary::-webkit-details-marker { display: none; }
+        details[open] summary .fa-chevron-down { transform: rotate(180deg); }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+    <div class="container mx-auto p-4 sm:p-6 md:p-8 max-w-6xl">
+
+        <header class="bg-gradient-to-r from-blue-700 to-indigo-800 text-white p-6 rounded-xl shadow-2xl mb-10 text-center relative overflow-hidden">
+            <div class="absolute top-0 left-0 w-full h-full opacity-10" style="background-image: url('data:image/svg+xml,%3Csvg width=\'60\' height=\'60\' viewBox=\'0 0 60 60\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'none\' fill-rule=\'evenodd\'%3E%3Cg fill=\'%23ffffff\' fill-opacity=\'0.4\'%3E%3Cpath d=\'M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E');"></div>
+            <h1 class="text-3xl md:text-4xl font-bold tracking-tight">Capítulo 5: Teorema de Tales</h1>
+            <p class="mt-2 text-indigo-200 text-lg">Aprendé a medir el mundo con la magia de las proporciones.</p>
+        </header>
+
+        <main class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <div class="lg:col-span-2 space-y-8">
+
+                <section class="bg-white p-6 rounded-lg shadow-lg border-l-4 border-amber-400">
+                    <h2 class="text-2xl font-bold text-gray-900 mb-4 flex items-center"><i class="fas fa-landmark text-amber-500 mr-3"></i>1. El Desafío de la Gran Pirámide 🏜️</h2>
+                    <div class="flex flex-col md:flex-row items-center gap-6">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Great_Pyramid_of_Giza_from_the_southeast_corner.jpg/800px-Great_Pyramid_of_Giza_from_the_southeast_corner.jpg" alt="Pirámide de Guiza" class="rounded-lg shadow-md w-48 h-auto object-cover flex-shrink-0">
+                        <div class="prose max-w-none">
+                            <p>¡Imaginate esto! Estás en el antiguo Egipto. El gran sabio <strong>Tales de Mileto</strong> se para frente a la imponente Pirámide de Keops. Nadie sabe su altura exacta. ¿Cómo la medirías sin tener que escalarla?</p>
+                            <p>Tales usó algo muy simple: su bastón y la sombra que proyectaba el sol. Comparó la relación (la razón) entre la altura de su bastón y su sombra con la relación entre la altura (desconocida) de la pirámide y su sombra (que sí podía medir). ¡Eureka! Había descubierto un principio universal de proporcionalidad.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="bg-white p-6 rounded-lg shadow-lg border-l-4 border-blue-500">
+                    <h2 class="text-2xl font-bold text-gray-900 mb-4 flex items-center"><i class="fas fa-ruler-combined text-blue-600 mr-3"></i>2. ¿Qué nos dice el Teorema? 📐</h2>
+                    <p class="text-lg mb-4">La idea de Tales se puede generalizar. Esto es lo que establece formalmente el teorema:</p>
+                    <blockquote class="bg-blue-50 border-l-4 border-blue-500 p-4 my-4 italic text-lg text-blue-900 rounded-r-lg shadow-inner">
+                        "Si tres o más rectas paralelas son cortadas por dos transversales, la razón de las medidas de los segmentos determinados en una de ellas es igual a la razón de las medidas de los segmentos correspondientes determinados en la otra."
+                    </blockquote>
+                    <p class="text-lg">En criollo: si tenés un "alambrado" de rectas paralelas y lo cortás con dos palos (las transversales), los pedacitos de palo que quedan entre los alambres guardan siempre la misma proporción. Matemáticamente, se expresa así:</p>
+                    <p class="text-2xl text-center font-mono my-4 p-4 bg-gray-100 rounded-md">$$ \frac{\overline{ab}}{\overline{bc}} = \frac{\overline{de}}{\overline{ef}} $$</p>
+                </section>
+                
+                <section class="bg-white p-6 rounded-lg shadow-lg border-l-4 border-red-500">
+                    <h2 class="text-2xl font-bold text-gray-900 mb-4 flex items-center"><i class="fas fa-pencil-alt text-red-600 mr-3"></i>3. ¡Manos a la Obra! 🚀</h2>
+                    <p class="text-lg mb-4">Ahora te toca a vos. Resolvamos juntos algunos ejercicios. Tomá papel y lápiz, ¡y vamos que se puede!</p>
+                    
+                    <div class="border-t-2 pt-4 mt-6">
+                        <h3 class="font-bold text-xl mb-2 text-red-800">Ejercicio A (Cálculo de un segmento)</h3>
+                        <p class="mb-3">En la figura, las rectas P, Q y R son paralelas. Calculá la medida del segmento $x$.</p>
+                        <div class="my-4 p-4 bg-gray-50 rounded-lg flex justify-center">
+                            <svg viewBox="0 0 300 180" width="100%" height="auto" style="max-width: 400px;">
+                                <line x1="0" y1="30" x2="300" y2="30" stroke="#a5b4fc" stroke-width="1.5" stroke-dasharray="4"/>
+                                <text x="5" y="28" font-size="10" fill="#4f46e5">P</text>
+                                <line x1="0" y1="90" x2="300" y2="90" stroke="#a5b4fc" stroke-width="1.5" stroke-dasharray="4"/>
+                                <text x="5" y="88" font-size="10" fill="#4f46e5">Q</text>
+                                <line x1="0" y1="150" x2="300" y2="150" stroke="#a5b4fc" stroke-width="1.5" stroke-dasharray="4"/>
+                                <text x="5" y="148" font-size="10" fill="#4f46e5">R</text>
+                                <line x1="50" y1="10" x2="150" y2="170" stroke="#374151" stroke-width="2"/>
+                                <circle cx="62.5" cy="30" r="3" fill="#3b82f6"/>
+                                <text x="65" y="25" font-size="12" font-weight="bold">A</text>
+                                <circle cx="93.75" cy="90" r="3" fill="#3b82f6"/>
+                                <text x="96" y="85" font-size="12" font-weight="bold">B</text>
+                                <circle cx="125" cy="150" r="3" fill="#3b82f6"/>
+                                <text x="128" y="145" font-size="12" font-weight="bold">C</text>
+                                <line x1="250" y1="10" x2="180" y2="170" stroke="#374151" stroke-width="2"/>
+                                <circle cx="241.25" cy="30" r="3" fill="#ef4444"/>
+                                <text x="244" y="25" font-size="12" font-weight="bold">D</text>
+                                <circle cx="215" cy="90" r="3" fill="#ef4444"/>
+                                <text x="218" y="85" font-size="12" font-weight="bold">E</text>
+                                <circle cx="188.75" cy="150" r="3" fill="#ef4444"/>
+                                <text x="191" y="145" font-size="12" font-weight="bold">F</text>
+                                <text x="70" y="65" font-size="12" fill="#374151" font-style="italic">12 cm</text>
+                                <text x="100" y="125" font-size="12" fill="#374151" font-style="italic">18 cm</text>
+                                <text x="235" y="65" font-size="12" fill="#374151" font-style="italic">10 cm</text>
+                                <text x="210" y="125" font-size="14" fill="#ef4444" font-weight="bold">x</text>
+                            </svg>
+                        </div>
+                        <details class="mt-4">
+                            <summary class="bg-red-100 text-red-800 font-semibold p-3 rounded-lg cursor-pointer hover:bg-red-200 transition-colors flex justify-between items-center">Ver Planteo y Solución <i class="fas fa-chevron-down transition-transform"></i></summary>
+                            <div class="p-4 bg-gray-50 border rounded-b-lg space-y-3">
+                                <p><strong>1. Planteamos la proporción:</strong></p>
+                                <p class="text-center text-xl font-mono">$$ \frac{\overline{ab}}{\overline{bc}} = \frac{\overline{de}}{\overline{ef}} \implies \frac{12}{18} = \frac{10}{x} $$</p>
+                                <p><strong>2. Resolvemos la ecuación:</strong></p>
+                                <p class="text-center font-mono">$$ 12 \cdot x = 18 \cdot 10 \implies 12x = 180 $$</p>
+                                <p class="text-center font-mono bg-green-100 text-green-800 p-3 rounded-md font-bold">$$ x = \frac{180}{12} = 15 \text{ cm} $$</p>
+                            </div>
+                        </details>
+                    </div>
+
+                    <div class="border-t-2 pt-4 mt-6">
+                        <h3 class="font-bold text-xl mb-2 text-red-800">Ejercicio B (Desafío de las sombras)</h3>
+                        <p class="mb-3">Un poste de luz de 3 metros de altura proyecta una sombra de 2 metros. Justo al lado, un edificio proyecta una sombra de 24 metros. ¿Cuál es la altura del edificio?</p>
+                        <div class="my-4 p-4 bg-gray-50 rounded-lg flex justify-center">
+                           <svg viewBox="0 0 400 200" width="100%" height="auto" style="max-width: 500px;">
+                                <line x1="0" y1="180" x2="400" y2="180" stroke="#8d6e63" stroke-width="3"/>
+                                <rect x="300" y="30" width="20" height="150" fill="#a1887f"/>
+                                <text x="310" y="100" font-size="14" fill="white" font-weight="bold" transform="rotate(-90 310 100)">?</text>
+                                <rect x="100" y="120" width="5" height="60" fill="#616161"/>
+                                <text x="90" y="150" font-size="12">3 m</text>
+                                <line x1="105" y1="180" x2="175" y2="180" stroke="#424242" stroke-width="2"/>
+                                <text x="130" y="195" font-size="12">2 m</text>
+                                <line x1="320" y1="180" x2="80" y2="180" stroke="#424242" stroke-width="2"/>
+                                <text x="190" y="195" font-size="12">24 m</text>
+                                <line x1="80" y1="180" x2="300" y2="30" stroke="#fdd835" stroke-width="2" stroke-dasharray="5,5"/>
+                                <circle cx="280" cy="15" r="10" fill="#fdd835"/>
+                           </svg>
+                        </div>
+                        <details class="mt-4">
+                            <summary class="bg-red-100 text-red-800 font-semibold p-3 rounded-lg cursor-pointer hover:bg-red-200 transition-colors flex justify-between items-center">Ver Planteo y Solución <i class="fas fa-chevron-down transition-transform"></i></summary>
+                             <div class="p-4 bg-gray-50 border rounded-b-lg space-y-3">
+                                <p><strong>1. Planteamos la proporción:</strong> Los rayos del sol son paralelos, así que los triángulos formados son semejantes.</p>
+                                <p class="text-center text-xl font-mono">$$ \frac{\text{Altura Poste}}{\text{Sombra Poste}} = \frac{\text{Altura Edificio}}{\text{Sombra Edificio}} \implies \frac{3}{2} = \frac{x}{24} $$</p>
+                                <p><strong>2. Resolvemos la ecuación:</strong></p>
+                                <p class="text-center font-mono">$$ 3 \cdot 24 = 2 \cdot x \implies 72 = 2x $$</p>
+                                <p class="text-center font-mono bg-green-100 text-green-800 p-3 rounded-md font-bold">$$ x = \frac{72}{2} = 36 \text{ metros} $$</p>
+                            </div>
+                        </details>
+                    </div>
+                </section>
+            </div>
+
+            <aside class="space-y-8">
+                <section class="bg-white p-6 rounded-lg shadow-lg">
+                    <h3 class="text-xl font-bold text-gray-900 mb-4 flex items-center"><i class="fas fa-book text-gray-500 mr-2"></i>Glosario Rápido 📚</h3>
+                    <ul class="space-y-3 text-lg">
+                        <li><strong class="text-indigo-700">Rectas Paralelas:</strong> Como las vías del tren, nunca se cruzan.</li>
+                        <li><strong class="text-indigo-700">Rectas Transversales:</strong> Una recta que corta a otras.</li>
+                        <li><strong class="text-indigo-700">Razón:</strong> Una división para comparar dos números.</li>
+                        <li><strong class="text-indigo-700">Proporción:</strong> Una igualdad entre dos razones.</li>
+                    </ul>
+                </section>
+                
+                <section class="bg-sky-100 p-6 rounded-lg shadow-lg border-2 border-dashed border-sky-300">
+                    <h3 class="text-xl font-bold text-sky-800 mb-4 flex items-center"><i class="fas fa-brain text-sky-500 mr-2"></i>Para Pensar en el Fogón 🧠</h3>
+                    <div class="space-y-4">
+                        <p>Estás en el vado de Santa Rosa de Calamuchita y querés saber el ancho del río sin mojarte las zapatillas.</p>
+                        <p>Tenés una soga de 5 metros y una cinta métrica. ¿Cómo podrías usar el Teorema de Tales para calcularlo aproximadamente?</p>
+                        <p class="text-sm text-sky-700 mt-2"><strong>Pista:</strong> ¡Buscá un árbol o un poste en la orilla opuesta y usalo como punto de referencia para crear triángulos semejantes en tu orilla!</p>
+                    </div>
+                </section>
+
+                <section class="bg-white p-6 rounded-lg shadow-lg">
+                    <h3 class="text-xl font-bold text-gray-900 mb-4 flex items-center"><i class="fas fa-video text-red-600 mr-2"></i>Video para Repasar 🎬</h3>
+                    <p class="mb-3">Si te quedaste con dudas, este video explica el teorema de una forma muy clara y con más ejemplos.</p>
+                    <a href="https://www.youtube.com/watch?v=JGy-84d_g4E" target="_blank" class="block relative rounded-lg overflow-hidden group">
+                        <img src="https://img.youtube.com/vi/JGy-84d_g4E/hqdefault.jpg" alt="Video sobre el Teorema de Tales" class="w-full">
+                        <div class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center group-hover:bg-opacity-20 transition-all">
+                            <i class="fas fa-play text-white text-5xl opacity-80 group-hover:opacity-100 transform group-hover:scale-110 transition-transform"></i>
+                        </div>
+                    </a>
+                </section>
+            </aside>
+        </main>
+
+        <footer class="mt-12 text-center text-gray-500 border-t pt-6">
+            <p><strong>Mate con Mote</strong> - Un recurso digital complementario para la materia Matemática.</p>
+            <p class="text-sm mt-1">¡El próximo tema será Semejanza de Triángulos! ¡Prepárate!</p>
+        </footer>
+    </div>
+</body>
+</html>

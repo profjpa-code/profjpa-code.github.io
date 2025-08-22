@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solucionario Interactivo: Teorema de Tales</title>
+    
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f7f9;
+            color: #333;
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 25px;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        header {
+            text-align: center;
+            border-bottom: 2px solid #e0e0e0;
+            padding-bottom: 15px;
+        }
+        header h1 {
+            color: #2c3e50;
+            margin: 0;
+        }
+        .problem-section {
+            margin-top: 30px;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background-color: #fdfdfd;
+        }
+        .enunciado {
+            font-style: italic;
+            color: #555;
+            margin-bottom: 15px;
+        }
+        .problem-figure {
+            text-align: center;
+            margin: 15px 0;
+        }
+        .problem-figure svg {
+            max-width: 350px;
+            height: auto;
+            border-radius: 8px;
+            background-color: #fff;
+            padding: 5px;
+            border: 1px solid #ccc;
+        }
+        .button-container {
+            margin-top: 15px;
+        }
+        .collapsible-btn {
+            background-color: #3498db;
+            color: white;
+            cursor: pointer;
+            padding: 10px 15px;
+            width: auto;
+            border: none;
+            text-align: left;
+            outline: none;
+            font-size: 16px;
+            border-radius: 5px;
+            margin-right: 10px;
+            transition: background-color 0.3s;
+        }
+        .collapsible-btn.help-btn {
+            background-color: #f39c12;
+        }
+        .collapsible-btn:hover {
+            opacity: 0.9;
+        }
+        .content {
+            padding: 0 18px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+            background-color: #f9f9f9;
+            border-radius: 5px;
+            border: 1px solid #eee;
+            margin-top: 10px;
+        }
+        .content-inner {
+            padding: 15px 5px;
+        }
+        .callout { padding: 15px; margin: 10px 0; border-radius: 8px; border-left: 5px solid; }
+        .callout-idea { background-color: #e7f3fe; border-color: #6facf7; }
+        .callout-warning { background-color: #fff0f0; border-color: #f76f6f; }
+        .solution-step strong { color: #2980b9; }
+        .final-answer { font-weight: bold; color: #27ae60; background-color: #e8f5e9; padding: 12px; border-radius: 5px; text-align: center; display: inline-block; margin-top: 10px; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <h1>Solucionario Interactivo: Teorema de Tales 📐</h1>
+            <p>Usa los botones para obtener una ayuda o ver la solución completa de cada problema.</p>
+        </header>
+
+        <section class="problem-section">
+            <h3>1. Problema de Triángulos Semejantes</h3>
+            <p class="enunciado">En un triángulo \( \triangle ABC \), se traza un segmento \( DE \) paralelo al lado \( BC \), con \( D \) en el lado \( AB \) y \( E \) en el lado \( AC \). Si las medidas son \( AD = 6 \text{ cm} \), \( DB = 3 \text{ cm} \) y \( BC = 12 \text{ cm} \), ¿cuál es la longitud del segmento \( DE \)?</p>
+            <div class="problem-figure">
+                <svg viewBox="0 0 350 230" xmlns="http://www.w3.org/2000/svg">
+                    <style>
+                        .label { font-family: sans-serif; font-size: 16px; }
+                        .dim-val { font-family: sans-serif; font-size: 16px; fill: blue; }
+                        .q-val { font-family: sans-serif; font-size: 16px; fill: red; }
+                    </style>
+                    <polygon points="175,20 50,200 300,200" stroke="black" stroke-width="2" fill="#f0f8ff" />
+                    <line x1="91.7" y1="133.3" x2="258.3" y2="133.3" stroke="red" stroke-width="2.5" />
+                    <circle cx="175" cy="20" r="3" fill="black" />
+                    <text x="175" y="15" class="label" text-anchor="middle">A</text>
+                    <circle cx="50" cy="200" r="3" fill="black" />
+                    <text x="45" y="215" class="label" text-anchor="end">B</text>
+                    <circle cx="300" cy="200" r="3" fill="black" />
+                    <text x="305" y="215" class="label" text-anchor="start">C</text>
+                    <circle cx="91.7" cy="133.3" r="3" fill="black" />
+                    <text x="85" y="128" class="label" text-anchor="end">D</text>
+                    <circle cx="258.3" cy="133.3" r="3" fill="black" />
+                    <text x="265" y="128" class="label" text-anchor="start">E</text>
+                    <text x="120" y="75" class="dim-val">6</text>
+                    <text x="68" y="168" class="dim-val">3</text>
+                    <text x="175" y="215" class="dim-val" text-anchor="middle">12</text>
+                    <text x="175" y="125" class="q-val" text-anchor="middle">DE = ?</text>
+                </svg>
+            </div>
+            <div class="button-container">
+                <button type="button" class="collapsible-btn help-btn">Ver Ayuda 🤔</button>
+                <button type="button" class="collapsible-btn">Ver Solución 📝</button>
+            </div>
+            <div class="content">
+                <div class="content-inner">
+                    <div class="callout callout-idea">
+                        <strong>Estrategia:</strong> Al trazar \( DE \), se forma un triángulo pequeño \( \triangle ADE \) que es semejante al grande \( \triangle ABC \). Debes usar la proporción entre las bases (\(DE\) y \(BC\)) y los lados laterales correspondientes (\(AD\) y \(AB\)).
+                    </div>
+                    <div class="callout callout-warning">
+                        <strong>¡Cuidado!</strong> Para esta proporción necesitas la longitud del lado **completo** \( AB \), no solo \( DB \). Primero debes calcular \( AB \).
+                    </div>
+                </div>
+            </div>
+            <div class="content">
+                <div class="content-inner">
+                    <div class="solution-step">
+                        <strong>Paso 1: Calcular la longitud del lado completo AB.</strong><br>
+                        $$ AB = AD + DB = 6 \text{ cm} + 3 \text{ cm} = 9 \text{ cm} $$
+                    </div>
+                    <div class="solution-step">
+                        <strong>Paso 2: Plantear la proporción del Teorema de Tales.</strong><br>
+                        $$ \frac{AD}{AB} = \frac{DE}{BC} $$
+                    </div>
+                    <div class="solution-step">
+                        <strong>Paso 3: Sustituir los valores y resolver para \(DE\).</strong><br>
+                        $$ \frac{6}{9} = \frac{DE}{12} \implies DE = \frac{6 \cdot 12}{9} = \frac{72}{9} = 8 \text{ cm} $$
+                    </div>
+                    <p class="final-answer">✅ La longitud del segmento DE es 8 cm.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="problem-section">
+            <h3>2. Problema de Corolario de Tales</h3>
+            <p class="enunciado">Los triángulos \( \triangle ABC \) y \( \triangle ADE \) son tales que comparten el vértice \( A \) y el segmento \( DE \) es paralelo a \( BC \). Si se sabe que \( AB = 15 \text{ cm} \), \( BD = 5 \text{ cm} \) y \( AE = 8 \text{ cm} \), ¿cuánto mide el segmento \( EC \)?</p>
+            <div class="problem-figure">
+                <svg viewBox="0 0 350 230" xmlns="http://www.w3.org/2000/svg">
+                    <style>
+                        .label { font-family: sans-serif; font-size: 16px; }
+                        .dim-val { font-family: sans-serif; font-size: 16px; fill: blue; }
+                        .q-val { font-family: sans-serif; font-size: 16px; fill: red; }
+                    </style>
+                    <polygon points="175,20 50,200 300,200" stroke="black" stroke-width="2" fill="#f0f8ff" />
+                    <line x1="91.7" y1="133.3" x2="258.3" y2="133.3" stroke="red" stroke-width="2.5" />
+                    <circle cx="175" cy="20" r="3" fill="black" />
+                    <text x="175" y="15" class="label" text-anchor="middle">A</text>
+                    <circle cx="50" cy="200" r="3" fill="black" />
+                    <text x="45" y="215" class="label" text-anchor="end">B</text>
+                    <circle cx="300" cy="200" r="3" fill="black" />
+                    <text x="305" y="215" class="label" text-anchor="start">C</text>
+                    <circle cx="91.7" cy="133.3" r="3" fill="black" />
+                    <text x="85" y="128" class="label" text-anchor="end">D</text>
+                    <circle cx="258.3" cy="133.3" r="3" fill="black" />
+                    <text x="265" y="128" class="label" text-anchor="start">E</text>
+                    
+                    <text x="100" y="110" class="dim-val" text-anchor="middle" transform="rotate(-55 100 110)">15</text>
+                    
+                    <text x="68" y="168" class="dim-val">5</text>
+                    <text x="230" y="75" class="dim-val">8</text>
+                    <text x="282" y="168" class="q-val">EC=?</text>
+                </svg>
+            </div>
+            <div class="button-container">
+                <button type="button" class="collapsible-btn help-btn">Ver Ayuda 🤔</button>
+                <button type="button" class="collapsible-btn">Ver Solución 📝</button>
+            </div>
+             <div class="content">
+                <div class="content-inner">
+                    <div class="callout callout-idea">
+                        <strong>Estrategia:</strong> Este caso usa la proporción directa entre los segmentos que se forman en los lados laterales: \( \frac{AD}{DB} = \frac{AE}{EC} \).
+                    </div>
+                     <div class="callout callout-warning">
+                        <strong>¡Un paso previo!</strong> La fórmula necesita el segmento \(AD\), pero el problema te da \(AB\) y \(BD\). Tu primer paso debe ser calcular \(AD\).
+                    </div>
+                </div>
+            </div>
+            <div class="content">
+                <div class="content-inner">
+                    <div class="solution-step">
+                        <strong>Paso 1: Calcular la longitud del segmento AD.</strong><br>
+                        $$ AD = AB - BD = 15 \text{ cm} - 5 \text{ cm} = 10 \text{ cm} $$
+                    </div>
+                    <div class="solution-step">
+                        <strong>Paso 2: Plantear la proporción de Tales.</strong><br>
+                        $$ \frac{AD}{DB} = \frac{AE}{EC} $$
+                    </div>
+                    <div class="solution-step">
+                        <strong>Paso 3: Sustituir y resolver para \(EC\).</strong><br>
+                        $$ \frac{10}{5} = \frac{8}{EC} \implies 2 = \frac{8}{EC} \implies EC = \frac{8}{2} = 4 \text{ cm} $$
+                    </div>
+                     <p class="final-answer">✅ El segmento EC mide 4 cm.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="problem-section">
+            <h3>3. Problema de Postes y Cables</h3>
+            <p class="enunciado">Tres postes verticales están alineados. Un cable recto se extiende desde la cima del primer poste (4 m de altura) hasta la base del tercero. Las distancias horizontales entre postes son 3 m y 6 m. Si el cable toca el segundo poste a una altura \( h \), calcula \( h \).</p>
+            <div class="problem-figure">
+                <svg viewBox="0 0 320 220" xmlns="http://www.w3.org/2000/svg">
+                    <style> .label { font-family: sans-serif; font-size: 16px; } .dim-val { fill: blue; } .q-val { fill: red; } </style>
+                    <line x1="10" y1="190" x2="310" y2="190" stroke="black" stroke-width="2"/>
+                    <polygon points="30,190 300,190 300,70" fill="#fffbe6" stroke="gray" stroke-width="1" stroke-dasharray="4 2"/>
+                    <line x1="300" y1="190" x2="300" y2="70" stroke="blue" stroke-width="3" />
+                    <line x1="210" y1="190" x2="210" y2="110" stroke="blue" stroke-width="3" />
+                    <circle cx="30" cy="190" r="3" fill="black"/>
+                    <line x1="300" y1="70" x2="30" y2="190" stroke="orange" stroke-width="2.5"/>
+                    <line x1="210" y1="200" x2="300" y2="200" stroke="black" stroke-width="1" />
+                    <line x1="210" y1="195" x2="210" y2="205" stroke="black" stroke-width="1" />
+                    <line x1="300" y1="195" x2="300" y2="205" stroke="black" stroke-width="1" />
+                    <text x="255" y="215" class="label" text-anchor="middle">3 m</text>
+                    <line x1="30" y1="200" x2="210" y2="200" stroke="black" stroke-width="1" />
+                    <line x1="30" y1="195" x2="30" y2="205" stroke="black" stroke-width="1" />
+                    <text x="120" y="215" class="label" text-anchor="middle">6 m</text>
+                    <text x="305" y="130" class="label dim-val" text-anchor="start">4 m</text>
+                    <text x="215" y="150" class="label q-val" text-anchor="start">h = ?</text>
+                </svg>
+            </div>
+            <div class="button-container">
+                <button type="button" class="collapsible-btn help-btn">Ver Ayuda 🤔</button>
+                <button type="button" class="collapsible-btn">Ver Solución 📝</button>
+            </div>
+             <div class="content">
+                <div class="content-inner">
+                    <div class="callout callout-idea">
+                        <strong>Estrategia:</strong> Se forman dos triángulos rectángulos semejantes. El "triángulo grande" tiene como altura el primer poste (4 m) y como base la distancia horizontal total. El "triángulo pequeño" tiene como altura \(h\) y como base la distancia desde el segundo poste hasta el tercero.
+                    </div>
+                </div>
+            </div>
+            <div class="content">
+                <div class="content-inner">
+                    <div class="solution-step">
+                        <strong>Paso 1: Identificar las bases y alturas de los triángulos semejantes.</strong><br>
+                        <ul>
+                            <li><b>Triángulo Grande:</b> Altura = 4 m, Base = 3 m + 6 m = 9 m</li>
+                            <li><b>Triángulo Pequeño:</b> Altura = \(h\), Base = 6 m</li>
+                        </ul>
+                    </div>
+                    <div class="solution-step">
+                        <strong>Paso 2: Plantear la proporción de semejanza.</strong><br>
+                        $$ \frac{\text{altura pequeña}}{\text{altura grande}} = \frac{\text{base pequeña}}{\text{base grande}} $$
+                        $$ \frac{h}{4} = \frac{6}{9} $$
+                    </div>
+                    <div class="solution-step">
+                        <strong>Paso 3: Resolver para \(h\).</strong><br>
+                        $$ h = \frac{6 \cdot 4}{9} = \frac{24}{9} \approx 2.67 \text{ m} $$
+                    </div>
+                    <p class="final-answer">✅ La altura h es de 2.67 metros.</p>
+                </div>
+            </div>
+        </section>
+        
+        <section class="problem-section">
+            <h3>4. Problema de Escala en Fotografía</h3>
+            <p class="enunciado">En una fotografía, un edificio de 60 metros de altura real proyecta una imagen de 8 cm. En la misma foto, un árbol proyecta una imagen de 3 cm. ¿Cuál es la altura real del árbol?</p>
+            <div class="problem-figure">
+                <svg viewBox="0 0 350 220" xmlns="http://www.w3.org/2000/svg">
+                    <style>
+                        .label { font-family: sans-serif; font-size: 14px; text-anchor: middle; }
+                        .title { font-family: sans-serif; font-size: 16px; font-weight: bold; text-anchor: middle; }
+                        .dim-line { stroke: black; stroke-width: 1; }
+                        .dim-text { font-family: sans-serif; font-size: 15px; fill: blue; }
+                        .photo-text { font-family: sans-serif; font-size: 15px; fill: #c0392b; }
+                    </style>
+                    <text x="95" y="25" class="title">REALIDAD</text>
+                    <rect x="50" y="50" width="40" height="150" fill="#a9a9a9" stroke="black"/>
+                    <text x="70" y="45" class="label">Edificio</text>
+                    <polygon points="150,110 142,180 158,180" fill="#6B4F35"/>
+                    <circle cx="150" cy="110" r="25" fill="#228B22"/>
+                    <text x="150" y="80" class="label">Árbol</text>
+                    <path d="M 40 50 L 35 50 M 40 200 L 35 200 M 37.5 50 L 37.5 200" fill="none" class="dim-line"/>
+                    <text x="30" y="125" class="dim-text" text-anchor="end">60 m</text>
+                    <path d="M 175 95 L 180 95 M 175 180 L 180 180 M 177.5 95 L 177.5 180" fill="none" class="dim-line"/>
+                    <text x="185" y="137.5" class="dim-text" text-anchor="start">H = ?</text>
+                    <text x="270" y="25" class="title">FOTOGRAFÍA</text>
+                    <rect x="230" y="120" width="20" height="80" fill="#d3d3d3" stroke="black"/>
+                    <polygon points="300,158 296,180 304,180" fill="#a0856e"/>
+                    <circle cx="300" cy="158" r="12" fill="#90ee90"/>
+                    <path d="M 220 120 L 215 120 M 220 200 L 215 200 M 217.5 120 L 217.5 200" fill="none" class="dim-line"/>
+                    <text x="210" y="160" class="photo-text" text-anchor="end">8 cm</text>
+                    <path d="M 315 152 L 320 152 M 315 180 L 320 180 M 317.5 152 L 317.5 180" fill="none" class="dim-line"/>
+                    <text x="325" y="166" class="photo-text" text-anchor="start">3 cm</text>
+                </svg>
+            </div>
+            <div class="button-container">
+                <button type="button" class="collapsible-btn help-btn">Ver Ayuda 🤔</button>
+                <button type="button" class="collapsible-btn">Ver Solución 📝</button>
+            </div>
+             <div class="content">
+                <div class="content-inner">
+                    <div class="callout callout-idea">
+                        <strong>Estrategia:</strong> Este es un problema de proporcionalidad directa. La relación (o escala) entre la medida en la foto y la medida real es la misma para todos los objetos. Plantea una "regla de tres" o una proporción.
+                    </div>
+                </div>
+            </div>
+            <div class="content">
+                <div class="content-inner">
+                     <div class="solution-step">
+                        <strong>Paso 1: Plantear la proporción.</strong><br>
+                        $$ \frac{\text{Altura foto edificio}}{\text{Altura real edificio}} = \frac{\text{Altura foto árbol}}{\text{Altura real árbol}} $$
+                    </div>
+                    <div class="solution-step">
+                        <strong>Paso 2: Sustituir valores y resolver.</strong><br>
+                        Llamamos \(H\) a la altura real del árbol. No es necesario convertir las unidades si somos consistentes.
+                        $$ \frac{8 \text{ cm}}{60 \text{ m}} = \frac{3 \text{ cm}}{H} $$
+                        Despejamos H:
+                        $$ H = \frac{3 \text{ cm} \cdot 60 \text{ m}}{8 \text{ cm}} = \frac{180}{8} \text{ m} = 22.5 \text{ m} $$
+                    </div>
+                    <p class="final-answer">✅ La altura real del árbol es de 22.5 metros.</p>
+                </div>
+            </div>
+        </section>
+        
+        <section class="problem-section">
+            <h3>5. Problema de Aplicación en Topografía</h3>
+            <p class="enunciado">En una orilla recta de un río se marcan puntos A y B, separados 10 m. Perpendicular a la orilla, se mide desde A hasta C (14 m) y desde B hasta D (21 m). Un árbol T en la orilla opuesta está alineado con C y D. Se necesita saber en qué punto P la línea de visión TCD corta la orilla del río (línea AB). Calcula la distancia de A a P.</p>
+            <div class="problem-figure">
+                <svg viewBox="0 0 320 220" xmlns="http://www.w3.org/2000/svg">
+                    <style>
+                      .label { font-size: 16px; font-family: sans-serif; } .dim-val { fill: blue; } .q-val { fill: red; }
+                    </style>
+                    <rect x="0" y="0" width="320" height="170" fill="#e0f7fa" />
+                    <text x="160" y="40" class="label" fill="#0077c2" text-anchor="middle" opacity="0.6">RÍO</text>
+                    <line x1="50" y1="170" x2="225" y2="50" stroke="red" stroke-width="2" stroke-dasharray="5,3"/>
+                    <line x1="0" y1="170" x2="320" y2="170" stroke="#a1887f" stroke-width="4" />
+                    <text x="15" y="188" font-size="14" font-family: sans-serif;>Orilla</text>
+                    <line x1="150" y1="170" x2="150" y2="110" stroke="blue" stroke-width="2" />
+                    <line x1="200" y1="170" x2="200" y2="80" stroke="blue" stroke-width="2" />
+                    <circle cx="50" cy="170" r="3.5" fill="black" />
+                    <text x="50" y="165" class="label" text-anchor="middle" dominant-baseline="text-after-edge">P</text>
+                    <circle cx="150" cy="170" r="3.5" fill="black" />
+                    <text x="150" y="165" class="label" text-anchor="middle" dominant-baseline="text-after-edge">A</text>
+                    <circle cx="200" cy="170" r="3.5" fill="black" />
+                    <text x="200" y="165" class="label" text-anchor="middle" dominant-baseline="text-after-edge">B</text>
+                    <circle cx="150" cy="110" r="3.5" fill="black" />
+                    <text x="145" y="110" class="label" dominant-baseline="middle" text-anchor="end">C</text>
+                    <circle cx="200" cy="80" r="3.5" fill="black" />
+                    <text x="205" y="80" class="label" dominant-baseline="middle">D</text>
+                    <text x="230" y="45" class="label" fill="green">T</text>
+                    <text x="155" y="140" class="label dim-val">14 m</text>
+                    <text x="205" y="125" class="label dim-val">21 m</text>
+                    <path d="M 50 180 L 50 185 L 150 185 L 150 180" fill="none" stroke="black"/>
+                    <text x="100" y="200" class="label q-val" text-anchor="middle">x</text>
+                    <path d="M 150 180 L 150 185 L 200 185 L 200 180" fill="none" stroke="black"/>
+                    <text x="175" y="200" class="label" text-anchor="middle">10 m</text>
+                </svg>
+            </div>
+            <div class="button-container">
+                <button type="button" class="collapsible-btn help-btn">Ver Ayuda 🤔</button>
+                <button type="button" class="collapsible-btn">Ver Solución 📝</button>
+            </div>
+            <div class="content">
+                <div class="content-inner">
+                    <div class="callout callout-idea">
+                        <strong>Estrategia:</strong> Como AC y BD son perpendiculares a la misma orilla, son paralelas entre sí. Esto forma dos triángulos rectángulos semejantes (\(\triangle PAC\) y \(\triangle PBD\)) que comparten el vértice P.
+                    </div>
+                    <div class="callout callout-warning">
+                        <strong>¡Define tu incógnita!</strong> Llama \(x\) a la distancia que buscas (\(PA\)). Luego, expresa la base del triángulo grande (\(PB\)) en términos de \(x\) y la distancia conocida \(AB\).
+                    </div>
+                </div>
+            </div>
+            <div class="content">
+                <div class="content-inner">
+                    <div class="solution-step">
+                        <strong>Paso 1: Definir las bases en función de la incógnita \(x = PA\).</strong><br>
+                        <ul>
+                            <li>Base del \(\triangle\) pequeño (\( \triangle PAC \)): \(PA = x\)</li>
+                            <li>Base del \(\triangle\) grande (\( \triangle PBD \)): \(PB = PA + AB = x + 10\)</li>
+                        </ul>
+                    </div>
+                    <div class="solution-step">
+                        <strong>Paso 2: Plantear la proporción de Tales.</strong><br>
+                        $$ \frac{\text{Altura pequeña (AC)}}{\text{Altura grande (BD)}} = \frac{\text{Base pequeña (PA)}}{\text{Base grande (PB)}} $$
+                        $$ \frac{14}{21} = \frac{x}{x+10} $$
+                    </div>
+                    <div class="solution-step">
+                        <strong>Paso 3: Resolver la ecuación para \(x\).</strong><br>
+                        Primero, simplificamos la fracción \(14/21\) (dividiendo por 7) a \(2/3\):
+                        $$ \frac{2}{3} = \frac{x}{x+10} $$
+                        Multiplicamos en cruz:
+                        $$ 2(x+10) = 3x \implies 2x + 20 = 3x \implies x = 20 \text{ m} $$
+                    </div>
+                     <p class="final-answer">✅ La distancia desde A hasta P es de 20 metros.</p>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <script>
+        // Seleccionamos todos los contenedores de problemas
+        const problemSections = document.querySelectorAll('.problem-section');
+
+        // Iteramos sobre cada sección de problema
+        problemSections.forEach(section => {
+            // Obtenemos los botones y los contenidos de esa sección
+            const helpBtn = section.querySelector('.help-btn');
+            const solutionBtn = section.querySelector('.collapsible-btn:not(.help-btn)');
+            const helpContent = helpBtn.parentElement.nextElementSibling;
+            const solutionContent = helpContent.nextElementSibling;
+
+            // Añadimos el evento al botón de Ayuda
+            helpBtn.addEventListener('click', () => {
+                // Si la ayuda ya está abierta, la cerramos
+                if (helpContent.style.maxHeight) {
+                    helpContent.style.maxHeight = null;
+                } else {
+                    // Si no, cerramos la solución (si está abierta) y abrimos la ayuda
+                    solutionContent.style.maxHeight = null;
+                    helpContent.style.maxHeight = helpContent.scrollHeight + 'px';
+                }
+            });
+
+            // Añadimos el evento al botón de Solución
+            solutionBtn.addEventListener('click', () => {
+                // Si la solución ya está abierta, la cerramos
+                if (solutionContent.style.maxHeight) {
+                    solutionContent.style.maxHeight = null;
+                } else {
+                    // Si no, cerramos la ayuda (si está abierta) y abrimos la solución
+                    helpContent.style.maxHeight = null;
+                    solutionContent.style.maxHeight = solutionContent.scrollHeight + 'px';
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>
