@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guía de Estudio: Función Cuadrática</title>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #3498db;
+        }
+        
+        h1 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        h2 {
+            color: #3498db;
+            margin: 25px 0 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eaeaea;
+        }
+        
+        h3 {
+            color: #2c3e50;
+            margin: 20px 0 10px;
+        }
+        
+        .question {
+            background-color: #f8f9fa;
+            border-left: 5px solid #3498db;
+            padding: 15px;
+            margin-bottom: 25px;
+            border-radius: 0 5px 5px 0;
+        }
+        
+        .question-text {
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #2c3e50;
+        }
+        
+        .options {
+            margin: 10px 0;
+            padding-left: 20px;
+        }
+        
+        .correct {
+            color: #27ae60;
+            font-weight: bold;
+        }
+        
+        .explanation {
+            background-color: #e8f4fc;
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 15px;
+            display: none;
+        }
+        
+        .show-explanation {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+            font-size: 0.9em;
+            transition: background-color 0.3s;
+        }
+        
+        .show-explanation:hover {
+            background-color: #2980b9;
+        }
+        
+        .formula {
+            font-family: 'Courier New', monospace;
+            background-color: #f1f1f1;
+            padding: 5px 10px;
+            border-radius: 3px;
+            display: inline-block;
+            margin: 5px 0;
+        }
+        
+        .step {
+            margin: 10px 0;
+            padding-left: 15px;
+            border-left: 3px solid #3498db;
+        }
+        
+        .concept {
+            background-color: #e8f6f3;
+            padding: 10px;
+            border-radius: 5px;
+            margin: 15px 0;
+            font-style: italic;
+        }
+        
+        .answer-key {
+            margin-top: 40px;
+            padding: 20px;
+            background-color: #f8f9fa;
+            border-radius: 5px;
+        }
+        
+        .group {
+            margin-bottom: 30px;
+        }
+        
+        .group-title {
+            font-size: 1.3em;
+            color: #3498db;
+            margin-bottom: 15px;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+            
+            h1 {
+                font-size: 1.5em;
+            }
+            
+            h2 {
+                font-size: 1.3em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Guía de Estudio: Función Cuadrática</h1>
+            <p>Explicaciones detalladas, pasos de resolución y conceptos teóricos</p>
+        </header>
+        
+        <h2>Grupo A: Ejercicios 1-10</h2>
+        
+        <!-- Pregunta 1 -->
+        <div class="question">
+            <div class="question-text">1. La forma polinómica de una función cuadrática es:</div>
+            <div class="options">
+                a) \( f(x) = a(x - h)^2 + k \)<br>
+                b) \( f(x) = a(x - r_1)(x - r_2) \)<br>
+                c) \( f(x) = ax^2 + bx + c \)<br>
+                d) \( f(x) = mx + n \)
+            </div>
+            <button class="show-explanation" onclick="toggleExplanation(1)">Mostrar explicación</button>
+            <div class="explanation" id="explanation1">
+                <p class="correct">Respuesta correcta: c) \( f(x) = ax^2 + bx + c \)</p>
+                <div class="concept">
+                    <strong>Concepto:</strong> Una función cuadrática es un polinomio de segundo grado. 
+                    Tiene tres formas principales:
+                    <ul>
+                        <li><strong>Forma polinómica:</strong> \( f(x) = ax^2 + bx + c \)</li>
+                        <li><strong>Forma canónica:</strong> \( f(x) = a(x - h)^2 + k \)</li>
+                        <li><strong>Forma factorizada:</strong> \( f(x) = a(x - r_1)(x - r_2) \)</li>
+                    </ul>
+                </div>
+                <p>La opción a) corresponde a la forma canónica, la b) a la forma factorizada y la d) es una función lineal.</p>
+            </div>
+        </div>
+        
+        <!-- Pregunta 2 -->
+        <div class="question">
+            <div class="question-text">2. La forma canónica \( f(x) = 2(x - 3)^2 - 5 \) corresponde a:</div>
+            <div class="options">
+                a) \( 2x^2 - 6x - 5 \)<br>
+                b) \( 2x^2 - 12x + 13 \)<br>
+                c) \( 2x^2 - 12x + 18 \)<br>
+                d) \( 2x^2 - 3x - 5 \)
+            </div>
+            <button class="show-explanation" onclick="toggleExplanation(2)">Mostrar explicación</button>
+            <div class="explanation" id="explanation2">
+                <p class="correct">Respuesta correcta: b) \( 2x^2 - 12x + 13 \)</p>
+                <div class="concept">
+                    <strong>Concepto:</strong> Para convertir de forma canónica a polinómica, debemos desarrollar el binomio al cuadrado.
+                </div>
+                <div class="step">
+                    <strong>Paso a paso:</strong><br>
+                    \( f(x) = 2(x - 3)^2 - 5 \)<br>
+                    \( = 2(x^2 - 6x + 9) - 5 \)<br>
+                    \( = 2x^2 - 12x + 18 - 5 \)<br>
+                    \( = 2x^2 - 12x + 13 \)
+                </div>
+            </div>
+        </div>
+        
+        <!-- Pregunta 3 -->
+        <div class="question">
+            <div class="question-text">3. La forma factorizada \( f(x) = 3(x + 1)(x - 4) \) corresponde a:</div>
+            <div class="options">
+                a) \( 3x^2 - 9x - 12 \)<br>
+                b) \( 3x^2 - 3x - 12 \)<br>
+                c) \( 3x^2 + 3x - 12 \)<br>
+                d) \( 3x^2 - 12x - 12 \)
+            </div>
+            <button class="show-explanation" onclick="toggleExplanation(3)">Mostrar explicación</button>
+            <div class="explanation" id="explanation3">
+                <p class="correct">Respuesta correcta: a) \( 3x^2 - 9x - 12 \)</p>
+                <div class="concept">
+                    <strong>Concepto:</strong> Para convertir de forma factorizada a polinómica, debemos multiplicar los factores.
+                </div>
+                <div class="step">
+                    <strong>Paso a paso:</strong><br>
+                    \( f(x) = 3(x + 1)(x - 4) \)<br>
+                    Primero multiplicamos los binomios: \( (x + 1)(x - 4) = x^2 - 4x + x - 4 = x^2 - 3x - 4 \)<br>
+                    Luego multiplicamos por 3: \( 3(x^2 - 3x - 4) = 3x^2 - 9x - 12 \)
+                </div>
+            </div>
+        </div>
+        
+        <!-- Pregunta 4 -->
+        <div class="question">
+            <div class="question-text">4. \( f(x) = x^2 - 6x + 8 \) en forma factorizada es:</div>
+            <div class="options">
+                a) \((x + 2)(x + 4)\)<br>
+                b) \((x - 2)(x - 4)\)<br>
+                c) \((x - 1)(x - 8)\)<br>
+                d) \((x + 1)(x + 8)\)
+            </div>
+            <button class="show-explanation" onclick="toggleExplanation(4)">Mostrar explicación</button>
+            <div class="explanation" id="explanation4">
+                <p class="correct">Respuesta correcta: b) \((x - 2)(x - 4)\)</p>
+                <div class="concept">
+                    <strong>Concepto:</strong> Para factorizar un trinomio de la forma \( x^2 + bx + c \), podemos usar la fórmula cuadrática para encontrar las raíces y luego expresar en forma factorizada.
+                </div>
+                <div class="step">
+                    <strong>Paso a paso:</strong><br>
+                    Para \( x^2 - 6x + 8 = 0 \), aplicamos la fórmula cuadrática:<br>
+                    \( x = \frac{6 \pm \sqrt{(-6)^2 - 4(1)(8)}}{2(1)} = \frac{6 \pm \sqrt{36 - 32}}{2} = \frac{6 \pm \sqrt{4}}{2} = \frac{6 \pm 2}{2} \)<br>
+                    \( x_1 = \frac{6 + 2}{2} = 4 \), \( x_2 = \frac{6 - 2}{2} = 2 \)<br>
+                    Por lo tanto, \( x^2 - 6x + 8 = (x - 4)(x - 2) \)
+                </div>
+            </div>
+        </div>
+        
+        <!-- Pregunta 5 -->
+        <div class="question">
+            <div class="question-text">5. El vértice de \( f(x) = 2x^2 - 8x + 5 \) es:</div>
+            <div class="options">
+                a) (2, -3)<br>
+                b) (4, 5)<br>
+                c) (-2, 29)<br>
+                d) (1, -1)
+            </div>
+            <button class="show-explanation" onclick="toggleExplanation(5)">Mostrar explicación</button>
+            <div class="explanation" id="explanation5">
+                <p class="correct">Respuesta correcta: a) (2, -3)</p>
+                <div class="concept">
+                    <strong>Concepto:</strong> El vértice de una parábola \( f(x) = ax^2 + bx + c \) tiene coordenadas:
+                    \( h = -\frac{b}{2a} \), \( k = f(h) \)
+                </div>
+                <div class="step">
+                    <strong>Paso a paso:</strong><br>
+                    Para \( f(x) = 2x^2 - 8x + 5 \), tenemos a = 2, b = -8, c = 5<br>
+                    \( h = -\frac{-8}{2 \times 2} = \frac{8}{4} = 2 \)<br>
+                    \( k = f(2) = 2(2)^2 - 8(2) + 5 = 2(4) - 16 + 5 = 8 - 16 + 5 = -3 \)<br>
+                    Por lo tanto, el vértice es (2, -3)
+                </div>
+            </div>
+        </div>
+        
+        <!-- Pregunta 6 -->
+        <div class="question">
+            <div class="question-text">6. Las raíces de \( f(x) = 3x^2 - 12 \) son:</div>
+            <div class="options">
+                a) \( x = 2 \, y \, x = -2 \)<br>
+                b) \( x = 3 \, y \, x = -4 \)<br>
+                c) \( x = 4 \, y \, x = -3 \)<br>
+                d) \( x = 12 \, y \, x = 0 \)
+            </div>
+            <button class="show-explanation" onclick="toggleExplanation(6)">Mostrar explicación</button>
+            <div class="explanation" id="explanation6">
+                <p class="correct">Respuesta correcta: a) \( x = 2 \, y \, x = -2 \)</p>
+                <div class="concept">
+                    <strong>Concepto:</strong> Las raíces o ceros de una función cuadrática son los valores de x para los cuales f(x) = 0.
+                </div>
+                <div class="step">
+                    <strong>Paso a paso:</strong><br>
+                    \( 3x^2 - 12 = 0 \)<br>
+                    \( 3x^2 = 12 \)<br>
+                    \( x^2 = 4 \)<br>
+                    \( x = \pm \sqrt{4} \)<br>
+                    \( x = 2 \, y \, x = -2 \)
+                </div>
+            </div>
+        </div>
+        
+        <!-- Pregunta 7 -->
+        <div class="question">
+            <div class="question-text">7. \( f(x) = (x + 3)^2 - 4 \) tiene vértice en:</div>
+            <div class="options">
+                a) (3, -4)<br>
+                b) (-3, -4)<br>
+                c) (-3, 4)<br>
+                d) (3, 4)
+            </div>
+            <button class="show-explanation" onclick="toggleExplanation(7)">Mostrar explicación</button>
+            <div class="explanation" id="explanation7">
+                <p class="correct">Respuesta correcta: b) (-3, -4)</p>
+                <div class="concept">
+                    <strong>Concepto:</strong> La forma canónica de una función cuadrática es \( f(x) = a(x - h)^2 + k \), donde (h, k) es el vértice.
+                </div>
+                <div class="step">
+                    <strong>Paso a paso:</strong><br>
+                    \( f(x) = (x + 3)^2 - 4 \) puede reescribirse como \( f(x) = (x - (-3))^2 + (-4) \)<br>
+                    Comparando con la forma canónica \( f(x) = a(x - h)^2 + k \), tenemos:<br>
+                    h = -3, k = -4<br>
+                    Por lo tanto, el vértice es (-3, -4)
+                </div>
+            </div>
+        </div>
+        
+        <!-- Pregunta 8 -->
+        <div class="question">
+            <div class="question-text">8. Para \( f(x) = -2(x - 1)(x + 3) \), intersección con Y:</div>
+            <div class="options">
+                a) (0, -6)<br>
+                b) (0, 6)<br>
+                c) (0, -2)<br>
+                d) (0, 2)
+            </div>
+            <button class="show-explanation" onclick="toggleExplanation(8)">Mostrar explicación</button>
+            <div class="explanation" id="explanation8">
+                <p class="correct">Respuesta correcta: b) (0, 6)</p>
+                <div class="concept">
+                    <strong>Concepto:</strong> La intersección con el eje Y se encuentra evaluando f(0).
+                </div>
+                <div class="step">
+                    <strong>Paso a paso:</strong><br>
+                    \( f(0) = -2(0 - 1)(0 + 3) = -2(-1)(3) = -2 \times (-1) \times 3 = 2 \times 3 = 6 \)<br>
+                    Por lo tanto, la intersección con Y es (0, 6)
+                </div>
+            </div>
+        </div>
+        
+        <!-- Pregunta 9 -->
+        <div class="question">
+            <div class="question-text">9. El vértice representa:</div>
+            <div class="options">
+                a) Intersección con X<br>
+                b) Máximo/mínimo<br>
+                c) Punto medio raíces<br>
+                d) Intersección con Y
+            </div>
+            <button class="show-explanation" onclick="toggleExplanation(9)">Mostrar explicación</button>
+            <div class="explanation" id="explanation9">
+                <p class="correct">Respuesta correcta: b) Máximo/mínimo</p>
+                <div class="concept">
+                    <strong>Concepto:</strong> El vértice de una parábola es el punto donde la función alcanza su valor máximo o mínimo.
+                </div>
+                <p>Si a > 0, la parábola abre hacia arriba y el vértice es un mínimo. Si a < 0, la parábola abre hacia abajo y el vértice es un máximo.</p>
+                <p>El vértice también es el punto medio de las raíces (si existen), pero su definición principal es ser el máximo o mínimo de la función.</p>
+            </div>
+        </div>
+        
+        <!-- Pregunta 10 -->
+        <div class="question">
+            <div class="question-text">10. Eje de simetría de \( f(x) = x^2 - 4x + 3 \):</div>
+            <div class="options">
+                a) \( x = 1 \)<br>
+                b) \( x = 2 \)<br>
+                c) \( x = 3 \)<br>
+                d) \( x = 4 \)
+            </div>
+            <button class="show-explanation" onclick="toggleExplanation(10)">Mostrar explicación</button>
+            <div class="explanation" id="explanation10">
+                <p class="correct">Respuesta correcta: b) \( x = 2 \)</p>
+                <div class="concept">
+                    <strong>Concepto:</strong> El eje de simetría de una parábola es la recta vertical que pasa por el vértice. Su ecuación es \( x = h \), donde h es la coordenada x del vértice.
+                </div>
+                <div class="step">
+                    <strong>Paso a paso:</strong><br>
+                    Para \( f(x) = x^2 - 4x + 3 \), tenemos a = 1, b = -4<br>
+                    \( h = -\frac{-4}{2 \times 1} = \frac{4}{2} = 2 \)<br>
+                    Por lo tanto, el eje de simetría es \( x = 2 \)
+                </div>
+            </div>
+        </div>
+        
+        <h2>Grupo B: Ejercicios 11-20</h2>
+        
+        <!-- Pregunta 11 -->
+        <div class="question">
+            <div class="question-text">11. Si parábola abre hacia abajo:</div>
+            <div class="options">
+                a) \( a > 0 \)<br>
+                b) \( a < 0 \)<br>
+                c) \( b = 0 \)<br>
+                d) \( c > 0 \)
+            </div>
+            <button class="show-explanation" onclick="toggleExplanation(11)">Mostrar explicación</button>
+            <div class="explanation" id="explanation11">
+                <p class="correct">Respuesta correcta: b) \( a < 0 \)</p>
+                <div class="concept">
+                    <strong>Concepto:</strong> La dirección de apertura de una parábola \( f(x) = ax^2 + bx + c \) está determinada por el coeficiente a.
+                </div>
+                <p>Si a > 0, la parábola abre hacia arriba. Si a < 0, la parábola abre hacia abajo.</p>
+                <p>Los coeficientes b y c afectan la posición de la parábola pero no su dirección de apertura.</p>
+            </div>
+        </div>
+        
+        <!-- Pregunta 12 -->
+        <div class="question">
+            <div class="question-text">12. Raíces reales de \( f(x) = x^2 + 2x + 5 \):</div>
+            <div class="options">
+                a) 0<br>
+                b) 1<br>
+                c) 2<br>
+                d) 3
+            </div>
+            <button class="show-explanation" onclick="toggleExplanation(12)">Mostrar explicación</button>
+            <div class="explanation" id="explanation12">
+                <p class="correct">Respuesta correcta: a) 0</p>
+                <div class="concept">
+                    <strong>Concepto:</strong> El número de raíces reales de una función cuadrática depende del discriminante \( \Delta = b^2 - 4ac \):
+                    <ul>
+                        <li>Si \( \Delta > 0 \): dos raíces reales distintas</li>
+                        <li>Si \( \Delta = 0 \): una raíz real doble</li>
+                        <li>Si \( \Delta < 0 \): ninguna raíz real</li>
+                    </ul>
+                </div>
+                <div class="step">
+                    <strong>Paso a paso:</strong><br>
+                    Para \( f(x) = x^2 + 2x + 5 \), tenemos a = 1, b = 2, c = 5<br>
+                    \( \Delta = 2^2 - 4(1)(5) = 4 - 20 = -16 < 0 \)<br>
+                    Como \( \Delta < 0 \), no hay raíces reales. La respuesta es 0.
+                </div>
+            </div>
+        </div>
+        
+        <!-- Pregunta 13 -->
+        <div class="question">
+            <div class="question-text">13. El discriminante \(\Delta\) determina:</div>
+            <div class="options">
+                a) Dirección apertura<br>
+                b) Posición vértice<br>
+                c) Número raíces reales<br>
+                d) Intersección con Y
+            </div>
+            <button class="show-explanation" onclick="toggleExplanation(13)">Mostrar explicación</button>
+            <div class="explanation" id="explanation13">
+                <p class="correct">Respuesta correcta: c) Número raíces reales</p>
+                <div class="concept">
+                    <strong>Concepto:</strong> El discriminante \( \Delta = b^2 - 4ac \) determina la naturaleza de las raíces de la ecuación cuadrática.
+                </div>
+                <p>La dirección de apertura está determinada por el signo de a, la posición del vértice por -b/2a, y la intersección con Y por el valor de c.</p>
+            </div>
+        </div>
+        
+        <!-- Pregunta 14 -->
+        <div class="question">
+            <div class="question-text">14. Si \(\Delta > 0\), la parábola:</div>
+            <div class="options">
+                a) No corta eje X<br>
+                b) Toca eje X en un punto<br>
+                c) Corta eje X en dos puntos<br>
+                d) Vértice en origen
+            </div>
+            <button class="show-explanation" onclick="toggleExplanation(14)">Mostrar explicación</button>
+            <div class="explanation" id="explanation14">
+                <p class="correct">Respuesta correcta: c) Corta eje X en dos puntos</p>
+                <div class="concept">
+                    <strong>Concepto:</strong> El discriminante \( \Delta > 0 \) indica que la ecuación cuadrática tiene dos raíces reales distintas, por lo tanto la parábola corta al eje X en dos puntos diferentes.
+                </div>
+            </div>
+        </div>
+        
+        <!-- Pregunta 15 -->
+        <div class="question">
+            <div class="question-text">15. \( c \) en \( f(x) = ax^2 + bx + c \) representa:</div>
+            <div class="options">
+                a) Coordenada x vértice<br>
+                b) Intersección con Y<br>
+                c) Suma raíces<br>
+                d) Discriminante
+            </div>
+            <button class="show-explanation" onclick="toggleExplanation(15)">Mostrar explicación</button>
+            <div class="explanation" id="explanation15">
+                <p class="correct">Respuesta correcta: b) Intersección con Y</p>
+                <div class="concept">
+                    <strong>Concepto:</strong> En la forma polinómica \( f(x) = ax^2 + bx + c \), el término independiente c es el valor de la función cuando x = 0, es decir, el punto donde la parábola intersecta al eje Y.
+                </div>
+                <p>La coordenada x del vértice es \( -\frac{b}{2a} \), la suma de raíces es \( -\frac{b}{a} \), y el discriminante es \( b^2 - 4ac \).</p>
+            </div>
+        </div>
+        
+        <!-- Pregunta 16 -->
+        <div class="question">
+            <div class="question-text">16. Para convertir a canónica, primero:</div>
+            <div class="options">
+                a) Raíces<br>
+                b) Discriminante<br>
+                c) \( h = -b/(2a) \)<br>
+                d) Término independiente
+            </div>
+            <button class="show-explanation" onclick="toggleExplanation(16)">Mostrar explicación</button>
+            <div class="explanation" id="explanation16">
+                <p class="correct">Respuesta correcta: c) \( h = -b/(2a) \)</p>
+                <div class="concept">
+                    <strong>Concepto:</strong> Para convertir de la forma polinómica \( f(x) = ax^2 + bx + c \) a la forma canónica \( f(x) = a(x - h)^2 + k \), el primer paso es encontrar h, que es la coordenada x del vértice.
+                </div>
+                <div class="step">
+                    <strong>Proceso completo:</strong><br>
+                    1. Calcular \( h = -\frac{b}{2a} \)<br>
+                    2. Calcular \( k = f(h) \)<br>
+                    3. Escribir la forma canónica: \( f(x) = a(x - h)^2 + k \)
+                </div>
+            </div>
+        </div>
+        
+        <!-- Pregunta 17 -->
+        <div class="question">
+            <div class="question-text">17. \( f(x) = x^2 - 6x + 8 \) en canónica:</div>
+            <div class="options">
+                a) \((x - 6)^2 - 28\)<br>
+                b) \((x - 3)^2 - 1\)<br>
+                c) \((x + 3)^2 - 1\)<br>
+                d) \((x - 3)^2 + 1\)
+            </div>
+            <button class="show-explanation" onclick="toggleExplanation(17)">Mostrar explicación</button>
+            <div class="explanation" id="explanation17">
+                <p class="correct">Respuesta correcta: b) \((x - 3)^2 - 1\)</p>
+                <div class="concept">
+                    <strong>Concepto:</strong> Completar el cuadrado es el método para convertir de forma polinómica a canónica.
+                </div>
+                <div class="step">
+                    <strong>Paso a paso:</strong><br>
+                    \( f(x) = x^2 - 6x + 8 \)<br>
+                    Completamos el cuadrado: \( x^2 - 6x = (x - 3)^2 - 9 \)<br>
+                    Entonces: \( f(x) = (x - 3)^2 - 9 + 8 = (x - 3)^2 - 1 \)
+                </div>
+            </div>
+        </div>
+        
+        <!-- Pregunta 18 -->
+        <div class="question">
+            <div class="question-text">18. Raíces de \( f(x) = 2(x - 3)^2 - 8 \):</div>
+            <div class="options">
+                a) \( x = 1 \, y \, x = 5 \)<br>
+                b) \( x = 3 \, y \, x = -3 \)<br>
+                c) \( x = 0 \, y \, x = 6 \)<br>
+                d) \( x = 2 \, y \, x = 4 \)
+            </div>
+            <button class="show-explanation" onclick="toggleExplanation(18)">Mostrar explicación</button>
+            <div class="explanation" id="explanation18">
+                <p class="correct">Respuesta correcta: a) \( x = 1 \, y \, x = 5 \)</p>
+                <div class="concept">
+                    <strong>Concepto:</strong> Para encontrar las raíces desde la forma canónica, igualamos la función a cero y resolvemos para x.
+                </div>
+                <div class="step">
+                    <strong>Paso a paso:</strong><br>
+                    \( 2(x - 3)^2 - 8 = 0 \)<br>
+                    \( 2(x - 3)^2 = 8 \)<br>
+                    \( (x - 3)^2 = 4 \)<br>
+                    \( x - 3 = \pm \sqrt{4} = \pm 2 \)<br>
+                    \( x = 3 \pm 2 \)<br>
+                    Por lo tanto, \( x = 5 \, y \, x = 1 \)
+                </div>
+            </div>
+        </div>
+        
+        <!-- Pregunta 19 -->
+        <div class="question">
+            <div class="question-text">19. \( f(x) = -x^2 + 4x \) tiene:</div>
+            <div class="options">
+                a) Máximo en (2, 4)<br>
+                b) Mínimo en (2, 4)<br>
+                c) Máximo en (4, 0)<br>
+                d) Mínimo en (-2, -12)
+            </div>
+            <button class="show-explanation" onclick="toggleExplanation(19)">Mostrar explicación</button>
+            <div class="explanation" id="explanation19">
+                <p class="correct">Respuesta correcta: a) Máximo en (2, 4)</p>
+                <div class="concept">
+                    <strong>Concepto:</strong> El vértice de una parábola es un máximo cuando a < 0 y un mínimo cuando a > 0.
+                </div>
+                <div class="step">
+                    <strong>Paso a paso:</strong><br>
+                    Para \( f(x) = -x^2 + 4x \), tenemos a = -1 < 0, por lo que tiene un máximo.<br>
+                    Coordenada x del vértice: \( h = -\frac{4}{2(-1)} = \frac{-4}{-2} = 2 \)<br>
+                    Coordenada y del vértice: \( k = f(2) = -(2)^2 + 4(2) = -4 + 8 = 4 \)<br>
+                    Por lo tanto, tiene un máximo en (2, 4)
+                </div>
+            </div>
+        </div>
+        
+        <!-- Pregunta 20 -->
+        <div class="question">
+            <div class="question-text">20. Vértice (2, -3) pasa por (0, 5):</div>
+            <div class="options">
+                a) \( f(x) = 2(x - 2)^2 - 3 \)<br>
+                b) \( f(x) = (x - 2)^2 - 3 \)<br>
+                c) \( f(x) = -2(x - 2)^2 - 3 \)<br>
+                d) \( f(x) = 2(x + 2)^2 - 3 \)
+            </div>
+            <button class="show-explanation" onclick="toggleExplanation(20)">Mostrar explicación</button>
+            <div class="explanation" id="explanation20">
+                <p class="correct">Respuesta correcta: a) \( f(x) = 2(x - 2)^2 - 3 \)</p>
+                <div class="concept">
+                    <strong>Concepto:</strong> Conociendo el vértice (h, k), la forma canónica es \( f(x) = a(x - h)^2 + k \). Podemos encontrar a usando un punto conocido.
+                </div>
+                <div class="step">
+                    <strong>Paso a paso:</strong><br>
+                    Con vértice (2, -3), la función es \( f(x) = a(x - 2)^2 - 3 \)<br>
+                    Como pasa por (0, 5), sustituimos: \( 5 = a(0 - 2)^2 - 3 \)<br>
+                    \( 5 = a(4) - 3 \)<br>
+                    \( 4a = 8 \)<br>
+                    \( a = 2 \)<br>
+                    Por lo tanto, \( f(x) = 2(x - 2)^2 - 3 \)
+                </div>
+            </div>
+        </div>
+        
+        <div class="answer-key">
+            <h2>Clave de Respuestas</h2>
+            
+            <div class="group">
+                <div class="group-title">Grupo A</div>
+                <p>1. c) \( f(x) = ax^2 + bx + c \)</p>
+                <p>2. b) \( 2x^2 - 12x + 13 \)</p>
+                <p>3. a) \( 3x^2 - 9x - 12 \)</p>
+                <p>4. b) \((x - 2)(x - 4)\)</p>
+                <p>5. a) \((2, -3)\)</p>
+                <p>6. a) \( x = 2 \) y \( x = -2 \)</p>
+                <p>7. b) \((-3, -4)\)</p>
+                <p>8. b) \((0, 6)\)</p>
+                <p>9. b) Máximo/mínimo</p>
+                <p>10. b) \( x = 2 \)</p>
+            </div>
+            
+            <div class="group">
+                <div class="group-title">Grupo B</div>
+                <p>11. b) \( a < 0 \)</p>
+                <p>12. a) 0</p>
+                <p>13. c) Número raíces reales</p>
+                <p>14. c) Corta eje X en dos puntos</p>
+                <p>15. b) Intersección con Y</p>
+                <p>16. c) \( h = -b/(2a) \)</p>
+                <p>17. b) \((x - 3)^2 - 1\)</p>
+                <p>18. a) \( x = 1 \) y \( x = 5 \)</p>
+                <p>19. a) Máximo en \((2, 4)\)</p>
+                <p>20. a) \( f(x) = 2(x - 2)^2 - 3 \)</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleExplanation(number) {
+            const explanation = document.getElementById(`explanation${number}`);
+            const button = document.querySelector(`#explanation${number}`).previousElementSibling;
+            
+            if (explanation.style.display === 'block') {
+                explanation.style.display = 'none';
+                button.textContent = 'Mostrar explicación';
+            } else {
+                explanation.style.display = 'block';
+                button.textContent = 'Ocultar explicación';
+            }
+            
+            // Forzar rerenderizado de MathJax
+            if (typeof MathJax !== 'undefined') {
+                MathJax.typeset();
+            }
+        }
+        
+        // Forzar rerenderizado inicial de MathJax
+        if (typeof MathJax !== 'undefined') {
+            MathJax.typeset();
+        }
+    </script>
+</body>
+</html>
