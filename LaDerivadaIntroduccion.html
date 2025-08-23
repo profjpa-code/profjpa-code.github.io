@@ -1,0 +1,1688 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Introducción al Cálculo Diferencial - Bachillerato Técnico en Madera</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --madera-oscuro: #5D4037;
+            --madera-medio: #8D6E63;
+            --madera-claro: #A1887F;
+            --crema: #EFEBE9;
+            --verde-natural: #558B2F;
+            --acento: #FF6F00;
+            --blanco: #FFFFFF;
+            --gris: #E0E0E0;
+            --azul: #1976D2;
+            --rojo: #D32F2F;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--crema);
+            color: var(--madera-oscuro);
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            background: linear-gradient(to right, var(--madera-oscuro), var(--madera-medio));
+            color: var(--blanco);
+            padding: 20px;
+            text-align: center;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            font-weight: 300;
+        }
+        
+        .tab-container {
+            display: flex;
+            margin-bottom: 20px;
+            border-bottom: 3px solid var(--madera-medio);
+            flex-wrap: wrap;
+        }
+        
+        .tab-button {
+            flex: 1;
+            min-width: 150px;
+            padding: 15px;
+            background-color: var(--madera-claro);
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: bold;
+            color: var(--blanco);
+            transition: background-color 0.3s;
+        }
+        
+        .tab-button:hover {
+            background-color: var(--madera-medio);
+        }
+        
+        .tab-button.active {
+            background-color: var(--madera-oscuro);
+            border-bottom: 3px solid var(--acento);
+        }
+        
+        .tab-content {
+            display: none;
+            padding: 20px;
+            background-color: var(--blanco);
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        .concept-banner {
+            background-color: var(--verde-natural);
+            color: var(--blanco);
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+            text-align: center;
+            font-size: 1.3rem;
+            font-weight: bold;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+        
+        .definition-box {
+            background-color: var(--gris);
+            border-left: 5px solid var(--acento);
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .example-box {
+            background-color: var(--crema);
+            border: 1px solid var(--madera-claro);
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 8px;
+        }
+        
+        .example-title {
+            color: var(--madera-oscuro);
+            font-weight: bold;
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+        
+        .solution-button {
+            background-color: var(--madera-medio);
+            color: var(--blanco);
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: background-color 0.3s;
+        }
+        
+        .solution-button:hover {
+            background-color: var(--madera-oscuro);
+        }
+        
+        .solution {
+            display: none;
+            margin-top: 15px;
+            padding: 15px;
+            background-color: var(--gris);
+            border-radius: 5px;
+        }
+        
+        .exercise-box {
+            background-color: var(--blanco);
+            border: 2px solid var(--madera-claro);
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 8px;
+        }
+        
+        .quiz-container {
+            background-color: var(--crema);
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        
+        .question {
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+        
+        .options {
+            margin-left: 20px;
+        }
+        
+        .option {
+            margin: 10px 0;
+        }
+        
+        .option input {
+            margin-right: 10px;
+        }
+        
+        .feedback {
+            margin-top: 10px;
+            padding: 10px;
+            border-radius: 5px;
+            display: none;
+        }
+        
+        .correct {
+            background-color: #C8E6C9;
+            color: #2E7D32;
+        }
+        
+        .incorrect {
+            background-color: #FFCDD2;
+            color: #C62828;
+        }
+        
+        .submit-button {
+            background-color: var(--verde-natural);
+            color: var(--blanco);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            margin-top: 15px;
+            transition: background-color 0.3s;
+        }
+        
+        .submit-button:hover {
+            background-color: #33691E;
+        }
+        
+        .application-box {
+            background-color: #E8F5E9;
+            border-left: 5px solid var(--verde-natural);
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .application-title {
+            color: var(--verde-natural);
+            font-weight: bold;
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+        
+        .wood-icon {
+            display: inline-block;
+            margin-right: 10px;
+            font-size: 1.5rem;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 30px;
+            padding: 20px;
+            background-color: var(--madera-oscuro);
+            color: var(--blanco);
+            border-radius: 10px;
+        }
+        
+        /* Nuevos estilos para las mejoras */
+        .graph-container {
+            background-color: var(--blanco);
+            border: 2px solid var(--madera-claro);
+            border-radius: 8px;
+            padding: 15px;
+            margin: 20px 0;
+            text-align: center;
+        }
+        
+        canvas {
+            border: 1px solid var(--gris);
+            border-radius: 5px;
+            max-width: 100%;
+        }
+        
+        .controls {
+            margin: 15px 0;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        .control-button {
+            background-color: var(--madera-medio);
+            color: var(--blanco);
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .control-button:hover {
+            background-color: var(--madera-oscuro);
+        }
+        
+        .slider-container {
+            margin: 10px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .slider-container label {
+            margin-right: 10px;
+            font-weight: bold;
+        }
+        
+        input[type="range"] {
+            width: 150px;
+        }
+        
+        .history-timeline {
+            position: relative;
+            margin: 30px 0;
+            padding: 20px 0;
+        }
+        
+        .timeline-line {
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background-color: var(--madera-medio);
+            transform: translateX(-50%);
+        }
+        
+        .timeline-item {
+            position: relative;
+            margin-bottom: 30px;
+            width: 45%;
+        }
+        
+        .timeline-item:nth-child(odd) {
+            left: 0;
+            text-align: right;
+            padding-right: 60px;
+        }
+        
+        .timeline-item:nth-child(even) {
+            left: 55%;
+            padding-left: 60px;
+        }
+        
+        .timeline-dot {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background-color: var(--madera-oscuro);
+            top: 5px;
+        }
+        
+        .timeline-item:nth-child(odd) .timeline-dot {
+            right: -10px;
+        }
+        
+        .timeline-item:nth-child(even) .timeline-dot {
+            left: -10px;
+        }
+        
+        .timeline-content {
+            background-color: var(--crema);
+            border-radius: 8px;
+            padding: 15px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .timeline-year {
+            font-weight: bold;
+            color: var(--madera-oscuro);
+            margin-bottom: 5px;
+        }
+        
+        .concept-map {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 30px 0;
+        }
+        
+        .map-row {
+            display: flex;
+            justify-content: center;
+            margin: 15px 0;
+            flex-wrap: wrap;
+        }
+        
+        .map-node {
+            background-color: var(--madera-claro);
+            color: var(--blanco);
+            padding: 15px;
+            border-radius: 8px;
+            margin: 10px;
+            text-align: center;
+            min-width: 150px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            position: relative;
+        }
+        
+        .map-node.highlight {
+            background-color: var(--verde-natural);
+            transform: scale(1.1);
+        }
+        
+        .map-arrow {
+            color: var(--madera-oscuro);
+            font-size: 1.5rem;
+            margin: 0 10px;
+            align-self: center;
+        }
+        
+        .general-applications {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+        
+        .app-card {
+            background-color: var(--blanco);
+            border: 1px solid var(--madera-claro);
+            border-radius: 8px;
+            padding: 15px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .app-icon {
+            font-size: 2rem;
+            color: var(--madera-medio);
+            margin-bottom: 10px;
+            text-align: center;
+        }
+        
+        .app-title {
+            font-weight: bold;
+            color: var(--madera-oscuro);
+            margin-bottom: 10px;
+            text-align: center;
+        }
+        
+        @media (max-width: 768px) {
+            .tab-button {
+                font-size: 0.9rem;
+                padding: 10px 5px;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .timeline-item {
+                width: 100%;
+                left: 0 !important;
+                padding-left: 60px !important;
+                padding-right: 0 !important;
+                text-align: left !important;
+            }
+            
+            .timeline-dot {
+                left: -10px !important;
+                right: auto !important;
+            }
+            
+            .timeline-line {
+                left: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Introducción al Cálculo Diferencial</h1>
+            <p class="subtitle">Aplicaciones en la industria de la madera y otros campos - Bachillerato Técnico en Madera</p>
+        </header>
+        
+        <div class="tab-container">
+            <button class="tab-button active" onclick="openTab(event, 'clase1')">Clase 1: Rectas Tangentes y Secantes</button>
+            <button class="tab-button" onclick="openTab(event, 'clase2')">Clase 2: Velocidad y Límites</button>
+            <button class="tab-button" onclick="openTab(event, 'clase3')">Clase 3: Derivada y Aplicaciones</button>
+            <button class="tab-button" onclick="openTab(event, 'historia')">Marco Histórico</button>
+            <button class="tab-button" onclick="openTab(event, 'sintesis')">Síntesis Conceptual</button>
+            <button class="tab-button" onclick="openTab(event, 'aplicaciones')">Aplicaciones Generales</button>
+        </div>
+        
+        <!-- CLASE 1 -->
+        <div id="clase1" class="tab-content active">
+            <div class="concept-banner">
+                <span class="wood-icon">🪵</span> Recta Tangente y Secante: Fundamentos Geométricos
+            </div>
+            
+            <div class="definition-box">
+                <h3>Recta Tangente</h3>
+                <p>Es la recta que toca a una curva en un solo punto, sin cortarla, y tiene la misma dirección que la curva en ese punto. Su pendiente representa la inclinación de la curva en dicho punto.</p>
+            </div>
+            
+            <div class="definition-box">
+                <h3>Recta Secante</h3>
+                <p>Es una recta que corta a una curva en dos puntos distintos. Al acercar estos puntos, la secante se aproxima a la tangente.</p>
+            </div>
+            
+            <div class="graph-container">
+                <h3>Visualización Interactiva: Recta Tangente y Secante</h3>
+                <canvas id="tangentSecantCanvas" width="600" height="400"></canvas>
+                <div class="controls">
+                    <div class="slider-container">
+                        <label for="pointSlider">Posición del punto:</label>
+                        <input type="range" id="pointSlider" min="-5" max="5" step="0.1" value="1">
+                    </div>
+                    <div class="slider-container">
+                        <label for="distanceSlider">Distancia entre puntos:</label>
+                        <input type="range" id="distanceSlider" min="0.1" max="3" step="0.1" value="1">
+                    </div>
+                    <button class="control-button" onclick="toggleSecant()">Mostrar/Ocultar Secante</button>
+                    <button class="control-button" onclick="resetGraph()">Reiniciar Gráfico</button>
+                </div>
+            </div>
+            
+            <div class="example-box">
+                <div class="example-title">Ejemplo: Diseño de una pata de mesa curva</div>
+                <p>Para diseñar una pata de mesa con curva suave modelada por la función f(x) = 0.1x², queremos encontrar la pendiente de la tangente en x = 2.</p>
+                <button class="solution-button" onclick="toggleSolution('sol1')">Ver solución</button>
+                <div id="sol1" class="solution">
+                    <p>1. Calculamos dos puntos cercanos en la curva:</p>
+                    <p>Punto A: (2, f(2)) = (2, 0.1·2²) = (2, 0.4)</p>
+                    <p>Punto B: (2.1, f(2.1)) = (2.1, 0.1·2.1²) = (2.1, 0.441)</p>
+                    <p>2. Calculamos la pendiente de la secante que pasa por A y B:</p>
+                    <p>m = (0.441 - 0.4) / (2.1 - 2) = 0.041 / 0.1 = 0.41</p>
+                    <p>3. Si repetimos el proceso con puntos más cercanos, nos acercamos a la pendiente de la tangente.</p>
+                </div>
+            </div>
+            
+            <div class="exercise-box">
+                <h3>Ejercicio Propuesto</h3>
+                <p>Para una curva de respaldo de silla modelada por f(x) = 0.05x³, calcula la pendiente de la secante entre los puntos x=1 y x=1.5. ¿Qué sucede si acercamos los puntos a x=1 y x=1.1?</p>
+                <button class="solution-button" onclick="toggleSolution('ex1')">Ver respuesta</button>
+                <div id="ex1" class="solution">
+                    <p>Para x=1 y x=1.5:</p>
+                    <p>f(1) = 0.05·1³ = 0.05</p>
+                    <p>f(1.5) = 0.05·1.5³ = 0.16875</p>
+                    <p>m = (0.16875 - 0.05) / (1.5 - 1) = 0.11875 / 0.5 = 0.2375</p>
+                    <p>Para x=1 y x=1.1:</p>
+                    <p>f(1.1) = 0.05·1.1³ = 0.06655</p>
+                    <p>m = (0.06655 - 0.05) / (1.1 - 1) = 0.01655 / 0.1 = 0.1655</p>
+                    <p>Al acercar los puntos, la pendiente de la secante se aproxima a la pendiente de la tangente en x=1.</p>
+                </div>
+            </div>
+            
+            <div class="application-box">
+                <div class="application-title">Aplicación en la industria de la madera</div>
+                <p>En el diseño de muebles con curvas complejas, conocer la pendiente exacta en cada punto es crucial para el mecanizado con control numérico (CNC). La recta tangente determina el ángulo de inclinación de la herramienta en cada punto de la trayectoria de corte.</p>
+            </div>
+            
+            <div class="quiz-container">
+                <h3>Evaluación - Clase 1</h3>
+                <div class="question">1. ¿Qué representa la pendiente de la recta tangente a una curva en un punto?</div>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" name="q1" value="a" id="q1a">
+                        <label for="q1a">La altura de la curva en ese punto</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q1" value="b" id="q1b">
+                        <label for="q1b">La inclinación de la curva en ese punto</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q1" value="c" id="q1c">
+                        <label for="q1c">El área bajo la curva hasta ese punto</label>
+                    </div>
+                </div>
+                <div id="feedback1" class="feedback"></div>
+                
+                <div class="question">2. ¿Qué sucede con las rectas secantes cuando los puntos de corte se acercan?</div>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" name="q2" value="a" id="q2a">
+                        <label for="q2a">Se convierten en paralelas al eje X</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q2" value="b" id="q2b">
+                        <label for="q2b">Se acercan a la recta tangente</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q2" value="c" id="q2c">
+                        <label for="q2c">Se alejan de la curva</label>
+                    </div>
+                </div>
+                <div id="feedback2" class="feedback"></div>
+                
+                <button class="submit-button" onclick="checkQuiz('quiz1')">Verificar respuestas</button>
+            </div>
+        </div>
+        
+        <!-- CLASE 2 -->
+        <div id="clase2" class="tab-content">
+            <div class="concept-banner">
+                <span class="wood-icon">🪚</span> Velocidad Media vs Instantánea y Noción de Límite
+            </div>
+            
+            <div class="definition-box">
+                <h3>Velocidad Media</h3>
+                <p>Es el cociente entre el espacio recorrido y el tiempo transcurrido. Representa la velocidad promedio durante un intervalo de tiempo.</p>
+            </div>
+            
+            <div class="definition-box">
+                <h3>Velocidad Instantánea</h3>
+                <p>Es la velocidad en un instante preciso. Se calcula como el límite de las velocidades medias cuando el intervalo de tiempo tiende a cero.</p>
+            </div>
+            
+            <div class="definition-box">
+                <h3>Límite</h3>
+                <p>Es el valor al que se aproxima una función cuando la variable independiente se acerca a un determinado valor. Es la herramienta fundamental para definir la derivada.</p>
+            </div>
+            
+            <div class="graph-container">
+                <h3>Visualización Interactiva: Velocidad Media e Instantánea</h3>
+                <canvas id="velocityCanvas" width="600" height="400"></canvas>
+                <div class="controls">
+                    <div class="slider-container">
+                        <label for="timeSlider">Tiempo (t):</label>
+                        <input type="range" id="timeSlider" min="0" max="10" step="0.1" value="2">
+                    </div>
+                    <div class="slider-container">
+                        <label for="intervalSlider">Intervalo (Δt):</label>
+                        <input type="range" id="intervalSlider" min="0.1" max="2" step="0.1" value="1">
+                    </div>
+                    <button class="control-button" onclick="toggleAverageVelocity()">Mostrar/Ocultar Velocidad Media</button>
+                    <button class="control-button" onclick="resetVelocityGraph()">Reiniciar Gráfico</button>
+                </div>
+            </div>
+            
+            <div class="example-box">
+                <div class="example-title">Ejemplo: Control de velocidad en una sierra</div>
+                <p>Una sierra se desplaza cortando madera según la función s(t) = 2t² - t (en metros), donde t es el tiempo en segundos. Calcula la velocidad media entre t=2 y t=3 segundos, y estima la velocidad instantánea en t=2.</p>
+                <button class="solution-button" onclick="toggleSolution('sol2')">Ver solución</button>
+                <div id="sol2" class="solution">
+                    <p>1. Velocidad media entre t=2 y t=3:</p>
+                    <p>s(2) = 2·2² - 2 = 8 - 2 = 6 m</p>
+                    <p>s(3) = 2·3² - 3 = 18 - 3 = 15 m</p>
+                    <p>Velocidad media = (15 - 6) / (3 - 2) = 9 / 1 = 9 m/s</p>
+                    <p>2. Para estimar la velocidad instantánea en t=2, calculamos velocidades medias en intervalos más pequeños:</p>
+                    <p>Entre t=2 y t=2.1:</p>
+                    <p>s(2.1) = 2·(2.1)² - 2.1 = 8.82 - 2.1 = 6.72 m</p>
+                    <p>Velocidad media = (6.72 - 6) / (2.1 - 2) = 0.72 / 0.1 = 7.2 m/s</p>
+                    <p>Entre t=2 y t=2.01:</p>
+                    <p>s(2.01) = 2·(2.01)² - 2.01 = 8.0802 - 2.01 = 6.0702 m</p>
+                    <p>Velocidad media = (6.0702 - 6) / (2.01 - 2) = 0.0702 / 0.01 = 7.02 m/s</p>
+                    <p>Al acercar los puntos, la velocidad se aproxima a 7 m/s, que es la velocidad instantánea en t=2.</p>
+                </div>
+            </div>
+            
+            <div class="exercise-box">
+                <h3>Ejercicio Propuesto</h3>
+                <p>La posición de una cepilladora de madera está dada por p(t) = t³ - 3t² + 2 (en metros). Calcula la velocidad media entre t=1 y t=3 segundos, y estima la velocidad instantánea en t=2.</p>
+                <button class="solution-button" onclick="toggleSolution('ex2')">Ver respuesta</button>
+                <div id="ex2" class="solution">
+                    <p>1. Velocidad media entre t=1 y t=3:</p>
+                    <p>p(1) = 1³ - 3·1² + 2 = 1 - 3 + 2 = 0 m</p>
+                    <p>p(3) = 3³ - 3·3² + 2 = 27 - 27 + 2 = 2 m</p>
+                    <p>Velocidad media = (2 - 0) / (3 - 1) = 2 / 2 = 1 m/s</p>
+                    <p>2. Para estimar la velocidad instantánea en t=2:</p>
+                    <p>p(2) = 2³ - 3·2² + 2 = 8 - 12 + 2 = -2 m</p>
+                    <p>Entre t=2 y t=2.1:</p>
+                    <p>p(2.1) = (2.1)³ - 3·(2.1)² + 2 = 9.261 - 13.23 + 2 = -1.969 m</p>
+                    <p>Velocidad media = (-1.969 - (-2)) / (2.1 - 2) = 0.031 / 0.1 = 0.31 m/s</p>
+                    <p>Entre t=2 y t=2.01:</p>
+                    <p>p(2.01) = (2.01)³ - 3·(2.01)² + 2 = 8.120601 - 12.1203 + 2 = -1.999699 m</p>
+                    <p>Velocidad media = (-1.999699 - (-2)) / (2.01 - 2) = 0.000301 / 0.01 = 0.0301 m/s</p>
+                    <p>La velocidad instantánea en t=2 se aproxima a 0 m/s.</p>
+                </div>
+            </div>
+            
+            <div class="application-box">
+                <div class="application-title">Aplicación en la industria de la madera</div>
+                <p>En el proceso de secado de madera, controlar la velocidad de pérdida de humedad es crucial para evitar deformaciones. La velocidad instantánea de secado (derivada de la humedad respecto al tiempo) permite ajustar los parámetros del horno para un secado uniforme y sin defectos.</p>
+            </div>
+            
+            <div class="quiz-container">
+                <h3>Evaluación - Clase 2</h3>
+                <div class="question">1. ¿Cómo se calcula la velocidad instantánea?</div>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" name="q3" value="a" id="q3a">
+                        <label for="q3a">Como el límite de las velocidades medias cuando el intervalo de tiempo tiende a cero</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q3" value="b" id="q3b">
+                        <label for="q3b">Como el espacio total dividido por el tiempo total</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q3" value="c" id="q3c">
+                        <label for="q3c">Como el promedio de todas las velocidades medias</label>
+                    </div>
+                </div>
+                <div id="feedback3" class="feedback"></div>
+                
+                <div class="question">2. ¿Qué representa el límite de una función?</div>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" name="q4" value="a" id="q4a">
+                        <label for="q4a">El valor máximo que alcanza la función</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q4" value="b" id="q4b">
+                        <label for="q4b">El valor al que se aproxima la función cuando la variable se acerca a un determinado valor</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q4" value="c" id="q4c">
+                        <label for="q4c">El valor de la función en el punto donde no está definida</label>
+                    </div>
+                </div>
+                <div id="feedback4" class="feedback"></div>
+                
+                <button class="submit-button" onclick="checkQuiz('quiz2')">Verificar respuestas</button>
+            </div>
+        </div>
+        
+        <!-- CLASE 3 -->
+        <div id="clase3" class="tab-content">
+            <div class="concept-banner">
+                <span class="wood-icon">🪑</span> La Derivada y sus Aplicaciones en la Industria de la Madera
+            </div>
+            
+            <div class="definition-box">
+                <h3>Derivada de una función</h3>
+                <p>La derivada de una función f en un punto x, denotada f'(x), se define como el límite del cociente incremental cuando el incremento tiende a cero:</p>
+                <p>f'(x) = lim(h→0) [f(x+h) - f(x)]/h</p>
+                <p>Geométricamente, representa la pendiente de la recta tangente a la curva en el punto (x, f(x)).</p>
+            </div>
+            
+            <div class="graph-container">
+                <h3>Visualización Interactiva: Función y su Derivada</h3>
+                <canvas id="derivativeCanvas" width="600" height="400"></canvas>
+                <div class="controls">
+                    <div class="slider-container">
+                        <label for="functionSlider">Función:</label>
+                        <select id="functionSlider">
+                            <option value="quadratic">Cuadrática: f(x) = x²</option>
+                            <option value="cubic">Cúbica: f(x) = x³</option>
+                            <option value="sine">Seno: f(x) = sin(x)</option>
+                            <option value="exponential">Exponencial: f(x) = e^x</option>
+                        </select>
+                    </div>
+                    <button class="control-button" onclick="toggleDerivative()">Mostrar/Ocultar Derivada</button>
+                    <button class="control-button" onclick="resetDerivativeGraph()">Reiniciar Gráfico</button>
+                </div>
+            </div>
+            
+            <div class="example-box">
+                <div class="example-title">Ejemplo: Cálculo de la derivada para el diseño de una viga</div>
+                <p>Para una viga de madera con sección transversal rectangular, la resistencia R está dada por R(h) = k·h·(A-h), donde h es la altura y A es el ancho fijo. Calcula la derivada R'(h) para encontrar la altura óptima.</p>
+                <button class="solution-button" onclick="toggleSolution('sol3')">Ver solución</button>
+                <div id="sol3" class="solution">
+                    <p>1. Aplicamos la definición de derivada:</p>
+                    <p>R'(h) = lim(Δh→0) [R(h+Δh) - R(h)]/Δh</p>
+                    <p>2. Sustituimos la función R:</p>
+                    <p>R'(h) = lim(Δh→0) [k·(h+Δh)·(A-h-Δh) - k·h·(A-h)]/Δh</p>
+                    <p>3. Desarrollamos la expresión:</p>
+                    <p>R'(h) = lim(Δh→0) [k·(hA - h² + AΔh - 2hΔh - (Δh)²) - k·(hA - h²)]/Δh</p>
+                    <p>R'(h) = lim(Δh→0) [k·(AΔh - 2hΔh - (Δh)²)]/Δh</p>
+                    <p>R'(h) = lim(Δh→0) k·(A - 2h - Δh)</p>
+                    <p>4. Evaluamos el límite cuando Δh→0:</p>
+                    <p>R'(h) = k·(A - 2h)</p>
+                    <p>5. Para encontrar la altura óptima, igualamos a cero:</p>
+                    <p>k·(A - 2h) = 0</p>
+                    <p>A - 2h = 0</p>
+                    <p>h = A/2</p>
+                    <p>La altura óptima es la mitad del ancho fijo.</p>
+                </div>
+            </div>
+            
+            <div class="exercise-box">
+                <h3>Ejercicio Propuesto</h3>
+                <p>La curva de un respaldo de silla está modelada por f(x) = 0.02x³ - 0.3x² + x + 10. Calcula la derivada f'(x) y encuentra la pendiente de la tangente en x=4.</p>
+                <button class="solution-button" onclick="toggleSolution('ex3')">Ver respuesta</button>
+                <div id="ex3" class="solution">
+                    <p>1. Calculamos la derivada usando la definición:</p>
+                    <p>f'(x) = lim(h→0) [f(x+h) - f(x)]/h</p>
+                    <p>f'(x) = lim(h→0) [0.02(x+h)³ - 0.3(x+h)² + (x+h) + 10 - (0.02x³ - 0.3x² + x + 10)]/h</p>
+                    <p>2. Desarrollamos y simplificamos:</p>
+                    <p>f'(x) = lim(h→0) [0.02(x³ + 3x²h + 3xh² + h³) - 0.3(x² + 2xh + h²) + x + h + 10 - 0.02x³ + 0.3x² - x - 10]/h</p>
+                    <p>f'(x) = lim(h→0) [0.02x³ + 0.06x²h + 0.06xh² + 0.02h³ - 0.3x² - 0.6xh - 0.3h² + x + h + 10 - 0.02x³ + 0.3x² - x - 10]/h</p>
+                    <p>f'(x) = lim(h→0) [0.06x²h + 0.06xh² + 0.02h³ - 0.6xh - 0.3h² + h]/h</p>
+                    <p>f'(x) = lim(h→0) [h(0.06x² + 0.06xh + 0.02h² - 0.6x - 0.3h + 1)]/h</p>
+                    <p>f'(x) = lim(h→0) (0.06x² + 0.06xh + 0.02h² - 0.6x - 0.3h + 1)</p>
+                    <p>3. Evaluamos el límite cuando h→0:</p>
+                    <p>f'(x) = 0.06x² - 0.6x + 1</p>
+                    <p>4. Calculamos la pendiente en x=4:</p>
+                    <p>f'(4) = 0.06·4² - 0.6·4 + 1 = 0.06·16 - 2.4 + 1 = 0.96 - 2.4 + 1 = -0.44</p>
+                    <p>La pendiente de la tangente en x=4 es -0.44.</p>
+                </div>
+            </div>
+            
+            <div class="application-box">
+                <div class="application-title">Aplicación en la industria de la madera</div>
+                <p>En el diseño de molduras y perfiles decorativos, la derivada permite calcular el ángulo de inclinación de la herramienta de corte en cada punto. Esto es fundamental para lograr transiciones suaves y precisas en las curvas complejas de molduras de madera.</p>
+            </div>
+            
+            <div class="quiz-container">
+                <h3>Evaluación - Clase 3</h3>
+                <div class="question">1. ¿Qué representa geométricamente la derivada de una función en un punto?</div>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" name="q5" value="a" id="q5a">
+                        <label for="q5a">El área bajo la curva hasta ese punto</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q5" value="b" id="q5b">
+                        <label for="q5b">La pendiente de la recta tangente a la curva en ese punto</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q5" value="c" id="q5c">
+                        <label for="q5c">La longitud de la curva desde el origen hasta ese punto</label>
+                    </div>
+                </div>
+                <div id="feedback5" class="feedback"></div>
+                
+                <div class="question">2. En la industria de la madera, ¿para qué se utiliza la derivada?</div>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" name="q6" value="a" id="q6a">
+                        <label for="q6a">Para calcular el volumen de madera necesaria</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q6" value="b" id="q6b">
+                        <label for="q6b">Para determinar la inclinación de herramientas de corte en diseños curvos</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q6" value="c" id="q6c">
+                        <label for="q6c">Para medir la humedad de la madera</label>
+                    </div>
+                </div>
+                <div id="feedback6" class="feedback"></div>
+                
+                <button class="submit-button" onclick="checkQuiz('quiz3')">Verificar respuestas</button>
+            </div>
+        </div>
+        
+        <!-- MARCO HISTÓRICO -->
+        <div id="historia" class="tab-content">
+            <div class="concept-banner">
+                <span class="wood-icon">📜</span> Marco Histórico del Cálculo Diferencial
+            </div>
+            
+            <p>El cálculo diferencial tiene una rica historia que abarca siglos de desarrollo matemático. Comprender su evolución nos ayuda a valorar su importancia y aplicaciones actuales.</p>
+            
+            <div class="history-timeline">
+                <div class="timeline-line"></div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-year">Siglo III a.C.</div>
+                        <p><strong>Arquímedes</strong> utiliza métodos primitivos de integración para calcular áreas y volúmenes, sentando bases para el cálculo.</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-year">Siglo XVII</div>
+                        <p><strong>Pierre de Fermat</strong> desarrolla un método para encontrar máximos y mínimos de funciones, anticipando el concepto de derivada.</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-year">1665-1666</div>
+                        <p><strong>Isaac Newton</strong> desarrolla el "método de fluxiones", precursor del cálculo diferencial, para resolver problemas de física y astronomía.</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-year">1670-1680</div>
+                        <p><strong>Gottfried Leibniz</strong> desarrolla independientemente el cálculo diferencial, introduciendo la notación dy/dx que aún utilizamos hoy.</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-year">Siglo XVIII</div>
+                        <p><strong>Leonhard Euler</strong> y <strong>Joseph-Louis Lagrange</strong> formalizan y extienden el cálculo diferencial, aplicándolo a numerosos campos de la física y la ingeniería.</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-year">Siglo XIX</div>
+                        <p><strong>Augustin-Louis Cauchy</strong> y <strong>Karl Weierstrass</strong> proporcionan una base rigurosa al cálculo mediante el concepto de límite.</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-year">Siglo XX-XXI</div>
+                        <p>El cálculo diferencial se convierte en una herramienta fundamental en prácticamente todos los campos de la ciencia y la ingeniería, incluyendo la industria de la madera.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="definition-box">
+                <h3>La controversia Newton-Leibniz</h3>
+                <p>Uno de los episodios más famosos en la historia de las matemáticas fue la disputa sobre la prioridad en la invención del cálculo. Aunque Newton desarrolló sus ideas primero, Leibniz publicó antes. La comunidad matemática moderna reconoce a ambos como independientes inventores del cálculo, con notaciones y enfoques diferentes pero complementarios.</p>
+            </div>
+            
+            <div class="application-box">
+                <div class="application-title">Relevancia histórica para la industria de la madera</div>
+                <p>El desarrollo del cálculo diferencial permitió avances significativos en la ingeniería de materiales, incluyendo la madera. Los métodos matemáticos desarrollados por Newton y Leibniz sentaron las bases para el análisis de tensiones, deformaciones y optimización de estructuras de madera que utilizamos hoy en día.</p>
+            </div>
+        </div>
+        
+        <!-- SÍNTESIS CONCEPTUAL -->
+        <div id="sintesis" class="tab-content">
+            <div class="concept-banner">
+                <span class="wood-icon">🧩</span> Síntesis Conceptual: Progresión e Interrelación de Conceptos
+            </div>
+            
+            <p>El cálculo diferencial se construye sobre una secuencia de conceptos interrelacionados que progresan desde ideas geométricas intuitivas hasta herramientas analíticas poderosas.</p>
+            
+            <div class="concept-map">
+                <div class="map-row">
+                    <div class="map-node" id="node1">Recta Secante</div>
+                    <div class="map-arrow"><i class="fas fa-arrow-right"></i></div>
+                    <div class="map-node" id="node2">Aproximación Sucesiva</div>
+                </div>
+                
+                <div class="map-row">
+                    <div class="map-arrow"><i class="fas fa-arrow-down"></i></div>
+                </div>
+                
+                <div class="map-row">
+                    <div class="map-node" id="node3">Recta Tangente</div>
+                    <div class="map-arrow"><i class="fas fa-arrow-right"></i></div>
+                    <div class="map-node" id="node4">Velocidad Instantánea</div>
+                </div>
+                
+                <div class="map-row">
+                    <div class="map-arrow"><i class="fas fa-arrow-down"></i></div>
+                </div>
+                
+                <div class="map-row">
+                    <div class="map-node" id="node5">Límite</div>
+                    <div class="map-arrow"><i class="fas fa-arrow-right"></i></div>
+                    <div class="map-node" id="node6">Cociente Incremental</div>
+                </div>
+                
+                <div class="map-row">
+                    <div class="map-arrow"><i class="fas fa-arrow-down"></i></div>
+                </div>
+                
+                <div class="map-row">
+                    <div class="map-node highlight" id="node7">Derivada</div>
+                </div>
+            </div>
+            
+            <div class="definition-box">
+                <h3>Progresión Conceptual</h3>
+                <p>La derivada surge naturalmente de la necesidad de resolver problemas geométricos y físicos:</p>
+                <ol>
+                    <li><strong>Geometría:</strong> Queremos encontrar la pendiente de una curva en un punto específico. Para ello, comenzamos con rectas secantes que cortan la curva en dos puntos.</li>
+                    <li><strong>Aproximación:</strong> Al acercar los puntos de corte, la secante se aproxima a la tangente, que nos da la pendiente exacta en un punto.</li>
+                    <li><strong>Física:</strong> Similarmente, para encontrar la velocidad instantánea, aproximamos mediante velocidades medias en intervalos cada vez más pequeños.</li>
+                    <li><strong>Herramienta matemática:</strong> El límite nos permite formalizar esta idea de aproximación y define la derivada como el límite del cociente incremental.</li>
+                </ol>
+            </div>
+            
+            <div class="application-box">
+                <div class="application-title">Interrelación de Conceptos</div>
+                <p>Los conceptos del cálculo diferencial no son aislados, sino que forman una red interconectada donde cada idea depende y se relaciona con las demás. La recta tangente (geométrica) y la velocidad instantánea (física) son interpretaciones diferentes de la misma idea matemática: la derivada.</p>
+            </div>
+            
+            <div class="quiz-container">
+                <h3>Evaluación - Síntesis Conceptual</h3>
+                <div class="question">1. ¿Cuál es la relación entre la recta tangente y la velocidad instantánea?</div>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" name="q7" value="a" id="q7a">
+                        <label for="q7a">Son conceptos completamente independientes</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q7" value="b" id="q7b">
+                        <label for="q7b">Ambos son interpretaciones diferentes del concepto de derivada</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q7" value="c" id="q7c">
+                        <label for="q7c">La velocidad instantánea es un caso particular de la recta tangente</label>
+                    </div>
+                </div>
+                <div id="feedback7" class="feedback"></div>
+                
+                <div class="question">2. ¿Qué papel juega el límite en la definición de la derivada?</div>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" name="q8" value="a" id="q8a">
+                        <label for="q8a">Permite formalizar la idea de aproximación sucesiva</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q8" value="b" id="q8b">
+                        <label for="q8b">Es solo una herramienta matemática sin relación con los conceptos geométricos</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q8" value="c" id="q8c">
+                        <label for="q8c">Reemplaza por completo a las ideas geométricas</label>
+                    </div>
+                </div>
+                <div id="feedback8" class="feedback"></div>
+                
+                <button class="submit-button" onclick="checkQuiz('quiz4')">Verificar respuestas</button>
+            </div>
+        </div>
+        
+        <!-- APLICACIONES GENERALES -->
+        <div id="aplicaciones" class="tab-content">
+            <div class="concept-banner">
+                <span class="wood-icon">🌐</span> Aplicaciones Generales de la Derivada
+            </div>
+            
+            <p>La derivada es una herramienta matemática fundamental con aplicaciones en numerosos campos más allá de la industria de la madera. A continuación, exploramos algunas de sus aplicaciones más importantes.</p>
+            
+            <div class="general-applications">
+                <div class="app-card">
+                    <div class="app-icon"><i class="fas fa-chart-line"></i></div>
+                    <div class="app-title">Economía</div>
+                    <p>La derivada se utiliza para calcular la <strong>coste marginal</strong> (variación del coste total al producir una unidad adicional) y la <strong>utilidad marginal</strong>. También es fundamental en modelos de optimización de recursos y análisis de mercados.</p>
+                </div>
+                
+                <div class="app-card">
+                    <div class="app-icon"><i class="fas fa-atom"></i></div>
+                    <div class="app-title">Física</div>
+                    <p>En física, la derivada representa la <strong>velocidad instantánea</strong> (derivada de la posición respecto al tiempo) y la <strong>aceleración</strong> (derivada de la velocidad). También se aplica en electromagnetismo, termodinámica y mecánica cuántica.</p>
+                </div>
+                
+                <div class="app-card">
+                    <div class="app-icon"><i class="fas fa-heartbeat"></i></div>
+                    <div class="app-title">Medicina</div>
+                    <p>En medicina, la derivada ayuda a analizar la <strong>tasa de cambio de concentración de fármacos</strong> en el organismo, el <strong>crecimiento de tumores</strong> y la <strong>propagación de enfermedades</strong>. También se utiliza en modelos epidemiológicos.</p>
+                </div>
+                
+                <div class="app-card">
+                    <div class="app-icon"><i class="fas fa-building"></i></div>
+                    <div class="app-title">Ingeniería</div>
+                    <p>Los ingenieros utilizan la derivada para calcular <strong>tasas de deformación</strong> en materiales, <strong>flujos de fluidos</strong>, <strong>transferencia de calor</strong> y para optimizar el diseño de estructuras y sistemas.</p>
+                </div>
+                
+                <div class="app-card">
+                    <div class="app-icon"><i class="fas fa-chart-area"></i></div>
+                    <div class="app-title">Estadística</div>
+                    <p>En estadística, la derivada se aplica en la <strong>maximización de la verosimilitud</strong> para estimar parámetros y en el análisis de <strong>funciones de densidad de probabilidad</strong>. También es fundamental en modelos de regresión.</p>
+                </div>
+                
+                <div class="app-card">
+                    <div class="app-icon"><i class="fas fa-microchip"></i></div>
+                    <div class="app-title">Informática</div>
+                    <p>En informática, la derivada es clave en <strong>algoritmos de optimización</strong> como el descenso de gradiente, <strong>procesamiento de señales</strong>, <strong>visión por computadora</strong> y <strong>aprendizaje automático</strong>.</p>
+                </div>
+                
+                <div class="app-card">
+                    <div class="app-icon"><i class="fas fa-seedling"></i></div>
+                    <div class="app-title">Biología</div>
+                    <p>Los biólogos utilizan la derivada para modelar <strong>tasas de crecimiento poblacional</strong>, <strong>difusión de sustancias</strong> a través de membranas y <strong>cambios en concentraciones</strong> en reacciones bioquímicas.</p>
+                </div>
+                
+                <div class="app-card">
+                    <div class="app-icon"><i class="fas fa-palette"></i></div>
+                    <div class="app-title">Diseño y Arte</div>
+                    <p>En diseño y arte digital, la derivada se aplica en la creación de <strong>curvas suaves</strong>, <strong>animaciones realistas</strong> y <strong>modelado 3D</strong>. Permite controlar la continuidad y suavidad en formas complejas.</p>
+                </div>
+            </div>
+            
+            <div class="definition-box">
+                <h3>La Derivada como Herramienta Universal</h3>
+                <p>La capacidad de la derivada para modelar tasas de cambio la convierte en una herramienta universal aplicable prácticamente en cualquier campo que involucre variaciones y optimización. Su poder reside en traducir problemas complejos del mundo real a modelos matemáticos tratables.</p>
+            </div>
+            
+            <div class="application-box">
+                <div class="application-title">Conexión con la industria de la madera</div>
+                <p>Las aplicaciones generales de la derivada se manifiestan en la industria de la madera de formas específicas: optimización de recursos (economía), análisis de tensiones (ingeniería), control de procesos (informática) y diseño de productos (arte y diseño). Comprender estas aplicaciones generales permite transferir conocimientos entre diferentes campos y encontrar soluciones innovadoras.</p>
+            </div>
+        </div>
+        
+        <footer>
+            <p>Material de estudio para Bachillerato Técnico en Madera - Provincia de Córdoba</p>
+            <p>Desarrollado para el aprendizaje del cálculo diferencial y sus aplicaciones en la industria de la madera</p>
+        </footer>
+    </div>
+    
+    <script>
+        // Funciones para el manejo de pestañas
+        function openTab(evt, tabName) {
+            var i, tabcontent, tablinks;
+            
+            tabcontent = document.getElementsByClassName("tab-content");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].classList.remove("active");
+            }
+            
+            tablinks = document.getElementsByClassName("tab-button");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].classList.remove("active");
+            }
+            
+            document.getElementById(tabName).classList.add("active");
+            evt.currentTarget.classList.add("active");
+            
+            // Inicializar gráficos cuando se abre una pestaña
+            if (tabName === 'clase1') {
+                initTangentSecantGraph();
+            } else if (tabName === 'clase2') {
+                initVelocityGraph();
+            } else if (tabName === 'clase3') {
+                initDerivativeGraph();
+            } else if (tabName === 'sintesis') {
+                animateConceptMap();
+            }
+        }
+        
+        // Funciones para mostrar/ocultar soluciones
+        function toggleSolution(id) {
+            var solution = document.getElementById(id);
+            if (solution.style.display === "block") {
+                solution.style.display = "none";
+            } else {
+                solution.style.display = "block";
+            }
+        }
+        
+        // Funciones para las evaluaciones
+        function checkQuiz(quizName) {
+            if (quizName === 'quiz1') {
+                checkQuiz1();
+            } else if (quizName === 'quiz2') {
+                checkQuiz2();
+            } else if (quizName === 'quiz3') {
+                checkQuiz3();
+            } else if (quizName === 'quiz4') {
+                checkQuiz4();
+            }
+        }
+        
+        function checkQuiz1() {
+            var q1 = document.querySelector('input[name="q1"]:checked');
+            var q2 = document.querySelector('input[name="q2"]:checked');
+            var feedback1 = document.getElementById('feedback1');
+            var feedback2 = document.getElementById('feedback2');
+            
+            if (q1) {
+                if (q1.value === 'b') {
+                    feedback1.textContent = "¡Correcto! La pendiente de la recta tangente representa la inclinación de la curva en ese punto.";
+                    feedback1.className = "feedback correct";
+                } else {
+                    feedback1.textContent = "Incorrecto. La pendiente de la recta tangente representa la inclinación de la curva en ese punto.";
+                    feedback1.className = "feedback incorrect";
+                }
+                feedback1.style.display = "block";
+            }
+            
+            if (q2) {
+                if (q2.value === 'b') {
+                    feedback2.textContent = "¡Correcto! Cuando los puntos de corte se acercan, las rectas secantes se aproximan a la recta tangente.";
+                    feedback2.className = "feedback correct";
+                } else {
+                    feedback2.textContent = "Incorrecto. Cuando los puntos de corte se acercan, las rectas secantes se aproximan a la recta tangente.";
+                    feedback2.className = "feedback incorrect";
+                }
+                feedback2.style.display = "block";
+            }
+        }
+        
+        function checkQuiz2() {
+            var q3 = document.querySelector('input[name="q3"]:checked');
+            var q4 = document.querySelector('input[name="q4"]:checked');
+            var feedback3 = document.getElementById('feedback3');
+            var feedback4 = document.getElementById('feedback4');
+            
+            if (q3) {
+                if (q3.value === 'a') {
+                    feedback3.textContent = "¡Correcto! La velocidad instantánea se calcula como el límite de las velocidades medias cuando el intervalo de tiempo tiende a cero.";
+                    feedback3.className = "feedback correct";
+                } else {
+                    feedback3.textContent = "Incorrecto. La velocidad instantánea se calcula como el límite de las velocidades medias cuando el intervalo de tiempo tiende a cero.";
+                    feedback3.className = "feedback incorrect";
+                }
+                feedback3.style.display = "block";
+            }
+            
+            if (q4) {
+                if (q4.value === 'b') {
+                    feedback4.textContent = "¡Correcto! El límite de una función es el valor al que se aproxima la función cuando la variable se acerca a un determinado valor.";
+                    feedback4.className = "feedback correct";
+                } else {
+                    feedback4.textContent = "Incorrecto. El límite de una función es el valor al que se aproxima la función cuando la variable se acerca a un determinado valor.";
+                    feedback4.className = "feedback incorrect";
+                }
+                feedback4.style.display = "block";
+            }
+        }
+        
+        function checkQuiz3() {
+            var q5 = document.querySelector('input[name="q5"]:checked');
+            var q6 = document.querySelector('input[name="q6"]:checked');
+            var feedback5 = document.getElementById('feedback5');
+            var feedback6 = document.getElementById('feedback6');
+            
+            if (q5) {
+                if (q5.value === 'b') {
+                    feedback5.textContent = "¡Correcto! Geométricamente, la derivada representa la pendiente de la recta tangente a la curva en ese punto.";
+                    feedback5.className = "feedback correct";
+                } else {
+                    feedback5.textContent = "Incorrecto. Geométricamente, la derivada representa la pendiente de la recta tangente a la curva en ese punto.";
+                    feedback5.className = "feedback incorrect";
+                }
+                feedback5.style.display = "block";
+            }
+            
+            if (q6) {
+                if (q6.value === 'b') {
+                    feedback6.textContent = "¡Correcto! En la industria de la madera, la derivada se utiliza para determinar la inclinación de herramientas de corte en diseños curvos.";
+                    feedback6.className = "feedback correct";
+                } else {
+                    feedback6.textContent = "Incorrecto. En la industria de la madera, la derivada se utiliza para determinar la inclinación de herramientas de corte en diseños curvos.";
+                    feedback6.className = "feedback incorrect";
+                }
+                feedback6.style.display = "block";
+            }
+        }
+        
+        function checkQuiz4() {
+            var q7 = document.querySelector('input[name="q7"]:checked');
+            var q8 = document.querySelector('input[name="q8"]:checked');
+            var feedback7 = document.getElementById('feedback7');
+            var feedback8 = document.getElementById('feedback8');
+            
+            if (q7) {
+                if (q7.value === 'b') {
+                    feedback7.textContent = "¡Correcto! La recta tangente (interpretación geométrica) y la velocidad instantánea (interpretación física) son dos formas diferentes de entender el mismo concepto matemático: la derivada.";
+                    feedback7.className = "feedback correct";
+                } else {
+                    feedback7.textContent = "Incorrecto. La recta tangente (interpretación geométrica) y la velocidad instantánea (interpretación física) son dos formas diferentes de entender el mismo concepto matemático: la derivada.";
+                    feedback7.className = "feedback incorrect";
+                }
+                feedback7.style.display = "block";
+            }
+            
+            if (q8) {
+                if (q8.value === 'a') {
+                    feedback8.textContent = "¡Correcto! El límite es la herramienta matemática que permite formalizar la idea de aproximación sucesiva, que es fundamental en la definición de la derivada.";
+                    feedback8.className = "feedback correct";
+                } else {
+                    feedback8.textContent = "Incorrecto. El límite es la herramienta matemática que permite formalizar la idea de aproximación sucesiva, que es fundamental en la definición de la derivada.";
+                    feedback8.className = "feedback incorrect";
+                }
+                feedback8.style.display = "block";
+            }
+        }
+        
+        // Funciones para los gráficos interactivos
+        
+        // Gráfico de recta tangente y secante
+        let showSecant = true;
+        
+        function initTangentSecantGraph() {
+            const canvas = document.getElementById('tangentSecantCanvas');
+            if (!canvas) return;
+            
+            const ctx = canvas.getContext('2d');
+            const pointSlider = document.getElementById('pointSlider');
+            const distanceSlider = document.getElementById('distanceSlider');
+            
+            drawTangentSecantGraph();
+            
+            pointSlider.addEventListener('input', drawTangentSecantGraph);
+            distanceSlider.addEventListener('input', drawTangentSecantGraph);
+        }
+        
+        function drawTangentSecantGraph() {
+            const canvas = document.getElementById('tangentSecantCanvas');
+            const ctx = canvas.getContext('2d');
+            const pointSlider = document.getElementById('pointSlider');
+            const distanceSlider = document.getElementById('distanceSlider');
+            
+            const width = canvas.width;
+            const height = canvas.height;
+            const x0 = parseFloat(pointSlider.value);
+            const distance = parseFloat(distanceSlider.value);
+            
+            // Limpiar canvas
+            ctx.clearRect(0, 0, width, height);
+            
+            // Configurar sistema de coordenadas
+            const scale = 40;
+            const originX = width / 2;
+            const originY = height / 2;
+            
+            // Dibujar ejes
+            ctx.strokeStyle = '#000';
+            ctx.lineWidth = 1;
+            ctx.beginPath();
+            ctx.moveTo(0, originY);
+            ctx.lineTo(width, originY);
+            ctx.moveTo(originX, 0);
+            ctx.lineTo(originX, height);
+            ctx.stroke();
+            
+            // Dibujar función f(x) = 0.1x²
+            ctx.strokeStyle = '#1976D2';
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            for (let x = -width / (2 * scale); x <= width / (2 * scale); x += 0.1) {
+                const y = 0.1 * x * x;
+                const screenX = originX + x * scale;
+                const screenY = originY - y * scale;
+                
+                if (x === -width / (2 * scale)) {
+                    ctx.moveTo(screenX, screenY);
+                } else {
+                    ctx.lineTo(screenX, screenY);
+                }
+            }
+            ctx.stroke();
+            
+            // Dibujar punto de tangencia
+            const y0 = 0.1 * x0 * x0;
+            const screenX0 = originX + x0 * scale;
+            const screenY0 = originY - y0 * scale;
+            
+            ctx.fillStyle = '#D32F2F';
+            ctx.beginPath();
+            ctx.arc(screenX0, screenY0, 5, 0, 2 * Math.PI);
+            ctx.fill();
+            
+            // Dibujar recta tangente
+            const slope = 0.2 * x0; // f'(x) = 0.2x
+            const tangentY1 = y0 - 5 * slope;
+            const tangentY2 = y0 + 5 * slope;
+            
+            ctx.strokeStyle = '#D32F2F';
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.moveTo(originX + (x0 - 5) * scale, originY - tangentY1 * scale);
+            ctx.lineTo(originX + (x0 + 5) * scale, originY - tangentY2 * scale);
+            ctx.stroke();
+            
+            // Dibujar recta secante si está activada
+            if (showSecant) {
+                const x1 = x0 + distance;
+                const y1 = 0.1 * x1 * x1;
+                const screenX1 = originX + x1 * scale;
+                const screenY1 = originY - y1 * scale;
+                
+                ctx.fillStyle = '#558B2F';
+                ctx.beginPath();
+                ctx.arc(screenX1, screenY1, 5, 0, 2 * Math.PI);
+                ctx.fill();
+                
+                ctx.strokeStyle = '#558B2F';
+                ctx.lineWidth = 2;
+                ctx.beginPath();
+                ctx.moveTo(screenX0, screenY0);
+                ctx.lineTo(screenX1, screenY1);
+                ctx.stroke();
+                
+                // Mostrar pendiente de la secante
+                const secantSlope = (y1 - y0) / (x1 - x0);
+                ctx.fillStyle = '#000';
+                ctx.font = '14px Arial';
+                ctx.fillText(`Pendiente secante: ${secantSlope.toFixed(2)}`, 20, 30);
+            }
+            
+            // Mostrar pendiente de la tangente
+            ctx.fillStyle = '#000';
+            ctx.font = '14px Arial';
+            ctx.fillText(`Pendiente tangente: ${slope.toFixed(2)}`, 20, 50);
+            ctx.fillText(`Punto: (${x0.toFixed(1)}, ${y0.toFixed(1)})`, 20, 70);
+        }
+        
+        function toggleSecant() {
+            showSecant = !showSecant;
+            drawTangentSecantGraph();
+        }
+        
+        function resetGraph() {
+            document.getElementById('pointSlider').value = 1;
+            document.getElementById('distanceSlider').value = 1;
+            drawTangentSecantGraph();
+        }
+        
+        // Gráfico de velocidad media e instantánea
+        let showAverageVelocity = true;
+        
+        function initVelocityGraph() {
+            const canvas = document.getElementById('velocityCanvas');
+            if (!canvas) return;
+            
+            const timeSlider = document.getElementById('timeSlider');
+            const intervalSlider = document.getElementById('intervalSlider');
+            
+            drawVelocityGraph();
+            
+            timeSlider.addEventListener('input', drawVelocityGraph);
+            intervalSlider.addEventListener('input', drawVelocityGraph);
+        }
+        
+        function drawVelocityGraph() {
+            const canvas = document.getElementById('velocityCanvas');
+            const ctx = canvas.getContext('2d');
+            const timeSlider = document.getElementById('timeSlider');
+            const intervalSlider = document.getElementById('intervalSlider');
+            
+            const width = canvas.width;
+            const height = canvas.height;
+            const t0 = parseFloat(timeSlider.value);
+            const interval = parseFloat(intervalSlider.value);
+            
+            // Limpiar canvas
+            ctx.clearRect(0, 0, width, height);
+            
+            // Configurar sistema de coordenadas
+            const scaleX = 50;
+            const scaleY = 10;
+            const originX = 50;
+            const originY = height - 50;
+            
+            // Dibujar ejes
+            ctx.strokeStyle = '#000';
+            ctx.lineWidth = 1;
+            ctx.beginPath();
+            ctx.moveTo(0, originY);
+            ctx.lineTo(width, originY);
+            ctx.moveTo(originX, 0);
+            ctx.lineTo(originX, height);
+            ctx.stroke();
+            
+            // Etiquetas de ejes
+            ctx.fillStyle = '#000';
+            ctx.font = '14px Arial';
+            ctx.fillText('Tiempo (s)', width / 2, height - 10);
+            ctx.save();
+            ctx.translate(15, height / 2);
+            ctx.rotate(-Math.PI / 2);
+            ctx.fillText('Posición (m)', 0, 0);
+            ctx.restore();
+            
+            // Dibujar función s(t) = 2t² - t
+            ctx.strokeStyle = '#1976D2';
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            for (let t = 0; t <= 10; t += 0.1) {
+                const s = 2 * t * t - t;
+                const screenX = originX + t * scaleX;
+                const screenY = originY - s * scaleY;
+                
+                if (t === 0) {
+                    ctx.moveTo(screenX, screenY);
+                } else {
+                    ctx.lineTo(screenX, screenY);
+                }
+            }
+            ctx.stroke();
+            
+            // Dibujar punto en t0
+            const s0 = 2 * t0 * t0 - t0;
+            const screenT0 = originX + t0 * scaleX;
+            const screenS0 = originY - s0 * scaleY;
+            
+            ctx.fillStyle = '#D32F2F';
+            ctx.beginPath();
+            ctx.arc(screenT0, screenS0, 5, 0, 2 * Math.PI);
+            ctx.fill();
+            
+            // Dibujar velocidad instantánea (pendiente de la tangente)
+            const instantVelocity = 4 * t0 - 1; // s'(t) = 4t - 1
+            const tangentS1 = s0 - 2 * instantVelocity;
+            const tangentS2 = s0 + 2 * instantVelocity;
+            
+            ctx.strokeStyle = '#D32F2F';
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.moveTo(originX + (t0 - 2) * scaleX, originY - tangentS1 * scaleY);
+            ctx.lineTo(originX + (t0 + 2) * scaleX, originY - tangentS2 * scaleY);
+            ctx.stroke();
+            
+            // Dibujar velocidad media si está activada
+            if (showAverageVelocity) {
+                const t1 = t0 + interval;
+                const s1 = 2 * t1 * t1 - t1;
+                const screenT1 = originX + t1 * scaleX;
+                const screenS1 = originY - s1 * scaleY;
+                
+                ctx.fillStyle = '#558B2F';
+                ctx.beginPath();
+                ctx.arc(screenT1, screenS1, 5, 0, 2 * Math.PI);
+                ctx.fill();
+                
+                ctx.strokeStyle = '#558B2F';
+                ctx.lineWidth = 2;
+                ctx.beginPath();
+                ctx.moveTo(screenT0, screenS0);
+                ctx.lineTo(screenT1, screenS1);
+                ctx.stroke();
+                
+                // Mostrar velocidad media
+                const avgVelocity = (s1 - s0) / (t1 - t0);
+                ctx.fillStyle = '#000';
+                ctx.font = '14px Arial';
+                ctx.fillText(`Velocidad media: ${avgVelocity.toFixed(2)} m/s`, 20, 30);
+            }
+            
+            // Mostrar velocidad instantánea
+            ctx.fillStyle = '#000';
+            ctx.font = '14px Arial';
+            ctx.fillText(`Velocidad instantánea: ${instantVelocity.toFixed(2)} m/s`, 20, 50);
+            ctx.fillText(`Tiempo: ${t0.toFixed(1)} s`, 20, 70);
+            ctx.fillText(`Posición: ${s0.toFixed(1)} m`, 20, 90);
+        }
+        
+        function toggleAverageVelocity() {
+            showAverageVelocity = !showAverageVelocity;
+            drawVelocityGraph();
+        }
+        
+        function resetVelocityGraph() {
+            document.getElementById('timeSlider').value = 2;
+            document.getElementById('intervalSlider').value = 1;
+            drawVelocityGraph();
+        }
+        
+        // Gráfico de función y su derivada
+        let showDerivative = true;
+        
+        function initDerivativeGraph() {
+            const canvas = document.getElementById('derivativeCanvas');
+            if (!canvas) return;
+            
+            const functionSlider = document.getElementById('functionSlider');
+            
+            drawDerivativeGraph();
+            
+            functionSlider.addEventListener('change', drawDerivativeGraph);
+        }
+        
+        function drawDerivativeGraph() {
+            const canvas = document.getElementById('derivativeCanvas');
+            const ctx = canvas.getContext('2d');
+            const functionSlider = document.getElementById('functionSlider');
+            
+            const width = canvas.width;
+            const height = canvas.height;
+            const selectedFunction = functionSlider.value;
+            
+            // Limpiar canvas
+            ctx.clearRect(0, 0, width, height);
+            
+            // Configurar sistema de coordenadas
+            const scale = 40;
+            const originX = width / 2;
+            const originY = height / 2;
+            
+            // Dibujar ejes
+            ctx.strokeStyle = '#000';
+            ctx.lineWidth = 1;
+            ctx.beginPath();
+            ctx.moveTo(0, originY);
+            ctx.lineTo(width, originY);
+            ctx.moveTo(originX, 0);
+            ctx.lineTo(originX, height);
+            ctx.stroke();
+            
+            // Dibujar función seleccionada
+            ctx.strokeStyle = '#1976D2';
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            
+            for (let x = -width / (2 * scale); x <= width / (2 * scale); x += 0.1) {
+                let y;
+                
+                switch (selectedFunction) {
+                    case 'quadratic':
+                        y = x * x;
+                        break;
+                    case 'cubic':
+                        y = x * x * x / 5;
+                        break;
+                    case 'sine':
+                        y = Math.sin(x);
+                        break;
+                    case 'exponential':
+                        y = Math.exp(x / 2) / 3;
+                        break;
+                }
+                
+                const screenX = originX + x * scale;
+                const screenY = originY - y * scale;
+                
+                if (x === -width / (2 * scale)) {
+                    ctx.moveTo(screenX, screenY);
+                } else {
+                    ctx.lineTo(screenX, screenY);
+                }
+            }
+            ctx.stroke();
+            
+            // Dibujar derivada si está activada
+            if (showDerivative) {
+                ctx.strokeStyle = '#D32F2F';
+                ctx.lineWidth = 2;
+                ctx.beginPath();
+                
+                for (let x = -width / (2 * scale); x <= width / (2 * scale); x += 0.1) {
+                    let dy;
+                    
+                    switch (selectedFunction) {
+                        case 'quadratic':
+                            dy = 2 * x;
+                            break;
+                        case 'cubic':
+                            dy = 3 * x * x / 5;
+                            break;
+                        case 'sine':
+                            dy = Math.cos(x);
+                            break;
+                        case 'exponential':
+                            dy = Math.exp(x / 2) / 6;
+                            break;
+                    }
+                    
+                    const screenX = originX + x * scale;
+                    const screenY = originY - dy * scale;
+                    
+                    if (x === -width / (2 * scale)) {
+                        ctx.moveTo(screenX, screenY);
+                    } else {
+                        ctx.lineTo(screenX, screenY);
+                    }
+                }
+                ctx.stroke();
+                
+                // Leyenda
+                ctx.fillStyle = '#1976D2';
+                ctx.font = '14px Arial';
+                ctx.fillText('f(x)', width - 100, 30);
+                
+                ctx.fillStyle = '#D32F2F';
+                ctx.fillText("f'(x)", width - 100, 50);
+            }
+        }
+        
+        function toggleDerivative() {
+            showDerivative = !showDerivative;
+            drawDerivativeGraph();
+        }
+        
+        function resetDerivativeGraph() {
+            document.getElementById('functionSlider').value = 'quadratic';
+            drawDerivativeGraph();
+        }
+        
+        // Animación del mapa conceptual
+        function animateConceptMap() {
+            const nodes = document.querySelectorAll('.map-node');
+            let currentIndex = 0;
+            
+            // Resetear todos los nodos
+            nodes.forEach(node => {
+                node.classList.remove('highlight');
+            });
+            
+            // Animar los nodos uno por uno
+            const interval = setInterval(() => {
+                if (currentIndex < nodes.length) {
+                    nodes[currentIndex].classList.add('highlight');
+                    currentIndex++;
+                } else {
+                    clearInterval(interval);
+                }
+            }, 500);
+        }
+        
+        // Inicializar el primer gráfico al cargar la página
+        window.onload = function() {
+            initTangentSecantGraph();
+        };
+    </script>
+</body>
+</html>
