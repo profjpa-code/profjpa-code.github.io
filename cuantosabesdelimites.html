@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Examen de Límites y Continuidad</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            margin: 0;
+            font-size: 2.5rem;
+        }
+        
+        .header p {
+            margin: 10px 0 0;
+            opacity: 0.9;
+            font-size: 1.1rem;
+        }
+        
+        .exam-section {
+            padding: 30px;
+        }
+        
+        .question {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease;
+        }
+        
+        .question:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .question-number {
+            font-weight: bold;
+            color: #667eea;
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+        
+        .question-text {
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+            line-height: 1.5;
+        }
+        
+        .options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 10px;
+        }
+        
+        .option {
+            display: flex;
+            align-items: center;
+            padding: 12px 15px;
+            background: white;
+            border-radius: 8px;
+            border: 2px solid #e0e0e0;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .option:hover {
+            border-color: #667eea;
+            background: #f0f4ff;
+        }
+        
+        .option input {
+            margin-right: 10px;
+        }
+        
+        .submit-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 1.2rem;
+            border-radius: 50px;
+            cursor: pointer;
+            display: block;
+            margin: 40px auto 0;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+        
+        .submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+        }
+        
+        .results {
+            margin-top: 30px;
+            padding: 25px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            display: none;
+        }
+        
+        .score {
+            font-size: 2rem;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+        }
+        
+        .correct-answers {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        
+        .correct-answers h3 {
+            margin-top: 0;
+            color: #667eea;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 10px;
+        }
+        
+        .answer-item {
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .answer-item:last-child {
+            border-bottom: none;
+        }
+        
+        .answer-item strong {
+            color: #764ba2;
+        }
+        
+        @media (max-width: 768px) {
+            .options {
+                grid-template-columns: 1fr;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Examen de Límites y Continuidad</h1>
+            <p>Matemáticas - 6° año</p>
+        </div>
+        
+        <div class="exam-section">
+            <form id="examForm">
+                <div class="question">
+                    <div class="question-number">1</div>
+                    <div class="question-text">Dada la función f(x) = (x² − 4)/(x− 2), el lím x→2 f(x) es:</div>
+                    <div class="options">
+                        <label class="option">
+                            <input type="radio" name="q1" value="a">
+                            <span>0</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q1" value="b">
+                            <span>4</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q1" value="c">
+                            <span>No existe</span>
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="question">
+                    <div class="question-number">2</div>
+                    <div class="question-text">El valor de lím x→∞ (3x² + 2x− 1)/(5x² − x+ 3) es:</div>
+                    <div class="options">
+                        <label class="option">
+                            <input type="radio" name="q2" value="a">
+                            <span>0</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q2" value="b">
+                            <span>∞</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q2" value="c">
+                            <span>3/5</span>
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="question">
+                    <div class="question-number">3</div>
+                    <div class="question-text">La función f(x) = 1/(x− 3) tiene una asíntota vertical en:</div>
+                    <div class="options">
+                        <label class="option">
+                            <input type="radio" name="q3" value="a">
+                            <span>x = 0</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q3" value="b">
+                            <span>x = 3</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q3" value="c">
+                            <span>x = −3</span>
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="question">
+                    <div class="question-number">4</div>
+                    <div class="question-text">Si lím x→a f(x) = L y lím x→a g(x) = M, entonces lím x→a [f(x) · g(x)] es:</div>
+                    <div class="options">
+                        <label class="option">
+                            <input type="radio" name="q4" value="a">
+                            <span>L+M</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q4" value="b">
+                            <span>L · M</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q4" value="c">
+                            <span>L/M</span>
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="question">
+                    <div class="question-number">5</div>
+                    <div class="question-text">¿Cuál de las siguientes afirmaciones sobre continuidad es correcta?</div>
+                    <div class="options">
+                        <label class="option">
+                            <input type="radio" name="q5" value="a">
+                            <span>Una función es continua en un punto si existe el límite en ese punto</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q5" value="b">
+                            <span>Una función es continua en un punto si el límite y el valor de la función coinciden</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q5" value="c">
+                            <span>Una función es continua en todo su dominio si es derivable</span>
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="question">
+                    <div class="question-number">6</div>
+                    <div class="question-text">¿Cuál es la asíntota horizontal de f(x) = (2x² − 1)/(x² + 3)?</div>
+                    <div class="options">
+                        <label class="option">
+                            <input type="radio" name="q6" value="a">
+                            <span>y = 0</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q6" value="b">
+                            <span>y = 2</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q6" value="c">
+                            <span>y = −1</span>
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="question">
+                    <div class="question-number">7</div>
+                    <div class="question-text">Para la función representada gráficamente, ¿cuál es lím x→1 f(x)?</div>
+                    <div class="options">
+                        <label class="option">
+                            <input type="radio" name="q7" value="a">
+                            <span>1</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q7" value="b">
+                            <span>2</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q7" value="c">
+                            <span>No existe</span>
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="question">
+                    <div class="question-number">8</div>
+                    <div class="question-text">El lím x→∞ (2x³ − x+ 1)/(3x² + 4) es:</div>
+                    <div class="options">
+                        <label class="option">
+                            <input type="radio" name="q8" value="a">
+                            <span>0</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q8" value="b">
+                            <span>2/3</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q8" value="c">
+                            <span>∞</span>
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="question">
+                    <div class="question-number">9</div>
+                    <div class="question-text">Si una función f es continua en x = a, entonces:</div>
+                    <div class="options">
+                        <label class="option">
+                            <input type="radio" name="q9" value="a">
+                            <span>lím x→a f(x) existe</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q9" value="b">
+                            <span>f(a) está definida</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q9" value="c">
+                            <span>Ambas condiciones anteriores se cumplen</span>
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="question">
+                    <div class="question-number">10</div>
+                    <div class="question-text">El lím x→2 (√(x+ 2)− 2)/(x− 2) es:</div>
+                    <div class="options">
+                        <label class="option">
+                            <input type="radio" name="q10" value="a">
+                            <span>0</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q10" value="b">
+                            <span>1/4</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q10" value="c">
+                            <span>No existe</span>
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="question">
+                    <div class="question-number">11</div>
+                    <div class="question-text">¿Cuál es la asíntota vertical de f(x) = (x² + 1)/(x² − 4)?</div>
+                    <div class="options">
+                        <label class="option">
+                            <input type="radio" name="q11" value="a">
+                            <span>x = 2 y x = −2</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q11" value="b">
+                            <span>x = 0</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q11" value="c">
+                            <span>x = 1</span>
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="question">
+                    <div class="question-number">12</div>
+                    <div class="question-text">El lím x→−∞ (2x² − 3x+ 1)/(x³ + 4) es:</div>
+                    <div class="options">
+                        <label class="option">
+                            <input type="radio" name="q12" value="a">
+                            <span>−∞</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q12" value="b">
+                            <span>0</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q12" value="c">
+                            <span>∞</span>
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="question">
+                    <div class="question-number">13</div>
+                    <div class="question-text">Para la función f(x) = {x² si x < 1; 3 si x = 1; 2x si x > 1}, el lím x→1 f(x) es:</div>
+                    <div class="options">
+                        <label class="option">
+                            <input type="radio" name="q13" value="a">
+                            <span>1</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q13" value="b">
+                            <span>2</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q13" value="c">
+                            <span>No existe</span>
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="question">
+                    <div class="question-number">14</div>
+                    <div class="question-text">La noción intuitiva de límite se refiere a:</div>
+                    <div class="options">
+                        <label class="option">
+                            <input type="radio" name="q14" value="a">
+                            <span>El valor que toma una función en un punto específico</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q14" value="b">
+                            <span>El comportamiento de una función cuando se acerca a un punto</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q14" value="c">
+                            <span>La derivada de una función en un punto</span>
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="question">
+                    <div class="question-number">15</div>
+                    <div class="question-text">La función f(x) = (x² − 9)/(x− 3) es:</div>
+                    <div class="options">
+                        <label class="option">
+                            <input type="radio" name="q15" value="a">
+                            <span>Continua en x = 3</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q15" value="b">
+                            <span>Discontinua evitable en x = 3</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q15" value="c">
+                            <span>Discontinua esencial en x = 3</span>
+                        </label>
+                    </div>
+                </div>
+                
+                <button type="button" class="submit-btn" onclick="calculateResults()">Enviar Respuestas</button>
+            </form>
+            
+            <div id="results" class="results">
+                <div class="score" id="score"></div>
+                <div class="correct-answers">
+                    <h3>Respuestas Correctas</h3>
+                    <div id="answersList"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const correctAnswers = {
+            q1: "b",
+            q2: "c",
+            q3: "b",
+            q4: "b",
+            q5: "b",
+            q6: "b",
+            q7: "c",
+            q8: "c",
+            q9: "c",
+            q10: "b",
+            q11: "a",
+            q12: "b",
+            q13: "a",
+            q14: "b",
+            q15: "b"
+        };
+
+        function calculateResults() {
+            const form = document.getElementById('examForm');
+            const results = document.getElementById('results');
+            const scoreElement = document.getElementById('score');
+            const answersList = document.getElementById('answersList');
+            
+            let score = 0;
+            let totalQuestions = Object.keys(correctAnswers).length;
+            let userAnswers = {};
+            let answersHtml = '';
+            
+            // Recopilar respuestas del usuario
+            for (let i = 1; i <= totalQuestions; i++) {
+                const questionName = `q${i}`;
+                const selectedOption = form.querySelector(`input[name="${questionName}"]:checked`);
+                
+                if (selectedOption) {
+                    userAnswers[questionName] = selectedOption.value;
+                    
+                    if (selectedOption.value === correctAnswers[questionName]) {
+                        score++;
+                    }
+                } else {
+                    userAnswers[questionName] = null;
+                }
+            }
+            
+            // Mostrar puntaje
+            const percentage = Math.round((score / totalQuestions) * 100);
+            scoreElement.innerHTML = `Tu puntuación: <strong>${score}/${totalQuestions}</strong> (${percentage}%)`;
+            
+            // Generar lista de respuestas correctas
+            for (let i = 1; i <= totalQuestions; i++) {
+                const questionName = `q${i}`;
+                const userAnswer = userAnswers[questionName];
+                const correctAnswer = correctAnswers[questionName];
+                
+                let statusClass = '';
+                let statusText = '';
+                
+                if (userAnswer === null) {
+                    statusClass = 'no-answer';
+                    statusText = 'Sin responder';
+                } else if (userAnswer === correctAnswer) {
+                    statusClass = 'correct';
+                    statusText = 'Correcta';
+                } else {
+                    statusClass = 'incorrect';
+                    statusText = `Incorrecta (tu respuesta: ${userAnswer})`;
+                }
+                
+                answersHtml += `
+                    <div class="answer-item">
+                        <strong>Pregunta ${i}:</strong> 
+                        <span class="${statusClass}">${statusText}</span>
+                        <br>
+                        <small>Respuesta correcta: <strong>${correctAnswer}</strong></small>
+                    </div>
+                `;
+            }
+            
+            answersList.innerHTML = answersHtml;
+            results.style.display = 'block';
+            
+            // Scroll a resultados
+            results.scrollIntoView({ behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>
