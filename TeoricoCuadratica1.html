@@ -1,0 +1,2840 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Funciones Cuadráticas - Autoaprendizaje Interactivo</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
+            color: #333;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            text-align: center;
+            padding: 30px 0;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+        
+        h1 {
+            font-size: 2.8rem;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .tabs {
+            display: flex;
+            flex-wrap: wrap;
+            background: white;
+            border-radius: 10px 10px 0 0;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        
+        .tab {
+            flex: 1;
+            min-width: 150px;
+            padding: 15px 20px;
+            background: #f8f9fa;
+            border-right: 1px solid #ddd;
+            cursor: pointer;
+            text-align: center;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .tab:hover {
+            background: #e9ecef;
+        }
+        
+        .tab.active {
+            background: white;
+            color: #1a2a6c;
+            border-bottom: 3px solid #1a2a6c;
+        }
+        
+        .tab-content {
+            background: white;
+            padding: 30px;
+            border-radius: 0 0 10px 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            min-height: 600px;
+        }
+        
+        .tab-pane {
+            display: none;
+        }
+        
+        .tab-pane.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .content-section {
+            margin-bottom: 40px;
+        }
+        
+        h2 {
+            color: #1a2a6c;
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+            border-bottom: 2px solid #1a2a6c;
+            padding-bottom: 10px;
+        }
+        
+        h3 {
+            color: #b21f1f;
+            margin: 25px 0 15px;
+            font-size: 1.4rem;
+        }
+        
+        .theory-box {
+            background: #f8f9fa;
+            border-left: 4px solid #1a2a6c;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        
+        .interactive-box {
+            background: #e9f7fe;
+            border: 1px solid #bee5eb;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 25px 0;
+        }
+        
+        .exercise-box {
+            background: #fff3cd;
+            border: 1px solid #ffeeba;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 25px 0;
+        }
+        
+        .solution {
+            background: #d4edda;
+            border: 1px solid #c3e6cb;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 15px 0;
+            display: none;
+        }
+        
+        .btn {
+            display: inline-block;
+            background: #1a2a6c;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            margin: 5px;
+        }
+        
+        .btn:hover {
+            background: #0d1b47;
+            transform: translateY(-2px);
+        }
+        
+        .btn-secondary {
+            background: #6c757d;
+        }
+        
+        .btn-secondary:hover {
+            background: #5a6268;
+        }
+        
+        .btn-success {
+            background: #28a745;
+        }
+        
+        .btn-success:hover {
+            background: #218838;
+        }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.7);
+            animation: fadeIn 0.3s ease;
+        }
+        
+        .modal-content {
+            background-color: white;
+            margin: 5% auto;
+            padding: 30px;
+            border-radius: 10px;
+            width: 80%;
+            max-width: 800px;
+            position: relative;
+            animation: slideIn 0.3s ease;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+        
+        .draggable {
+            cursor: move;
+        }
+        
+        @keyframes slideIn {
+            from { transform: translateY(-50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        
+        .close {
+            position: absolute;
+            right: 20px;
+            top: 15px;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            color: #aaa;
+        }
+        
+        .close:hover {
+            color: #333;
+        }
+        
+        .graph-container {
+            width: 100%;
+            height: 400px;
+            margin: 20px 0;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        .parameter-control {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin: 20px 0;
+            align-items: center;
+        }
+        
+        .parameter {
+            flex: 1;
+            min-width: 200px;
+        }
+        
+        .parameter label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+        
+        .parameter input {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        
+        .method-comparison {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin: 20px 0;
+        }
+        
+        .method-card {
+            flex: 1;
+            min-width: 250px;
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 15px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .method-card h4 {
+            color: #1a2a6c;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 20px;
+            color: white;
+            margin-top: 40px;
+        }
+        
+        .resources-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+        
+        .resource-card {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .resource-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .resource-img {
+            height: 180px;
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .resource-content {
+            padding: 15px;
+        }
+        
+        .resource-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #1a2a6c;
+        }
+        
+        .formula {
+            text-align: center;
+            margin: 20px 0;
+            font-size: 1.2rem;
+        }
+        
+        @media (max-width: 768px) {
+            .tabs {
+                flex-direction: column;
+            }
+            
+            .tab {
+                border-right: none;
+                border-bottom: 1px solid #ddd;
+            }
+            
+            .tab.active {
+                border-bottom: 3px solid #1a2a6c;
+            }
+            
+            .method-comparison {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Funciones Cuadráticas Interactivas</h1>
+            <p class="subtitle">Una experiencia de autoaprendizaje completa para estudiantes de 4° año de secundaria</p>
+        </header>
+        
+        <div class="tabs">
+            <div class="tab active" onclick="openTab(event, 'inicio')">
+                <i class="fas fa-home"></i> Inicio
+            </div>
+            <div class="tab" onclick="openTab(event, 'sesion1')">
+                <i class="fas fa-play-circle"></i> Sesión 1
+            </div>
+            <div class="tab" onclick="openTab(event, 'sesion2')">
+                <i class="fas fa-cogs"></i> Sesión 2
+            </div>
+            <div class="tab" onclick="openTab(event, 'sesion3')">
+                <i class="fas fa-calculator"></i> Sesión 3
+            </div>
+            <div class="tab" onclick="openTab(event, 'sesion4')">
+                <i class="fas fa-exchange-alt"></i> Sesión 4
+            </div>
+            <div class="tab" onclick="openTab(event, 'sesion5')">
+                <i class="fas fa-project-diagram"></i> Sesión 5
+            </div>
+            <div class="tab" onclick="openTab(event, 'evaluacion')">
+                <i class="fas fa-tasks"></i> Evaluación
+            </div>
+            <div class="tab" onclick="openTab(event, 'recursos')">
+                <i class="fas fa-book"></i> Recursos
+            </div>
+        </div>
+        
+        <div class="tab-content">
+            <!-- Inicio -->
+            <div id="inicio" class="tab-pane active">
+                <div class="content-section">
+                    <h2>Bienvenido al Curso de Funciones Cuadráticas</h2>
+                    <p>Este recurso interactivo está diseñado para ayudarte a comprender de manera profunda y práctica las funciones cuadráticas, sus propiedades y aplicaciones en situaciones reales.</p>
+                    
+                    <div class="theory-box">
+                        <h3>Objetivos de Aprendizaje</h3>
+                        <ul>
+                            <li>Reconocer variaciones cuadráticas en textos, tablas, gráficos y fórmulas</li>
+                            <li>Interpretar características del gráfico de funciones cuadráticas</li>
+                            <li>Comparar métodos para resolver ecuaciones cuadráticas</li>
+                            <li>Modelizar situaciones reales con funciones cuadráticas</li>
+                            <li>Transformar entre diferentes formas algebraicas</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="interactive-box">
+                        <h3>¿Cómo usar este recurso?</h3>
+                        <p>Navega por las pestañas superiores para acceder a cada sesión del curso. Cada sesión incluye:</p>
+                        <ul>
+                            <li>Contenido teórico detallado</li>
+                            <li>Visualizaciones interactivas</li>
+                            <li>Ejercicios prácticos con soluciones</li>
+                            <li>Ventanas emergentes con información adicional</li>
+                        </ul>
+                        <p>Al finalizar, completa la sección de evaluación para poner a prueba tus conocimientos.</p>
+                    </div>
+                    
+                    <div class="exercise-box">
+                        <h3>Comencemos con un desafío</h3>
+                        <p>Un objeto es lanzado al aire. Su altura \( h \) (metros) después de \( t \) segundos es \( h(t) = -5t^2 + 20t \). ¿Cómo cambia la altura con el tiempo? ¿Qué forma tendrá su gráfico?</p>
+                        <button class="btn" onclick="showSolution('inicio-sol')">Ver solución</button>
+                        <div id="inicio-sol" class="solution">
+                            <h4>Solución:</h4>
+                            <p>Para encontrar la altura máxima, necesitamos el vértice de la parábola. La función es \( h(t) = -5t^2 + 20t \).</p>
+                            <p>El vértice se encuentra en \( t = -\frac{b}{2a} = -\frac{20}{2 \times (-5)} = \frac{20}{10} = 2 \) segundos.</p>
+                            <p>La altura máxima es \( h(2) = -5(2)^2 + 20(2) = -20 + 40 = 20 \) metros.</p>
+                            <p>Para encontrar cuándo llega al suelo, resolvemos \( h(t) = 0 \):</p>
+                            <p>\( -5t^2 + 20t = 0 \) → \( t(-5t + 20) = 0 \)</p>
+                            <p>\( t_1 = 0 \) (momento del lanzamiento)</p>
+                            <p>\( t_2 = \frac{20}{5} = 4 \) segundos</p>
+                            <p>El objeto llega al suelo a los 4 segundos.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Sesión 1 -->
+            <div id="sesion1" class="tab-pane">
+                <div class="content-section">
+                    <h2>Sesión 1: Introducción a las Funciones Cuadráticas</h2>
+                    
+                    <div class="theory-box">
+                        <h3>¿Qué es una función cuadrática?</h3>
+                        <p>Una función cuadrática es una función polinómica de segundo grado que tiene la forma general:</p>
+                        <div class="formula">
+                            \( y = ax^2 + bx + c \)
+                        </div>
+                        <p>Donde:</p>
+                        <ul>
+                            <li>\( a, b, c \) son números reales con \( a \neq 0 \)</li>
+                            <li>\( x \) es la variable independiente</li>
+                            <li>\( y \) es la variable dependiente</li>
+                        </ul>
+                        <button class="btn btn-secondary" onclick="openModal('modal-forma-general')">
+                            <i class="fas fa-info-circle"></i> Más información
+                        </button>
+                    </div>
+                    
+                    <div class="interactive-box">
+                        <h3>Exploración Interactiva: Gráfica de una Función Cuadrática</h3>
+                        <p>Modifica los parámetros \( a, b \) y \( c \) y observa cómo cambia la parábola:</p>
+                        
+                        <div class="parameter-control">
+                            <div class="parameter">
+                                <label for="param-a">Parámetro a:</label>
+                                <input type="range" id="param-a" min="-5" max="5" step="0.1" value="1" oninput="updateGraph()">
+                                <span id="value-a">1</span>
+                            </div>
+                            <div class="parameter">
+                                <label for="param-b">Parámetro b:</label>
+                                <input type="range" id="param-b" min="-10" max="10" step="0.1" value="0" oninput="updateGraph()">
+                                <span id="value-b">0</span>
+                            </div>
+                            <div class="parameter">
+                                <label for="param-c">Parámetro c:</label>
+                                <input type="range" id="param-c" min="-10" max="10" step="0.1" value="0" oninput="updateGraph()">
+                                <span id="value-c">0</span>
+                            </div>
+                        </div>
+                        
+                        <div class="graph-container">
+                            <canvas id="graph-s1"></canvas>
+                        </div>
+                        
+                        <div id="graph-info-s1" style="margin-top: 15px; padding: 10px; background: #f8f9fa; border-radius: 5px;">
+                            <p><strong>Observaciones:</strong></p>
+                            <ul id="observations-s1">
+                                <li>La parábola abre hacia arriba (\( a > 0 \))</li>
+                                <li>El vértice está en \( (0, 0) \)</li>
+                                <li>Corta al eje Y en \( (0, 0) \)</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="exercise-box">
+                        <h3>Ejercicio Práctico: Identificación de Funciones Cuadráticas</h3>
+                        <p>Indica cuáles de las siguientes funciones son cuadráticas y justifica tu respuesta:</p>
+                        <ol>
+                            <li>\( f(x) = 3x^2 - 5x + 2 \)</li>
+                            <li>\( g(x) = 4x + 7 \)</li>
+                            <li>\( h(x) = -2x^2 \)</li>
+                            <li>\( k(x) = \frac{5}{x^2} \)</li>
+                            <li>\( m(x) = (x + 3)^2 \)</li>
+                        </ol>
+                        <button class="btn" onclick="showSolution('s1-ej1')">Ver solución</button>
+                        <div id="s1-ej1" class="solution">
+                            <h4>Solución:</h4>
+                            <ol>
+                                <li><strong>\( f(x) = 3x^2 - 5x + 2 \)</strong> es cuadrática porque tiene un término \( x^2 \) con coeficiente \( 3 \neq 0 \).</li>
+                                <li><strong>\( g(x) = 4x + 7 \)</strong> no es cuadrática, es lineal (no tiene término \( x^2 \)).</li>
+                                <li><strong>\( h(x) = -2x^2 \)</strong> es cuadrática porque tiene un término \( x^2 \) con coeficiente \( -2 \neq 0 \).</li>
+                                <li><strong>\( k(x) = \frac{5}{x^2} \)</strong> no es cuadrática, es una función racional (la variable está en el denominador).</li>
+                                <li><strong>\( m(x) = (x + 3)^2 \)</strong> es cuadrática porque al desarrollarla obtenemos \( x^2 + 6x + 9 \), que tiene un término \( x^2 \) con coeficiente \( 1 \neq 0 \).</li>
+                            </ol>
+                        </div>
+                    </div>
+                    
+                    <div class="theory-box">
+                        <h3>Características Básicas del Gráfico</h3>
+                        <p>El gráfico de una función cuadrática es una parábola que tiene las siguientes características:</p>
+                        <ul>
+                            <li><strong>Orientación:</strong> Si \( a > 0 \), la parábola abre hacia arriba (tiene un mínimo). Si \( a < 0 \), abre hacia abajo (tiene un máximo).</li>
+                            <li><strong>Vértice:</strong> Es el punto más alto o más bajo de la parábola. Sus coordenadas son \( (h, k) \).</li>
+                            <li><strong>Eje de simetría:</strong> Es una recta vertical que pasa por el vértice y divide a la parábola en dos partes simétricas. Su ecuación es \( x = h \).</li>
+                            <li><strong>Intersección con el eje Y:</strong> Ocurre cuando \( x = 0 \), por lo que el punto es \( (0, c) \).</li>
+                        </ul>
+                        <button class="btn btn-secondary" onclick="openModal('modal-caracteristicas')">
+                            <i class="fas fa-chart-line"></i> Ver ejemplos gráficos
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Sesión 2 -->
+            <div id="sesion2" class="tab-pane">
+                <div class="content-section">
+                    <h2>Sesión 2: Parámetros y Transformaciones</h2>
+                    
+                    <div class="theory-box">
+                        <h3>Efecto de los Parámetros en el Gráfico</h3>
+                        <p>Los parámetros \( a, b \) y \( c \) de la función cuadrática \( y = ax^2 + bx + c \) determinan las características de la parábola:</p>
+                        <ul>
+                            <li><strong>Parámetro a:</strong> Controla la orientación y la "anchura" de la parábola. Si \( |a| > 1 \), la parábola es más "angosta" que \( y = x^2 \). Si \( 0 < |a| < 1 \), es más "ancha".</li>
+                            <li><strong>Parámetro b:</strong> Afecta la posición horizontal del vértice. El vértice se desplaza a la izquierda si \( b > 0 \) y a la derecha si \( b < 0 \) (para \( a > 0 \)).</li>
+                            <li><strong>Parámetro c:</strong> Indica el desplazamiento vertical de la parábola. Es el valor donde la parábola corta al eje Y.</li>
+                        </ul>
+                        <button class="btn btn-secondary" onclick="openModal('modal-parametros')">
+                            <i class="fas fa-cogs"></i> Explorar efectos en detalle
+                        </button>
+                    </div>
+                    
+                    <div class="interactive-box">
+                        <h3>Cálculo del Vértice</h3>
+                        <p>Las coordenadas del vértice \( (h, k) \) de una función cuadrática \( y = ax^2 + bx + c \) se calculan como:</p>
+                        <div class="formula">
+                            \( h = -\frac{b}{2a} \) &nbsp;&nbsp;&nbsp;&nbsp; \( k = f(h) = a\left(-\frac{b}{2a}\right)^2 + b\left(-\frac{b}{2a}\right) + c \)
+                        </div>
+                        <p>Alternativamente, \( k \) se puede calcular como:</p>
+                        <div class="formula">
+                            \( k = c - \frac{b^2}{4a} \)
+                        </div>
+                        
+                        <div class="parameter-control">
+                            <div class="parameter">
+                                <label for="s2-a">Valor de a:</label>
+                                <input type="number" id="s2-a" value="1" step="0.1" oninput="calculateVertex()">
+                            </div>
+                            <div class="parameter">
+                                <label for="s2-b">Valor de b:</label>
+                                <input type="number" id="s2-b" value="0" step="0.1" oninput="calculateVertex()">
+                            </div>
+                            <div class="parameter">
+                                <label for="s2-c">Valor de c:</label>
+                                <input type="number" id="s2-c" value="0" step="0.1" oninput="calculateVertex()">
+                            </div>
+                            <button class="btn btn-secondary" onclick="resetGraph('s2')">Reiniciar Valores</button>
+                        </div>
+                        
+                        <div id="vertex-result" style="margin-top: 15px; padding: 10px; background: #e9f7fe; border-radius: 5px;">
+                            <p><strong>Vértice:</strong> <span id="vertex-coords">(0, 0)</span></p>
+                            <p><strong>Eje de simetría:</strong> <span id="symmetry-axis">x = 0</span></p>
+                            <p id="openness-indicator"></p>
+                        </div>
+                        
+                        <div class="graph-container">
+                            <canvas id="graph-s2"></canvas>
+                        </div>
+                    </div>
+                    
+                    <div class="exercise-box">
+                        <h3>Ejercicio: Análisis de una Función Cuadrática</h3>
+                        <p>Dada la función \( f(x) = 2x^2 - 8x + 6 \), determina:</p>
+                        <ol>
+                            <li>La orientación de la parábola</li>
+                            <li>Las coordenadas del vértice</li>
+                            <li>La ecuación del eje de simetría</li>
+                            <li>El punto de intersección con el eje Y</li>
+                        </ol>
+                        <button class="btn" onclick="showSolution('s2-ej1')">Ver solución</button>
+                        <div id="s2-ej1" class="solution">
+                            <h4>Solución:</h4>
+                            <ol>
+                                <li><strong>Orientación:</strong> Como \( a = 2 > 0 \), la parábola abre hacia arriba (tiene un mínimo).</li>
+                                <li><strong>Vértice:</strong> 
+                                    <p>\( h = -\frac{b}{2a} = -\frac{-8}{2 \times 2} = \frac{8}{4} = 2 \)</p>
+                                    <p>\( k = f(2) = 2(2)^2 - 8(2) + 6 = 2 \times 4 - 16 + 6 = 8 - 16 + 6 = -2 \)</p>
+                                    <p>El vértice es \( (2, -2) \).</p>
+                                </li>
+                                <li><strong>Eje de simetría:</strong> \( x = h = 2 \)</li>
+                                <li><strong>Intersección con eje Y:</strong> Ocurre cuando \( x = 0 \), \( f(0) = 2(0)^2 - 8(0) + 6 = 6 \). El punto es \( (0, 6) \).</li>
+                            </ol>
+                        </div>
+                    </div>
+                    
+                    <div class="theory-box">
+                        <h3>Intersección con el Eje X (Raíces)</h3>
+                        <p>Los puntos donde la parábola corta al eje X (\( y = 0 \)) se llaman raíces o ceros de la función. Para encontrarlos, resolvemos la ecuación:</p>
+                        <div class="formula">
+                            \( ax^2 + bx + c = 0 \)
+                        </div>
+                        <p>La cantidad de raíces reales depende del <strong>discriminante</strong>:</p>
+                        <div class="formula">
+                            \( \Delta = b^2 - 4ac \)
+                        </div>
+                        <ul>
+                            <li>Si \( \Delta > 0 \): Dos raíces reales distintas</li>
+                            <li>Si \( \Delta = 0 \): Una raíz real doble (el vértice toca el eje X)</li>
+                            <li>Si \( \Delta < 0 \): No hay raíces reales (la parábola no corta el eje X)</li>
+                        </ul>
+                        <button class="btn btn-secondary" onclick="openModal('modal-raices')">
+                            <i class="fas fa-search"></i> Ver ejemplos de raíces
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Sesión 3 -->
+            <div id="sesion3" class="tab-pane">
+                <div class="content-section">
+                    <h2>Sesión 3: Resolución de Ecuaciones Cuadráticas</h2>
+                    
+                    <div class="theory-box">
+                        <h3>Métodos para Resolver Ecuaciones Cuadráticas</h3>
+                        <p>Existen varios métodos para resolver ecuaciones de la forma \( ax^2 + bx + c = 0 \). Los principales son:</p>
+                        <ol>
+                            <li><strong>Factorización:</strong> Expresar la ecuación como un producto de factores iguales a cero.</li>
+                            <li><strong>Completar el cuadrado:</strong> Transformar la ecuación a la forma \( (x - p)^2 = q \).</li>
+                            <li><strong>Fórmula de Bhaskara:</strong> Usar la fórmula general para encontrar las raíces.</li>
+                        </ol>
+                        <button class="btn btn-secondary" onclick="openModal('modal-metodos')">
+                            <i class="fas fa-calculator"></i> Ver explicación detallada de cada método
+                        </button>
+                    </div>
+                    
+                    <div class="interactive-box">
+                        <h3>Comparación de Métodos</h3>
+                        <p>Resolvamos la ecuación \( 2x^2 - 8x + 6 = 0 \) usando los tres métodos:</p>
+                        
+                        <div class="method-comparison">
+                            <div class="method-card">
+                                <h4>Método 1: Factorización</h4>
+                                <p>\( 2x^2 - 8x + 6 = 0 \)</p>
+                                <p>Dividimos por 2: \( x^2 - 4x + 3 = 0 \)</p>
+                                <p>Buscamos dos números que multiplicados den 3 y sumados den -4: -1 y -3</p>
+                                <p>\( (x - 1)(x - 3) = 0 \)</p>
+                                <p>\( x - 1 = 0 \) → \( x = 1 \)</p>
+                                <p>\( x - 3 = 0 \) → \( x = 3 \)</p>
+                                <p><strong>Soluciones:</strong> \( x = 1, x = 3 \)</p>
+                            </div>
+                            
+                            <div class="method-card">
+                                <h4>Método 2: Completar el cuadrado</h4>
+                                <p>\( 2x^2 - 8x + 6 = 0 \)</p>
+                                <p>Dividimos por 2: \( x^2 - 4x + 3 = 0 \)</p>
+                                <p>\( x^2 - 4x = -3 \)</p>
+                                <p>Completamos el cuadrado: \( (4/2)^2 = 4 \)</p>
+                                <p>\( x^2 - 4x + 4 = -3 + 4 \)</p>
+                                <p>\( (x - 2)^2 = 1 \)</p>
+                                <p>\( x - 2 = \pm\sqrt{1} \)</p>
+                                <p>\( x = 2 \pm 1 \)</p>
+                                <p><strong>Soluciones:</strong> \( x = 3, x = 1 \)</p>
+                            </div>
+                            
+                            <div class="method-card">
+                                <h4>Método 3: Fórmula de Bhaskara</h4>
+                                <p>\( 2x^2 - 8x + 6 = 0 \)</p>
+                                <p>\( a = 2, b = -8, c = 6 \)</p>
+                                <p>\( \Delta = b^2 - 4ac = (-8)^2 - 4(2)(6) = 64 - 48 = 16 \)</p>
+                                <p>\( x = \frac{-b \pm \sqrt{\Delta}}{2a} = \frac{8 \pm \sqrt{16}}{4} \)</p>
+                                <p>\( x = \frac{8 \pm 4}{4} \)</p>
+                                <p>\( x_1 = \frac{8 + 4}{4} = \frac{12}{4} = 3 \)</p>
+                                <p>\( x_2 = \frac{8 - 4}{4} = \frac{4}{4} = 1 \)</p>
+                                <p><strong>Soluciones:</strong> \( x = 3, x = 1 \)</p>
+                            </div>
+                        </div>
+                        
+                        <div style="margin-top: 20px;">
+                            <h4>Análisis Comparativo:</h4>
+                            <ul>
+                                <li><strong>Factorización:</strong> Rápido cuando la ecuación es fácil de factorizar, pero no siempre es posible.</li>
+                                <li><strong>Completar el cuadrado:</strong> Útil para entender la estructura de la ecuación, pero puede ser laborioso.</li>
+                                <li><strong>Fórmula de Bhaskara:</strong> Funciona siempre, pero requiere cálculos más complejos.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="exercise-box">
+                        <h3>Ejercicio: Resolución con Diferentes Métodos</h3>
+                        <p>Resuelve la ecuación \( x^2 - 6x + 8 = 0 \) usando los tres métodos. ¿Cuál método te resultó más sencillo para esta ecuación?</p>
+                        <button class="btn" onclick="showSolution('s3-ej1')">Ver solución</button>
+                        <div id="s3-ej1" class="solution">
+                            <h4>Solución:</h4>
+                            <p><strong>Método 1: Factorización</strong></p>
+                            <p>\( x^2 - 6x + 8 = 0 \)</p>
+                            <p>Buscamos dos números que multiplicados den 8 y sumados den -6: -2 y -4</p>
+                            <p>\( (x - 2)(x - 4) = 0 \)</p>
+                            <p>\( x - 2 = 0 \) → \( x = 2 \)</p>
+                            <p>\( x - 4 = 0 \) → \( x = 4 \)</p>
+                            <p><strong>Soluciones:</strong> \( x = 2, x = 4 \)</p>
+                            
+                            <p><strong>Método 2: Completar el cuadrado</strong></p>
+                            <p>\( x^2 - 6x + 8 = 0 \)</p>
+                            <p>\( x^2 - 6x = -8 \)</p>
+                            <p>Completamos el cuadrado: \( (6/2)^2 = 9 \)</p>
+                            <p>\( x^2 - 6x + 9 = -8 + 9 \)</p>
+                            <p>\( (x - 3)^2 = 1 \)</p>
+                            <p>\( x - 3 = \pm\sqrt{1} \)</p>
+                            <p>\( x = 3 \pm 1 \)</p>
+                            <p><strong>Soluciones:</strong> \( x = 4, x = 2 \)</p>
+                            
+                            <p><strong>Método 3: Fórmula de Bhaskara</strong></p>
+                            <p>\( a = 1, b = -6, c = 8 \)</p>
+                            <p>\( \Delta = b^2 - 4ac = (-6)^2 - 4(1)(8) = 36 - 32 = 4 \)</p>
+                            <p>\( x = \frac{-b \pm \sqrt{\Delta}}{2a} = \frac{6 \pm \sqrt{4}}{2} \)</p>
+                            <p>\( x = \frac{6 \pm 2}{2} \)</p>
+                            <p>\( x_1 = \frac{6 + 2}{2} = \frac{8}{2} = 4 \)</p>
+                            <p>\( x_2 = \frac{6 - 2}{2} = \frac{4}{2} = 2 \)</p>
+                            <p><strong>Soluciones:</strong> \( x = 4, x = 2 \)</p>
+                            
+                            <p><strong>Análisis:</strong> Para esta ecuación, el método de factorización fue el más sencillo porque los números eran pequeños y fáciles de identificar.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="interactive-box">
+                        <h3>Calculadora Interactiva de Ecuaciones Cuadráticas</h3>
+                        <p>Ingresa los coeficientes de tu ecuación y obtén las soluciones usando la fórmula de Bhaskara:</p>
+                        
+                        <div class="parameter-control">
+                            <div class="parameter">
+                                <label for="eq-a">Coeficiente a:</label>
+                                <input type="number" id="eq-a" value="1" step="0.1">
+                            </div>
+                            <div class="parameter">
+                                <label for="eq-b">Coeficiente b:</label>
+                                <input type="number" id="eq-b" value="0" step="0.1">
+                            </div>
+                            <div class="parameter">
+                                <label for="eq-c">Coeficiente c:</label>
+                                <input type="number" id="eq-c" value="0" step="0.1">
+                            </div>
+                            <button class="btn" onclick="solveEquation()">Resolver Ecuación</button>
+                            <button class="btn btn-secondary" onclick="resetEquation()">Reiniciar</button>
+                        </div>
+                        
+                        <div id="equation-result" style="margin-top: 15px; padding: 10px; background: #f8f9fa; border-radius: 5px; display: none;">
+                            <p><strong>Ecuación:</strong> <span id="equation-display"></span></p>
+                            <p><strong>Discriminante (\( \Delta \)):</strong> <span id="discriminant"></span></p>
+                            <p><strong>Soluciones:</strong> <span id="solutions"></span></p>
+                        </div>
+                        
+                        <div class="graph-container">
+                            <canvas id="equation-graph"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Sesión 4 -->
+            <div id="sesion4" class="tab-pane">
+                <div class="content-section">
+                    <h2>Sesión 4: Formas Algebraicas y sus Interpretaciones</h2>
+                    
+                    <div class="theory-box">
+                        <h3>Formas de Expresar una Función Cuadrática</h3>
+                        <p>Una función cuadrática puede expresarse de tres formas algebraicas diferentes, cada una con ventajas específicas:</p>
+                        <ol>
+                            <li><strong>Forma polinómica (o estándar):</strong> \( y = ax^2 + bx + c \)
+                                <ul>
+                                    <li>Muestra claramente el coeficiente principal (\( a \)) y el término independiente (\( c \))</li>
+                                    <li>Es útil para identificar el intercepto con el eje Y (\( 0, c \))</li>
+                                </ul>
+                            </li>
+                            <li><strong>Forma canónica (o de vértice):</strong> \( y = a(x - h)^2 + k \)
+                                <ul>
+                                    <li>Muestra directamente las coordenadas del vértice (\( h, k \))</li>
+                                    <li>Es útil para identificar el máximo o mínimo de la función</li>
+                                </ul>
+                            </li>
+                            <li><strong>Forma factorizada:</strong> \( y = a(x - x_1)(x - x_2) \)
+                                <ul>
+                                    <li>Muestra directamente las raíces o ceros de la función (\( x_1, x_2 \))</li>
+                                    <li>Es útil para encontrar los puntos de intersección con el eje X</li>
+                                </ul>
+                            </li>
+                        </ol>
+                        <button class="btn btn-secondary" onclick="openModal('modal-formas')">
+                            <i class="fas fa-exchange-alt"></i> Ver ejemplos de transformación entre formas
+                        </button>
+                    </div>
+                    
+                    <div class="interactive-box">
+                        <h3>Transformación entre Formas</h3>
+                        <p>Explora cómo se transforma una función cuadrática entre sus diferentes formas algebraicas:</p>
+                        
+                        <div class="parameter-control">
+                            <div class="parameter">
+                                <label for="tf-a">Valor de a:</label>
+                                <input type="number" id="tf-a" value="1" step="0.1" oninput="transformForms()">
+                            </div>
+                            <div class="parameter">
+                                <label for="tf-b">Valor de b:</label>
+                                <input type="number" id="tf-b" value="0" step="0.1" oninput="transformForms()">
+                            </div>
+                            <div class="parameter">
+                                <label for="tf-c">Valor de c:</label>
+                                <input type="number" id="tf-c" value="0" step="0.1" oninput="transformForms()">
+                            </div>
+                        </div>
+                        
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; margin-top: 20px;">
+                            <div style="background: #f8f9fa; padding: 15px; border-radius: 8px;">
+                                <h4>Forma Polinómica</h4>
+                                <div class="formula" id="polynomial-form">\( y = x^2 \)</div>
+                            </div>
+                            
+                            <div style="background: #e9f7fe; padding: 15px; border-radius: 8px;">
+                                <h4>Forma Canónica</h4>
+                                <div class="formula" id="canonical-form">\( y = (x - 0)^2 + 0 \)</div>
+                            </div>
+                            
+                            <div style="background: #fff3cd; padding: 15px; border-radius: 8px;">
+                                <h4>Forma Factorizada</h4>
+                                <div class="formula" id="factored-form">\( y = (x - 0)(x - 0) \)</div>
+                            </div>
+                        </div>
+                        
+                        <div style="margin-top: 20px;">
+                            <h4>Interpretación de cada forma:</h4>
+                            <ul id="interpretation-list">
+                                <li><strong>Forma polinómica:</strong> Intercepto con eje Y en \( (0, 0) \)</li>
+                                <li><strong>Forma canónica:</strong> Vértice en \( (0, 0) \)</li>
+                                <li><strong>Forma factorizada:</strong> Raíces en \( x = 0 \) (doble)</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="exercise-box">
+                        <h3>Ejercicio: Transformación y Análisis</h3>
+                        <p>Dada la función \( f(x) = 2x^2 - 8x + 6 \):</p>
+                        <ol>
+                            <li>Expresa la función en forma canónica</li>
+                            <li>Expresa la función en forma factorizada</li>
+                            <li>Identifica el vértice y las raíces usando cada forma</li>
+                            <li>¿Qué información proporciona cada forma?</li>
+                        </ol>
+                        <button class="btn" onclick="showSolution('s4-ej1')">Ver solución</button>
+                        <div id="s4-ej1" class="solution">
+                            <h4>Solución:</h4>
+                            <p><strong>1. Forma canónica:</strong></p>
+                            <p>Completamos el cuadrado:</p>
+                            <p>\( f(x) = 2(x^2 - 4x) + 6 \)</p>
+                            <p>\( f(x) = 2(x^2 - 4x + 4 - 4) + 6 \)</p>
+                            <p>\( f(x) = 2((x - 2)^2 - 4) + 6 \)</p>
+                            <p>\( f(x) = 2(x - 2)^2 - 8 + 6 \)</p>
+                            <p>\( f(x) = 2(x - 2)^2 - 2 \)</p>
+                            <p><strong>Forma canónica:</strong> \( y = 2(x - 2)^2 - 2 \)</p>
+                            
+                            <p><strong>2. Forma factorizada:</strong></p>
+                            <p>Resolvemos \( 2x^2 - 8x + 6 = 0 \)</p>
+                            <p>Dividimos por 2: \( x^2 - 4x + 3 = 0 \)</p>
+                            <p>Factorizamos: \( (x - 1)(x - 3) = 0 \)</p>
+                            <p>Entonces: \( f(x) = 2(x - 1)(x - 3) \)</p>
+                            <p><strong>Forma factorizada:</strong> \( y = 2(x - 1)(x - 3) \)</p>
+                            
+                            <p><strong>3. Identificación de características:</strong></p>
+                            <ul>
+                                <li><strong>Forma polinómica (\( y = 2x^2 - 8x + 6 \)):</strong> Intercepto con eje Y en \( (0, 6) \)</li>
+                                <li><strong>Forma canónica (\( y = 2(x - 2)^2 - 2 \)):</strong> Vértice en \( (2, -2) \)</li>
+                                <li><strong>Forma factorizada (\( y = 2(x - 1)(x - 3) \)):</strong> Raíces en \( x = 1 \) y \( x = 3 \)</li>
+                            </ul>
+                            
+                            <p><strong>4. Información proporcionada por cada forma:</strong></p>
+                            <ul>
+                                <li><strong>Forma polinómica:</strong> Muestra el coeficiente principal (\( a=2 \)) y el intercepto con eje Y (\( c=6 \))</li>
+                                <li><strong>Forma canónica:</strong> Muestra directamente el vértice \( (2, -2) \) y que la parábola tiene un mínimo (\( a>0 \))</li>
+                                <li><strong>Forma factorizada:</strong> Muestra directamente los puntos donde la función corta al eje X (\( x=1 \) y \( x=3 \))</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="theory-box">
+                        <h3>Aplicaciones de Cada Forma</h3>
+                        <p>Dependiendo del problema que estemos resolviendo, una forma puede ser más útil que otra:</p>
+                        <ul>
+                            <li><strong>Forma polinómica:</strong> Es útil cuando necesitamos evaluar la función para un valor específico de \( x \) o cuando trabajamos con operaciones algebraicas.</li>
+                            <li><strong>Forma canónica:</strong> Es ideal para problemas de optimización (máximos y mínimos) o cuando necesitamos analizar el comportamiento de la función.</li>
+                            <li><strong>Forma factorizada:</strong> Es la más conveniente cuando necesitamos encontrar las raíces o analizar los intervalos donde la función es positiva o negativa.</li>
+                        </ul>
+                        <button class="btn btn-secondary" onclick="openModal('modal-aplicaciones-formas')">
+                            <i class="fas fa-lightbulb"></i> Ver ejemplos de aplicaciones
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Sesión 5 -->
+            <div id="sesion5" class="tab-pane">
+                <div class="content-section">
+                    <h2>Sesión 5: Modelización con Funciones Cuadráticas</h2>
+                    
+                    <div class="theory-box">
+                        <h3>¿Qué es Modelizar?</h3>
+                        <p>Modelizar consiste en representar una situación real mediante una función matemática. En el caso de las funciones cuadráticas, muchas situaciones del mundo real pueden describirse con ellas.</p>
+                        <p>El proceso de modelización generalmente sigue estos pasos:</p>
+                        <ol>
+                            <li>Identificar las variables relevantes en la situación</li>
+                            <li>Establecer la relación entre las variables</li>
+                            <li>Plantear la función cuadrática que modela la situación</li>
+                            <li>Analizar la función para responder preguntas sobre la situación</li>
+                            <li>Verificar si el modelo se ajusta a la realidad</li>
+                        </ol>
+                        <button class="btn btn-secondary" onclick="openModal('modal-modelizacion')">
+                            <i class="fas fa-project-diagram"></i> Ver ejemplos detallados
+                        </button>
+                    </div>
+                    
+                    <div class="interactive-box">
+                        <h3>Modelización Interactiva: Área de un Rectángulo</h3>
+                        <p>Imagina que tienes 20 metros de cerca para construir un jardín rectangular junto a una pared (no necesitas cerca en ese lado). ¿Qué dimensiones maximizarán el área del jardín?</p>
+                        
+                        <div class="parameter-control">
+                            <div class="parameter">
+                                <label for="garden-width">Ancho (\( x \)):</label>
+                                <input type="range" id="garden-width" min="1" max="10" step="0.1" value="5" oninput="updateGarden()">
+                                <span id="garden-width-value">5</span> m
+                            </div>
+                        </div>
+                        
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 20px;">
+                            <div>
+                                <h4>Representación del Jardín</h4>
+                                <div style="width: 100%; height: 200px; background: #f0f0f0; border: 2px solid #333; position: relative; border-radius: 5px;">
+                                    <div id="garden-visualization" style="position: absolute; bottom: 0; left: 0; width: 100%; height: 50%; background: #8bc34a; border-top: 2px solid #333;"></div>
+                                </div>
+                                <p style="text-align: center; margin-top: 10px;">
+                                    Ancho: <span id="garden-width-display">5</span> m | 
+                                    Largo: <span id="garden-length-display">10</span> m | 
+                                    Área: <span id="garden-area-display">50</span> m²
+                                </p>
+                            </div>
+                            
+                            <div>
+                                <h4>Función de Área</h4>
+                                <div class="formula">
+                                    \( A(x) = x(20 - 2x) = -2x^2 + 20x \)
+                                </div>
+                                <div class="graph-container" style="height: 200px;">
+                                    <canvas id="garden-graph"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div style="margin-top: 20px; padding: 15px; background: #f8f9fa; border-radius: 8px;">
+                            <h4>Análisis:</h4>
+                            <p>La función que modela el área es \( A(x) = -2x^2 + 20x \), donde \( x \) es el ancho del jardín.</p>
+                            <p>El área máxima se encuentra en el vértice de la parábola:</p>
+                            <p>\( x = -\frac{b}{2a} = -\frac{20}{2 \times (-2)} = \frac{20}{4} = 5 \) metros</p>
+                            <p>Área máxima = \( A(5) = -2(5)^2 + 20(5) = -50 + 100 = 50 \) m²</p>
+                            <p>Las dimensiones óptimas son: ancho = 5 m, largo = 10 m.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="exercise-box">
+                        <h3>Ejercicio: Modelización de Movimiento</h3>
+                        <p>Una pelota es lanzada verticalmente hacia arriba desde una altura de 1.5 metros con una velocidad inicial de 20 m/s. La altura \( h \) (en metros) de la pelota después de \( t \) segundos está dada por:</p>
+                        <div class="formula">
+                            \( h(t) = -5t^2 + 20t + 1.5 \)
+                        </div>
+                        <p>Responde las siguientes preguntas:</p>
+                        <ol>
+                            <li>¿Cuál es la altura máxima que alcanza la pelota?</li>
+                            <li>¿En qué momento alcanza la altura máxima?</li>
+                            <li>¿Cuánto tiempo tarda la pelota en llegar al suelo?</li>
+                            <li>¿Cuál es la altura de la pelota a los 2 segundos?</li>
+                        </ol>
+                        <button class="btn" onclick="showSolution('s5-ej1')">Ver solución</button>
+                        <div id="s5-ej1" class="solution">
+                            <h4>Solución:</h4>
+                            <p><strong>1. Altura máxima:</strong></p>
+                            <p>La altura máxima se encuentra en el vértice de la parábola.</p>
+                            <p>\( t = -\frac{b}{2a} = -\frac{20}{2 \times (-5)} = \frac{20}{10} = 2 \) segundos</p>
+                            <p>\( h(2) = -5(2)^2 + 20(2) + 1.5 = -20 + 40 + 1.5 = 21.5 \) metros</p>
+                            <p><strong>Altura máxima: 21.5 metros</strong></p>
+                            
+                            <p><strong>2. Momento de altura máxima:</strong></p>
+                            <p>Como calculamos anteriormente, la altura máxima se alcanza a los <strong>2 segundos</strong>.</p>
+                            
+                            <p><strong>3. Tiempo para llegar al suelo:</strong></p>
+                            <p>Resolvemos \( h(t) = 0 \):</p>
+                            <p>\( -5t^2 + 20t + 1.5 = 0 \)</p>
+                            <p>Usamos la fórmula de Bhaskara:</p>
+                            <p>\( a = -5, b = 20, c = 1.5 \)</p>
+                            <p>\( \Delta = b^2 - 4ac = 20^2 - 4(-5)(1.5) = 400 + 30 = 430 \)</p>
+                            <p>\( t = \frac{-b \pm \sqrt{\Delta}}{2a} = \frac{-20 \pm \sqrt{430}}{2 \times (-5)} = \frac{-20 \pm \sqrt{430}}{-10} \)</p>
+                            <p>\( \sqrt{430} \approx 20.74 \)</p>
+                            <p>\( t_1 = \frac{-20 + 20.74}{-10} \approx \frac{0.74}{-10} \approx -0.074 \) (no tiene sentido físico)</p>
+                            <p>\( t_2 = \frac{-20 - 20.74}{-10} \approx \frac{-40.74}{-10} \approx 4.074 \) segundos</p>
+                            <p><strong>La pelota llega al suelo aproximadamente a los 4.074 segundos.</strong></p>
+                            
+                            <p><strong>4. Altura a los 2 segundos:</strong></p>
+                            <p>\( h(2) = -5(2)^2 + 20(2) + 1.5 = -20 + 40 + 1.5 = 21.5 \) metros</p>
+                            <p><strong>La altura a los 2 segundos es 21.5 metros.</strong></p>
+                        </div>
+                    </div>
+                    
+                    <div class="theory-box">
+                        <h3>Aplicaciones Reales de las Funciones Cuadráticas</h3>
+                        <p>Las funciones cuadráticas aparecen en numerosas situaciones del mundo real:</p>
+                        <ul>
+                            <li><strong>Física:</strong> Movimiento de proyectiles, caída libre, movimiento circular uniforme.</li>
+                            <li><strong>Economía:</strong> Modelos de costos, ingresos, beneficios, elasticidad de la demanda.</li>
+                            <li><strong>Ingeniería:</strong> Diseño de estructuras, cálculo de resistencias, óptica.</li>
+                            <li><strong>Biología:</strong> Modelos de crecimiento poblacional, genética.</li>
+                            <li><strong>Deportes:</strong> Trayectoria de balones, cálculo de récords.</li>
+                        </ul>
+                        <button class="btn btn-secondary" onclick="openModal('modal-aplicaciones-reales')">
+                            <i class="fas fa-globe"></i> Explorar más aplicaciones
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Evaluación -->
+            <div id="evaluacion" class="tab-pane">
+                <div class="content-section">
+                    <h2>Evaluación Final</h2>
+                    
+                    <div class="theory-box">
+                        <h3>Proyecto de Modelización</h3>
+                        <p>Elige una situación real que pueda modelizarse con una función cuadrática. Realiza una investigación completa siguiendo estos pasos:</p>
+                        <ol>
+                            <li>Describe la situación y las variables involucradas</li>
+                            <li>Plantea la función cuadrática que modela la situación</li>
+                            <li>Analiza la función (vértice, raíces, intervalos de crecimiento/decrecimiento)</li>
+                            <li>Responde preguntas relevantes sobre la situación usando el modelo</li>
+                            <li>Verifica si el modelo se ajusta a la realidad</li>
+                            <li>Presenta tus hallazgos en un informe o presentación</li>
+                        </ol>
+                        <p><strong>Ideas para situaciones:</strong></p>
+                        <ul>
+                            <li>Trayectoria de un balón en un deporte específico</li>
+                            <li>Modelo de beneficios para una empresa</li>
+                            <li>Diseño de un contenedor con volumen máximo</li>
+                            <li>Modelo de población de una especie</li>
+                        </ul>
+                        <button class="btn btn-secondary" onclick="openModal('modal-proyecto-ejemplo')">
+                            <i class="fas fa-file-alt"></i> Ver ejemplo de proyecto
+                        </button>
+                    </div>
+                    
+                    <div class="exercise-box">
+                        <h3>Autoevaluación: Problemas Integradores</h3>
+                        <p>Resuelve los siguientes problemas para evaluar tu comprensión de todos los temas vistos:</p>
+                        
+                        <div style="margin-bottom: 30px;">
+                            <h4>Problema 1: Análisis Completo</h4>
+                            <p>Dada la función \( f(x) = -2x^2 + 8x - 6 \):</p>
+                            <ol>
+                                <li>Identifica el intercepto con el eje Y</li>
+                                <li>Calcula las coordenadas del vértice</li>
+                                <li>Determina las raíces de la función</li>
+                                <li>Expresa la función en forma canónica y factorizada</li>
+                                <li>Analiza los intervalos donde la función es positiva y negativa</li>
+                                <li>Encuentra el máximo o mínimo de la función</li>
+                            </ol>
+                            <button class="btn" onclick="showSolution('eval-prob1')">Ver solución</button>
+                            <div id="eval-prob1" class="solution">
+                                <h4>Solución:</h4>
+                                <p><strong>1. Intercepto con eje Y:</strong></p>
+                                <p>\( f(0) = -2(0)^2 + 8(0) - 6 = -6 \)</p>
+                                <p>El intercepto es \( (0, -6) \)</p>
+                                
+                                <p><strong>2. Vértice:</strong></p>
+                                <p>\( h = -\frac{b}{2a} = -\frac{8}{2 \times (-2)} = -\frac{8}{-4} = 2 \)</p>
+                                <p>\( k = f(2) = -2(2)^2 + 8(2) - 6 = -8 + 16 - 6 = 2 \)</p>
+                                <p>El vértice es \( (2, 2) \)</p>
+                                
+                                <p><strong>3. Raíces:</strong></p>
+                                <p>Resolvemos \( -2x^2 + 8x - 6 = 0 \)</p>
+                                <p>Dividimos por -2: \( x^2 - 4x + 3 = 0 \)</p>
+                                <p>Factorizamos: \( (x - 1)(x - 3) = 0 \)</p>
+                                <p>Las raíces son \( x = 1 \) y \( x = 3 \)</p>
+                                
+                                <p><strong>4. Formas alternativas:</strong></p>
+                                <p><strong>Forma canónica:</strong> \( y = -2(x - 2)^2 + 2 \)</p>
+                                <p><strong>Forma factorizada:</strong> \( y = -2(x - 1)(x - 3) \)</p>
+                                
+                                <p><strong>5. Intervalos de positividad y negatividad:</strong></p>
+                                <p>La función es positiva entre las raíces: \( (1, 3) \)</p>
+                                <p>La función es negativa fuera de las raíces: \( (-\infty, 1) \cup (3, \infty) \)</p>
+                                
+                                <p><strong>6. Máximo o mínimo:</strong></p>
+                                <p>Como \( a = -2 < 0 \), la parábola abre hacia abajo y tiene un máximo.</p>
+                                <p>El valor máximo es \( k = 2 \), alcanzado en \( x = 2 \).</p>
+                            </div>
+                        </div>
+                        
+                        <div style="margin-bottom: 30px;">
+                            <h4>Problema 2: Modelización</h4>
+                            <p>Un empresario fabrica y vende camisetas. El costo diario de producción está dado por \( C(x) = 2x^2 - 20x + 100 \), donde \( x \) es el número de camisetas producidas. El ingreso diario por ventas es \( I(x) = 50x \).</p>
+                            <ol>
+                                <li>Encuentra la función de beneficios \( B(x) = I(x) - C(x) \)</li>
+                                <li>¿Cuántas camisetas debe producir para maximizar los beneficios?</li>
+                                <li>¿Cuál es el beneficio máximo diario?</li>
+                                <li>¿Cuál es el punto de equilibrio (beneficio cero)?</li>
+                            </ol>
+                            <button class="btn" onclick="showSolution('eval-prob2')">Ver solución</button>
+                            <div id="eval-prob2" class="solution">
+                                <h4>Solución:</h4>
+                                <p><strong>1. Función de beneficios:</strong></p>
+                                <p>\( B(x) = I(x) - C(x) = 50x - (2x^2 - 20x + 100) = 50x - 2x^2 + 20x - 100 \)</p>
+                                <p>\( B(x) = -2x^2 + 70x - 100 \)</p>
+                                
+                                <p><strong>2. Producción para maximizar beneficios:</strong></p>
+                                <p>El máximo se encuentra en el vértice de la parábola.</p>
+                                <p>\( x = -\frac{b}{2a} = -\frac{70}{2 \times (-2)} = -\frac{70}{-4} = 17.5 \)</p>
+                                <p>Como no se puede producir media camiseta, evaluamos en \( x=17 \) y \( x=18 \):</p>
+                                <p>\( B(17) = -2(17)^2 + 70(17) - 100 = -578 + 1190 - 100 = 512 \)</p>
+                                <p>\( B(18) = -2(18)^2 + 70(18) - 100 = -648 + 1260 - 100 = 512 \)</p>
+                                <p>Se deben producir 17 o 18 camisetas para maximizar los beneficios.</p>
+                                
+                                <p><strong>3. Beneficio máximo:</strong></p>
+                                <p>El beneficio máximo es de $512.</p>
+                                
+                                <p><strong>4. Punto de equilibrio:</strong></p>
+                                <p>Resolvemos \( B(x) = 0 \):</p>
+                                <p>\( -2x^2 + 70x - 100 = 0 \)</p>
+                                <p>Dividimos por -2: \( x^2 - 35x + 50 = 0 \)</p>
+                                <p>Usamos Bhaskara:</p>
+                                <p>\( \Delta = (-35)^2 - 4(1)(50) = 1225 - 200 = 1025 \)</p>
+                                <p>\( x = \frac{35 \pm \sqrt{1025}}{2} \)</p>
+                                <p>\( \sqrt{1025} \approx 32.02 \)</p>
+                                <p>\( x_1 = \frac{35 + 32.02}{2} \approx 33.51 \)</p>
+                                <p>\( x_2 = \frac{35 - 32.02}{2} \approx 1.49 \)</p>
+                                <p>Los puntos de equilibrio son aproximadamente \( x=1.49 \) y \( x=33.51 \) camisetas.</p>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <h4>Problema 3: Análisis Gráfico</h4>
+                            <p>Se muestra el gráfico de una función cuadrática. Sin calcular, responde:</p>
+                            <div class="graph-container" style="height: 300px;">
+                                <canvas id="eval-graph"></canvas>
+                            </div>
+                            <ol>
+                                <li>¿Cuál es el signo del coeficiente principal (\( a \))?</li>
+                                <li>¿Cuáles son las coordenadas aproximadas del vértice?</li>
+                                <li>¿Cuáles son las raíces aproximadas de la función?</li>
+                                <li>¿Cuál es el intercepto con el eje Y?</li>
+                                <li>¿En qué intervalo la función es creciente?</li>
+                            </ol>
+                            <button class="btn" onclick="showSolution('eval-prob3')">Ver solución</button>
+                            <div id="eval-prob3" class="solution">
+                                <h4>Solución:</h4>
+                                <p><strong>1. Signo de \( a \):</strong></p>
+                                <p>La parábola abre hacia abajo, por lo tanto \( a < 0 \).</p>
+                                
+                                <p><strong>2. Vértice:</strong></p>
+                                <p>El vértice está aproximadamente en \( (3, 4) \).</p>
+                                
+                                <p><strong>3. Raíces:</strong></p>
+                                <p>La función corta al eje X aproximadamente en \( x=1 \) y \( x=5 \).</p>
+                                
+                                <p><strong>4. Intercepto con eje Y:</strong></p>
+                                <p>La función corta al eje Y aproximadamente en \( y=3 \).</p>
+                                
+                                <p><strong>5. Intervalo creciente:</strong></p>
+                                <p>La función es creciente en el intervalo \( (-\infty, 3) \).</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Recursos -->
+            <div id="recursos" class="tab-pane">
+                <div class="content-section">
+                    <h2>Recursos Adicionales</h2>
+                    
+                    <div class="theory-box">
+                        <h3>Herramientas Digitales</h3>
+                        <p>Estas herramientas te ayudarán a explorar y visualizar conceptos de funciones cuadráticas:</p>
+                        <div class="resources-grid">
+                            <div class="resource-card">
+                                <div class="resource-img" style="background-image: url('https://images.unsplash.com/photo-1596495577866-8a2eaf4c5dc9?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80');"></div>
+                                <div class="resource-content">
+                                    <div class="resource-title">Desmos Graphing Calculator</div>
+                                    <p>Calculadora gráfica en línea para visualizar funciones cuadráticas y explorar sus propiedades.</p>
+                                    <a href="https://www.desmos.com/calculator" target="_blank" class="btn">Visitar sitio</a>
+                                </div>
+                            </div>
+                            
+                            <div class="resource-card">
+                                <div class="resource-img" style="background-image: url('https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80');"></div>
+                                <div class="resource-content">
+                                    <div class="resource-title">GeoGebra</div>
+                                    <p>Software de matemáticas dinámicas para geometría, álgebra y cálculo. Ideal para explorar funciones cuadráticas.</p>
+                                    <a href="https://www.geogebra.org/" target="_blank" class="btn">Visitar sitio</a>
+                                </div>
+                            </div>
+                            
+                            <div class="resource-card">
+                                <div class="resource-img" style="background-image: url('https://images.unsplash.com/photo-1509228468518-180dd486491d?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80');"></div>
+                                <div class="resource-content">
+                                    <div class="resource-title">Wolfram Alpha</div>
+                                    <p>Motor de conocimiento computacional que puede resolver ecuaciones cuadráticas y analizar funciones.</p>
+                                    <a href="https://www.wolframalpha.com/" target="_blank" class="btn">Visitar sitio</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="theory-box">
+                        <h3>Videos Educativos</h3>
+                        <p>Estos videos explican conceptos clave de funciones cuadráticas de manera visual y accesible:</p>
+                        <div class="resources-grid">
+                            <div class="resource-card">
+                                <div class="resource-img" style="background-image: url('https://images.unsplash.com/photo-1574717024453-354056aafa98?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80');"></div>
+                                <div class="resource-content">
+                                    <div class="resource-title">Introducción a las Funciones Cuadráticas</div>
+                                    <p>Video explicativo sobre qué son las funciones cuadráticas y sus características básicas.</p>
+                                    <a href="#" class="btn">Ver video</a>
+                                </div>
+                            </div>
+                            
+                            <div class="resource-card">
+                                <div class="resource-img" style="background-image: url('https://images.unsplash.com/photo-1635070041078-e363dbe005cb?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80');"></div>
+                                <div class="resource-content">
+                                    <div class="resource-title">Resolución de Ecuaciones Cuadráticas</div>
+                                    <p>Tutorial sobre diferentes métodos para resolver ecuaciones cuadráticas paso a paso.</p>
+                                    <a href="#" class="btn">Ver video</a>
+                                </div>
+                            </div>
+                            
+                            <div class="resource-card">
+                                <div class="resource-img" style="background-image: url('https://images.unsplash.com/photo-1614064641938-3bbee52942c7?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80');"></div>
+                                <div class="resource-content">
+                                    <div class="resource-title">Aplicaciones Reales de las Funciones Cuadráticas</div>
+                                    <p>Ejemplos prácticos de cómo se utilizan las funciones cuadráticas en diferentes campos.</p>
+                                    <a href="#" class="btn">Ver video</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="theory-box">
+                        <h3>Artículos y Lecturas Complementarias</h3>
+                        <p>Profundiza en los conceptos con estos artículos académicos y recursos educativos:</p>
+                        <ul>
+                            <li><a href="#">"Historia de las Ecuaciones Cuadráticas" - Revista de Matemáticas</a></li>
+                            <li><a href="#">"Modelado Matemático en Física: Movimiento Parabólico" - Instituto de Física</a></li>
+                            <li><a href="#">"Optimización con Funciones Cuadráticas en Economía" - Revista de Economía Aplicada</a></li>
+                            <li><a href="#">"Las Parábolas en la Arquitectura y el Arte" - Revista de Diseño</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="theory-box">
+                        <h3>Actividades Prácticas Adicionales</h3>
+                        <p>Descarga estas hojas de trabajo para practicar más:</p>
+                        <ul>
+                            <li><a href="#">Ejercicios de Identificación de Funciones Cuadráticas</a></li>
+                            <li><a href="#">Problemas de Optimización con Funciones Cuadráticas</a></li>
+                            <li><a href="#">Guía de Modelización de Situaciones Reales</a></li>
+                            <li><a href="#">Retos de Resolución de Ecuaciones Cuadráticas</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>© 2023 Funciones Cuadráticas Interactivas - Recurso educativo para estudiantes de secundaria</p>
+        </div>
+    </div>
+    
+    <!-- Ventanas Modales -->
+    <!-- Modal Forma General -->
+    <div id="modal-forma-general" class="modal">
+        <div class="modal-content draggable">
+            <span class="close" onclick="closeModal('modal-forma-general')">&times;</span>
+            <h2>Forma General de una Función Cuadrática</h2>
+            <p>La forma general de una función cuadrática es:</p>
+            <div class="formula">
+                \( y = ax^2 + bx + c \)
+            </div>
+            <p>Donde:</p>
+            <ul>
+                <li>\( a, b, c \) son coeficientes reales con \( a \neq 0 \)</li>
+                <li>\( x \) es la variable independiente</li>
+                <li>\( y \) es la variable dependiente</li>
+            </ul>
+            <p>El coeficiente \( a \) determina la orientación y la "anchura" de la parábola:</p>
+            <ul>
+                <li>Si \( a > 0 \), la parábola abre hacia arriba (tiene un mínimo)</li>
+                <li>Si \( a < 0 \), la parábola abre hacia abajo (tiene un máximo)</li>
+                <li>Cuanto mayor es el valor absoluto de \( a \), más "angosta" es la parábola</li>
+            </ul>
+            <p>El coeficiente \( c \) representa el intercepto con el eje Y, es decir, el valor de \( y \) cuando \( x = 0 \).</p>
+            <p>El coeficiente \( b \) afecta la posición horizontal del vértice y la simetría de la parábola.</p>
+        </div>
+    </div>
+    
+    <!-- Modal Características -->
+    <div id="modal-caracteristicas" class="modal">
+        <div class="modal-content draggable">
+            <span class="close" onclick="closeModal('modal-caracteristicas')">&times;</span>
+            <h2>Características del Gráfico de una Función Cuadrática</h2>
+            <p>El gráfico de una función cuadrática es una parábola con las siguientes características:</p>
+            
+            <h3>1. Orientación</h3>
+            <p>Depende del signo del coeficiente principal \( a \):</p>
+            <ul>
+                <li>Si \( a > 0 \): la parábola abre hacia arriba (tiene un mínimo)</li>
+                <li>Si \( a < 0 \): la parábola abre hacia abajo (tiene un máximo)</li>
+            </ul>
+            
+            <h3>2. Vértice</h3>
+            <p>Es el punto más alto o más bajo de la parábola. Sus coordenadas son \( (h, k) \):</p>
+            <div class="formula">
+                \( h = -\frac{b}{2a} \) &nbsp;&nbsp;&nbsp;&nbsp; \( k = f(h) = a\left(-\frac{b}{2a}\right)^2 + b\left(-\frac{b}{2a}\right) + c \)
+            </div>
+            
+            <h3>3. Eje de Simetría</h3>
+            <p>Es una recta vertical que pasa por el vértice y divide a la parábola en dos partes simétricas:</p>
+            <div class="formula">
+                \( x = h = -\frac{b}{2a} \)
+            </div>
+            
+            <h3>4. Intercepto con el Eje Y</h3>
+            <p>Es el punto donde la parábola corta al eje Y (\( x = 0 \)):</p>
+            <div class="formula">
+                \( (0, c) \)
+            </div>
+            
+            <h3>5. Interceptos con el Eje X (Raíces)</h3>
+            <p>Son los puntos donde la parábola corta al eje X (\( y = 0 \)). Se obtienen resolviendo la ecuación \( ax^2 + bx + c = 0 \).</p>
+            <p>La cantidad de raíces reales depende del discriminante:</p>
+            <div class="formula">
+                \( \Delta = b^2 - 4ac \)
+            </div>
+            <ul>
+                <li>Si \( \Delta > 0 \): dos raíces reales distintas</li>
+                <li>Si \( \Delta = 0 \): una raíz real doble (el vértice toca el eje X)</li>
+                <li>Si \( \Delta < 0 \): no hay raíces reales (la parábola no corta el eje X)</li>
+            </ul>
+        </div>
+    </div>
+    
+    <!-- Modal Parámetros -->
+    <div id="modal-parametros" class="modal">
+        <div class="modal-content draggable">
+            <span class="close" onclick="closeModal('modal-parametros')">&times;</span>
+            <h2>Efecto de los Parámetros en el Gráfico</h2>
+            
+            <h3>Parámetro a</h3>
+            <p>Controla la orientación y la "anchura" de la parábola:</p>
+            <ul>
+                <li>Si \( a > 0 \): la parábola abre hacia arriba</li>
+                <li>Si \( a < 0 \): la parábola abre hacia abajo</li>
+                <li>Cuanto mayor es \( |a| \), más "angosta" es la parábola</li>
+                <li>Cuanto menor es \( |a| \) (más cercano a 0), más "ancha" es la parábola</li>
+            </ul>
+            
+            <h3>Parámetro b</h3>
+            <p>Afecta la posición horizontal del vértice y la simetría:</p>
+            <ul>
+                <li>El vértice se desplaza horizontalmente según la relación \( h = -\frac{b}{2a} \)</li>
+                <li>Si \( b > 0 \) y \( a > 0 \), el vértice se desplaza a la izquierda del eje Y</li>
+                <li>Si \( b < 0 \) y \( a > 0 \), el vértice se desplaza a la derecha del eje Y</li>
+                <li>Si \( b = 0 \), el eje de simetría es el eje Y (\( x = 0 \))</li>
+            </ul>
+            
+            <h3>Parámetro c</h3>
+            <p>Indica el desplazamiento vertical de la parábola:</p>
+            <ul>
+                <li>Es el valor donde la parábola corta al eje Y (cuando \( x = 0 \))</li>
+                <li>Si \( c > 0 \), la parábola corta al eje Y por encima del origen</li>
+                <li>Si \( c < 0 \), la parábola corta al eje Y por debajo del origen</li>
+                <li>Si \( c = 0 \), la parábola pasa por el origen \( (0, 0) \)</li>
+            </ul>
+            
+            <h3>Ejemplos Visuales</h3>
+            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-top: 20px;">
+                <div>
+                    <h4>Efecto de a</h4>
+                    <div class="graph-container" style="height: 200px;">
+                        <canvas id="modal-a-graph"></canvas>
+                    </div>
+                </div>
+                <div>
+                    <h4>Efecto de b</h4>
+                    <div class="graph-container" style="height: 200px;">
+                        <canvas id="modal-b-graph"></canvas>
+                    </div>
+                </div>
+                <div>
+                    <h4>Efecto de c</h4>
+                    <div class="graph-container" style="height: 200px;">
+                        <canvas id="modal-c-graph"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Modal Raíces -->
+    <div id="modal-raices" class="modal">
+        <div class="modal-content draggable">
+            <span class="close" onclick="closeModal('modal-raices')">&times;</span>
+            <h2>Intersección con el Eje X (Raíces)</h2>
+            <p>Las raíces de una función cuadrática son los valores de \( x \) donde la función se anula (\( y = 0 \)). Geométricamente, son los puntos donde la parábola corta al eje X.</p>
+            
+            <h3>Cálculo de las Raíces</h3>
+            <p>Para encontrar las raíces, resolvemos la ecuación:</p>
+            <div class="formula">
+                \( ax^2 + bx + c = 0 \)
+            </div>
+            <p>La cantidad y naturaleza de las raíces depende del discriminante:</p>
+            <div class="formula">
+                \( \Delta = b^2 - 4ac \)
+            </div>
+            
+            <h3>Casos Posibles</h3>
+            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 20px;">
+                <div style="background: #f8f9fa; padding: 15px; border-radius: 8px;">
+                    <h4>\( \Delta > 0 \): Dos raíces reales distintas</h4>
+                    <p>La parábola corta al eje X en dos puntos diferentes.</p>
+                    <div class="graph-container" style="height: 150px;">
+                        <canvas id="modal-roots1"></canvas>
+                    </div>
+                    <p style="text-align: center; margin-top: 10px;">Ejemplo: \( y = x^2 - 5x + 6 \)</p>
+                </div>
+                
+                <div style="background: #f8f9fa; padding: 15px; border-radius: 8px;">
+                    <h4>\( \Delta = 0 \): Una raíz real doble</h4>
+                    <p>La parábola toca el eje X en un solo punto (el vértice).</p>
+                    <div class="graph-container" style="height: 150px;">
+                        <canvas id="modal-roots2"></canvas>
+                    </div>
+                    <p style="text-align: center; margin-top: 10px;">Ejemplo: \( y = x^2 - 4x + 4 \)</p>
+                </div>
+                
+                <div style="background: #f8f9fa; padding: 15px; border-radius: 8px;">
+                    <h4>\( \Delta < 0 \): No hay raíces reales</h4>
+                    <p>La parábola no corta el eje X (está completamente por arriba o por abajo).</p>
+                    <div class="graph-container" style="height: 150px;">
+                        <canvas id="modal-roots3"></canvas>
+                    </div>
+                    <p style="text-align: center; margin-top: 10px;">Ejemplo: \( y = x^2 + 2x + 5 \)</p>
+                </div>
+            </div>
+            
+            <h3>Cálculo de las Raíces</h3>
+            <p>Las raíces se calculan usando la fórmula de Bhaskara:</p>
+            <div class="formula">
+                \( x = \frac{-b \pm \sqrt{\Delta}}{2a} \)
+            </div>
+            <p>Donde \( \Delta = b^2 - 4ac \) es el discriminante.</p>
+        </div>
+    </div>
+    
+    <!-- Modal Métodos -->
+    <div id="modal-metodos" class="modal">
+        <div class="modal-content draggable">
+            <span class="close" onclick="closeModal('modal-metodos')">&times;</span>
+            <h2>Métodos para Resolver Ecuaciones Cuadráticas</h2>
+            
+            <h3>1. Factorización</h3>
+            <p>Consiste en expresar la ecuación como un producto de factores iguales a cero. Es útil cuando la ecuación tiene raíces racionales.</p>
+            <p><strong>Pasos:</strong></p>
+            <ol>
+                <li>Expresar la ecuación en forma \( ax^2 + bx + c = 0 \)</li>
+                <li>Si \( a \neq 1 \), dividir toda la ecuación por \( a \)</li>
+                <li>Buscar dos números que multiplicados den \( c \) y sumados den \( b \)</li>
+                <li>Expresar como \( (x + p)(x + q) = 0 \)</li>
+                <li>Igualar cada factor a cero y resolver</li>
+            </ol>
+            <p><strong>Ejemplo:</strong> \( x^2 - 5x + 6 = 0 \)</p>
+            <p>Buscamos dos números que multiplicados den 6 y sumados den -5: -2 y -3</p>
+            <p>\( (x - 2)(x - 3) = 0 \)</p>
+            <p>\( x - 2 = 0 \) → \( x = 2 \)</p>
+            <p>\( x - 3 = 0 \) → \( x = 3 \)</p>
+            
+            <h3>2. Completar el Cuadrado</h3>
+            <p>Transforma la ecuación a la forma \( (x - p)^2 = q \). Es útil para entender la estructura de la ecuación.</p>
+            <p><strong>Pasos:</strong></p>
+            <ol>
+                <li>Expresar la ecuación como \( ax^2 + bx + c = 0 \)</li>
+                <li>Si \( a \neq 1 \), dividir toda la ecuación por \( a \)</li>
+                <li>Pasar el término independiente al otro lado: \( x^2 + \frac{b}{a}x = -\frac{c}{a} \)</li>
+                <li>Sumar \( \left(\frac{b}{2a}\right)^2 \) a ambos lados</li>
+                <li>Factorizar el lado izquierdo como un cuadrado perfecto</li>
+                <li>Extraer la raíz cuadrada y resolver para \( x \)</li>
+            </ol>
+            <p><strong>Ejemplo:</strong> \( x^2 - 6x + 8 = 0 \)</p>
+            <p>\( x^2 - 6x = -8 \)</p>
+            <p>Sumamos \( \left(\frac{6}{2}\right)^2 = 9 \) a ambos lados: \( x^2 - 6x + 9 = -8 + 9 \)</p>
+            <p>\( (x - 3)^2 = 1 \)</p>
+            <p>\( x - 3 = \pm\sqrt{1} \)</p>
+            <p>\( x = 3 \pm 1 \)</p>
+            <p>\( x_1 = 4, x_2 = 2 \)</p>
+            
+            <h3>3. Fórmula de Bhaskara</h3>
+            <p>Es un método universal que funciona para cualquier ecuación cuadrática. Se basa en el discriminante.</p>
+            <p><strong>Fórmula:</strong></p>
+            <div class="formula">
+                \( x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a} \)
+            </div>
+            <p><strong>Pasos:</strong></p>
+            <ol>
+                <li>Identificar los coeficientes \( a, b, c \)</li>
+                <li>Calcular el discriminante: \( \Delta = b^2 - 4ac \)</li>
+                <li>Reemplazar en la fórmula</li>
+                <li>Simplificar para obtener las soluciones</li>
+            </ol>
+            <p><strong>Ejemplo:</strong> \( 2x^2 - 8x + 6 = 0 \)</p>
+            <p>\( a = 2, b = -8, c = 6 \)</p>
+            <p>\( \Delta = (-8)^2 - 4(2)(6) = 64 - 48 = 16 \)</p>
+            <p>\( x = \frac{8 \pm \sqrt{16}}{4} = \frac{8 \pm 4}{4} \)</p>
+            <p>\( x_1 = \frac{8 + 4}{4} = \frac{12}{4} = 3 \)</p>
+            <p>\( x_2 = \frac{8 - 4}{4} = \frac{4}{4} = 1 \)</p>
+        </div>
+    </div>
+    
+    <!-- Modal Formas -->
+    <div id="modal-formas" class="modal">
+        <div class="modal-content draggable">
+            <span class="close" onclick="closeModal('modal-formas')">&times;</span>
+            <h2>Transformación entre Formas Algebraicas</h2>
+            
+            <h3>Forma Polinómica → Forma Canónica</h3>
+            <p>Para transformar \( y = ax^2 + bx + c \) a la forma canónica \( y = a(x - h)^2 + k \), usamos el método de completar el cuadrado:</p>
+            <p><strong>Ejemplo:</strong> \( y = 2x^2 - 8x + 6 \)</p>
+            <ol>
+                <li>Factorizamos \( a \): \( y = 2(x^2 - 4x) + 6 \)</li>
+                <li>Completamos el cuadrado dentro del paréntesis:
+                    <ul>
+                        <li>Tomamos el coeficiente de \( x \): -4</li>
+                        <li>Lo dividimos por 2: -2</li>
+                        <li>Lo elevamos al cuadrado: 4</li>
+                    </ul>
+                </li>
+                <li>Agregamos y restamos este valor dentro del paréntesis:
+                    \( y = 2(x^2 - 4x + 4 - 4) + 6 \)
+                </li>
+                <li>Reagrupamos: \( y = 2((x^2 - 4x + 4) - 4) + 6 \)</li>
+                <li>Factorizamos el trinomio cuadrado perfecto: \( y = 2((x - 2)^2 - 4) + 6 \)</li>
+                <li>Distribuimos el 2: \( y = 2(x - 2)^2 - 8 + 6 \)</li>
+                <li>Combinamos términos constantes: \( y = 2(x - 2)^2 - 2 \)</li>
+            </ol>
+            <p><strong>Forma canónica:</strong> \( y = 2(x - 2)^2 - 2 \)</p>
+            
+            <h3>Forma Polinómica → Forma Factorizada</h3>
+            <p>Para transformar \( y = ax^2 + bx + c \) a la forma factorizada \( y = a(x - x_1)(x - x_2) \), necesitamos encontrar las raíces:</p>
+            <p><strong>Ejemplo:</strong> \( y = 2x^2 - 8x + 6 \)</p>
+            <ol>
+                <li>Resolvemos \( 2x^2 - 8x + 6 = 0 \)</li>
+                <li>Dividimos por 2: \( x^2 - 4x + 3 = 0 \)</li>
+                <li>Factorizamos: \( (x - 1)(x - 3) = 0 \)</li>
+                <li>Las raíces son \( x_1 = 1 \) y \( x_2 = 3 \)</li>
+                <li>Expresamos: \( y = 2(x - 1)(x - 3) \)</li>
+            </ol>
+            <p><strong>Forma factorizada:</strong> \( y = 2(x - 1)(x - 3) \)</p>
+            
+            <h3>Forma Canónica → Forma Polinómica</h3>
+            <p>Para transformar \( y = a(x - h)^2 + k \) a la forma polinómica, simplemente desarrollamos el cuadrado:</p>
+            <p><strong>Ejemplo:</strong> \( y = 2(x - 2)^2 - 2 \)</p>
+            <ol>
+                <li>Desarrollamos el cuadrado: \( y = 2(x^2 - 4x + 4) - 2 \)</li>
+                <li>Distribuimos el 2: \( y = 2x^2 - 8x + 8 - 2 \)</li>
+                <li>Combinamos términos: \( y = 2x^2 - 8x + 6 \)</li>
+            </ol>
+            <p><strong>Forma polinómica:</strong> \( y = 2x^2 - 8x + 6 \)</p>
+            
+            <h3>Forma Factorizada → Forma Polinómica</h3>
+            <p>Para transformar \( y = a(x - x_1)(x - x_2) \) a la forma polinómica, multiplicamos los factores:</p>
+            <p><strong>Ejemplo:</strong> \( y = 2(x - 1)(x - 3) \)</p>
+            <ol>
+                <li>Multiplicamos los binomios: \( y = 2(x^2 - 3x - x + 3) \)</li>
+                <li>Simplificamos: \( y = 2(x^2 - 4x + 3) \)</li>
+                <li>Distribuimos el 2: \( y = 2x^2 - 8x + 6 \)</li>
+            </ol>
+            <p><strong>Forma polinómica:</strong> \( y = 2x^2 - 8x + 6 \)</p>
+        </div>
+    </div>
+    
+    <!-- Modal Aplicaciones Formas -->
+    <div id="modal-aplicaciones-formas" class="modal">
+        <div class="modal-content draggable">
+            <span class="close" onclick="closeModal('modal-aplicaciones-formas')">&times;</span>
+            <h2>Aplicaciones de Cada Forma Algebraica</h2>
+            
+            <h3>Forma Polinómica: \( y = ax^2 + bx + c \)</h3>
+            <p><strong>Ventajas:</strong></p>
+            <ul>
+                <li>Muestra claramente el coeficiente principal (\( a \)) y el término independiente (\( c \))</li>
+                <li>Es útil para evaluar la función para un valor específico de \( x \)</li>
+                <li>Es la forma más común para operaciones algebraicas</li>
+            </ul>
+            <p><strong>Aplicaciones:</strong></p>
+            <ul>
+                <li>Cálculo de valores específicos de la función</li>
+                <li>Análisis del intercepto con el eje Y</li>
+                <li>Operaciones con funciones (suma, resta, multiplicación)</li>
+            </ul>
+            <p><strong>Ejemplo:</strong> Para calcular la altura de un objeto en un tiempo específico, usamos la forma polinómica.</p>
+            
+            <h3>Forma Canónica: \( y = a(x - h)^2 + k \)</h3>
+            <p><strong>Ventajas:</strong></p>
+            <ul>
+                <li>Muestra directamente las coordenadas del vértice (\( h, k \))</li>
+                <li>Es ideal para problemas de optimización (máximos y mínimos)</li>
+                <li>Facilita el análisis del comportamiento de la función</li>
+            </ul>
+            <p><strong>Aplicaciones:</strong></p>
+            <ul>
+                <li>Problemas de máximos y mínimos</li>
+                <li>Análisis de simetría</li>
+                <li>Transformaciones de funciones</li>
+            </ul>
+            <p><strong>Ejemplo:</strong> Para encontrar la altura máxima de un proyectil, usamos la forma canónica.</p>
+            
+            <h3>Forma Factorizada: \( y = a(x - x_1)(x - x_2) \)</h3>
+            <p><strong>Ventajas:</strong></p>
+            <ul>
+                <li>Muestra directamente las raíces o ceros de la función (\( x_1, x_2 \))</li>
+                <li>Es útil para analizar los intervalos donde la función es positiva o negativa</li>
+                <li>Facilita el estudio de las intersecciones con el eje X</li>
+            </ul>
+            <p><strong>Aplicaciones:</strong></p>
+            <ul>
+                <li>Análisis de raíces y soluciones de ecuaciones</li>
+                <li>Estudio de signos de la función</li>
+                <li>Problemas de áreas y volúmenes</li>
+            </ul>
+            <p><strong>Ejemplo:</strong> Para determinar cuándo un objeto llega al suelo, usamos la forma factorizada.</p>
+        </div>
+    </div>
+    
+    <!-- Modal Modelización -->
+    <div id="modal-modelizacion" class="modal">
+        <div class="modal-content draggable">
+            <span class="close" onclick="closeModal('modal-modelizacion')">&times;</span>
+            <h2>Ejemplos de Modelización con Funciones Cuadráticas</h2>
+            
+            <h3>Ejemplo 1: Movimiento de Proyectiles</h3>
+            <p>La altura de un proyectil lanzado verticalmente puede modelizarse con una función cuadrática:</p>
+            <div class="formula">
+                \( h(t) = -5t^2 + v_0t + h_0 \)
+            </div>
+            <p>Donde:</p>
+            <ul>
+                <li>\( h(t) \) es la altura en metros después de \( t \) segundos</li>
+                <li>\( v_0 \) es la velocidad inicial en m/s</li>
+                <li>\( h_0 \) es la altura inicial en metros</li>
+            </ul>
+            <p><strong>Análisis:</strong></p>
+            <ul>
+                <li>El coeficiente \( a = -5 \) representa la aceleración de la gravedad</li>
+                <li>El vértice de la parábola indica la altura máxima y el tiempo en que se alcanza</li>
+                <li>Las raíces indican cuándo el proyectil está en el suelo (\( h = 0 \))</li>
+            </ul>
+            
+            <h3>Ejemplo 2: Optimización de Áreas</h3>
+            <p>Para maximizar el área de un rectángulo con perímetro fijo:</p>
+            <p>Si tenemos \( P \) metros de cerca para un rectángulo, el área \( A \) en función del ancho \( x \) es:</p>
+            <div class="formula">
+                \( A(x) = x\left(\frac{P}{2} - x\right) = -x^2 + \frac{P}{2}x \)
+            </div>
+            <p><strong>Análisis:</strong></p>
+            <ul>
+                <li>El vértice de la parábola da las dimensiones que maximizan el área</li>
+                <li>El área máxima se alcanza cuando el rectángulo es un cuadrado</li>
+            </ul>
+            
+            <h3>Ejemplo 3: Modelos Económicos</h3>
+            <p>En economía, los beneficios \( B \) pueden modelizarse en función de la producción \( x \):</p>
+            <div class="formula">
+                \( B(x) = -ax^2 + bx - c \)
+            </div>
+            <p>Donde:</p>
+            <ul>
+                <li>\( a \) representa los costos crecientes de producción</li>
+                <li>\( b \) representa los ingresos por venta</li>
+                <li>\( c \) representa los costos fijos</li>
+            </ul>
+            <p><strong>Análisis:</strong></p>
+            <ul>
+                <li>El vértice indica el nivel de producción que maximiza los beneficios</li>
+                <li>Las raíces indican los puntos de equilibrio (beneficio cero)</li>
+            </ul>
+        </div>
+    </div>
+    
+    <!-- Modal Aplicaciones Reales -->
+    <div id="modal-aplicaciones-reales" class="modal">
+        <div class="modal-content draggable">
+            <span class="close" onclick="closeModal('modal-aplicaciones-reales')">&times;</span>
+            <h2>Aplicaciones Reales de las Funciones Cuadráticas</h2>
+            
+            <h3>Física</h3>
+            <ul>
+                <li><strong>Movimiento de proyectiles:</strong> La trayectoria de un objeto lanzado al aire sigue una parábola debido a la gravedad.</li>
+                <li><strong>Óptica:</strong> Las superficies de los espejos y lentes curvos siguen formas parabólicas para enfocar la luz.</li>
+                <li><strong>Mecánica:</strong> La energía potencial en un resorte sigue una función cuadrática con la deformación.</li>
+            </ul>
+            
+            <h3>Ingeniería</h3>
+            <ul>
+                <li><strong>Diseño estructural:</strong> Los arcos parabólicos distribuyen el peso de manera eficiente en puentes y edificios.</li>
+                <li><strong>Telecomunicaciones:</strong> Las antenas parabólicas concentran las señales en un punto focal.</li>
+                <li><strong>Hidráulica:</strong> El flujo de agua en canales y presas sigue principios cuadráticos.</li>
+            </ul>
+            
+            <h3>Economía</h3>
+            <ul>
+                <li><strong>Modelos de costos:</strong> Los costos de producción suelen aumentar cuadráticamente con la cantidad producida.</li>
+                <li><strong>Maximización de beneficios:</strong> La función de beneficios suele ser cuadrática, con un máximo en el punto óptimo.</li>
+                <li><strong>Elasticidad de la demanda:</strong> La relación entre precio y demanda puede modelizarse con funciones cuadráticas.</li>
+            </ul>
+            
+            <h3>Biología</h3>
+            <ul>
+                <li><strong>Crecimiento poblacional:</strong> Algunos modelos de crecimiento con límites siguen funciones cuadráticas.</li>
+                <li><strong>Genética:</strong> Las proporciones genéticas en ciertos cruces siguen distribuciones cuadráticas.</li>
+                <li><strong>Farmacología:</strong> La concentración de un fármaco en el organismo puede modelizarse con funciones cuadráticas.</li>
+            </ul>
+            
+            <h3>Deportes</h3>
+            <ul>
+                <li><strong>Baloncesto:</strong> La trayectoria de un tiro libre sigue una parábola.</li>
+                <li><strong>Fútbol:</strong> El remate de un balón describe una parábola.</li>
+                <li><strong>Atletismo:</strong> La trayectoria de un lanzamiento de jabalina o disco sigue una parábola.</li>
+            </ul>
+            
+            <h3>Arte y Diseño</h3>
+            <ul>
+                <li><strong>Fotografía:</strong> Las parábolas aparecen en la composición de imágenes y en el diseño de lentes.</li>
+                <li><strong>Arquitectura:</strong> Muchos edificios famosos usan arcos parabólicos por su estabilidad y estética.</li>
+                <li><strong>Diseño gráfico:</strong> Las curvas cuadráticas se utilizan en el diseño de logotipos y tipografía.</li>
+            </ul>
+        </div>
+    </div>
+    
+    <!-- Modal Proyecto Ejemplo -->
+    <div id="modal-proyecto-ejemplo" class="modal">
+        <div class="modal-content draggable">
+            <span class="close" onclick="closeModal('modal-proyecto-ejemplo')">&times;</span>
+            <h2>Ejemplo de Proyecto de Modelización</h2>
+            
+            <h3>Título: Optimización del Área de un Jardín</h3>
+            
+            <h4>1. Descripción de la Situación</h4>
+            <p>Un propietario tiene 30 metros de cerca para construir un jardín rectangular junto a una pared de su casa. No necesita colocar cerca en el lado adyacente a la pared. ¿Qué dimensiones maximizarán el área del jardín?</p>
+            
+            <h4>2. Variables y Relación</h4>
+            <p>Variables:</p>
+            <ul>
+                <li>\( x \): ancho del jardín (metros)</li>
+                <li>\( A \): área del jardín (metros cuadrados)</li>
+            </ul>
+            <p>Relación: El largo del jardín será \( (30 - 2x) \) porque se usan dos lados de ancho y un lado de largo.</p>
+            <p>El área es: \( A = \text{largo} \times \text{ancho} = (30 - 2x) \times x \)</p>
+            
+            <h4>3. Función Cuadrática</h4>
+            <p>\( A(x) = (30 - 2x) \times x = 30x - 2x^2 = -2x^2 + 30x \)</p>
+            
+            <h4>4. Análisis de la Función</h4>
+            <p>Forma: \( A(x) = -2x^2 + 30x \)</p>
+            <ul>
+                <li>Coeficiente principal: \( a = -2 \) (negativo, la parábola abre hacia abajo, tiene un máximo)</li>
+                <li>Vértice: \( x = -\frac{b}{2a} = -\frac{30}{2 \times (-2)} = \frac{30}{4} = 7.5 \) metros</li>
+                <li>Área máxima: \( A(7.5) = -2(7.5)^2 + 30(7.5) = -112.5 + 225 = 112.5 \) m²</li>
+                <li>Largo correspondiente: \( 30 - 2(7.5) = 15 \) metros</li>
+            </ul>
+            
+            <h4>5. Respuestas a Preguntas Relevantes</h4>
+            <ul>
+                <li>¿Qué dimensiones maximizan el área? Ancho = 7.5 m, largo = 15 m</li>
+                <li>¿Cuál es el área máxima? 112.5 m²</li>
+                <li>¿Qué pasa si el ancho es 5 m? Largo = 20 m, área = 100 m² (menor que el máximo)</li>
+                <li>¿Qué pasa si el ancho es 10 m? Largo = 10 m, área = 100 m² (menor que el máximo)</li>
+            </ul>
+            
+            <h4>6. Verificación del Modelo</h4>
+            <p>El modelo es realista porque:</p>
+            <ul>
+                <li>Considera la restricción de la cantidad de cerca (30 m)</li>
+                <li>El área máxima se alcanza cuando el jardín es dos veces más largo que ancho</li>
+                <li>Los valores calculados son físicamente posibles</li>
+            </ul>
+            
+            <h4>7. Conclusión</h4>
+            <p>Para maximizar el área del jardín con 30 metros de cerca, el propietario debe construir un jardín de 7.5 metros de ancho por 15 metros de largo, obteniendo un área máxima de 112.5 metros cuadrados.</p>
+        </div>
+    </div>
+    
+    <script>
+        // Configuración de MathJax
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            }
+        };
+        
+        // Funciones para manejo de pestañas
+        function openTab(evt, tabName) {
+            // Ocultar todos los contenidos de pestañas
+            var tabContents = document.getElementsByClassName("tab-pane");
+            for (var i = 0; i < tabContents.length; i++) {
+                tabContents[i].classList.remove("active");
+            }
+            
+            // Eliminar la clase active de todos los botones de pestañas
+            var tabs = document.getElementsByClassName("tab");
+            for (var i = 0; i < tabs.length; i++) {
+                tabs[i].classList.remove("active");
+            }
+            
+            // Mostrar el contenido de la pestaña actual
+            document.getElementById(tabName).classList.add("active");
+            
+            // Agregar la clase active al botón que abrió la pestaña
+            evt.currentTarget.classList.add("active");
+        }
+        
+        // Funciones para manejo de modales
+        function openModal(modalId) {
+            document.getElementById(modalId).style.display = "block";
+            
+            // Inicializar gráficos específicos de modales si es necesario
+            if (modalId === 'modal-parametros') {
+                initModalGraphs();
+            }
+        }
+        
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = "none";
+        }
+        
+        // Función para mostrar/ocultar soluciones
+        function showSolution(solId) {
+            var solution = document.getElementById(solId);
+            if (solution.style.display === "block") {
+                solution.style.display = "none";
+            } else {
+                solution.style.display = "block";
+                // Forzar el renderizado de MathJax en las soluciones
+                if (window.MathJax) {
+                    MathJax.typesetPromise([solution]).then(() => {
+                        console.log('MathJax ha procesado la solución');
+                    });
+                }
+            }
+        }
+        
+        // Función para reiniciar gráficos
+        function resetGraph(session) {
+            if (session === 's2') {
+                document.getElementById('s2-a').value = 1;
+                document.getElementById('s2-b').value = 0;
+                document.getElementById('s2-c').value = 0;
+                calculateVertex();
+            }
+        }
+        
+        // Función para reiniciar ecuación
+        function resetEquation() {
+            document.getElementById('eq-a').value = 1;
+            document.getElementById('eq-b').value = 0;
+            document.getElementById('eq-c').value = 0;
+            document.getElementById('equation-result').style.display = 'none';
+        }
+        
+        // Inicialización de gráficos
+        window.onload = function() {
+            // Gráfico de la Sesión 1
+            const ctxS1 = document.getElementById('graph-s1').getContext('2d');
+            const graphS1 = new Chart(ctxS1, {
+                type: 'line',
+                data: {
+                    labels: [],
+                    datasets: [{
+                        label: 'y = ax² + bx + c',
+                        data: [],
+                        borderColor: '#1a2a6c',
+                        backgroundColor: 'rgba(26, 42, 108, 0.1)',
+                        borderWidth: 3,
+                        pointRadius: 0,
+                        fill: true,
+                        tension: 0.4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        x: {
+                            type: 'linear',
+                            position: 'center',
+                            grid: {
+                                color: 'rgba(0, 0, 0, 0.1)'
+                            }
+                        },
+                        y: {
+                            type: 'linear',
+                            position: 'center',
+                            grid: {
+                                color: 'rgba(0, 0, 0, 0.1)'
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    }
+                }
+            });
+            
+            // Actualizar gráfico inicial de Sesión 1
+            updateGraph();
+            
+            // Gráfico de la Sesión 2
+            const ctxS2 = document.getElementById('graph-s2').getContext('2d');
+            const graphS2 = new Chart(ctxS2, {
+                type: 'line',
+                data: {
+                    labels: [],
+                    datasets: [{
+                        label: 'y = ax² + bx + c',
+                        data: [],
+                        borderColor: '#1a2a6c',
+                        backgroundColor: 'rgba(26, 42, 108, 0.1)',
+                        borderWidth: 3,
+                        pointRadius: 0,
+                        fill: true,
+                        tension: 0.4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        x: {
+                            type: 'linear',
+                            position: 'center',
+                            grid: {
+                                color: 'rgba(0, 0, 0, 0.1)'
+                            }
+                        },
+                        y: {
+                            type: 'linear',
+                            position: 'center',
+                            grid: {
+                                color: 'rgba(0, 0, 0, 0.1)'
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    }
+                }
+            });
+            
+            // Actualizar gráfico inicial de Sesión 2
+            calculateVertex();
+            
+            // Gráfico de ecuaciones (Sesión 3)
+            const ctxEq = document.getElementById('equation-graph').getContext('2d');
+            const equationGraph = new Chart(ctxEq, {
+                type: 'line',
+                data: {
+                    labels: [],
+                    datasets: [{
+                        label: 'y = ax² + bx + c',
+                        data: [],
+                        borderColor: '#b21f1f',
+                        backgroundColor: 'rgba(178, 31, 31, 0.1)',
+                        borderWidth: 3,
+                        pointRadius: 0,
+                        fill: true,
+                        tension: 0.4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        x: {
+                            type: 'linear',
+                            position: 'center',
+                            grid: {
+                                color: 'rgba(0, 0, 0, 0.1)'
+                            }
+                        },
+                        y: {
+                            type: 'linear',
+                            position: 'center',
+                            grid: {
+                                color: 'rgba(0, 0, 0, 0.1)'
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    }
+                }
+            });
+            
+            // Gráfico del jardín (Sesión 5)
+            const ctxGarden = document.getElementById('garden-graph').getContext('2d');
+            const gardenGraph = new Chart(ctxGarden, {
+                type: 'line',
+                data: {
+                    labels: [],
+                    datasets: [{
+                        label: 'Área del jardín',
+                        data: [],
+                        borderColor: '#8bc34a',
+                        backgroundColor: 'rgba(139, 195, 74, 0.2)',
+                        borderWidth: 3,
+                        pointRadius: 0,
+                        fill: true,
+                        tension: 0.4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        x: {
+                            title: {
+                                display: true,
+                                text: 'Ancho (m)'
+                            },
+                            grid: {
+                                color: 'rgba(0, 0, 0, 0.1)'
+                            }
+                        },
+                        y: {
+                            title: {
+                                display: true,
+                                text: 'Área (m²)'
+                            },
+                            grid: {
+                                color: 'rgba(0, 0, 0, 0.1)'
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    }
+                }
+            });
+            
+            // Actualizar gráfico del jardín
+            updateGarden();
+            
+            // Gráfico de evaluación
+            const ctxEval = document.getElementById('eval-graph').getContext('2d');
+            const evalGraph = new Chart(ctxEval, {
+                type: 'line',
+                data: {
+                    labels: [],
+                    datasets: [{
+                        label: 'Función cuadrática',
+                        data: [],
+                        borderColor: '#b21f1f',
+                        backgroundColor: 'rgba(178, 31, 31, 0.1)',
+                        borderWidth: 3,
+                        pointRadius: 0,
+                        fill: true,
+                        tension: 0.4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        x: {
+                            type: 'linear',
+                            position: 'center',
+                            grid: {
+                                color: 'rgba(0, 0, 0, 0.1)'
+                            }
+                        },
+                        y: {
+                            type: 'linear',
+                            position: 'center',
+                            grid: {
+                                color: 'rgba(0, 0, 0, 0.1)'
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    }
+                }
+            });
+            
+            // Datos para el gráfico de evaluación
+            const evalData = [];
+            for (let x = -2; x <= 8; x += 0.1) {
+                evalData.push({x: x, y: -0.5 * Math.pow(x - 3, 2) + 4});
+            }
+            evalGraph.data.datasets[0].data = evalData;
+            evalGraph.update();
+            
+            // Hacer modales arrastrables
+            makeModalsDraggable();
+            
+            // Renderizar todas las expresiones MathJax
+            if (window.MathJax) {
+                MathJax.typesetPromise().then(() => {
+                    console.log('MathJax ha procesado todas las expresiones');
+                });
+            }
+        };
+        
+        // Función para hacer modales arrastrables
+        function makeModalsDraggable() {
+            const modals = document.getElementsByClassName('modal');
+            
+            for (let i = 0; i < modals.length; i++) {
+                const modal = modals[i];
+                const modalContent = modal.querySelector('.modal-content');
+                
+                let pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+                
+                modalContent.onmousedown = dragMouseDown;
+                
+                function dragMouseDown(e) {
+                    e = e || window.event;
+                    e.preventDefault();
+                    pos3 = e.clientX;
+                    pos4 = e.clientY;
+                    document.onmouseup = closeDragElement;
+                    document.onmousemove = elementDrag;
+                }
+                
+                function elementDrag(e) {
+                    e = e || window.event;
+                    e.preventDefault();
+                    pos1 = pos3 - e.clientX;
+                    pos2 = pos4 - e.clientY;
+                    pos3 = e.clientX;
+                    pos4 = e.clientY;
+                    
+                    // Calcular nueva posición
+                    let newTop = modalContent.offsetTop - pos2;
+                    let newLeft = modalContent.offsetLeft - pos1;
+                    
+                    // Limitar posición dentro de la ventana
+                    if (newTop < 0) newTop = 0;
+                    if (newLeft < 0) newLeft = 0;
+                    if (newTop > window.innerHeight - modalContent.offsetHeight) {
+                        newTop = window.innerHeight - modalContent.offsetHeight;
+                    }
+                    if (newLeft > window.innerWidth - modalContent.offsetWidth) {
+                        newLeft = window.innerWidth - modalContent.offsetWidth;
+                    }
+                    
+                    modalContent.style.top = newTop + "px";
+                    modalContent.style.left = newLeft + "px";
+                }
+                
+                function closeDragElement() {
+                    document.onmouseup = null;
+                    document.onmousemove = null;
+                }
+            }
+        }
+        
+        // Función para actualizar el gráfico de la Sesión 1
+        function updateGraph() {
+            const a = parseFloat(document.getElementById('param-a').value);
+            const b = parseFloat(document.getElementById('param-b').value);
+            const c = parseFloat(document.getElementById('param-c').value);
+            
+            // Actualizar valores mostrados
+            document.getElementById('value-a').textContent = a;
+            document.getElementById('value-b').textContent = b;
+            document.getElementById('value-c').textContent = c;
+            
+            // Generar datos para el gráfico
+            const data = [];
+            for (let x = -10; x <= 10; x += 0.1) {
+                data.push({x: x, y: a * Math.pow(x, 2) + b * x + c});
+            }
+            
+            // Actualizar gráfico
+            const graphS1 = Chart.getChart('graph-s1');
+            graphS1.data.datasets[0].data = data;
+            graphS1.update();
+            
+            // Actualizar observaciones
+            let observations = [];
+            
+            if (a > 0) {
+                observations.push("La parábola abre hacia arriba (\( a > 0 \))");
+            } else {
+                observations.push("La parábola abre hacia abajo (\( a < 0 \))");
+            }
+            
+            const vertexX = -b / (2 * a);
+            const vertexY = a * Math.pow(vertexX, 2) + b * vertexX + c;
+            observations.push(`El vértice está en \( (${vertexX.toFixed(2)}, ${vertexY.toFixed(2)}) \)`);
+            
+            observations.push(`Corta al eje Y en \( (0, ${c}) \)`);
+            
+            // Indicador de apertura
+            let openness = "";
+            if (Math.abs(a) > 1) {
+                openness = " (más angosta que \( y = x^2 \))";
+            } else if (Math.abs(a) < 1 && a !== 0) {
+                openness = " (más abierta que \( y = x^2 \))";
+            }
+            observations.push(`La parábola es ${Math.abs(a) > 1 ? 'más angosta' : Math.abs(a) < 1 ? 'más abierta' : 'igual de ancha'} que \( y = x^2 \)${openness}`);
+            
+            // Calcular discriminante
+            const discriminant = Math.pow(b, 2) - 4 * a * c;
+            if (discriminant > 0) {
+                const root1 = (-b + Math.sqrt(discriminant)) / (2 * a);
+                const root2 = (-b - Math.sqrt(discriminant)) / (2 * a);
+                observations.push(`Corta al eje X en \( (${root1.toFixed(2)}, 0) \) y \( (${root2.toFixed(2)}, 0) \)`);
+            } else if (discriminant === 0) {
+                const root = -b / (2 * a);
+                observations.push(`Toca el eje X en \( (${root.toFixed(2)}, 0) \)`);
+            } else {
+                observations.push("No corta al eje X (no tiene raíces reales)");
+            }
+            
+            document.getElementById('observations-s1').innerHTML = observations.map(obs => `<li>${obs}</li>`).join('');
+            
+            // Renderizar MathJax en las observaciones
+            if (window.MathJax) {
+                MathJax.typesetPromise([document.getElementById('observations-s1')]).then(() => {
+                    console.log('MathJax ha procesado las observaciones');
+                });
+            }
+        }
+        
+        // Función para calcular el vértice (Sesión 2)
+        function calculateVertex() {
+            const a = parseFloat(document.getElementById('s2-a').value);
+            const b = parseFloat(document.getElementById('s2-b').value);
+            const c = parseFloat(document.getElementById('s2-c').value);
+            
+            // Calcular vértice
+            const h = -b / (2 * a);
+            const k = a * Math.pow(h, 2) + b * h + c;
+            
+            // Mostrar resultados
+            document.getElementById('vertex-coords').textContent = `(${h.toFixed(2)}, ${k.toFixed(2)})`;
+            document.getElementById('symmetry-axis').textContent = `x = ${h.toFixed(2)}`;
+            
+            // Indicador de apertura
+            let opennessText = "";
+            if (Math.abs(a) > 1) {
+                opennessText = "La parábola es más angosta que \( y = x^2 \)";
+            } else if (Math.abs(a) < 1 && a !== 0) {
+                opennessText = "La parábola es más abierta que \( y = x^2 \)";
+            } else {
+                opennessText = "La parábola tiene la misma anchura que \( y = x^2 \)";
+            }
+            document.getElementById('openness-indicator').innerHTML = `<strong>${opennessText}</strong>`;
+            
+            // Generar datos para el gráfico
+            const data = [];
+            for (let x = -10; x <= 10; x += 0.1) {
+                data.push({x: x, y: a * Math.pow(x, 2) + b * x + c});
+            }
+            
+            // Calcular el rango de Y para ajustar la escala
+            let minY = Infinity;
+            let maxY = -Infinity;
+            for (let point of data) {
+                if (point.y < minY) minY = point.y;
+                if (point.y > maxY) maxY = point.y;
+            }
+            
+            // Añadir un margen del 10%
+            const margin = (maxY - minY) * 0.1;
+            minY -= margin;
+            maxY += margin;
+            
+            // Actualizar gráfico con nueva escala
+            const graphS2 = Chart.getChart('graph-s2');
+            graphS2.options.scales.y.min = minY;
+            graphS2.options.scales.y.max = maxY;
+            graphS2.data.datasets[0].data = data;
+            graphS2.update();
+            
+            // Renderizar MathJax en el indicador de apertura
+            if (window.MathJax) {
+                MathJax.typesetPromise([document.getElementById('openness-indicator')]).then(() => {
+                    console.log('MathJax ha procesado el indicador de apertura');
+                });
+            }
+        }
+        
+        // Función para resolver ecuaciones (Sesión 3)
+        function solveEquation() {
+            const a = parseFloat(document.getElementById('eq-a').value);
+            const b = parseFloat(document.getElementById('eq-b').value);
+            const c = parseFloat(document.getElementById('eq-c').value);
+            
+            // Mostrar ecuación
+            document.getElementById('equation-display').textContent = `${a}x² + ${b}x + ${c} = 0`;
+            
+            // Calcular discriminante
+            const discriminant = Math.pow(b, 2) - 4 * a * c;
+            document.getElementById('discriminant').textContent = discriminant.toFixed(2);
+            
+            // Calcular soluciones
+            let solutions = "";
+            if (discriminant > 0) {
+                const root1 = (-b + Math.sqrt(discriminant)) / (2 * a);
+                const root2 = (-b - Math.sqrt(discriminant)) / (2 * a);
+                solutions = `x₁ = ${root1.toFixed(2)}, x₂ = ${root2.toFixed(2)}`;
+            } else if (discriminant === 0) {
+                const root = -b / (2 * a);
+                solutions = `x = ${root.toFixed(2)} (raíz doble)`;
+            } else {
+                const realPart = -b / (2 * a);
+                const imaginaryPart = Math.sqrt(-discriminant) / (2 * a);
+                solutions = `x₁ = ${realPart.toFixed(2)} + ${imaginaryPart.toFixed(2)}i, x₂ = ${realPart.toFixed(2)} - ${imaginaryPart.toFixed(2)}i`;
+            }
+            
+            document.getElementById('solutions').textContent = solutions;
+            
+            // Mostrar resultados
+            document.getElementById('equation-result').style.display = 'block';
+            
+            // Generar datos para el gráfico
+            const data = [];
+            for (let x = -10; x <= 10; x += 0.1) {
+                data.push({x: x, y: a * Math.pow(x, 2) + b * x + c});
+            }
+            
+            // Calcular el rango de Y para ajustar la escala
+            let minY = Infinity;
+            let maxY = -Infinity;
+            for (let point of data) {
+                if (point.y < minY) minY = point.y;
+                if (point.y > maxY) maxY = point.y;
+            }
+            
+            // Añadir un margen del 10%
+            const margin = (maxY - minY) * 0.1;
+            minY -= margin;
+            maxY += margin;
+            
+            // Actualizar gráfico con nueva escala
+            const equationGraph = Chart.getChart('equation-graph');
+            equationGraph.options.scales.y.min = minY;
+            equationGraph.options.scales.y.max = maxY;
+            equationGraph.data.datasets[0].data = data;
+            equationGraph.update();
+            
+            // Renderizar MathJax en los resultados
+            if (window.MathJax) {
+                MathJax.typesetPromise([document.getElementById('equation-result')]).then(() => {
+                    console.log('MathJax ha procesado los resultados de la ecuación');
+                });
+            }
+        }
+        
+        // Función para transformar entre formas (Sesión 4)
+        function transformForms() {
+            const a = parseFloat(document.getElementById('tf-a').value);
+            const b = parseFloat(document.getElementById('tf-b').value);
+            const c = parseFloat(document.getElementById('tf-c').value);
+            
+            // Forma polinómica
+            document.getElementById('polynomial-form').textContent = `y = ${a}x² + ${b}x + ${c}`;
+            
+            // Forma canónica
+            const h = -b / (2 * a);
+            const k = a * Math.pow(h, 2) + b * h + c;
+            document.getElementById('canonical-form').textContent = `y = ${a}(x - ${h.toFixed(2)})² + ${k.toFixed(2)}`;
+            
+            // Forma factorizada (si tiene raíces reales)
+            const discriminant = Math.pow(b, 2) - 4 * a * c;
+            if (discriminant >= 0) {
+                const root1 = (-b + Math.sqrt(discriminant)) / (2 * a);
+                const root2 = (-b - Math.sqrt(discriminant)) / (2 * a);
+                document.getElementById('factored-form').textContent = `y = ${a}(x - ${root1.toFixed(2)})(x - ${root2.toFixed(2)})`;
+            } else {
+                document.getElementById('factored-form').textContent = "No tiene raíces reales";
+            }
+            
+            // Interpretación
+            let interpretation = [];
+            interpretation.push(`<li><strong>Forma polinómica:</strong> Intercepto con eje Y en \( (0, ${c}) \)</li>`);
+            interpretation.push(`<li><strong>Forma canónica:</strong> Vértice en \( (${h.toFixed(2)}, ${k.toFixed(2)}) \)</li>`);
+            
+            if (discriminant > 0) {
+                const root1 = (-b + Math.sqrt(discriminant)) / (2 * a);
+                const root2 = (-b - Math.sqrt(discriminant)) / (2 * a);
+                interpretation.push(`<li><strong>Forma factorizada:</strong> Raíces en \( x = ${root1.toFixed(2)} \) y \( x = ${root2.toFixed(2)} \)</li>`);
+            } else if (discriminant === 0) {
+                const root = -b / (2 * a);
+                interpretation.push(`<li><strong>Forma factorizada:</strong> Raíz doble en \( x = ${root.toFixed(2)} \)</li>`);
+            } else {
+                interpretation.push(`<li><strong>Forma factorizada:</strong> No tiene raíces reales</li>`);
+            }
+            
+            document.getElementById('interpretation-list').innerHTML = interpretation.join('');
+            
+            // Renderizar MathJax en las formas algebraicas
+            if (window.MathJax) {
+                MathJax.typesetPromise([
+                    document.getElementById('polynomial-form'),
+                    document.getElementById('canonical-form'),
+                    document.getElementById('factored-form'),
+                    document.getElementById('interpretation-list')
+                ]).then(() => {
+                    console.log('MathJax ha procesado las formas algebraicas');
+                });
+            }
+        }
+        
+        // Función para actualizar el jardín (Sesión 5)
+        function updateGarden() {
+            const width = parseFloat(document.getElementById('garden-width').value);
+            const length = 20 - 2 * width;
+            const area = width * length;
+            
+            // Actualizar valores mostrados
+            document.getElementById('garden-width-value').textContent = width;
+            document.getElementById('garden-width-display').textContent = width;
+            document.getElementById('garden-length-display').textContent = length;
+            document.getElementById('garden-area-display').textContent = area;
+            
+            // Actualizar visualización
+            const gardenVisualization = document.getElementById('garden-visualization');
+            gardenVisualization.style.width = `${width * 10}%`;
+            gardenVisualization.style.height = `${length * 10}%`;
+            
+            // Generar datos para el gráfico
+            const data = [];
+            for (let x = 1; x <= 10; x += 0.1) {
+                const l = 20 - 2 * x;
+                const a = x * l;
+                data.push({x: x, y: a});
+            }
+            
+            // Actualizar gráfico
+            const gardenGraph = Chart.getChart('garden-graph');
+            gardenGraph.data.datasets[0].data = data;
+            gardenGraph.update();
+        }
+        
+        // Función para inicializar gráficos de modales
+        function initModalGraphs() {
+            // Gráfico de efecto de a
+            const ctxA = document.getElementById('modal-a-graph');
+            if (!ctxA) return;
+            
+            const graphA = new Chart(ctxA, {
+                type: 'line',
+                data: {
+                    labels: [],
+                    datasets: [
+                        {
+                            label: 'a = 1',
+                            data: [],
+                            borderColor: '#1a2a6c',
+                            borderWidth: 2,
+                            pointRadius: 0
+                        },
+                        {
+                            label: 'a = 2',
+                            data: [],
+                            borderColor: '#b21f1f',
+                            borderWidth: 2,
+                            pointRadius: 0
+                        },
+                        {
+                            label: 'a = 0.5',
+                            data: [],
+                            borderColor: '#28a745',
+                            borderWidth: 2,
+                            pointRadius: 0
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        x: {
+                            type: 'linear',
+                            position: 'center',
+                            grid: {
+                                color: 'rgba(0, 0, 0, 0.1)'
+                            }
+                        },
+                        y: {
+                            type: 'linear',
+                            position: 'center',
+                            grid: {
+                                color: 'rgba(0, 0, 0, 0.1)'
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            position: 'top'
+                        }
+                    }
+                }
+            });
+            
+            // Generar datos para el gráfico de a
+            for (let x = -3; x <= 3; x += 0.1) {
+                graphA.data.datasets[0].data.push({x: x, y: Math.pow(x, 2)});
+                graphA.data.datasets[1].data.push({x: x, y: 2 * Math.pow(x, 2)});
+                graphA.data.datasets[2].data.push({x: x, y: 0.5 * Math.pow(x, 2)});
+            }
+            graphA.update();
+            
+            // Gráfico de efecto de b
+            const ctxB = document.getElementById('modal-b-graph');
+            if (!ctxB) return;
+            
+            const graphB = new Chart(ctxB, {
+                type: 'line',
+                data: {
+                    labels: [],
+                    datasets: [
+                        {
+                            label: 'b = 0',
+                            data: [],
+                            borderColor: '#1a2a6c',
+                            borderWidth: 2,
+                            pointRadius: 0
+                        },
+                        {
+                            label: 'b = 4',
+                            data: [],
+                            borderColor: '#b21f1f',
+                            borderWidth: 2,
+                            pointRadius: 0
+                        },
+                        {
+                            label: 'b = -4',
+                            data: [],
+                            borderColor: '#28a745',
+                            borderWidth: 2,
+                            pointRadius: 0
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        x: {
+                            type: 'linear',
+                            position: 'center',
+                            grid: {
+                                color: 'rgba(0, 0, 0, 0.1)'
+                            }
+                        },
+                        y: {
+                            type: 'linear',
+                            position: 'center',
+                            grid: {
+                                color: 'rgba(0, 0, 0, 0.1)'
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            position: 'top'
+                        }
+                    }
+                }
+            });
+            
+            // Generar datos para el gráfico de b
+            for (let x = -3; x <= 3; x += 0.1) {
+                graphB.data.datasets[0].data.push({x: x, y: Math.pow(x, 2)});
+                graphB.data.datasets[1].data.push({x: x, y: Math.pow(x, 2) + 4 * x});
+                graphB.data.datasets[2].data.push({x: x, y: Math.pow(x, 2) - 4 * x});
+            }
+            graphB.update();
+            
+            // Gráfico de efecto de c
+            const ctxC = document.getElementById('modal-c-graph');
+            if (!ctxC) return;
+            
+            const graphC = new Chart(ctxC, {
+                type: 'line',
+                data: {
+                    labels: [],
+                    datasets: [
+                        {
+                            label: 'c = 0',
+                            data: [],
+                            borderColor: '#1a2a6c',
+                            borderWidth: 2,
+                            pointRadius: 0
+                        },
+                        {
+                            label: 'c = 3',
+                            data: [],
+                            borderColor: '#b21f1f',
+                            borderWidth: 2,
+                            pointRadius: 0
+                        },
+                        {
+                            label: 'c = -3',
+                            data: [],
+                            borderColor: '#28a745',
+                            borderWidth: 2,
+                            pointRadius: 0
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        x: {
+                            type: 'linear',
+                            position: 'center',
+                            grid: {
+                                color: 'rgba(0, 0, 0, 0.1)'
+                            }
+                        },
+                        y: {
+                            type: 'linear',
+                            position: 'center',
+                            grid: {
+                                color: 'rgba(0, 0, 0, 0.1)'
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            position: 'top'
+                        }
+                    }
+                }
+            });
+            
+            // Generar datos para el gráfico de c
+            for (let x = -3; x <= 3; x += 0.1) {
+                graphC.data.datasets[0].data.push({x: x, y: Math.pow(x, 2)});
+                graphC.data.datasets[1].data.push({x: x, y: Math.pow(x, 2) + 3});
+                graphC.data.datasets[2].data.push({x: x, y: Math.pow(x, 2) - 3});
+            }
+            graphC.update();
+            
+            // Gráficos de raíces
+            const roots1 = document.getElementById('modal-roots1');
+            if (!roots1) return;
+            
+            const ctxRoots1 = roots1.getContext('2d');
+            const graphRoots1 = new Chart(ctxRoots1, {
+                type: 'line',
+                data: {
+                    labels: [],
+                    datasets: [{
+                        label: 'y = x² - 5x + 6',
+                        data: [],
+                        borderColor: '#1a2a6c',
+                        borderWidth: 2,
+                        pointRadius: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        x: {
+                            type: 'linear',
+                            position: 'center',
+                            grid: {
+                                color: 'rgba(0, 0, 0, 0.1)'
+                            }
+                        },
+                        y: {
+                            type: 'linear',
+                            position: 'center',
+                            grid: {
+                                color: 'rgba(0, 0, 0, 0.1)'
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    }
+                }
+            });
+            
+            const roots2 = document.getElementById('modal-roots2');
+            if (!roots2) return;
+            
+            const ctxRoots2 = roots2.getContext('2d');
+            const graphRoots2 = new Chart(ctxRoots2, {
+                type: 'line',
+                data: {
+                    labels: [],
+                    datasets: [{
+                        label: 'y = x² - 4x + 4',
+                        data: [],
+                        borderColor: '#b21f1f',
+                        borderWidth: 2,
+                        pointRadius: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        x: {
+                            type: 'linear',
+                            position: 'center',
+                            grid: {
+                                color: 'rgba(0, 0, 0, 0.1)'
+                            }
+                        },
+                        y: {
+                            type: 'linear',
+                            position: 'center',
+                            grid: {
+                                color: 'rgba(0, 0, 0, 0.1)'
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    }
+                }
+            });
+            
+            const roots3 = document.getElementById('modal-roots3');
+            if (!roots3) return;
+            
+            const ctxRoots3 = roots3.getContext('2d');
+            const graphRoots3 = new Chart(ctxRoots3, {
+                type: 'line',
+                data: {
+                    labels: [],
+                    datasets: [{
+                        label: 'y = x² + 2x + 5',
+                        data: [],
+                        borderColor: '#28a745',
+                        borderWidth: 2,
+                        pointRadius: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        x: {
+                            type: 'linear',
+                            position: 'center',
+                            grid: {
+                                color: 'rgba(0, 0, 0, 0.1)'
+                            }
+                        },
+                        y: {
+                            type: 'linear',
+                            position: 'center',
+                            grid: {
+                                color: 'rgba(0, 0, 0, 0.1)'
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    }
+                }
+            });
+            
+            // Generar datos para los gráficos de raíces
+            for (let x = -1; x <= 6; x += 0.1) {
+                graphRoots1.data.datasets[0].data.push({x: x, y: Math.pow(x, 2) - 5 * x + 6});
+                graphRoots2.data.datasets[0].data.push({x: x, y: Math.pow(x, 2) - 4 * x + 4});
+                graphRoots3.data.datasets[0].data.push({x: x, y: Math.pow(x, 2) + 2 * x + 5});
+            }
+            graphRoots1.update();
+            graphRoots2.update();
+            graphRoots3.update();
+        }
+    </script>
+</body>
+</html>
