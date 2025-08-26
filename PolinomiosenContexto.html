@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aplicaciones Polinómicas</title>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f9f9f9;
+        }
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+        }
+        .problem {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 25px;
+            overflow: hidden;
+        }
+        .problem-header {
+            background-color: #3498db;
+            color: white;
+            padding: 15px 20px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .problem-header h2 {
+            margin: 0;
+            font-size: 1.2em;
+        }
+        .problem-content {
+            padding: 20px;
+            display: none;
+        }
+        .problem-content.active {
+            display: block;
+        }
+        .complexity {
+            font-style: italic;
+            font-size: 0.9em;
+            margin-top: 5px;
+            color: #ecf0f1;
+        }
+        .part {
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        .part:last-child {
+            border-bottom: none;
+        }
+        .part-title {
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #2c3e50;
+        }
+        .solution {
+            background-color: #f8f9fa;
+            border-left: 4px solid #3498db;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 4px 4px 0;
+            display: none;
+        }
+        .solution.active {
+            display: block;
+        }
+        .toggle-icon::after {
+            content: '+';
+            font-size: 1.5em;
+        }
+        .toggle-icon.active::after {
+            content: '-';
+        }
+        .math {
+            overflow-x: auto;
+            padding: 5px 0;
+        }
+        .show-solution {
+            background-color: #2ecc71;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.9em;
+            margin-top: 10px;
+            transition: background-color 0.3s;
+        }
+        .show-solution:hover {
+            background-color: #27ae60;
+        }
+        .problem-description {
+            margin-bottom: 20px;
+            padding: 10px;
+            background-color: #f0f7ff;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Aplicaciones de Polinomios en Contextos Reales</h1>
+
+    <!-- Problema 1 -->
+    <div class="problem">
+        <div class="problem-header" onclick="toggleProblem(1)">
+            <h2>Problema 1: Temperatura en un Horno Industrial</h2>
+            <span class="toggle-icon"></span>
+        </div>
+        <div class="problem-content" id="problem-1">
+            <p class="complexity">Baja complejidad</p>
+            <div class="problem-description">
+                <p>La temperatura \(T(t)\) en un horno industrial está modelada por:</p>
+                <p class="math">\[T(t)=t^{3}-6t^{2}+11t-6\]</p>
+                <p>donde \(t\) = tiempo en horas.</p>
+            </div>
+            
+            <div class="part">
+                <div class="part-title">a) Factoriza \(T(t)\) usando la Regla de Ruffini</div>
+                <button class="show-solution" onclick="toggleSolution('solution-1a')">Mostrar Solución</button>
+                <div class="solution" id="solution-1a">
+                    <p>Usando la Regla de Ruffini, probamos con los divisores del término independiente (-6): ±1, ±2, ±3, ±6.</p>
+                    <p>Probamos con \(t = 1\):</p>
+                    <p class="math">\[
+                    \begin{array}{r|rrrr}
+                    1 & 1 & -6 & 11 & -6 \\
+                      &   & 1  & -5 & 6 \\
+                    \hline
+                      & 1 & -5 & 6  & 0 \\
+                    \end{array}
+                    \]</p>
+                    <p>El residuo es 0, por lo que \(t = 1\) es una raíz. El cociente es \(t^2 - 5t + 6\).</p>
+                    <p>Ahora factorizamos \(t^2 - 5t + 6\):</p>
+                    <p class="math">\[t^2 - 5t + 6 = (t - 2)(t - 3)\]</p>
+                    <p>Por lo tanto, la factorización completa es:</p>
+                    <p class="math">\[T(t) = (t - 1)(t - 2)(t - 3)\]</p>
+                </div>
+            </div>
+            
+            <div class="part">
+                <div class="part-title">b) Determina los tiempos donde la temperatura es 0°C</div>
+                <button class="show-solution" onclick="toggleSolution('solution-1b')">Mostrar Solución</button>
+                <div class="solution" id="solution-1b">
+                    <p>Para encontrar cuando \(T(t) = 0\), usamos la forma factorizada:</p>
+                    <p class="math">\[(t - 1)(t - 2)(t - 3) = 0\]</p>
+                    <p>Esto ocurre cuando:</p>
+                    <p class="math">\[t - 1 = 0 \Rightarrow t = 1\]</p>
+                    <p class="math">\[t - 2 = 0 \Rightarrow t = 2\]</p>
+                    <p class="math">\[t - 3 = 0 \Rightarrow t = 3\]</p>
+                    <p>Por lo tanto, la temperatura es 0°C a las 1, 2 y 3 horas.</p>
+                </div>
+            </div>
+            
+            <div class="part">
+                <div class="part-title">c) Calcula \(T(2)\) e interpreta el resultado</div>
+                <button class="show-solution" onclick="toggleSolution('solution-1c')">Mostrar Solución</button>
+                <div class="solution" id="solution-1c">
+                    <p>Sustituimos \(t = 2\) en la función original:</p>
+                    <p class="math">\[T(2) = (2)^3 - 6(2)^2 + 11(2) - 6 = 8 - 24 + 22 - 6 = 0\]</p>
+                    <p>Interpretación: A las 2 horas, la temperatura del horno es de 0°C. Esto confirma el resultado del apartado b).</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Problema 2 -->
+    <div class="problem">
+        <div class="problem-header" onclick="toggleProblem(2)">
+            <h2>Problema 2: Beneficio de una Empresa</h2>
+            <span class="toggle-icon"></span>
+        </div>
+        <div class="problem-content" id="problem-2">
+            <p class="complexity">Baja complejidad</p>
+            <div class="problem-description">
+                <p>El beneficio \(B(x)\) de una empresa (en miles USD) está dado por:</p>
+                <p class="math">\[B(x)=x^{2}-8x+15\]</p>
+                <p>donde \(x\) = unidades vendidas (en miles).</p>
+            </div>
+            
+            <div class="part">
+                <div class="part-title">a) Factoriza el polinomio completamente</div>
+                <button class="show-solution" onclick="toggleSolution('solution-2a')">Mostrar Solución</button>
+                <div class="solution" id="solution-2a">
+                    <p>Buscamos dos números que multipliquen a 15 y sumen -8:</p>
+                    <p>Estos números son -3 y -5, ya que \((-3) \times (-5) = 15\) y \((-3) + (-5) = -8\).</p>
+                    <p>Por lo tanto, la factorización es:</p>
+                    <p class="math">\[B(x) = (x - 3)(x - 5)\]</p>
+                </div>
+            </div>
+            
+            <div class="part">
+                <div class="part-title">b) Encuentra las ventas que generan beneficio cero</div>
+                <button class="show-solution" onclick="toggleSolution('solution-2b')">Mostrar Solución</button>
+                <div class="solution" id="solution-2b">
+                    <p>Para encontrar cuando \(B(x) = 0\), usamos la forma factorizada:</p>
+                    <p class="math">\[(x - 3)(x - 5) = 0\]</p>
+                    <p>Esto ocurre cuando:</p>
+                    <p class="math">\[x - 3 = 0 \Rightarrow x = 3\]</p>
+                    <p class="math">\[x - 5 = 0 \Rightarrow x = 5\]</p>
+                    <p>Interpretación: La empresa no obtiene beneficio (beneficio cero) cuando vende 3,000 unidades o 5,000 unidades.</p>
+                </div>
+            </div>
+            
+            <div class="part">
+                <div class="part-title">c) ¿Para qué rango de ventas la empresa tiene pérdidas?</div>
+                <button class="show-solution" onclick="toggleSolution('solution-2c')">Mostrar Solución</button>
+                <div class="solution" id="solution-2c">
+                    <p>La empresa tiene pérdidas cuando \(B(x) < 0\).</p>
+                    <p>Analizando el signo del polinomio factorizado \((x - 3)(x - 5)\):</p>
+                    <p>- Para \(x < 3\): \((x - 3) < 0\) y \((x - 5) < 0\), producto positivo > 0</p>
+                    <p>- Para \(3 < x < 5\): \((x - 3) > 0\) y \((x - 5) < 0\), producto negativo < 0</p>
+                    <p>- Para \(x > 5\): \((x - 3) > 0\) y \((x - 5) > 0\), producto positivo > 0</p>
+                    <p>Por lo tanto, la empresa tiene pérdidas cuando \(3 < x < 5\), es decir, cuando vende entre 3,000 y 5,000 unidades.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Problema 3 -->
+    <div class="problem">
+        <div class="problem-header" onclick="toggleProblem(3)">
+            <h2>Problema 3: Altura de un Cohete</h2>
+            <span class="toggle-icon"></span>
+        </div>
+        <div class="problem-content" id="problem-3">
+            <p class="complexity">Complejidad media</p>
+            <div class="problem-description">
+                <p>La altura \(h(t)\) de un cohete (en metros) sigue:</p>
+                <p class="math">\[h(t)=t^{3}-9t^{2}+24t-16\]</p>
+                <p>con \(t\) = tiempo en segundos.</p>
+            </div>
+            
+            <div class="part">
+                <div class="part-title">a) Factoriza usando Ruffini y encuentra todas las raíces</div>
+                <button class="show-solution" onclick="toggleSolution('solution-3a')">Mostrar Solución</button>
+                <div class="solution" id="solution-3a">
+                    <p>Probamos con los divisores del término independiente (-16): ±1, ±2, ±4, ±8, ±16.</p>
+                    <p>Probamos con \(t = 1\):</p>
+                    <p class="math">\[
+                    \begin{array}{r|rrrr}
+                    1 & 1 & -9 & 24 & -16 \\
+                      &   & 1  & -8 & 16 \\
+                    \hline
+                      & 1 & -8 & 16 & 0 \\
+                    \end{array}
+                    \]</p>
+                    <p>El residuo es 0, por lo que \(t = 1\) es una raíz. El cociente es \(t^2 - 8t + 16\).</p>
+                    <p>Ahora factorizamos \(t^2 - 8t + 16\):</p>
+                    <p class="math">\[t^2 - 8t + 16 = (t - 4)^2\]</p>
+                    <p>Por lo tanto, la factorización completa es:</p>
+                    <p class="math">\[h(t) = (t - 1)(t - 4)^2\]</p>
+                    <p>Las raíces son \(t = 1\) (raíz simple) y \(t = 4\) (raíz doble).</p>
+                </div>
+            </div>
+            
+            <div class="part">
+                <div class="part-title">b) Determina los instantes donde la altura es 20 m</div>
+                <button class="show-solution" onclick="toggleSolution('solution-3b')">Mostrar Solución</button>
+                <div class="solution" id="solution-3b">
+                    <p>Planteamos la ecuación \(h(t) = 20\):</p>
+                    <p class="math">\[t^3 - 9t^2 + 24t - 16 = 20\]</p>
+                    <p class="math">\[t^3 - 9t^2 + 24t - 36 = 0\]</p>
+                    <p>Buscamos raíces entre los divisores de 36: ±1, ±2, ±3, ±4, ±6, ±9, ±12, ±18, ±36.</p>
+                    <p>Probamos con \(t = 3\):</p>
+                    <p class="math">\[
+                    \begin{array}{r|rrrr}
+                    3 & 1 & -9 & 24 & -36 \\
+                      &   & 3  & -18 & 18 \\
+                    \hline
+                      & 1 & -6 & 6  & -18 \\
+                    \end{array}
+                    \]</p>
+                    <p>El residuo es -18 ≠ 0, así que \(t = 3\) no es raíz.</p>
+                    <p>Probamos con \(t = 6\):</p>
+                    <p class="math">\[
+                    \begin{array}{r|rrrr}
+                    6 & 1 & -9 & 24 & -36 \\
+                      &   & 6  & -18 & 36 \\
+                    \hline
+                      & 1 & -3 & 6  & 0 \\
+                    \end{array}
+                    \]</p>
+                    <p>El residuo es 0, por lo que \(t = 6\) es una raíz. El cociente es \(t^2 - 3t + 6\).</p>
+                    <p>Resolvemos \(t^2 - 3t + 6 = 0\):</p>
+                    <p class="math">\[\Delta = (-3)^2 - 4(1)(6) = 9 - 24 = -15 < 0\]</p>
+                    <p>No tiene raíces reales. Por lo tanto, el único instante donde la altura es 20 m es a los \(t = 6\) segundos.</p>
+                </div>
+            </div>
+            
+            <div class="part">
+                <div class="part-title">c) Calcula la altura del cohete a los 0, 2, 4 y 5 segundos</div>
+                <button class="show-solution" onclick="toggleSolution('solution-3c')">Mostrar Solución</button>
+                <div class="solution" id="solution-3c">
+                    <p>Evaluamos la función en los tiempos indicados:</p>
+                    <p class="math">\[h(0) = (0)^3 - 9(0)^2 + 24(0) - 16 = -16\]</p>
+                    <p class="math">\[h(2) = (2)^3 - 9(2)^2 + 24(2) - 16 = 8 - 36 + 48 - 16 = 4\]</p>
+                    <p class="math">\[h(4) = (4)^3 - 9(4)^2 + 24(4) - 16 = 64 - 144 + 96 - 16 = 0\]</p>
+                    <p class="math">\[h(5) = (5)^3 - 9(5)^2 + 24(5) - 16 = 125 - 225 + 120 - 16 = 4\]</p>
+                    <p>Interpretación: 
+                    <br>- A los 0 segundos, el cohete está a -16 m (posiblemente bajo la plataforma de lanzamiento)
+                    <br>- A los 2 segundos, el cohete está a 4 m de altura
+                    <br>- A los 4 segundos, el cohete está a 0 m (posiblemente tocando el suelo)
+                    <br>- A los 5 segundos, el cohete está nuevamente a 4 m de altura</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Problema 4 -->
+    <div class="problem">
+        <div class="problem-header" onclick="toggleProblem(4)">
+            <h2>Problema 4: Concentración de Medicamento</h2>
+            <span class="toggle-icon"></span>
+        </div>
+        <div class="problem-content" id="problem-4">
+            <p class="complexity">Complejidad media</p>
+            <div class="problem-description">
+                <p>La concentración \(C(t)\) de un medicamento en el torrente sanguíneo (en mg/L) está modelada por:</p>
+                <p class="math">\[C(t)=t^{3}-6t^{2}+9t\]</p>
+                <p>donde \(t\) = tiempo en horas después de la administración.</p>
+            </div>
+            
+            <div class="part">
+                <div class="part-title">a) Factoriza el polinomio y encuentra sus raíces</div>
+                <button class="show-solution" onclick="toggleSolution('solution-4a')">Mostrar Solución</button>
+                <div class="solution" id="solution-4a">
+                    <p>Primero factorizamos \(t\):</p>
+                    <p class="math">\[C(t) = t(t^2 - 6t + 9)\]</p>
+                    <p>Ahora factorizamos el trinomio cuadrado perfecto:</p>
+                    <p class="math">\[t^2 - 6t + 9 = (t - 3)^2\]</p>
+                    <p>Por lo tanto, la factorización completa es:</p>
+                    <p class="math">\[C(t) = t(t - 3)^2\]</p>
+                    <p>Las raíces son \(t = 0\) y \(t = 3\) (raíz doble).</p>
+                </div>
+            </div>
+            
+            <div class="part">
+                <div class="part-title">b) Calcula la concentración a las 0, 1, 2, 3 y 4 horas</div>
+                <button class="show-solution" onclick="toggleSolution('solution-4b')">Mostrar Solución</button>
+                <div class="solution" id="solution-4b">
+                    <p>Evaluamos la función en los tiempos indicados:</p>
+                    <p class="math">\[C(0) = 0(0 - 3)^2 = 0\]</p>
+                    <p class="math">\[C(1) = 1(1 - 3)^2 = 1 \times 4 = 4\]</p>
+                    <p class="math">\[C(2) = 2(2 - 3)^2 = 2 \times 1 = 2\]</p>
+                    <p class="math">\[C(3) = 3(3 - 3)^2 = 3 \times 0 = 0\]</p>
+                    <p class="math">\[C(4) = 4(4 - 3)^2 = 4 \times 1 = 4\]</p>
+                    <p>Interpretación: 
+                    <br>- A las 0 horas, la concentración es 0 mg/L (antes de administrar el medicamento)
+                    <br>- A la 1 hora, la concentración es 4 mg/L
+                    <br>- A las 2 horas, la concentración es 2 mg/L
+                    <br>- A las 3 horas, la concentración es 0 mg/L (el medicamento se ha eliminado completamente)
+                    <br>- A las 4 horas, la concentración es 4 mg/L (posiblemente se administró una segunda dosis)</p>
+                </div>
+            </div>
+            
+            <div class="part">
+                <div class="part-title">c) Interpreta el significado de la raíz doble en \(t = 3\)</div>
+                <button class="show-solution" onclick="toggleSolution('solution-4c')">Mostrar Solución</button>
+                <div class="solution" id="solution-4c">
+                    <p>La raíz doble en \(t = 3\) indica que este es un punto de tangencia con el eje horizontal.</p>
+                    <p>En el contexto del problema, significa que:</p>
+                    <p>1. A las 3 horas, la concentración del medicamento es cero.</p>
+                    <p>2. La concentración desciende hasta cero pero luego permanece en cero o comienza a aumentar nuevamente.</p>
+                    <p>3. Este comportamiento podría indicar que el medicamento se elimina completamente del torrente sanguíneo a las 3 horas, pero el modelo muestra que la concentración podría aumentar nuevamente después de este tiempo, lo cual podría ser poco realista en un contexto médico.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Problema 5 -->
+    <div class="problem">
+        <div class="problem-header" onclick="toggleProblem(5)">
+            <h2>Problema 5: Volumen de una Caja</h2>
+            <span class="toggle-icon"></span>
+        </div>
+        <div class="problem-content" id="problem-5">
+            <p class="complexity">Complejidad media</p>
+            <div class="problem-description">
+                <p>El volumen \(V(x)\) de una caja (en m³) está dado por:</p>
+                <p class="math">\[V(x)=x^{3}-7x^{2}+10x\]</p>
+                <p>donde \(x\) = altura de la caja en metros.</p>
+            </div>
+            
+            <div class="part">
+                <div class="part-title">a) Factoriza completamente el polinomio \(V(x)\)</div>
+                <button class="show-solution" onclick="toggleSolution('solution-5a')">Mostrar Solución</button>
+                <div class="solution" id="solution-5a">
+                    <p>Primero factorizamos \(x\):</p>
+                    <p class="math">\[V(x) = x(x^2 - 7x + 10)\]</p>
+                    <p>Ahora factorizamos el trinomio:</p>
+                    <p class="math">\[x^2 - 7x + 10 = (x - 2)(x - 5)\]</p>
+                    <p>Por lo tanto, la factorización completa es:</p>
+                    <p class="math">\[V(x) = x(x - 2)(x - 5)\]</p>
+                </div>
+            </div>
+            
+            <div class="part">
+                <div class="part-title">b) Encuentra los valores de \(x\) para los cuales el volumen es 0</div>
+                <button class="show-solution" onclick="toggleSolution('solution-5b')">Mostrar Solución</button>
+                <div class="solution" id="solution-5b">
+                    <p>Para encontrar cuando \(V(x) = 0\), usamos la forma factorizada:</p>
+                    <p class="math">\[x(x - 2)(x - 5) = 0\]</p>
+                    <p>Esto ocurre cuando:</p>
+                    <p class="math">\[x = 0\]</p>
+                    <p class="math">\[x - 2 = 0 \Rightarrow x = 2\]</p>
+                    <p class="math">\[x - 5 = 0 \Rightarrow x = 5\]</p>
+                    <p>Interpretación: El volumen es cero cuando la altura es 0 m, 2 m o 5 m.</p>
+                </div>
+            </div>
+            
+            <div class="part">
+                <div class="part-title">c) Si la altura de la caja es de 3 metros, ¿cuál es el volumen?</div>
+                <button class="show-solution" onclick="toggleSolution('solution-5c')">Mostrar Solución</button>
+                <div class="solution" id="solution-5c">
+                    <p>Sustituimos \(x = 3\) en la función original:</p>
+                    <p class="math">\[V(3) = (3)^3 - 7(3)^2 + 10(3) = 27 - 63 + 30 = -6\]</p>
+                    <p>Interpretación: El volumen resulta ser -6 m³, lo cual no tiene sentido físico. Esto indica que una altura de 3 metros no es posible para esta caja, ya que produciría dimensiones negativas en otros lados.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Problema 6 -->
+    <div class="problem">
+        <div class="problem-header" onclick="toggleProblem(6)">
+            <h2>Problema 6: Ganancia de un Inversionista</h2>
+            <span class="toggle-icon"></span>
+        </div>
+        <div class="problem-content" id="problem-6">
+            <p class="complexity">Baja complejidad</p>
+            <div class="problem-description">
+                <p>La ganancia \(G(x)\) de un inversionista (en miles de dólares) está modelada por:</p>
+                <p class="math">\[G(x)=x^{3}-12x^{2}+36x-32\]</p>
+                <p>donde \(x\) = tiempo en meses.</p>
+            </div>
+            
+            <div class="part">
+                <div class="part-title">a) Verifica que \(x = 2\) es una raíz del polinomio y factorízalo completamente</div>
+                <button class="show-solution" onclick="toggleSolution('solution-6a')">Mostrar Solución</button>
+                <div class="solution" id="solution-6a">
+                    <p>Verificamos que \(x = 2\) es una raíz:</p>
+                    <p class="math">\[G(2) = (2)^3 - 12(2)^2 + 36(2) - 32 = 8 - 48 + 72 - 32 = 0\]</p>
+                    <p>Sí es una raíz. Aplicamos Ruffini con \(x = 2\):</p>
+                    <p class="math">\[
+                    \begin{array}{r|rrrr}
+                    2 & 1 & -12 & 36 & -32 \\
+                      &   & 2   & -20 & 32 \\
+                    \hline
+                      & 1 & -10 & 16 & 0 \\
+                    \end{array}
+                    \]</p>
+                    <p>El cociente es \(x^2 - 10x + 16\). Factorizamos este trinomio:</p>
+                    <p class="math">\[x^2 - 10x + 16 = (x - 2)(x - 8)\]</p>
+                    <p>Por lo tanto, la factorización completa es:</p>
+                    <p class="math">\[G(x) = (x - 2)^2(x - 8)\]</p>
+                </div>
+            </div>
+            
+            <div class="part">
+                <div class="part-title">b) ¿En qué meses el inversionista no tiene ganancia ni pérdida?</div>
+                <button class="show-solution" onclick="toggleSolution('solution-6b')">Mostrar Solución</button>
+                <div class="solution" id="solution-6b">
+                    <p>El inversionista no tiene ganancia ni pérdida cuando \(G(x) = 0\):</p>
+                    <p class="math">\[(x - 2)^2(x - 8) = 0\]</p>
+                    <p>Esto ocurre cuando:</p>
+                    <p class="math">\[(x - 2)^2 = 0 \Rightarrow x = 2\]</p>
+                    <p class="math">\[x - 8 = 0 \Rightarrow x = 8\]</p>
+                    <p>Por lo tanto, el inversionista no tiene ganancia ni pérdida en el mes 2 y en el mes 8.</p>
+                </div>
+            </div>
+            
+            <div class="part">
+                <div class="part-title">c) ¿En qué periodo el inversionista tiene ganancias positivas?</div>
+                <button class="show-solution" onclick="toggleSolution('solution-6c')">Mostrar Solución</button>
+                <div class="solution" id="solution-6c">
+                    <p>Analizamos el signo de \(G(x) = (x - 2)^2(x - 8)\):</p>
+                    <p>Como \((x - 2)^2\) siempre es positivo excepto en \(x = 2\), el signo de \(G(x)\) depende de \((x - 8)\):</p>
+                    <p>- Para \(x < 8\): \((x - 8) < 0\), entonces \(G(x) < 0\) (pérdidas)</p>
+                    <p>- Para \(x > 8\): \((x - 8) > 0\), entonces \(G(x) > 0\) (ganancias)</p>
+                    <p>Por lo tanto, el inversionista tiene ganancias positivas para \(x > 8\), es decir, después del octavo mes.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleProblem(problemNumber) {
+            const content = document.getElementById(`problem-${problemNumber}`);
+            const icon = content.previousElementSibling.querySelector('.toggle-icon');
+            
+            content.classList.toggle('active');
+            icon.classList.toggle('active');
+        }
+
+        function toggleSolution(solutionId) {
+            const solution = document.getElementById(solutionId);
+            solution.classList.toggle('active');
+        }
+
+        // Configuración de MathJax
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']]
+            }
+        };
+    </script>
+</body>
+</html>
