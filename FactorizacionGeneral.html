@@ -1,0 +1,1133 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Factorización de Polinomios con Ruffini</title>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            }
+        };
+    </script>
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --secondary: #3498db;
+            --accent: #e74c3c;
+            --light: #ecf0f1;
+            --dark: #34495e;
+            --success: #2ecc71;
+            --warning: #f39c12;
+            --info: #9b59b6;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            color: var(--dark);
+            line-height: 1.6;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            text-align: center;
+            padding: 30px 0;
+            margin-bottom: 40px;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            color: white;
+            border-radius: 10px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .card {
+            background: white;
+            border-radius: 10px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+        }
+        
+        .card h2 {
+            color: var(--primary);
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid var(--secondary);
+            display: inline-block;
+        }
+        
+        .card h3 {
+            color: var(--secondary);
+            margin: 20px 0 15px;
+        }
+        
+        .accordion {
+            margin: 20px 0;
+        }
+        
+        .accordion-btn {
+            background: var(--secondary);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            width: 100%;
+            text-align: left;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background 0.3s;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .accordion-btn:hover {
+            background: var(--primary);
+        }
+        
+        .accordion-btn::after {
+            content: '+';
+            font-size: 1.5rem;
+        }
+        
+        .accordion-btn.active::after {
+            content: '-';
+        }
+        
+        .accordion-content {
+            padding: 0;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-out, padding 0.5s ease-out;
+        }
+        
+        .accordion-content.active {
+            padding: 20px 0;
+            max-height: 1000px;
+        }
+        
+        .steps {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin: 30px 0;
+        }
+        
+        .step {
+            flex: 1;
+            min-width: 250px;
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid var(--secondary);
+            transition: all 0.3s;
+        }
+        
+        .step:hover {
+            transform: scale(1.02);
+            background: #e3f2fd;
+        }
+        
+        .step-number {
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            background: var(--secondary);
+            color: white;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 30px;
+            margin-right: 10px;
+            font-weight: bold;
+        }
+        
+        .polynomial {
+            font-size: 1.4rem;
+            text-align: center;
+            padding: 20px;
+            margin: 20px 0;
+            background: #f0f7ff;
+            border-radius: 8px;
+            font-family: 'Cambria Math', serif;
+        }
+        
+        .ruffini-table {
+            margin: 25px auto;
+            border-collapse: collapse;
+            text-align: center;
+            background: white;
+            box-shadow: 0 0 10px rgba(0,0,0,0.05);
+        }
+        
+        .ruffini-table td {
+            padding: 12px 20px;
+            border: 1px solid #ddd;
+            min-width: 50px;
+        }
+        
+        .ruffini-table .divisor {
+            background-color: var(--primary);
+            color: white;
+            font-weight: bold;
+        }
+        
+        .ruffini-table .line {
+            border-bottom: 2px solid var(--accent);
+        }
+        
+        .example {
+            background: #f9f9f9;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid var(--success);
+            margin: 20px 0;
+        }
+        
+        .factor-list {
+            list-style-type: none;
+            margin: 20px 0;
+        }
+        
+        .factor-list li {
+            background: #e8f4f8;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 6px;
+            position: relative;
+            padding-left: 50px;
+        }
+        
+        .factor-list li:before {
+            content: "➔";
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--success);
+            font-size: 1.2rem;
+        }
+        
+        .note-box {
+            background: #fff8e1;
+            border-left: 4px solid var(--warning);
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .calculator {
+            background: #f0f8ff;
+            padding: 25px;
+            border-radius: 10px;
+            margin: 30px 0;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+        
+        .input-group {
+            margin-bottom: 15px;
+        }
+        
+        .input-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: var(--primary);
+        }
+        
+        .input-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+        
+        button {
+            background: var(--secondary);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: bold;
+            transition: background 0.3s;
+        }
+        
+        button:hover {
+            background: var(--primary);
+        }
+        
+        .result {
+            margin-top: 20px;
+            padding: 15px;
+            background: #e8f5e9;
+            border-radius: 4px;
+            display: none;
+        }
+        
+        .step-detail {
+            background: #f0f7ff;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            border-left: 4px solid var(--info);
+        }
+        
+        footer {
+            text-align: center;
+            padding: 30px 0;
+            margin-top: 40px;
+            color: var(--dark);
+            border-top: 1px solid #ddd;
+        }
+        
+        /* Estilos para el teclado virtual */
+        .keyboard {
+            margin-top: 20px;
+            background: white;
+            border-radius: 8px;
+            padding: 15px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+        
+        .keyboard-row {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 10px;
+        }
+        
+        .key {
+            background: #f8f9fa;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            width: 50px;
+            height: 50px;
+            margin: 0 5px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: var(--dark);
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .key:hover {
+            background: var(--secondary);
+            color: white;
+            transform: translateY(-2px);
+        }
+        
+        .key:active {
+            transform: translateY(0);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+        }
+        
+        .key.wide {
+            width: 110px;
+        }
+        
+        .key.operator {
+            background: var(--light);
+            color: var(--primary);
+        }
+        
+        .key.operator:hover {
+            background: var(--secondary);
+            color: white;
+        }
+        
+        .key.special {
+            background: var(--warning);
+            color: white;
+        }
+        
+        .key.special:hover {
+            background: var(--accent);
+        }
+        
+        .key.action {
+            background: var(--success);
+            color: white;
+        }
+        
+        .key.action:hover {
+            background: #27ae60;
+        }
+        
+        @media (max-width: 768px) {
+            .steps {
+                flex-direction: column;
+            }
+            
+            .card {
+                padding: 20px 15px;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .key {
+                width: 40px;
+                height: 40px;
+                font-size: 1rem;
+                margin: 0 3px;
+            }
+            
+            .key.wide {
+                width: 90px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Factorización de Polinomios con el Método de Ruffini</h1>
+            <p class="subtitle">Una guía completa para factorizar polinomios de grado ≥2 cuando no se pueden aplicar otros métodos de factorización</p>
+        </header>
+        
+        <div class="card">
+            <h2>¿Qué es el método de Ruffini?</h2>
+            
+            <div class="accordion">
+                <button class="accordion-btn">Concepto Básico</button>
+                <div class="accordion-content">
+                    <p>El método de Ruffini es un algoritmo que permite dividir un polinomio por un binomio de la forma $(x - r)$ de manera eficiente. Su principal aplicación en factorización es cuando encontramos una raíz del polinomio $(r)$, lo que nos permite expresar el polinomio como:</p>
+                    
+                    <div class="polynomial">
+                        $$P(x) = (x - r) \cdot Q(x)$$
+                    </div>
+                    
+                    <p>Donde $Q(x)$ es el cociente de la división, que tiene un grado menor que el polinomio original. El proceso puede repetirse con $Q(x)$ hasta obtener la factorización completa.</p>
+                </div>
+            </div>
+            
+            <div class="accordion">
+                <button class="accordion-btn">Ventajas del Método</button>
+                <div class="accordion-content">
+                    <ul class="factor-list">
+                        <li>Permite factorizar polinomios de grado superior cuando otros métodos fallan</li>
+                        <li>Es más eficiente que la división larga de polinomios</li>
+                        <li>Facilita la identificación de raíces racionales</li>
+                        <li>Es especialmente útil para polinomios con coeficientes enteros</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="note-box">
+                <strong>Nota importante:</strong> Este método es especialmente útil cuando el polinomio no puede factorizarse mediante otros métodos como factor común, trinomio cuadrado perfecto, o diferencia de cuadrados.
+            </div>
+        </div>
+        
+        <div class="card">
+            <h2>Pasos para factorizar con Ruffini</h2>
+            
+            <div class="steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h3>Identificar posibles raíces</h3>
+                    <p>Usar el Teorema de las Raíces Racionales: Las posibles raíces racionales son de la forma $\pm\frac{p}{q}$, donde $p$ es divisor del término independiente y $q$ es divisor del coeficiente principal.</p>
+                </div>
+                
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <h3>Evaluar el polinomio</h3>
+                    <p>Para cada candidato a raíz $(r)$, evaluar $P(r)$. Si $P(r) = 0$, entonces $r$ es una raíz y $(x - r)$ es un factor del polinomio.</p>
+                </div>
+                
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <h3>Aplicar Ruffini</h3>
+                    <p>Dividir el polinomio por $(x - r)$ usando el método de Ruffini para obtener el cociente $Q(x)$.</p>
+                </div>
+                
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <h3>Repetir el proceso</h3>
+                    <p>Aplicar los pasos anteriores al cociente $Q(x)$ hasta obtener factores lineales o cuadráticos irreducibles.</p>
+                </div>
+            </div>
+            
+            <div class="accordion">
+                <button class="accordion-btn">Ver Ejemplo Detallado</button>
+                <div class="accordion-content">
+                    <div class="example">
+                        <h3>Ejemplo: Factorización de $P(x) = x^3 + 3x^2 - 13x - 15$</h3>
+                        
+                        <div class="step-detail">
+                            <h4>Paso 1: Identificar posibles raíces</h4>
+                            <p>El término independiente es $-15$ y el coeficiente principal es $1$. Los divisores de $15$ son: $\pm1, \pm3, \pm5, \pm15$. Por lo tanto, las posibles raíces racionales son: $\pm1, \pm3, \pm5, \pm15$.</p>
+                        </div>
+                        
+                        <div class="step-detail">
+                            <h4>Paso 2: Evaluar candidatos</h4>
+                            <p>Evaluamos el polinomio en cada candidato:</p>
+                            <ul class="factor-list">
+                                <li>$P(1) = 1 + 3 - 13 - 15 = -24 \neq 0$</li>
+                                <li>$P(-1) = -1 + 3 + 13 - 15 = 0$ → ¡Es raíz!</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="step-detail">
+                            <h4>Paso 3: Aplicar Ruffini con $r = -1$</h4>
+                            <p>Dividimos $P(x)$ por $(x - (-1)) = (x + 1)$</p>
+                            
+                            <table class="ruffini-table">
+                                <tr>
+                                    <td class="divisor">-1</td>
+                                    <td>1</td>
+                                    <td>3</td>
+                                    <td>-13</td>
+                                    <td>-15</td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td>-1</td>
+                                    <td>-2</td>
+                                    <td>15</td>
+                                </tr>
+                                <tr class="line">
+                                    <td></td>
+                                    <td></td>
+                                    <td colspan="3"><hr></td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td>1</td>
+                                    <td>2</td>
+                                    <td>-15</td>
+                                    <td>0</td>
+                                </tr>
+                            </table>
+                            
+                            <p>El cociente es $x^2 + 2x - 15$ y el resto es $0$. Por lo tanto:</p>
+                            <div class="polynomial">
+                                $$P(x) = (x + 1)(x^2 + 2x - 15)$$
+                            </div>
+                        </div>
+                        
+                        <div class="step-detail">
+                            <h4>Paso 4: Factorizar el cociente</h4>
+                            <p>Ahora factorizamos el polinomio cuadrático $x^2 + 2x - 15$. Buscamos dos números que multipliquen a $-15$ y sumen $2$: $5$ y $-3$.</p>
+                            <div class="polynomial">
+                                $$x^2 + 2x - 15 = (x + 5)(x - 3)$$
+                            </div>
+                            
+                            <h4>Resultado final</h4>
+                            <div class="polynomial">
+                                $$P(x) = (x + 1)(x + 5)(x - 3)$$
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card">
+            <h2>Herramienta de factorización</h2>
+            
+            <div class="calculator">
+                <div class="input-group">
+                    <label for="polynomial">Ingresa un polinomio:</label>
+                    <input type="text" id="polynomial" placeholder="x^3+3x^2-13x-15" readonly>
+                </div>
+                
+                <!-- Teclado virtual -->
+                <div class="keyboard">
+                    <div class="keyboard-row">
+                        <div class="key" onclick="addToPolynomial('7')">7</div>
+                        <div class="key" onclick="addToPolynomial('8')">8</div>
+                        <div class="key" onclick="addToPolynomial('9')">9</div>
+                        <div class="key operator" onclick="addToPolynomial('^')">^</div>
+                        <div class="key operator" onclick="addToPolynomial('(')">(</div>
+                        <div class="key operator" onclick="addToPolynomial(')')">)</div>
+                    </div>
+                    <div class="keyboard-row">
+                        <div class="key" onclick="addToPolynomial('4')">4</div>
+                        <div class="key" onclick="addToPolynomial('5')">5</div>
+                        <div class="key" onclick="addToPolynomial('6')">6</div>
+                        <div class="key operator" onclick="addToPolynomial('*')">×</div>
+                        <div class="key operator" onclick="addToPolynomial('/')">/</div>
+                        <div class="key special" onclick="clearPolynomial()">C</div>
+                    </div>
+                    <div class="keyboard-row">
+                        <div class="key" onclick="addToPolynomial('1')">1</div>
+                        <div class="key" onclick="addToPolynomial('2')">2</div>
+                        <div class="key" onclick="addToPolynomial('3')">3</div>
+                        <div class="key operator" onclick="addToPolynomial('+')">+</div>
+                        <div class="key operator" onclick="addToPolynomial('-')">-</div>
+                        <div class="key special" onclick="backspace()">←</div>
+                    </div>
+                    <div class="keyboard-row">
+                        <div class="key" onclick="addToPolynomial('0')">0</div>
+                        <div class="key" onclick="addToPolynomial('x')">x</div>
+                        <div class="key operator" onclick="addToPolynomial('.')">.</div>
+                        <div class="key wide action" onclick="factorize()">Factorizar</div>
+                    </div>
+                </div>
+                
+                <div class="result" id="result">
+                    <h3>Resultado:</h3>
+                    <div id="output" class="polynomial"></div>
+                    <div id="steps-output"></div>
+                </div>
+            </div>
+            
+            <div class="accordion">
+                <button class="accordion-btn">Instrucciones de Uso</button>
+                <div class="accordion-content">
+                    <ul class="factor-list">
+                        <li>Usa el teclado virtual para ingresar el polinomio</li>
+                        <li>Formato recomendado: ax^n + bx^(n-1) + ... + c</li>
+                        <li>Ejemplos válidos: x^3+2x^2-5x-6, 2x^4-3x^3-11x^2+9x+9</li>
+                        <li>Para términos con exponente 1, puedes escribir "x" en lugar de "x^1"</li>
+                        <li>Usa el botón "C" para limpiar y "←" para borrar el último carácter</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="accordion">
+                <button class="accordion-btn">Ejemplos Predefinidos</button>
+                <div class="accordion-content">
+                    <div class="input-group">
+                        <label>Selecciona un ejemplo:</label>
+                        <select id="example-select" onchange="loadExample()">
+                            <option value="">-- Seleccionar --</option>
+                            <option value="x^3+3x^2-13x-15">x³ + 3x² - 13x - 15</option>
+                            <option value="x^3-6x^2+11x-6">x³ - 6x² + 11x - 6</option>
+                            <option value="x^3+2x^2-5x-6">x³ + 2x² - 5x - 6</option>
+                            <option value="x^4-5x^2+4">x⁴ - 5x² + 4</option>
+                            <option value="2x^3+3x^2-11x-6">2x³ + 3x² - 11x - 6</option>
+                            <option value="x^4-2x^3-13x^2+14x+24">x⁴ - 2x³ - 13x² + 14x + 24</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card">
+            <h2>Consideraciones importantes</h2>
+            
+            <div class="accordion">
+                <button class="accordion-btn">Polinomios Irreducibles</button>
+                <div class="accordion-content">
+                    <p>Algunos polinomios cuadráticos no pueden factorizarse en los reales (cuando el discriminante es negativo). Por ejemplo:</p>
+                    <div class="polynomial">
+                        $$x^2 + 2x + 5$$
+                    </div>
+                    <p>El discriminante es $b^2 - 4ac = 4 - 20 = -16 < 0$, por lo que no tiene raíces reales y es irreducible en los reales.</p>
+                </div>
+            </div>
+            
+            <div class="accordion">
+                <button class="accordion-btn">Raíces Múltiples</button>
+                <div class="accordion-content">
+                    <p>Si una raíz se repite, el factor aparecerá elevado a la multiplicidad. Por ejemplo, si $r$ es una raíz doble:</p>
+                    <div class="polynomial">
+                        $$P(x) = (x - r)^2 \cdot Q(x)$$
+                    </div>
+                    <p>En la tabla de Ruffini, esto se manifestaría al aplicar el método dos veces con la misma raíz.</p>
+                </div>
+            </div>
+            
+            <div class="accordion">
+                <button class="accordion-btn">Coeficiente Principal ≠ 1</button>
+                <div class="accordion-content">
+                    <p>Recuerda considerar todos los divisores de $p$ y $q$ según el Teorema de Raíces Racionales. Si el polinomio es:</p>
+                    <div class="polynomial">
+                        $$P(x) = 2x^3 + 3x^2 - 11x - 6$$
+                    </div>
+                    <p>Los posibles valores de $p$ (divisores de 6) son $\pm1, \pm2, \pm3, \pm6$ y los de $q$ (divisores de 2) son $\pm1, \pm2$. Las posibles raíces racionales son $\pm1, \pm2, \pm3, \pm6, \pm\frac{1}{2}, \pm\frac{3}{2}$.</p>
+                </div>
+            </div>
+            
+            <div class="accordion">
+                <button class="accordion-btn">Polinomios de Grado Superior</button>
+                <div class="accordion-content">
+                    <p>El proceso es iterativo: se repite con cada cociente obtenido. Para polinomios de grado 4 o superior, puede ser necesario encontrar varias raíces sucesivamente.</p>
+                    <p>Por ejemplo, para un polinomio de grado 4:</p>
+                    <ol class="factor-list">
+                        <li>Encontrar una raíz $r_1$ y factorizar $(x - r_1)$</li>
+                        <li>Obtener un polinomio cúbico $Q_1(x)$</li>
+                        <li>Encontrar una raíz $r_2$ de $Q_1(x)$ y factorizar $(x - r_2)$</li>
+                        <li>Obtener un polinomio cuadrático $Q_2(x)$</li>
+                        <li>Factorizar $Q_2(x)$ si es posible</li>
+                    </ol>
+                </div>
+            </div>
+            
+            <div class="accordion">
+                <button class="accordion-btn">Raíces Complejas</button>
+                <div class="accordion-content">
+                    <p>Para polinomios de grado $\geq3$, pueden aparecer raíces complejas conjugadas. Por ejemplo:</p>
+                    <div class="polynomial">
+                        $$P(x) = x^3 - 3x^2 + 9x - 27$$
+                    </div>
+                    <p>Tiene una raíz real $x = 3$ y dos raíces complejas conjugadas $x = \pm3i$. La factorización completa sería:</p>
+                    <div class="polynomial">
+                        $$P(x) = (x - 3)(x + 3i)(x - 3i)$$
+                    </div>
+                    <p>En los números reales, se dejaría como $(x - 3)(x^2 + 9)$.</p>
+                </div>
+            </div>
+        </div>
+        
+        <footer>
+            <p>Guía de Factorización de Polinomios con el Método de Ruffini</p>
+            <p>© 2023 - Matemáticas Avanzadas</p>
+        </footer>
+    </div>
+    
+    <script>
+        // Función para agregar caracteres al polinomio
+        function addToPolynomial(char) {
+            const input = document.getElementById('polynomial');
+            input.value += char;
+            input.focus();
+        }
+        
+        // Función para limpiar el polinomio
+        function clearPolynomial() {
+            document.getElementById('polynomial').value = '';
+            document.getElementById('polynomial').focus();
+        }
+        
+        // Función para borrar el último carácter
+        function backspace() {
+            const input = document.getElementById('polynomial');
+            input.value = input.value.slice(0, -1);
+            input.focus();
+        }
+        
+        // Función para factorizar polinomios (versión mejorada)
+        function factorize() {
+            const input = document.getElementById('polynomial').value.trim();
+            const output = document.getElementById('output');
+            const stepsOutput = document.getElementById('steps-output');
+            const resultDiv = document.getElementById('result');
+            
+            // Ejemplos predefinidos con más detalles
+            const examples = {
+                'x^3+3x^2-13x-15': {
+                    factors: '$$(x + 1)(x + 5)(x - 3)$$',
+                    steps: [
+                        "Paso 1: Posibles raíces: $\\pm1, \\pm3, \\pm5, \\pm15$",
+                        "Paso 2: $P(-1) = -1 + 3 + 13 - 15 = 0$ → ¡Es raíz!",
+                        "Paso 3: Ruffini con $r = -1$ → Cociente: $x^2 + 2x - 15$",
+                        "Paso 4: Factorizar cuadrático: $x^2 + 2x - 15 = (x + 5)(x - 3)$"
+                    ],
+                    table: `
+                        <table class="ruffini-table">
+                            <tr>
+                                <td class="divisor">-1</td>
+                                <td>1</td>
+                                <td>3</td>
+                                <td>-13</td>
+                                <td>-15</td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td>-1</td>
+                                <td>-2</td>
+                                <td>15</td>
+                            </tr>
+                            <tr class="line">
+                                <td></td>
+                                <td></td>
+                                <td colspan="3"><hr></td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td>1</td>
+                                <td>2</td>
+                                <td>-15</td>
+                                <td>0</td>
+                            </tr>
+                        </table>
+                    `
+                },
+                'x^3-6x^2+11x-6': {
+                    factors: '$$(x - 1)(x - 2)(x - 3)$$',
+                    steps: [
+                        "Paso 1: Posibles raíces: $\\pm1, \\pm2, \\pm3, \\pm6$",
+                        "Paso 2: $P(1) = 1 - 6 + 11 - 6 = 0$ → ¡Es raíz!",
+                        "Paso 3: Ruffini con $r = 1$ → Cociente: $x^2 - 5x + 6$",
+                        "Paso 4: Factorizar cuadrático: $x^2 - 5x + 6 = (x - 2)(x - 3)$"
+                    ],
+                    table: `
+                        <table class="ruffini-table">
+                            <tr>
+                                <td class="divisor">1</td>
+                                <td>1</td>
+                                <td>-6</td>
+                                <td>11</td>
+                                <td>-6</td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td>1</td>
+                                <td>-5</td>
+                                <td>6</td>
+                            </tr>
+                            <tr class="line">
+                                <td></td>
+                                <td></td>
+                                <td colspan="3"><hr></td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td>1</td>
+                                <td>-5</td>
+                                <td>6</td>
+                                <td>0</td>
+                            </tr>
+                        </table>
+                    `
+                },
+                'x^3+2x^2-5x-6': {
+                    factors: '$$(x + 1)(x - 2)(x + 3)$$',
+                    steps: [
+                        "Paso 1: Posibles raíces: $\\pm1, \\pm2, \\pm3, \\pm6$",
+                        "Paso 2: $P(-1) = -1 + 2 + 5 - 6 = 0$ → ¡Es raíz!",
+                        "Paso 3: Ruffini con $r = -1$ → Cociente: $x^2 + x - 6$",
+                        "Paso 4: Factorizar cuadrático: $x^2 + x - 6 = (x - 2)(x + 3)$"
+                    ],
+                    table: `
+                        <table class="ruffini-table">
+                            <tr>
+                                <td class="divisor">-1</td>
+                                <td>1</td>
+                                <td>2</td>
+                                <td>-5</td>
+                                <td>-6</td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td>-1</td>
+                                <td>-1</td>
+                                <td>6</td>
+                            </tr>
+                            <tr class="line">
+                                <td></td>
+                                <td></td>
+                                <td colspan="3"><hr></td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td>1</td>
+                                <td>1</td>
+                                <td>-6</td>
+                                <td>0</td>
+                            </tr>
+                        </table>
+                    `
+                },
+                'x^4-5x^2+4': {
+                    factors: '$$(x - 1)(x + 1)(x - 2)(x + 2)$$',
+                    steps: [
+                        "Paso 1: Posibles raíces: $\\pm1, \\pm2, \\pm4$",
+                        "Paso 2: $P(1) = 1 - 5 + 4 = 0$ → ¡Es raíz!",
+                        "Paso 3: Ruffini con $r = 1$ → Cociente: $x^3 + x^2 - 4x - 4$",
+                        "Paso 4: $P(-1) = -1 + 1 + 4 - 4 = 0$ → ¡Es raíz!",
+                        "Paso 5: Ruffini con $r = -1$ → Cociente: $x^2 - 4$",
+                        "Paso 6: Factorizar cuadrático: $x^2 - 4 = (x - 2)(x + 2)$"
+                    ],
+                    table: `
+                        <table class="ruffini-table">
+                            <tr>
+                                <td class="divisor">1</td>
+                                <td>1</td>
+                                <td>0</td>
+                                <td>-5</td>
+                                <td>0</td>
+                                <td>4</td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td>1</td>
+                                <td>1</td>
+                                <td>-4</td>
+                                <td>-4</td>
+                            </tr>
+                            <tr class="line">
+                                <td></td>
+                                <td></td>
+                                <td colspan="4"><hr></td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td>1</td>
+                                <td>1</td>
+                                <td>-4</td>
+                                <td>-4</td>
+                                <td>0</td>
+                            </tr>
+                        </table>
+                        <p style="text-align: center; margin: 15px 0;">Ahora aplicamos Ruffini nuevamente con r = -1:</p>
+                        <table class="ruffini-table">
+                            <tr>
+                                <td class="divisor">-1</td>
+                                <td>1</td>
+                                <td>1</td>
+                                <td>-4</td>
+                                <td>-4</td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td>-1</td>
+                                <td>0</td>
+                                <td>4</td>
+                            </tr>
+                            <tr class="line">
+                                <td></td>
+                                <td></td>
+                                <td colspan="3"><hr></td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td>1</td>
+                                <td>0</td>
+                                <td>-4</td>
+                                <td>0</td>
+                            </tr>
+                        </table>
+                    `
+                },
+                '2x^3+3x^2-11x-6': {
+                    factors: '$$(2x + 1)(x - 2)(x + 3)$$',
+                    steps: [
+                        "Paso 1: Posibles raíces: $\\pm1, \\pm2, \\pm3, \\pm6, \\pm\\frac{1}{2}, \\pm\\frac{3}{2}$",
+                        "Paso 2: $P(2) = 16 + 12 - 22 - 6 = 0$ → ¡Es raíz!",
+                        "Paso 3: Ruffini con $r = 2$ → Cociente: $2x^2 + 7x + 3$",
+                        "Paso 4: Factorizar cuadrático: $2x^2 + 7x + 3 = (2x + 1)(x + 3)$"
+                    ],
+                    table: `
+                        <table class="ruffini-table">
+                            <tr>
+                                <td class="divisor">2</td>
+                                <td>2</td>
+                                <td>3</td>
+                                <td>-11</td>
+                                <td>-6</td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td>4</td>
+                                <td>14</td>
+                                <td>6</td>
+                            </tr>
+                            <tr class="line">
+                                <td></td>
+                                <td></td>
+                                <td colspan="3"><hr></td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td>2</td>
+                                <td>7</td>
+                                <td>3</td>
+                                <td>0</td>
+                            </tr>
+                        </table>
+                    `
+                },
+                'x^4-2x^3-13x^2+14x+24': {
+                    factors: '$$(x - 1)(x - 3)(x + 2)(x + 4)$$',
+                    steps: [
+                        "Paso 1: Posibles raíces: $\\pm1, \\pm2, \\pm3, \\pm4, \\pm6, \\pm8, \\pm12, \\pm24$",
+                        "Paso 2: $P(1) = 1 - 2 - 13 + 14 + 24 = 24 \\neq 0$",
+                        "Paso 3: $P(-1) = 1 + 2 - 13 - 14 + 24 = 0$ → ¡Es raíz!",
+                        "Paso 4: Ruffini con $r = -1$ → Cociente: $x^3 - 3x^2 - 10x + 24$",
+                        "Paso 5: $P(2) = 8 - 12 - 20 + 24 = 0$ → ¡Es raíz!",
+                        "Paso 6: Ruffini con $r = 2$ → Cociente: $x^2 - x - 12$",
+                        "Paso 7: Factorizar cuadrático: $x^2 - x - 12 = (x - 4)(x + 3)$"
+                    ],
+                    table: `
+                        <table class="ruffini-table">
+                            <tr>
+                                <td class="divisor">-1</td>
+                                <td>1</td>
+                                <td>-2</td>
+                                <td>-13</td>
+                                <td>14</td>
+                                <td>24</td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td>-1</td>
+                                <td>3</td>
+                                <td>10</td>
+                                <td>-24</td>
+                            </tr>
+                            <tr class="line">
+                                <td></td>
+                                <td></td>
+                                <td colspan="4"><hr></td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td>1</td>
+                                <td>-3</td>
+                                <td>-10</td>
+                                <td>24</td>
+                                <td>0</td>
+                            </tr>
+                        </table>
+                        <p style="text-align: center; margin: 15px 0;">Ahora aplicamos Ruffini nuevamente con r = 2:</p>
+                        <table class="ruffini-table">
+                            <tr>
+                                <td class="divisor">2</td>
+                                <td>1</td>
+                                <td>-3</td>
+                                <td>-10</td>
+                                <td>24</td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td>2</td>
+                                <td>-2</td>
+                                <td>-24</td>
+                            </tr>
+                            <tr class="line">
+                                <td></td>
+                                <td></td>
+                                <td colspan="3"><hr></td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td>1</td>
+                                <td>-1</td>
+                                <td>-12</td>
+                                <td>0</td>
+                            </tr>
+                        </table>
+                    `
+                }
+            };
+            
+            if (examples[input]) {
+                output.innerHTML = examples[input].factors;
+                
+                // Mostrar pasos
+                stepsOutput.innerHTML = '<h3>Pasos de factorización:</h3><ol>';
+                examples[input].steps.forEach(step => {
+                    stepsOutput.innerHTML += `<li>${step}</li>`;
+                });
+                stepsOutput.innerHTML += '</ol>';
+                
+                // Mostrar tabla si existe
+                if (examples[input].table) {
+                    stepsOutput.innerHTML += '<h3>Tablas de Ruffini:</h3>' + examples[input].table;
+                }
+                
+                resultDiv.style.display = 'block';
+                
+                // Renderizar MathJax
+                MathJax.typesetPromise([output, stepsOutput]).then(() => {
+                    console.log('MathJax renderizado');
+                });
+            } else if (input === '') {
+                output.textContent = 'Por favor ingresa un polinomio.';
+                resultDiv.style.display = 'block';
+            } else {
+                output.textContent = 'Polinomio no reconocido. Usa el formato sugerido o selecciona un ejemplo predefinido.';
+                stepsOutput.innerHTML = '';
+                resultDiv.style.display = 'block';
+            }
+        }
+        
+        // Función para cargar ejemplos predefinidos
+        function loadExample() {
+            const select = document.getElementById('example-select');
+            const polynomialInput = document.getElementById('polynomial');
+            
+            if (select.value) {
+                polynomialInput.value = select.value;
+                factorize();
+            }
+        }
+        
+        // Funcionalidad para los acordeones
+        document.addEventListener('DOMContentLoaded', function() {
+            const accordionBtns = document.querySelectorAll('.accordion-btn');
+            
+            accordionBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    this.classList.toggle('active');
+                    const content = this.nextElementSibling;
+                    content.classList.toggle('active');
+                });
+            });
+            
+            // Establecer un ejemplo por defecto
+            document.getElementById('polynomial').value = 'x^3+3x^2-13x-15';
+            
+            // Hacer que el campo de entrada se enfoque automáticamente
+            document.getElementById('polynomial').focus();
+        });
+        
+        // Permitir la entrada desde el teclado físico
+        document.addEventListener('DOMContentLoaded', function() {
+            const polynomialInput = document.getElementById('polynomial');
+            
+            polynomialInput.addEventListener('keydown', function(event) {
+                // Permitir solo caracteres válidos para polinomios
+                const validChars = '0123456789x+-*/.()^';
+                if (!validChars.includes(event.key) && 
+                    !['Backspace', 'Delete', 'Tab', 'Enter', 'ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(event.key)) {
+                    event.preventDefault();
+                }
+            });
+        });
+    </script>
+</body>
+</html>
