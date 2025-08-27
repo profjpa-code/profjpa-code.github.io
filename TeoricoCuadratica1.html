@@ -1936,6 +1936,8 @@
                         y: {
                             type: 'linear',
                             position: 'center',
+                            min: -20,  // ESCALA FIJA
+                            max: 20,  // ESCALA FIJA
                             grid: {
                                 color: 'rgba(0, 0, 0, 0.1)'
                             }
@@ -1983,6 +1985,8 @@
                         y: {
                             type: 'linear',
                             position: 'center',
+                            min: -20,  // ESCALA FIJA
+                            max: 20,  // ESCALA FIJA
                             grid: {
                                 color: 'rgba(0, 0, 0, 0.1)'
                             }
@@ -2030,6 +2034,8 @@
                         y: {
                             type: 'linear',
                             position: 'center',
+                            min: -20,  // ESCALA FIJA
+                            max: 20,  // ESCALA FIJA
                             grid: {
                                 color: 'rgba(0, 0, 0, 0.1)'
                             }
@@ -2231,6 +2237,11 @@
             // Actualizar gráfico
             const graphS1 = Chart.getChart('graph-s1');
             graphS1.data.datasets[0].data = data;
+            
+            // FIJAR ESCALA DEL EJE Y para que se note el cambio en el ancho de la parábola
+            graphS1.options.scales.y.min = -20;
+            graphS1.options.scales.y.max = 20;
+            
             graphS1.update();
             
             // Actualizar observaciones
@@ -2311,24 +2322,14 @@
                 data.push({x: x, y: a * Math.pow(x, 2) + b * x + c});
             }
             
-            // Calcular el rango de Y para ajustar la escala
-            let minY = Infinity;
-            let maxY = -Infinity;
-            for (let point of data) {
-                if (point.y < minY) minY = point.y;
-                if (point.y > maxY) maxY = point.y;
-            }
-            
-            // Añadir un margen del 10%
-            const margin = (maxY - minY) * 0.1;
-            minY -= margin;
-            maxY += margin;
-            
-            // Actualizar gráfico con nueva escala
+            // Actualizar gráfico con ESCALA FIJA
             const graphS2 = Chart.getChart('graph-s2');
-            graphS2.options.scales.y.min = minY;
-            graphS2.options.scales.y.max = maxY;
             graphS2.data.datasets[0].data = data;
+            
+            // FIJAR ESCALA DEL EJE Y para que se note el cambio en el ancho de la parábola
+            graphS2.options.scales.y.min = -20;
+            graphS2.options.scales.y.max = 20;
+            
             graphS2.update();
             
             // Renderizar MathJax en el indicador de apertura
@@ -2378,24 +2379,14 @@
                 data.push({x: x, y: a * Math.pow(x, 2) + b * x + c});
             }
             
-            // Calcular el rango de Y para ajustar la escala
-            let minY = Infinity;
-            let maxY = -Infinity;
-            for (let point of data) {
-                if (point.y < minY) minY = point.y;
-                if (point.y > maxY) maxY = point.y;
-            }
-            
-            // Añadir un margen del 10%
-            const margin = (maxY - minY) * 0.1;
-            minY -= margin;
-            maxY += margin;
-            
-            // Actualizar gráfico con nueva escala
+            // Actualizar gráfico con ESCALA FIJA
             const equationGraph = Chart.getChart('equation-graph');
-            equationGraph.options.scales.y.min = minY;
-            equationGraph.options.scales.y.max = maxY;
             equationGraph.data.datasets[0].data = data;
+            
+            // FIJAR ESCALA DEL EJE Y para que se note el cambio en el ancho de la parábola
+            equationGraph.options.scales.y.min = -20;
+            equationGraph.options.scales.y.max = 20;
+            
             equationGraph.update();
             
             // Renderizar MathJax en los resultados
