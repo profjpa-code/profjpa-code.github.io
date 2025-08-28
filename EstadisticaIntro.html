@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>¿Qué es la Estadística y para qué sirve?</title>
+    <style>
+        :root {
+            --primary: #0066CC;
+            --secondary: #00994C;
+            --accent: #FF9900;
+            --light: #F5F9FF;
+            --dark: #333;
+            --modal-bg: rgba(0, 0, 0, 0.7);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            color: var(--dark);
+            line-height: 1.6;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        
+        header {
+            background: var(--primary);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+        
+        .content {
+            padding: 30px;
+        }
+        
+        .objective-box {
+            background: rgba(0, 102, 204, 0.1);
+            border-left: 5px solid var(--primary);
+            padding: 20px;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+        
+        .objective-box h3 {
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+        
+        h2 {
+            color: var(--primary);
+            margin: 30px 0 15px;
+            font-size: 1.8rem;
+            border-bottom: 2px solid var(--primary);
+            padding-bottom: 5px;
+        }
+        
+        h3 {
+            color: var(--secondary);
+            margin: 25px 0 10px;
+            font-size: 1.4rem;
+        }
+        
+        ul {
+            margin-left: 20px;
+            margin-bottom: 20px;
+        }
+        
+        li {
+            margin-bottom: 8px;
+        }
+        
+        .application-box {
+            background: rgba(0, 153, 76, 0.1);
+            border-left: 5px solid var(--secondary);
+            padding: 20px;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+        
+        .application-box h3 {
+            color: var(--secondary);
+        }
+        
+        .concept-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+        
+        .concept-table th {
+            background: var(--primary);
+            color: white;
+            padding: 15px;
+            text-align: left;
+        }
+        
+        .concept-table td {
+            padding: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .concept-table tr:nth-child(even) {
+            background: var(--light);
+        }
+        
+        .real-world {
+            background: rgba(255, 153, 0, 0.1);
+            border-left: 5px solid var(--accent);
+            padding: 20px;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+        
+        .real-world h3 {
+            color: var(--accent);
+        }
+        
+        .examples-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        .example-card {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+            border-left: 3px solid var(--primary);
+        }
+        
+        .example-card h4 {
+            color: var(--primary);
+            margin-bottom: 5px;
+        }
+        
+        .conclusion {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 10px;
+            margin: 30px 0;
+            text-align: center;
+        }
+        
+        .conclusion h2 {
+            color: white;
+            border: none;
+            margin: 0 0 20px;
+        }
+        
+        .conclusion blockquote {
+            font-size: 1.5rem;
+            font-style: italic;
+            margin: 20px 0;
+        }
+        
+        .conclusion ul {
+            list-style-type: none;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .conclusion li {
+            background: rgba(255,255,255,0.2);
+            padding: 10px 15px;
+            border-radius: 20px;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 20px;
+            background: #f8f9fa;
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        /* Botones interactivos */
+        .concept-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            margin-top: 5px;
+        }
+        
+        .concept-btn:hover {
+            background: #0052a3;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+        
+        /* Modal styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--modal-bg);
+            animation: fadeIn 0.4s;
+        }
+        
+        @keyframes fadeIn {
+            from {opacity: 0}
+            to {opacity: 1}
+        }
+        
+        .modal-content {
+            background-color: white;
+            margin: 5% auto;
+            padding: 30px;
+            border-radius: 15px;
+            width: 80%;
+            max-width: 700px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            animation: slideIn 0.4s;
+            position: relative;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+        
+        @keyframes slideIn {
+            from {transform: translateY(-50px); opacity: 0}
+            to {transform: translateY(0); opacity: 1}
+        }
+        
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            position: absolute;
+            right: 20px;
+            top: 15px;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+        
+        .close:hover {
+            color: var(--primary);
+        }
+        
+        .modal h2 {
+            color: var(--primary);
+            margin-top: 0;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--primary);
+        }
+        
+        .modal h3 {
+            color: var(--secondary);
+            margin-top: 20px;
+        }
+        
+        .modal ul {
+            margin-left: 20px;
+        }
+        
+        .modal .example {
+            background: var(--light);
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            border-left: 4px solid var(--accent);
+        }
+        
+        .modal .example strong {
+            color: var(--accent);
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .content {
+                padding: 20px;
+            }
+            
+            .concept-table {
+                font-size: 0.9rem;
+            }
+            
+            .concept-table th,
+            .concept-table td {
+                padding: 10px;
+            }
+            
+            .modal-content {
+                width: 95%;
+                margin: 10% auto;
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>¿Qué es la Estadística y para qué sirve?</h1>
+            <p class="subtitle">Apunte teórico para el proyecto de Feria de Ciencias</p>
+        </header>
+        
+        <div class="content">
+            <div class="objective-box">
+                <h3>Objetivo del apunte</h3>
+                <p>Comprender la utilidad de la estadística en tu proyecto de investigación de la Feria de Ciencias</p>
+            </div>
+            
+            <h2>¿Qué es la Estadística?</h2>
+            <p>La estadística es la ciencia que nos permite:</p>
+            <ul>
+                <li><strong>Recolectar</strong> información sistemáticamente</li>
+                <li><strong>Organizar</strong> datos de manera ordenada</li>
+                <li><strong>Analizar</strong> patrones y relaciones</li>
+                <li><strong>Interpretar</strong> resultados para tomar decisiones</li>
+                <li><strong>Comunicar</strong> hallazgos de forma clara</li>
+            </ul>
+            <p>Es una herramienta fundamental para transformar datos crudos en conocimiento útil.</p>
+            
+            <h2>¿Para qué sirve en tu proyecto?</h2>
+            <div class="application-box">
+                <h3>En tu investigación de la Feria de Ciencias, la estadística te permitirá:</h3>
+            </div>
+            
+            <h3>1. Medir lo que importa</h3>
+            <ul>
+                <li><strong>Ejemplo:</strong> Cuantificar la satisfacción de los visitantes (¿Fue "buena" o "muy buena"?)</li>
+                <li><strong>Herramienta:</strong> Escalas de medición, encuestas</li>
+            </ul>
+            
+            <h3>2. Descubrir patrones</h3>
+            <ul>
+                <li><strong>Ejemplo:</strong> Identificar qué tipo de proyectos generan más interés</li>
+                <li><strong>Herramienta:</strong> Tablas de frecuencia, gráficos</li>
+            </ul>
+            
+            <h3>3. Tomar decisiones informadas</h3>
+            <ul>
+                <li><strong>Ejemplo:</strong> Determinar aspectos a mejorar para futuras ferias</li>
+                <li><strong>Herramienta:</strong> Análisis comparativo, porcentajes</li>
+            </ul>
+            
+            <h3>4. Validar tus observaciones</h3>
+            <ul>
+                <li><strong>Ejemplo:</strong> Confirmar si los proyectos más elaborados recibieron mejores evaluaciones</li>
+                <li><strong>Herramienta:</strong> Correlación, pruebas estadísticas simples</li>
+            </ul>
+            
+            <h2>Conceptos clave que usarás</h2>
+            <table class="concept-table">
+                <tr>
+                    <th>Concepto</th>
+                    <th>Aplicación en tu proyecto</th>
+                    <th>Acción</th>
+                </tr>
+                <tr>
+                    <td>Población y muestra</td>
+                    <td>Encuestarás a una parte representativa de los visitantes</td>
+                    <td><button class="concept-btn" onclick="openModal('poblacionModal')">Ver definición y ejemplos</button></td>
+                </tr>
+                <tr>
+                    <td>Variables</td>
+                    <td>Medirás características como: interés, claridad, tiempo de visita</td>
+                    <td><button class="concept-btn" onclick="openModal('variablesModal')">Ver definición y ejemplos</button></td>
+                </tr>
+                <tr>
+                    <td>Datos cualitativos</td>
+                    <td>Opiniones, categorías (ej: "excelente", "bueno")</td>
+                    <td><button class="concept-btn" onclick="openModal('cualitativosModal')">Ver definición y ejemplos</button></td>
+                </tr>
+                <tr>
+                    <td>Datos cuantitativos</td>
+                    <td>Números concretos (ej: cantidad de proyectos visitados)</td>
+                    <td><button class="concept-btn" onclick="openModal('cuantitativosModal')">Ver definición y ejemplos</button></td>
+                </tr>
+                <tr>
+                    <td>Representación gráfica</td>
+                    <td>Crearás gráficos de barras, tortas, etc. para mostrar resultados</td>
+                    <td><button class="concept-btn" onclick="openModal('graficosModal')">Ver definición y ejemplos</button></td>
+                </tr>
+            </table>
+            
+            <h2>¿Por qué es importante en la vida real?</h2>
+            <div class="real-world">
+                <h3>La estadística está en todas partes:</h3>
+            </div>
+            
+            <div class="examples-grid">
+                <div class="example-card">
+                    <h4>Medicina</h4>
+                    <p>Eficacia de tratamientos</p>
+                </div>
+                <div class="example-card">
+                    <h4>Deportes</h4>
+                    <p>Rendimiento de jugadores</p>
+                </div>
+                <div class="example-card">
+                    <h4>Economía</h4>
+                    <p>Tendencias de mercado</p>
+                </div>
+                <div class="example-card">
+                    <h4>Clima</h4>
+                    <p>Pronósticos meteorológicos</p>
+                </div>
+                <div class="example-card">
+                    <h4>Redes sociales</h4>
+                    <p>Análisis de tendencias</p>
+                </div>
+                <div class="example-card">
+                    <h4>Educación</h4>
+                    <p>Evaluación de aprendizajes</p>
+                </div>
+            </div>
+            
+            <div class="conclusion">
+                <h2>Conclusión</h2>
+                <blockquote>"La estadística es el lenguaje que permite a los datos contar historias y guiar acciones"</blockquote>
+                
+                <p>En tu proyecto de la Feria de Ciencias, no solo aplicarás herramientas matemáticas, sino que desarrollarás habilidades para:</p>
+                
+                <ul>
+                    <li>Pensar críticamente</li>
+                    <li>Argumentar con evidencia</li>
+                    <li>Comunicar resultados efectivamente</li>
+                    <li>Contribuir a mejorar tu comunidad educativa</li>
+                </ul>
+                
+                <p style="font-size: 1.3rem; margin-top: 20px;"><strong>¡Tu investigación hará visible lo invisible en la Feria de Ciencias!</strong></p>
+            </div>
+        </div>
+        
+        <footer>
+            <p>Material educativo para estudiantes de quinto año - Escuela Secundaria - Provincia de Córdoba</p>
+        </footer>
+    </div>
+    
+    <!-- Modals -->
+    <!-- Modal Población y Muestra -->
+    <div id="poblacionModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('poblacionModal')">&times;</span>
+            <h2>Población y Muestra</h2>
+            <h3>Definición</h3>
+            <p><strong>Población:</strong> Conjunto completo de individuos u objetos que comparten una característica común y sobre los cuales se desea obtener información.</p>
+            <p><strong>Muestra:</strong> Subconjunto representativo de la población que se selecciona para realizar el estudio.</p>
+            
+            <h3>Aplicación en tu proyecto</h3>
+            <p>En tu investigación de la Feria de Ciencias:</p>
+            <ul>
+                <li><strong>Población:</strong> Todos los visitantes que asisten a la feria</li>
+                <li><strong>Muestra:</strong> Un grupo de visitantes seleccionados que encuestarás</li>
+            </ul>
+            
+            <h3>Ejemplos</h3>
+            <div class="example">
+                <strong>Ejemplo 1:</strong> Si asisten 200 personas a la feria, tu población son esas 200 personas. Si encuestas a 30 de ellas, esa es tu muestra.
+            </div>
+            <div class="example">
+                <strong>Ejemplo 2:</strong> Para evaluar proyectos de biología, tu población son todos los proyectos de biología presentados. Tu muestra podría ser 5 proyectos seleccionados al azar.
+            </div>
+            <div class="example">
+                <strong>Ejemplo 3:</strong> Si quieres saber la opinión de los expositores, tu población son todos los expositores. Tu muestra podría ser 10 expositores de diferentes áreas.
+            </div>
+        </div>
+    </div>
+    
+    <!-- Modal Variables -->
+    <div id="variablesModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('variablesModal')">&times;</span>
+            <h2>Variables</h2>
+            <h3>Definición</h3>
+            <p>Una <strong>variable</strong> es una característica, número o cantidad que puede ser medida o contada. Las variables pueden cambiar de valor entre los individuos u objetos estudiados.</p>
+            
+            <h3>Tipos de variables</h3>
+            <ul>
+                <li><strong>Cualitativas:</strong> Expresan cualidades o atributos (no numéricas)</li>
+                <li><strong>Cuantitativas:</strong> Expresan cantidades numéricas</li>
+            </ul>
+            
+            <h3>Aplicación en tu proyecto</h3>
+            <p>En tu investigación de la Feria de Ciencias, medirás variables como:</p>
+            <ul>
+                <li>Interés de los visitantes</li>
+                <li>Claridad de las explicaciones</li>
+                <li>Tiempo de permanencia en cada proyecto</li>
+                <li>Nivel de satisfacción general</li>
+            </ul>
+            
+            <h3>Ejemplos</h3>
+            <div class="example">
+                <strong>Ejemplo cualitativo:</strong> "Tipo de proyecto" (Biología, Física, Química, Tecnología)
+            </div>
+            <div class="example">
+                <strong>Ejemplo cuantitativo:</strong> "Número de visitantes por stand" (5, 10, 15 personas)
+            </div>
+            <div class="example">
+                <strong>Ejemplo ordinal:</strong> "Nivel de satisfacción" (Muy baja, Baja, Media, Alta, Muy alta)
+            </div>
+            <div class="example">
+                <strong>Ejemplo de intervalo:</strong> "Tiempo dedicado a cada proyecto" (en minutos)
+            </div>
+        </div>
+    </div>
+    
+    <!-- Modal Datos Cualitativos -->
+    <div id="cualitativosModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('cualitativosModal')">&times;</span>
+            <h2>Datos Cualitativos</h2>
+            <h3>Definición</h3>
+            <p>Los <strong>datos cualitativos</strong> son aquellos que describen cualidades o características y no pueden expresarse numéricamente. Se clasifican en categorías o atributos.</p>
+            
+            <h3>Tipos de datos cualitativos</h3>
+            <ul>
+                <li><strong>Nominales:</strong> No tienen orden jerárquico (ej: género, color, tipo de proyecto)</li>
+                <li><strong>Ordinales:</strong> Tienen un orden o jerarquía (ej: nivel de satisfacción, grado de interés)</li>
+            </ul>
+            
+            <h3>Aplicación en tu proyecto</h3>
+            <p>En tu investigación de la Feria de Ciencias, usarás datos cualitativos para:</p>
+            <ul>
+                <li>Clasificar los proyectos por área temática</li>
+                <li>Evaluar la claridad de las explicaciones</li>
+                <li>Medir el nivel de interés generado</li>
+                <li>Recoger opiniones abiertas de los visitantes</li>
+            </ul>
+            
+            <h3>Ejemplos</h3>
+            <div class="example">
+                <strong>Ejemplo nominal:</strong> "Área del proyecto" (Ciencias Naturales, Tecnología, Matemática)
+            </div>
+            <div class="example">
+                <strong>Ejemplo ordinal:</strong> "Calidad de la presentación" (Regular, Buena, Muy buena, Excelente)
+            </div>
+            <div class="example">
+                <strong>Ejemplo de opinión:</strong> "¿Qué te pareció más interesante de la feria?" (Respuestas abiertas)
+            </div>
+            <div class="example">
+                <strong>Ejemplo de clasificación:</strong> "Tipo de material utilizado" (Maquetas, Videos, Experimentos, Posters)
+            </div>
+        </div>
+    </div>
+    
+    <!-- Modal Datos Cuantitativos -->
+    <div id="cuantitativosModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('cuantitativosModal')">&times;</span>
+            <h2>Datos Cuantitativos</h2>
+            <h3>Definición</h3>
+            <p>Los <strong>datos cuantitativos</strong> son aquellos que se expresan mediante números y permiten realizar operaciones matemáticas. Representan cantidades, magnitudes o mediciones.</p>
+            
+            <h3>Tipos de datos cuantitativos</h3>
+            <ul>
+                <li><strong>Discretos:</strong> Solo pueden tomar valores enteros (ej: número de personas, cantidad de proyectos)</li>
+                <li><strong>Continuos:</strong> Pueden tomar cualquier valor dentro de un intervalo (ej: tiempo, peso, temperatura)</li>
+            </ul>
+            
+            <h3>Aplicación en tu proyecto</h3>
+            <p>En tu investigación de la Feria de Ciencias, usarás datos cuantitativos para:</p>
+            <ul>
+                <li>Contar el número de visitantes por proyecto</li>
+                <li>Medir el tiempo que los visitantes dedican a cada proyecto</li>
+                <li>Calcular porcentajes de satisfacción</li>
+                <li>Establecer rangos de edad de los asistentes</li>
+            </ul>
+            
+            <h3>Ejemplos</h3>
+            <div class="example">
+                <strong>Ejemplo discreto:</strong> "Número de proyectos visitados por persona" (3, 5, 7 proyectos)
+            </div>
+            <div class="example">
+                <strong>Ejemplo continuo:</strong> "Tiempo promedio de visita por proyecto" (2.5 minutos, 4.3 minutos)
+            </div>
+            <div class="example">
+                <strong>Ejemplo de conteo:</strong> "Cantidad de preguntas realizadas por proyecto" (5, 8, 12 preguntas)
+            </div>
+            <div class="example">
+                <strong>Ejemplo de medición:</strong> "Puntuación en escala de 1 a 10" (7.5, 8.2, 9.0 puntos)
+            </div>
+        </div>
+    </div>
+    
+    <!-- Modal Representación Gráfica -->
+    <div id="graficosModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('graficosModal')">&times;</span>
+            <h2>Representación Gráfica</h2>
+            <h3>Definición</h3>
+            <p>La <strong>representación gráfica</strong> es la visualización de datos mediante gráficos y diagramas. Facilita la comprensión de patrones, tendencias y relaciones en los datos.</p>
+            
+            <h3>Tipos de gráficos comunes</h3>
+            <ul>
+                <li><strong>Gráficos de barras:</strong> Comparan categorías</li>
+                <li><strong>Gráficos circulares (torta):</strong> Muestran proporciones</li>
+                <li><strong>Histogramas:</strong> Representan distribuciones de frecuencia</li>
+                <li><strong>Gráficos de líneas:</strong> Muestran tendencias a lo largo del tiempo</li>
+            </ul>
+            
+            <h3>Aplicación en tu proyecto</h3>
+            <p>En tu investigación de la Feria de Ciencias, usarás gráficos para:</p>
+            <ul>
+                <li>Mostrar la distribución de proyectos por área temática</li>
+                <li>Comparar el nivel de satisfacción entre diferentes grupos</li>
+                <li>Visualizar la cantidad de visitantes por proyecto</li>
+                <li>Presentar los resultados de manera clara y atractiva</li>
+            </ul>
+            
+            <h3>Ejemplos</h3>
+            <div class="example">
+                <strong>Ejemplo de gráfico de barras:</strong> Comparar el número de proyectos por área (Biología: 8, Física: 5, Química: 6, Tecnología: 10)
+            </div>
+            <div class="example">
+                <strong>Ejemplo de gráfico circular:</strong> Mostrar el porcentaje de visitantes según nivel de satisfacción (Muy satisfecho: 45%, Satisfecho: 30%, Neutral: 15%, Insatisfecho: 10%)
+            </div>
+            <div class="example">
+                <strong>Ejemplo de histograma:</strong> Distribución de tiempos de visita (0-2 min: 20%, 2-4 min: 50%, 4-6 min: 25%, más de 6 min: 5%)
+            </div>
+            <div class="example">
+                <strong>Ejemplo de gráfico de líneas:</strong> Evolución del número de visitantes durante la jornada (9hs: 10, 10hs: 25, 11hs: 40, 12hs: 35)
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Función para abrir un modal
+        function openModal(modalId) {
+            document.getElementById(modalId).style.display = "block";
+            document.body.style.overflow = "hidden"; // Evitar scroll en el fondo
+        }
+        
+        // Función para cerrar un modal
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = "none";
+            document.body.style.overflow = "auto"; // Restaurar scroll
+        }
+        
+        // Cerrar modal al hacer clic fuera del contenido
+        window.onclick = function(event) {
+            if (event.target.classList.contains('modal')) {
+                event.target.style.display = "none";
+                document.body.style.overflow = "auto";
+            }
+        }
+        
+        // Cerrar modal con la tecla Escape
+        document.addEventListener('keydown', function(event) {
+            if (event.key === "Escape") {
+                const modals = document.querySelectorAll('.modal');
+                modals.forEach(modal => {
+                    if (modal.style.display === "block") {
+                        modal.style.display = "none";
+                        document.body.style.overflow = "auto";
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>
