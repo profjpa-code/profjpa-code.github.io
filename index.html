@@ -462,6 +462,10 @@
         .delay-2 {
             animation-delay: 1s;
         }
+        /* Mejora visual para transiciones suaves */
+        .section-transition {
+            transition: opacity 0.3s ease-in-out;
+        }
     </style>
 </head>
 <body>
@@ -490,7 +494,7 @@
         </div>
         <div class="content">
             <!-- Selección de Escuela -->
-            <div id="school-selection">
+            <div id="school-selection" class="section-transition">
                 <div class="welcome-text">
                     <h2>Selecciona tu Escuela</h2>
                     <p>Por favor, elige la escuela a la que perteneces para acceder al material educativo.</p>
@@ -519,7 +523,7 @@
                 </div>
             </div>
             <!-- Selección de Curso -->
-            <div id="course-selection">
+            <div id="course-selection" class="section-transition">
                 <div class="welcome-text">
                     <h2>Selecciona tu Curso</h2>
                     <p>Elige el curso en el que estás matriculado para ver los temas disponibles.</p>
@@ -529,7 +533,7 @@
                 </div>
             </div>
             <!-- Selección de Temas -->
-            <div id="topic-selection">
+            <div id="topic-selection" class="section-transition">
                 <div class="welcome-text">
                     <h2 id="topic-title">Temas de Matemáticas</h2>
                     <p>Explora los temas disponibles para tu curso. Haz clic en uno para comenzar tu aprendizaje.</p>
@@ -734,7 +738,7 @@
                                 <p>${topic.description}</p>
                                 <div class="subtopic-container">
                                     ${topic.subtopics.map(subtopic => `
-                                        <a href="${subtopic.link}" class="subtopic-btn">
+                                        <a href="${subtopic.link}" class="subtopic-btn" onclick="console.log('Navegando a: ${subtopic.link}'); return true;">
                                             <i class="fas fa-arrow-circle-right"></i> ${subtopic.title}
                                         </a>
                                     `).join('')}
@@ -749,7 +753,7 @@
                             </div>
                             <div class="topic-body">
                                 <p>${topic.description}</p>
-                                <a href="${topic.link}" class="topic-btn">Ver tema <i class="fas fa-book-open"></i></a>
+                                <a href="${topic.link}" class="topic-btn" onclick="console.log('Navegando a: ${topic.link}'); return true;">Ver tema <i class="fas fa-book-open"></i></a>
                             </div>
                         `;
                     }
@@ -806,7 +810,3 @@
     </script>
 </body>
 </html>
-
-
-
-
