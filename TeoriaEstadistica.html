@@ -1,0 +1,1317 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infografía Interactiva: Estadística</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --secondary: #3498db;
+            --accent: #e74c3c;
+            --light: #ecf0f1;
+            --dark: #2c3e50;
+            --success: #2ecc71;
+            --warning: #f39c12;
+            --info: #9b59b6;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            color: var(--dark);
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        
+        .infografia-container {
+            width: 100%;
+            max-width: 1200px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .infografia-header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .infografia-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        
+        .infografia-header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+        
+        .infografia-content {
+            padding: 40px 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .info-card {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+            overflow: hidden;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .info-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+        }
+        
+        .card-header {
+            padding: 20px;
+            text-align: center;
+            color: white;
+            position: relative;
+        }
+        
+        .card-header h3 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+        
+        .card-icon {
+            font-size: 3rem;
+            margin-bottom: 15px;
+        }
+        
+        .card-body {
+            padding: 20px;
+            flex-grow: 1;
+        }
+        
+        .card-body p {
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+        
+        .card-body ul {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+        
+        .card-body li {
+            margin-bottom: 8px;
+        }
+        
+        .card-footer {
+            padding: 15px 20px;
+            background: var(--light);
+            text-align: center;
+            font-weight: bold;
+            color: var(--primary);
+        }
+        
+        .tooltip {
+            position: absolute;
+            background: var(--dark);
+            color: white;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            z-index: 100;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+            max-width: 300px;
+            font-size: 0.9rem;
+        }
+        
+        .tooltip.active {
+            opacity: 1;
+        }
+        
+        .tooltip h4 {
+            margin-bottom: 10px;
+            color: var(--warning);
+        }
+        
+        .tooltip p {
+            margin-bottom: 8px;
+        }
+        
+        /* Colores para cada tarjeta */
+        .card-1 .card-header { background: linear-gradient(135deg, #3498db, #2980b9); }
+        .card-2 .card-header { background: linear-gradient(135deg, #e74c3c, #c0392b); }
+        .card-3 .card-header { background: linear-gradient(135deg, #2ecc71, #27ae60); }
+        .card-4 .card-header { background: linear-gradient(135deg, #f39c12, #d35400); }
+        .card-5 .card-header { background: linear-gradient(135deg, #9b59b6, #8e44ad); }
+        .card-6 .card-header { background: linear-gradient(135deg, #1abc9c, #16a085); }
+        
+        /* Iconos SVG */
+        .icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 15px;
+        }
+        
+        .icon svg {
+            width: 100%;
+            height: 100%;
+            fill: white;
+        }
+        
+        /* Elementos decorativos */
+        .decoration {
+            position: absolute;
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.1);
+            top: -50px;
+            right: -50px;
+            z-index: 0;
+        }
+        
+        .decoration:before {
+            content: '';
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.1);
+            bottom: -30px;
+            left: -30px;
+        }
+        
+        /* Sección de ejemplos */
+        .examples-section {
+            background: var(--light);
+            padding: 30px 20px;
+            margin-top: 20px;
+            border-radius: 15px;
+        }
+        
+        .examples-section h3 {
+            color: var(--primary);
+            margin-bottom: 20px;
+            text-align: center;
+            font-size: 1.8rem;
+        }
+        
+        .examples-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        
+        .example-card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            border-left: 4px solid var(--secondary);
+        }
+        
+        .example-card h4 {
+            color: var(--secondary);
+            margin-bottom: 10px;
+        }
+        
+        /* Botón interactivo */
+        .interactive-btn {
+            background: var(--secondary);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-top: 15px;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+        
+        .interactive-btn:hover {
+            background: var(--primary);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        /* Modal para información ampliada */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.7);
+            animation: fadeIn 0.4s;
+        }
+        
+        @keyframes fadeIn {
+            from {opacity: 0}
+            to {opacity: 1}
+        }
+        
+        .modal-content {
+            background-color: white;
+            margin: 5% auto;
+            padding: 30px;
+            border-radius: 15px;
+            width: 80%;
+            max-width: 800px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            animation: slideIn 0.4s;
+            position: relative;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+        
+        @keyframes slideIn {
+            from {transform: translateY(-50px); opacity: 0}
+            to {transform: translateY(0); opacity: 1}
+        }
+        
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            position: absolute;
+            right: 20px;
+            top: 15px;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+        
+        .close:hover {
+            color: var(--primary);
+        }
+        
+        .modal h2 {
+            color: var(--primary);
+            margin-top: 0;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--primary);
+        }
+        
+        .modal h3 {
+            color: var(--secondary);
+            margin-top: 20px;
+        }
+        
+        .modal ul {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+        
+        .modal p {
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+        
+        /* Botones de gráficos */
+        .chart-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin: 20px 0;
+            justify-content: center;
+        }
+        
+        .chart-btn {
+            background: var(--secondary);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .chart-btn:hover {
+            background: var(--primary);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .chart-btn.active {
+            background: var(--accent);
+        }
+        
+        /* Contenedor de gráficos */
+        .chart-container {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px 0;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            display: none;
+        }
+        
+        .chart-container.active {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+        
+        .chart-wrapper {
+            position: relative;
+            height: 400px;
+            margin: 20px 0;
+        }
+        
+        .chart-description {
+            background: var(--light);
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 20px;
+            border-left: 4px solid var(--secondary);
+        }
+        
+        .chart-description h4 {
+            color: var(--secondary);
+            margin-bottom: 10px;
+        }
+        
+        /* Iconos para botones */
+        .btn-icon {
+            width: 20px;
+            height: 20px;
+            fill: white;
+        }
+        
+        /* Responsivo */
+        @media (max-width: 768px) {
+            .infografia-header h1 {
+                font-size: 2rem;
+            }
+            
+            .infografia-content {
+                grid-template-columns: 1fr;
+                gap: 20px;
+                padding: 20px 10px;
+            }
+            
+            .modal-content {
+                width: 95%;
+                margin: 10% auto;
+                padding: 20px;
+            }
+            
+            .chart-buttons {
+                justify-content: center;
+            }
+            
+            .chart-btn {
+                font-size: 0.9rem;
+                padding: 10px 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="infografia-container">
+        <div class="infografia-header">
+            <h1>Estadística: El Arte de los Datos</h1>
+            <p>Descubre cómo transformar información en conocimiento</p>
+        </div>
+        
+        <div class="infografia-content">
+            <!-- Tarjeta 1: ¿Qué es la Estadística? -->
+            <div class="info-card card-1" onclick="openModal('modal1')">
+                <div class="card-header">
+                    <div class="decoration"></div>
+                    <div class="icon">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M19,3H5C3.9,3 3,3.9 3,5V19C3,20.1 3.9,21 5,21H19C20.1,21 21,20.1 21,19V5C21,3.9 20.1,3 19,3M19,19H5V5H19V19M17,17H7V7H17V17Z"/>
+                        </svg>
+                    </div>
+                    <h3>¿Qué es la Estadística?</h3>
+                </div>
+                <div class="card-body">
+                    <p>Ciencia que recolecta, organiza, analiza e interpreta datos para tomar decisiones informadas.</p>
+                    <ul>
+                        <li>Transforma datos crudos en información útil</li>
+                        <li>Identifica patrones y tendencias</li>
+                        <li>Permite hacer predicciones basadas en evidencia</li>
+                    </ul>
+                </div>
+                <div class="card-footer">
+                    <button class="interactive-btn">Ver más</button>
+                </div>
+            </div>
+            
+            <!-- Tarjeta 2: Tipos de Datos -->
+            <div class="info-card card-2" onclick="openModal('modal2')">
+                <div class="card-header">
+                    <div class="decoration"></div>
+                    <div class="icon">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z"/>
+                        </svg>
+                    </div>
+                    <h3>Tipos de Datos</h3>
+                </div>
+                <div class="card-body">
+                    <p>Los datos se clasifican según su naturaleza y forma de medición:</p>
+                    <ul>
+                        <li><strong>Cualitativos:</strong> Describen cualidades (color, género)</li>
+                        <li><strong>Cuantitativos:</strong> Representan cantidades (edad, peso)</li>
+                        <li><strong>Discretos:</strong> Valores enteros (nº de hijos)</li>
+                        <li><strong>Continuos:</strong> Cualquier valor en un rango (altura)</li>
+                    </ul>
+                </div>
+                <div class="card-footer">
+                    <button class="interactive-btn">Ver más</button>
+                </div>
+            </div>
+            
+            <!-- Tarjeta 3: Población y Muestra -->
+            <div class="info-card card-3" onclick="openModal('modal3')">
+                <div class="card-header">
+                    <div class="decoration"></div>
+                    <div class="icon">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M16,11C15.71,11 15.38,11 15.03,11.05C16.19,8.85 16,6.09 14.44,4.07C13.87,3.36 12.73,3.36 12.16,4.07C10.6,6.09 10.41,8.85 11.57,11.05C11.22,11 10.89,11 10.6,11C6.24,11 3,15.5 3,19C3,20.66 4.34,22 6,22H18C19.66,22 21,20.66 21,19C21,15.5 17.76,11 16,11M12.5,5.84C13.17,7.2 13.33,8.76 12.92,10.23C12.71,10.97 12.29,11.62 11.77,12.15C11.25,11.62 10.83,10.97 10.62,10.23C10.21,8.76 10.37,7.2 11.04,5.84C11.17,5.61 11.39,5.5 11.5,5.5C11.61,5.5 11.83,5.61 11.96,5.84M12,13.91C12.69,13.97 13.35,14.24 13.91,14.69C14.56,15.22 15,15.97 15.16,16.8C15.24,17.24 15.24,17.69 15.16,18.13C15.04,18.75 14.74,19.32 14.31,19.76C13.87,20.19 13.3,20.5 12.68,20.62C12.24,20.7 11.79,20.7 11.35,20.62C10.73,20.5 10.16,20.19 9.72,19.76C9.29,19.32 9,18.75 8.87,18.13C8.79,17.69 8.79,17.24 8.87,16.8C9.03,15.97 9.47,15.22 10.12,14.69C10.68,14.24 11.34,13.97 12,13.91Z"/>
+                        </svg>
+                    </div>
+                    <h3>Población y Muestra</h3>
+                </div>
+                <div class="card-body">
+                    <p>Conceptos fundamentales para cualquier estudio estadístico:</p>
+                    <ul>
+                        <li><strong>Población:</strong> Conjunto completo de elementos</li>
+                        <li><strong>Muestra:</strong> Subconjunto representativo</li>
+                        <li><strong>Muestreo:</strong> Técnicas para seleccionar muestras</li>
+                        <li><strong>Representatividad:</strong> Clave para resultados válidos</li>
+                    </ul>
+                </div>
+                <div class="card-footer">
+                    <button class="interactive-btn">Ver más</button>
+                </div>
+            </div>
+            
+            <!-- Tarjeta 4: Medidas de Tendencia Central -->
+            <div class="info-card card-4" onclick="openModal('modal4')">
+                <div class="card-header">
+                    <div class="decoration"></div>
+                    <div class="icon">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M22,21H2V3H4V19H6V10H10V19H12V6H16V19H18V14H22V21Z"/>
+                        </svg>
+                    </div>
+                    <h3>Medidas de Tendencia Central</h3>
+                </div>
+                <div class="card-body">
+                    <p>Valores que representan el centro de un conjunto de datos:</p>
+                    <ul>
+                        <li><strong>Media:</strong> Promedio aritmético</li>
+                        <li><strong>Mediana:</strong> Valor central al ordenar datos</li>
+                        <li><strong>Moda:</strong> Valor más frecuente</li>
+                        <li>Cada una tiene ventajas según el contexto</li>
+                    </ul>
+                </div>
+                <div class="card-footer">
+                    <button class="interactive-btn">Ver más</button>
+                </div>
+            </div>
+            
+            <!-- Tarjeta 5: Representación Gráfica -->
+            <div class="info-card card-5" onclick="openModal('modal5')">
+                <div class="card-header">
+                    <div class="decoration"></div>
+                    <div class="icon">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M22,21H2V3H4V19H6V10H10V19H12V6H16V19H18V14H22V21Z"/>
+                        </svg>
+                    </div>
+                    <h3>Representación Gráfica</h3>
+                </div>
+                <div class="card-body">
+                    <p>Visualización efectiva de datos para identificar patrones:</p>
+                    <ul>
+                        <li><strong>Gráficos de barras:</strong> Comparar categorías</li>
+                        <li><strong>Histogramas:</strong> Distribución de frecuencias</li>
+                        <li><strong>Gráficos circulares:</strong> Mostrar proporciones</li>
+                        <li><strong>Diagramas de caja:</strong> Resumen de cinco números</li>
+                    </ul>
+                </div>
+                <div class="card-footer">
+                    <button class="interactive-btn">Ver más</button>
+                </div>
+            </div>
+            
+            <!-- Tarjeta 6: Aplicaciones -->
+            <div class="info-card card-6" onclick="openModal('modal6')">
+                <div class="card-header">
+                    <div class="decoration"></div>
+                    <div class="icon">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M12,4A8,8 0 0,1 20,12A8,8 0 0,1 12,20A8,8 0 0,1 4,12A8,8 0 0,1 12,4M12,6A6,6 0 0,0 6,12A6,6 0 0,0 12,18A6,6 0 0,0 18,12A6,6 0 0,0 12,6M12,8A4,4 0 0,1 16,12A4,4 0 0,1 12,16A4,4 0 0,1 8,12A4,4 0 0,1 12,8Z"/>
+                        </svg>
+                    </div>
+                    <h3>Aplicaciones</h3>
+                </div>
+                <div class="card-body">
+                    <p>La estadística es esencial en múltiples campos:</p>
+                    <ul>
+                        <li><strong>Medicina:</strong> Eficacia de tratamientos</li>
+                        <li><strong>Economía:</strong> Análisis de mercados</li>
+                        <li><strong>Ciencia:</strong> Validación de hipótesis</li>
+                        <li><strong>Tecnología:</strong> Machine learning y Big Data</li>
+                    </ul>
+                </div>
+                <div class="card-footer">
+                    <button class="interactive-btn">Ver más</button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="examples-section">
+            <h3>Ejemplos Prácticos en la Feria de Ciencias</h3>
+            <div class="examples-grid">
+                <div class="example-card">
+                    <h4>Encuesta de Satisfacción</h4>
+                    <p>Usa escala Likert para medir la satisfacción de los visitantes con los proyectos presentados.</p>
+                </div>
+                <div class="example-card">
+                    <h4>Análisis de Visitas</h4>
+                    <p>Registra el tiempo que los visitantes dedican a cada proyecto y crea un histograma.</p>
+                </div>
+                <div class="example-card">
+                    <h4>Comparación de Áreas</h4>
+                    <p>Utiliza gráficos de barras para comparar la popularidad de diferentes áreas temáticas.</p>
+                </div>
+                <div class="example-card">
+                    <h4>Muestreo Representativo</h4>
+                    <p>Selecciona una muestra aleatoria de visitantes para garantizar resultados representativos.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Tooltip -->
+    <div class="tooltip" id="tooltip">
+        <h4>Consejo</h4>
+        <p>Haz clic en cada tarjeta para obtener más información detallada sobre el concepto.</p>
+    </div>
+    
+    <!-- Modales -->
+    <!-- Modal 1: ¿Qué es la Estadística? -->
+    <div id="modal1" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('modal1')">&times;</span>
+            <h2>¿Qué es la Estadística?</h2>
+            <p>La estadística es una disciplina científica que se ocupa de la recolección, organización, análisis, interpretación y presentación de datos. Su objetivo principal es extraer información significativa de los datos para tomar decisiones informadas.</p>
+            
+            <h3>Funciones principales de la estadística:</h3>
+            <ul>
+                <li><strong>Descripción:</strong> Resumir y caracterizar conjuntos de datos mediante medidas numéricas y gráficos.</li>
+                <li><strong>Inferencia:</strong> Hacer generalizaciones sobre poblaciones basadas en muestras.</li>
+                <li><strong>Predicción:</strong> Estimar valores futuros basados en patrones históricos.</li>
+                <li><strong>Toma de decisiones:</strong> Proporcionar evidencia cuantitativa para elegir entre alternativas.</li>
+            </ul>
+            
+            <h3>Ejemplo en la Feria de Ciencias:</h3>
+            <p>Podrías usar estadística para determinar qué tipo de proyectos generan más interés entre los visitantes, recolectando datos sobre el tiempo que cada persona dedica a los diferentes stands y analizando los resultados para identificar patrones.</p>
+        </div>
+    </div>
+    
+    <!-- Modal 2: Tipos de Datos -->
+    <div id="modal2" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('modal2')">&times;</span>
+            <h2>Tipos de Datos</h2>
+            <p>En estadística, los datos se clasifican según su naturaleza y las operaciones matemáticas que se pueden realizar con ellos. Esta clasificación es fundamental para elegir las técnicas adecuadas de análisis.</p>
+            
+            <h3>Datos Cualitativos (Categóricos):</h3>
+            <p>Describen características o atributos que no pueden expresarse numéricamente. Se dividen en:</p>
+            <ul>
+                <li><strong>Nominales:</strong> No tienen orden jerárquico (ej: género, color, tipo de proyecto).</li>
+                <li><strong>Ordinales:</strong> Tienen un orden o jerarquía (ej: nivel de satisfacción, grado de interés).</li>
+            </ul>
+            
+            <h3>Datos Cuantitativos (Numéricos):</h3>
+            <p>Representan cantidades numéricas sobre las que se pueden realizar operaciones matemáticas. Se clasifican en:</p>
+            <ul>
+                <li><strong>Discretos:</strong> Solo pueden tomar valores enteros (ej: número de visitantes, cantidad de proyectos).</li>
+                <li><strong>Continuos:</strong> Pueden tomar cualquier valor dentro de un intervalo (ej: tiempo de visita, temperatura).</li>
+            </ul>
+            
+            <h3>Ejemplo en la Feria de Ciencias:</h3>
+            <p>Al evaluar proyectos, podrías recoger datos cualitativos como el área temática (Biología, Física, Química) y datos cuantitativos como el número de preguntas realizadas por los visitantes o el tiempo promedio de permanencia en cada stand.</p>
+        </div>
+    </div>
+    
+    <!-- Modal 3: Población y Muestra -->
+    <div id="modal3" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('modal3')">&times;</span>
+            <h2>Población y Muestra</h2>
+            <p>Estos conceptos son fundamentales en estadística, ya que determinan el alcance y la validez de cualquier estudio.</p>
+            
+            <h3>Población:</h3>
+            <p>Conjunto completo de individuos, objetos o eventos que comparten una característica común y sobre los cuales se desea obtener información. Puede ser finita (ej: todos los estudiantes de una escuela) o infinita (ej: todas las posibles mediciones de un fenómeno).</p>
+            
+            <h3>Muestra:</h3>
+            <p>Subconjunto de la población seleccionado para realizar el estudio. Debe ser representativa para que los resultados puedan generalizarse a toda la población.</p>
+            
+            <h3>Técnicas de Muestreo:</h3>
+            <ul>
+                <li><strong>Aleatorio simple:</strong> Cada elemento tiene igual probabilidad de ser seleccionado.</li>
+                <li><strong>Estratificado:</strong> Se divide la población en grupos homogéneos y se muestrea cada grupo.</li>
+                <li><strong>Sistemático:</strong> Se selecciona cada k-ésimo elemento de una lista.</li>
+                <li><strong>Por conglomerados:</strong> Se dividen en grupos y se seleccionan grupos completos.</li>
+            </ul>
+            
+            <h3>Ejemplo en la Feria de Ciencias:</h3>
+            <p>Si tu población son todos los visitantes de la feria (200 personas), podrías seleccionar una muestra de 30 personas usando muestreo aleatorio. Esto te permitirá obtener conclusiones sobre la satisfacción general sin tener que encuestar a todos los asistentes.</p>
+        </div>
+    </div>
+    
+    <!-- Modal 4: Medidas de Tendencia Central -->
+    <div id="modal4" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('modal4')">&times;</span>
+            <h2>Medidas de Tendencia Central</h2>
+            <p>Son valores numéricos que tienden a ubicarse en el centro de un conjunto de datos. Proporcionan un valor representativo del conjunto.</p>
+            
+            <h3>Media (Promedio):</h3>
+            <p>Se calcula sumando todos los valores y dividiendo entre el número de observaciones. Es sensible a valores extremos.</p>
+            <p><strong>Fórmula:</strong> Media = (Σxᵢ) / n</p>
+            
+            <h3>Mediana:</h3>
+            <p>Es el valor que ocupa la posición central cuando los datos están ordenados. No se ve afectada por valores extremos.</p>
+            <p><strong>Cálculo:</strong> Si n es impar, es el valor central. Si n es par, es el promedio de los dos valores centrales.</p>
+            
+            <h3>Moda:</h3>
+            <p>Es el valor que aparece con mayor frecuencia en un conjunto de datos. Puede haber más de una moda (distribución bimodal o multimodal).</p>
+            
+            <h3>¿Cuándo usar cada una?</h3>
+            <ul>
+                <li><strong>Media:</strong> Cuando los datos son simétricos y no hay valores extremos.</li>
+                <li><strong>Mediana:</strong> Cuando hay valores extremos o la distribución es asimétrica.</li>
+                <li><strong>Moda:</strong> Para datos categóricos o cuando interesa conocer el valor más frecuente.</li>
+            </ul>
+            
+            <h3>Ejemplo en la Feria de Ciencias:</h3>
+            <p>Si registras el número de proyectos visitados por cada persona (3, 5, 7, 5, 4, 6, 5), la media es 5, la mediana es 5 y la moda es 5. Esto indica que, en promedio, los visitantes vieron 5 proyectos.</p>
+        </div>
+    </div>
+    
+    <!-- Modal 5: Representación Gráfica (CON GRÁFICOS) -->
+    <div id="modal5" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('modal5')">&times;</span>
+            <h2>Representación Gráfica</h2>
+            <p>Los gráficos son herramientas visuales que permiten identificar patrones, tendencias y relaciones en los datos de manera rápida e intuitiva.</p>
+            
+            <h3>Explora los diferentes tipos de gráficos:</h3>
+            <div class="chart-buttons">
+                <button class="chart-btn" onclick="showChart('bar')">
+                    <svg class="btn-icon" viewBox="0 0 24 24">
+                        <path d="M22,21H2V3H4V19H6V10H10V19H12V6H16V19H18V14H22V21Z"/>
+                    </svg>
+                    Gráfico de Barras
+                </button>
+                <button class="chart-btn" onclick="showChart('pie')">
+                    <svg class="btn-icon" viewBox="0 0 24 24">
+                        <path d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2Z"/>
+                    </svg>
+                    Gráfico Circular
+                </button>
+                <button class="chart-btn" onclick="showChart('line')">
+                    <svg class="btn-icon" viewBox="0 0 24 24">
+                        <path d="M16,11.78L20.24,4.45L21.97,5.45L16.74,14.5L10.23,10.75L5.46,19H22V21H2V3H4V17.54L9.5,8L16,11.78Z"/>
+                    </svg>
+                    Gráfico de Líneas
+                </button>
+                <button class="chart-btn" onclick="showChart('histogram')">
+                    <svg class="btn-icon" viewBox="0 0 24 24">
+                        <path d="M22,21H2V3H4V19H6V10H10V19H12V6H16V19H18V14H22V21Z"/>
+                    </svg>
+                    Histograma
+                </button>
+                <button class="chart-btn" onclick="showChart('scatter')">
+                    <svg class="btn-icon" viewBox="0 0 24 24">
+                        <path d="M7,18C8.1,18 9,18.9 9,20S8.1,22 7,22 5,21.1 5,20 5.9,18 7,18M12,18C13.1,18 14,18.9 14,20S13.1,22 12,22 10,21.1 10,20 10.9,18 12,18M17,18C18.1,18 19,18.9 19,20S18.1,22 17,22 15,21.1 15,20 15.9,18 17,18M7,13C8.1,13 9,13.9 9,15S8.1,17 7,17 5,16.1 5,15 5.9,13 7,13M12,13C13.1,13 14,13.9 14,15S13.1,17 12,17 10,16.1 10,15 10.9,13 12,13M17,13C18.1,13 19,13.9 19,15S18.1,17 17,17 15,16.1 15,15 15.9,13 17,13M7,8C8.1,8 9,8.9 9,10S8.1,12 7,12 5,11.1 5,10 5.9,8 7,8M12,8C13.1,8 14,8.9 14,10S13.1,12 12,12 10,11.1 10,10 10.9,8 12,8M17,8C18.1,8 19,8.9 19,10S18.1,12 17,12 15,11.1 15,10 15.9,8 17,8Z"/>
+                    </svg>
+                    Dispersión
+                </button>
+            </div>
+            
+            <!-- Gráfico de Barras -->
+            <div id="bar-chart" class="chart-container">
+                <h3>Gráfico de Barras: Proyectos por Área Temática</h3>
+                <div class="chart-wrapper">
+                    <canvas id="barCanvas"></canvas>
+                </div>
+                <div class="chart-description">
+                    <h4>Descripción</h4>
+                    <p>Este gráfico compara el número de proyectos presentados en cada área temática de la feria. Las barras verticales permiten visualizar fácilmente qué áreas tienen mayor participación.</p>
+                    <p><strong>Datos:</strong> Biología (12), Física (8), Química (6), Tecnología (15), Matemática (5)</p>
+                </div>
+            </div>
+            
+            <!-- Gráfico Circular -->
+            <div id="pie-chart" class="chart-container">
+                <h3>Gráfico Circular: Distribución de Visitantes por Edad</h3>
+                <div class="chart-wrapper">
+                    <canvas id="pieCanvas"></canvas>
+                </div>
+                <div class="chart-description">
+                    <h4>Descripción</h4>
+                    <p>Este gráfico muestra la proporción de visitantes según su grupo de edad. Cada sector representa un porcentaje del total, facilitando la comprensión de la composición demográfica.</p>
+                    <p><strong>Datos:</strong> 12-15 años (25%), 16-18 años (45%), 19-25 años (20%), +25 años (10%)</p>
+                </div>
+            </div>
+            
+            <!-- Gráfico de Líneas -->
+            <div id="line-chart" class="chart-container">
+                <h3>Gráfico de Líneas: Evolución de Visitas por Hora</h3>
+                <div class="chart-wrapper">
+                    <canvas id="lineCanvas"></canvas>
+                </div>
+                <div class="chart-description">
+                    <h4>Descripción</h4>
+                    <p>Este gráfico muestra cómo varía el número de visitantes a lo largo de la jornada. La línea conecta los puntos de datos, revelando tendencias y patrones temporales.</p>
+                    <p><strong>Datos:</strong> 9hs (20), 10hs (45), 11hs (80), 12hs (65), 13hs (40), 14hs (55), 15hs (70)</p>
+                </div>
+            </div>
+            
+            <!-- Histograma -->
+            <div id="histogram-chart" class="chart-container">
+                <h3>Histograma: Distribución de Tiempos de Visita</h3>
+                <div class="chart-wrapper">
+                    <canvas id="histogramCanvas"></canvas>
+                </div>
+                <div class="chart-description">
+                    <h4>Descripción</h4>
+                    <p>Este histograma muestra la distribución de los tiempos que los visitantes dedican a cada proyecto. Las barras adyacentes representan intervalos de tiempo, revelando la concentración de datos.</p>
+                    <p><strong>Datos:</strong> 0-2 min (15%), 2-4 min (35%), 4-6 min (30%), 6-8 min (15%), +8 min (5%)</p>
+                </div>
+            </div>
+            
+            <!-- Gráfico de Dispersión -->
+            <div id="scatter-chart" class="chart-container">
+                <h3>Gráfico de Dispersión: Interés vs. Claridad</h3>
+                <div class="chart-wrapper">
+                    <canvas id="scatterCanvas"></canvas>
+                </div>
+                <div class="chart-description">
+                    <h4>Descripción</h4>
+                    <p>Este gráfico de dispersión muestra la relación entre el nivel de interés generado por los proyectos y su claridad expositiva. Cada punto representa un proyecto, permitiendo identificar correlaciones.</p>
+                    <p><strong>Eje X:</strong> Claridad (escala 1-10) | <strong>Eje Y:</strong> Interés (escala 1-10)</p>
+                </div>
+            </div>
+            
+            <h3>Principios de Buena Visualización:</h3>
+            <ul>
+                <li>Claridad: El gráfico debe ser fácil de interpretar.</li>
+                <li>Precisión: Debe representar fielmente los datos.</li>
+                <li>Simplicidad: Evitar elementos innecesarios que distraigan.</li>
+                <li>Etiquetado adecuado: Títulos, ejes y leyendas claras.</li>
+            </ul>
+        </div>
+    </div>
+    
+    <!-- Modal 6: Aplicaciones -->
+    <div id="modal6" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('modal6')">&times;</span>
+            <h2>Aplicaciones de la Estadística</h2>
+            <p>La estadística es una herramienta versátil con aplicaciones en prácticamente todos los campos del conocimiento humano. Su capacidad para transformar datos en información útil la hace indispensable en la era digital.</p>
+            
+            <h3>Aplicaciones por Sector:</h3>
+            <ul>
+                <li><strong>Medicina y Salud Pública:</strong>
+                    <ul>
+                        <li>Evaluación de la eficacia de tratamientos y medicamentos</li>
+                        <li>Análisis de factores de riesgo en enfermedades</li>
+                        <li>Diseño de estudios epidemiológicos</li>
+                        <li>Optimización de recursos hospitalarios</li>
+                    </ul>
+                </li>
+                <li><strong>Economía y Finanzas:</strong>
+                    <ul>
+                        <li>Análisis de mercados y tendencias económicas</li>
+                        <li>Evaluación de riesgos financieros</li>
+                        <li>Pronósticos macroeconómicos</li>
+                        <li>Optimización de carteras de inversión</li>
+                    </ul>
+                </li>
+                <li><strong>Ciencia e Investigación:</strong>
+                    <ul>
+                        <li>Diseño experimental y análisis de resultados</li>
+                        <li>Validación de hipótesis científicas</li>
+                        <li>Modelado de fenómenos naturales</li>
+                        <li>Análisis de datos en grandes experimentos</li>
+                    </ul>
+                </li>
+                <li><strong>Tecnología y Datos:</strong>
+                    <ul>
+                        <li>Machine learning e inteligencia artificial</li>
+                        <li>Análisis de big data</li>
+                        <li>Optimización de algoritmos</li>
+                        <li>Mejora de experiencia de usuario</li>
+                    </ul>
+                </li>
+                <li><strong>Educación:</strong>
+                    <ul>
+                        <li>Evaluación de aprendizajes</li>
+                        <li>Análisis de factores que afectan el rendimiento</li>
+                        <li>Diseño de políticas educativas basadas en evidencia</li>
+                        <li>Personalización de itinerarios formativos</li>
+                    </ul>
+                </li>
+            </ul>
+            
+            <h3>Ejemplo en la Feria de Ciencias:</h3>
+            <p>Al aplicar técnicas estadísticas en tu proyecto, no solo estás aprendiendo matemáticas, sino que estás desarrollando habilidades que te serán útiles en múltiples profesiones. Por ejemplo, el análisis de datos de la feria te prepara para trabajos en ciencia de datos, investigación de mercados, evaluación de políticas públicas, y muchos otros campos.</p>
+        </div>
+    </div>
+    
+    <script>
+        // Variables globales para los gráficos
+        let barChart, pieChart, lineChart, histogramChart, scatterChart;
+        
+        // Función para abrir un modal
+        function openModal(modalId) {
+            document.getElementById(modalId).style.display = "block";
+            document.body.style.overflow = "hidden"; // Evitar scroll en el fondo
+            
+            // Si es el modal de gráficos, inicializar el gráfico de barras por defecto
+            if (modalId === 'modal5') {
+                setTimeout(() => {
+                    showChart('bar');
+                }, 100);
+            }
+        }
+        
+        // Función para cerrar un modal
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = "none";
+            document.body.style.overflow = "auto"; // Restaurar scroll
+            
+            // Si es el modal de gráficos, destruir los gráficos para liberar memoria
+            if (modalId === 'modal5') {
+                destroyCharts();
+            }
+        }
+        
+        // Función para destruir todos los gráficos
+        function destroyCharts() {
+            if (barChart) barChart.destroy();
+            if (pieChart) pieChart.destroy();
+            if (lineChart) lineChart.destroy();
+            if (histogramChart) histogramChart.destroy();
+            if (scatterChart) scatterChart.destroy();
+            
+            // Ocultar todos los contenedores de gráficos
+            document.querySelectorAll('.chart-container').forEach(container => {
+                container.classList.remove('active');
+            });
+            
+            // Quitar la clase active de todos los botones
+            document.querySelectorAll('.chart-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+        }
+        
+        // Función para mostrar un gráfico específico
+        function showChart(type) {
+            // Destruir gráficos existentes
+            destroyCharts();
+            
+            // Activar el botón correspondiente
+            document.querySelectorAll('.chart-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.closest('.chart-btn').classList.add('active');
+            
+            // Mostrar el contenedor correspondiente
+            document.getElementById(type + '-chart').classList.add('active');
+            
+            // Crear el gráfico según el tipo
+            switch(type) {
+                case 'bar':
+                    createBarChart();
+                    break;
+                case 'pie':
+                    createPieChart();
+                    break;
+                case 'line':
+                    createLineChart();
+                    break;
+                case 'histogram':
+                    createHistogramChart();
+                    break;
+                case 'scatter':
+                    createScatterChart();
+                    break;
+            }
+        }
+        
+        // Función para crear gráfico de barras
+        function createBarChart() {
+            const ctx = document.getElementById('barCanvas').getContext('2d');
+            barChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['Biología', 'Física', 'Química', 'Tecnología', 'Matemática'],
+                    datasets: [{
+                        label: 'Número de Proyectos',
+                        data: [12, 8, 6, 15, 5],
+                        backgroundColor: [
+                            'rgba(54, 162, 235, 0.7)',
+                            'rgba(255, 99, 132, 0.7)',
+                            'rgba(255, 206, 86, 0.7)',
+                            'rgba(75, 192, 192, 0.7)',
+                            'rgba(153, 102, 255, 0.7)'
+                        ],
+                        borderColor: [
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(153, 102, 255, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Proyectos por Área Temática',
+                            font: {
+                                size: 16
+                            }
+                        },
+                        legend: {
+                            display: false
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'Número de Proyectos'
+                            }
+                        },
+                        x: {
+                            title: {
+                                display: true,
+                                text: 'Área Temática'
+                            }
+                        }
+                    }
+                }
+            });
+        }
+        
+        // Función para crear gráfico circular
+        function createPieChart() {
+            const ctx = document.getElementById('pieCanvas').getContext('2d');
+            pieChart = new Chart(ctx, {
+                type: 'pie',
+                data: {
+                    labels: ['12-15 años', '16-18 años', '19-25 años', '+25 años'],
+                    datasets: [{
+                        data: [25, 45, 20, 10],
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.7)',
+                            'rgba(54, 162, 235, 0.7)',
+                            'rgba(255, 206, 86, 0.7)',
+                            'rgba(75, 192, 192, 0.7)'
+                        ],
+                        borderColor: [
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Distribución de Visitantes por Edad',
+                            font: {
+                                size: 16
+                            }
+                        },
+                        legend: {
+                            position: 'right'
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return context.label + ': ' + context.parsed + '%';
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+        
+        // Función para crear gráfico de líneas
+        function createLineChart() {
+            const ctx = document.getElementById('lineCanvas').getContext('2d');
+            lineChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: ['9hs', '10hs', '11hs', '12hs', '13hs', '14hs', '15hs'],
+                    datasets: [{
+                        label: 'Número de Visitantes',
+                        data: [20, 45, 80, 65, 40, 55, 70],
+                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                        borderColor: 'rgba(75, 192, 192, 1)',
+                        borderWidth: 2,
+                        tension: 0.4,
+                        fill: true,
+                        pointBackgroundColor: 'rgba(75, 192, 192, 1)',
+                        pointBorderColor: '#fff',
+                        pointBorderWidth: 2,
+                        pointRadius: 5
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Evolución de Visitas por Hora',
+                            font: {
+                                size: 16
+                            }
+                        },
+                        legend: {
+                            display: false
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'Número de Visitantes'
+                            }
+                        },
+                        x: {
+                            title: {
+                                display: true,
+                                text: 'Hora del Día'
+                            }
+                        }
+                    }
+                }
+            });
+        }
+        
+        // Función para crear histograma
+        function createHistogramChart() {
+            const ctx = document.getElementById('histogramCanvas').getContext('2d');
+            histogramChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['0-2 min', '2-4 min', '4-6 min', '6-8 min', '+8 min'],
+                    datasets: [{
+                        label: 'Porcentaje de Visitantes',
+                        data: [15, 35, 30, 15, 5],
+                        backgroundColor: 'rgba(153, 102, 255, 0.7)',
+                        borderColor: 'rgba(153, 102, 255, 1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Distribución de Tiempos de Visita',
+                            font: {
+                                size: 16
+                            }
+                        },
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return context.parsed.y + '% de los visitantes';
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'Porcentaje de Visitantes (%)'
+                            },
+                            ticks: {
+                                callback: function(value) {
+                                    return value + '%';
+                                }
+                            }
+                        },
+                        x: {
+                            title: {
+                                display: true,
+                                text: 'Tiempo de Visita'
+                            }
+                        }
+                    }
+                }
+            });
+        }
+        
+        // Función para crear gráfico de dispersión
+        function createScatterChart() {
+            const ctx = document.getElementById('scatterCanvas').getContext('2d');
+            
+            // Generar datos de ejemplo para el gráfico de dispersión
+            const data = [];
+            for (let i = 0; i < 20; i++) {
+                data.push({
+                    x: Math.floor(Math.random() * 10) + 1,
+                    y: Math.floor(Math.random() * 10) + 1
+                });
+            }
+            
+            scatterChart = new Chart(ctx, {
+                type: 'scatter',
+                data: {
+                    datasets: [{
+                        label: 'Proyectos',
+                        data: data,
+                        backgroundColor: 'rgba(255, 99, 132, 0.7)',
+                        borderColor: 'rgba(255, 99, 132, 1)',
+                        borderWidth: 1,
+                        pointRadius: 6,
+                        pointHoverRadius: 8
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Relación entre Claridad e Interés',
+                            font: {
+                                size: 16
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: 10,
+                            title: {
+                                display: true,
+                                text: 'Nivel de Interés (1-10)'
+                            }
+                        },
+                        x: {
+                            beginAtZero: true,
+                            max: 10,
+                            title: {
+                                display: true,
+                                text: 'Claridad Expositiva (1-10)'
+                            }
+                        }
+                    }
+                }
+            });
+        }
+        
+        // Cerrar modal al hacer clic fuera del contenido
+        window.onclick = function(event) {
+            if (event.target.classList.contains('modal')) {
+                event.target.style.display = "none";
+                document.body.style.overflow = "auto";
+                
+                // Si es el modal de gráficos, destruir los gráficos
+                if (event.target.id === 'modal5') {
+                    destroyCharts();
+                }
+            }
+        }
+        
+        // Cerrar modal con la tecla Escape
+        document.addEventListener('keydown', function(event) {
+            if (event.key === "Escape") {
+                const modals = document.querySelectorAll('.modal');
+                modals.forEach(modal => {
+                    if (modal.style.display === "block") {
+                        modal.style.display = "none";
+                        document.body.style.overflow = "auto";
+                        
+                        // Si es el modal de gráficos, destruir los gráficos
+                        if (modal.id === 'modal5') {
+                            destroyCharts();
+                        }
+                    }
+                });
+            }
+        });
+        
+        // Mostrar tooltip al cargar la página
+        window.addEventListener('load', function() {
+            const tooltip = document.getElementById('tooltip');
+            setTimeout(function() {
+                tooltip.classList.add('active');
+                
+                // Posicionar tooltip en el centro superior
+                tooltip.style.left = '50%';
+                tooltip.style.top = '100px';
+                tooltip.style.transform = 'translateX(-50%)';
+                
+                // Ocultar tooltip después de 5 segundos
+                setTimeout(function() {
+                    tooltip.classList.remove('active');
+                }, 5000);
+            }, 1000);
+        });
+    </script>
+</body>
+</html>
