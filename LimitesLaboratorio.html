@@ -1,0 +1,2822 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Análisis Matemático: Unidad 1 - Límites y Continuidad</title>
+    <meta name="description" content="Recurso educativo para el aprendizaje de límites y continuidad en el contexto de industrias de procesos">
+    <meta name="keywords" content="límites, continuidad, análisis matemático, educación técnica, industrias de procesos">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style>
+        :root {
+            /* Paleta de colores inspirada en industrias de procesos */
+            --procesos-oscuro: #1A3A5F;
+            --procesos-medio: #2E5C8A;
+            --procesos-claro: #4A7BA7;
+            --procesos-acentos: #E63946;
+            --procesos-secundario: #457B9D;
+            --procesos-fondo: #F1FAEE;
+            --procesos-texto: #1D3557;
+            --procesos-exito: #06D6A0;
+            --procesos-advertencia: #FFD166;
+            --blanco: #FFFFFF;
+            --gris: #E0E0E0;
+            --gris-oscuro: #555555;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--procesos-fondo);
+            color: var(--procesos-texto);
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            background: linear-gradient(to right, var(--procesos-oscuro), var(--procesos-medio));
+            color: var(--blanco);
+            padding: 25px;
+            text-align: center;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            font-weight: 300;
+        }
+        
+        .institucion {
+            margin-top: 15px;
+            font-size: 1rem;
+            font-style: italic;
+            opacity: 0.9;
+        }
+        
+        .tab-container {
+            display: flex;
+            margin-bottom: 20px;
+            border-bottom: 3px solid var(--procesos-medio);
+            flex-wrap: wrap;
+        }
+        
+        .tab-button {
+            flex: 1;
+            min-width: 150px;
+            padding: 15px;
+            background-color: var(--procesos-claro);
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: bold;
+            color: var(--blanco);
+            transition: background-color 0.3s, transform 0.2s;
+        }
+        
+        .tab-button:hover {
+            background-color: var(--procesos-medio);
+            transform: translateY(-2px);
+        }
+        
+        .tab-button.active {
+            background-color: var(--procesos-oscuro);
+            border-bottom: 3px solid var(--procesos-acentos);
+        }
+        
+        .tab-content {
+            display: none;
+            padding: 20px;
+            background-color: var(--blanco);
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+        
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .concept-banner {
+            background-color: var(--procesos-secundario);
+            color: var(--blanco);
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+            text-align: center;
+            font-size: 1.3rem;
+            font-weight: bold;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+        }
+        
+        .definition-box {
+            background-color: var(--gris);
+            border-left: 5px solid var(--procesos-acentos);
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .example-box {
+            background-color: var(--procesos-fondo);
+            border: 1px solid var(--procesos-claro);
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 8px;
+        }
+        
+        .example-title {
+            color: var(--procesos-oscuro);
+            font-weight: bold;
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+        
+        .solution-button {
+            background-color: var(--procesos-medio);
+            color: var(--blanco);
+            border: none;
+            padding: 10px 18px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 15px;
+            transition: background-color 0.3s, transform 0.2s;
+            font-weight: bold;
+        }
+        
+        .solution-button:hover {
+            background-color: var(--procesos-oscuro);
+            transform: translateY(-2px);
+        }
+        
+        .solution {
+            display: none;
+            margin-top: 15px;
+            padding: 15px;
+            background-color: var(--gris);
+            border-radius: 5px;
+        }
+        
+        .exercise-box {
+            background-color: var(--blanco);
+            border: 2px solid var(--procesos-claro);
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 8px;
+        }
+        
+        .quiz-container {
+            background-color: var(--procesos-fondo);
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        
+        .question {
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+        
+        .options {
+            margin-left: 20px;
+        }
+        
+        .option {
+            margin: 10px 0;
+            padding: 8px;
+            border-radius: 4px;
+            transition: background-color 0.2s;
+        }
+        
+        .option:hover {
+            background-color: rgba(74, 123, 167, 0.1);
+        }
+        
+        .option input {
+            margin-right: 10px;
+        }
+        
+        .feedback {
+            margin-top: 15px;
+            padding: 15px;
+            border-radius: 5px;
+            display: none;
+            font-weight: 500;
+        }
+        
+        .correct {
+            background-color: rgba(6, 214, 160, 0.2);
+            color: #04805a;
+            border-left: 4px solid var(--procesos-exito);
+        }
+        
+        .incorrect {
+            background-color: rgba(230, 57, 70, 0.2);
+            color: #b73140;
+            border-left: 4px solid var(--procesos-acentos);
+        }
+        
+        .submit-button {
+            background-color: var(--procesos-secundario);
+            color: var(--blanco);
+            border: none;
+            padding: 12px 24px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            margin-top: 20px;
+            transition: background-color 0.3s, transform 0.2s;
+            font-weight: bold;
+        }
+        
+        .submit-button:hover {
+            background-color: var(--procesos-medio);
+            transform: translateY(-2px);
+        }
+        
+        .application-box {
+            background-color: rgba(69, 123, 157, 0.15);
+            border-left: 5px solid var(--procesos-secundario);
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .application-title {
+            color: var(--procesos-secundario);
+            font-weight: bold;
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+        
+        .process-icon {
+            display: inline-block;
+            margin-right: 10px;
+            font-size: 1.5rem;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            padding: 25px;
+            background-color: var(--procesos-oscuro);
+            color: var(--blanco);
+            border-radius: 10px;
+        }
+        
+        /* Estilos para las mejoras */
+        .graph-container {
+            background-color: var(--blanco);
+            border: 2px solid var(--procesos-claro);
+            border-radius: 8px;
+            padding: 20px;
+            margin: 25px 0;
+            text-align: center;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+        
+        canvas {
+            border: 1px solid var(--gris);
+            border-radius: 5px;
+            max-width: 100%;
+        }
+        
+        .controls {
+            margin: 20px 0;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+        .control-button {
+            background-color: var(--procesos-medio);
+            color: var(--blanco);
+            border: none;
+            padding: 10px 18px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s;
+            font-weight: bold;
+        }
+        
+        .control-button:hover {
+            background-color: var(--procesos-oscuro);
+            transform: translateY(-2px);
+        }
+        
+        .slider-container {
+            margin: 10px;
+            display: flex;
+            align-items: center;
+            background-color: rgba(255, 255, 255, 0.7);
+            padding: 8px 12px;
+            border-radius: 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .slider-container label {
+            margin-right: 10px;
+            font-weight: bold;
+            color: var(--procesos-oscuro);
+        }
+        
+        input[type="range"] {
+            width: 150px;
+        }
+        
+        .value-display {
+            background-color: rgba(74, 123, 167, 0.1);
+            border: 1px solid var(--procesos-secundario);
+            border-radius: 8px;
+            padding: 18px;
+            margin: 18px 0;
+            text-align: center;
+            font-weight: bold;
+        }
+        
+        .value-row {
+            display: flex;
+            justify-content: space-around;
+            margin: 12px 0;
+            flex-wrap: wrap;
+        }
+        
+        .value-item {
+            margin: 8px 15px;
+            padding: 8px 15px;
+            background-color: rgba(255, 255, 255, 0.7);
+            border-radius: 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .value-label {
+            color: var(--procesos-secundario);
+            font-size: 0.9rem;
+        }
+        
+        .value-number {
+            font-size: 1.2rem;
+            color: var(--procesos-oscuro);
+        }
+        
+        .formula-box {
+            background-color: #F5F5F5;
+            border: 1px solid #DDD;
+            border-radius: 8px;
+            padding: 18px;
+            margin: 18px 0;
+            text-align: center;
+            font-family: 'Courier New', monospace;
+            font-size: 1.1rem;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        
+        .step-box {
+            background-color: rgba(6, 214, 160, 0.15);
+            border-left: 4px solid var(--procesos-exito);
+            padding: 15px;
+            margin: 18px 0;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .step-title {
+            color: var(--procesos-exito);
+            font-weight: bold;
+            margin-bottom: 12px;
+            font-size: 1.1rem;
+        }
+        
+        .construction-steps {
+            background-color: rgba(241, 248, 233, 0.5);
+            border: 1px solid var(--procesos-exito);
+            border-radius: 8px;
+            padding: 25px;
+            margin: 25px 0;
+        }
+        
+        .construction-title {
+            color: var(--procesos-exito);
+            font-weight: bold;
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .step-item {
+            margin-bottom: 20px;
+            padding-left: 35px;
+            position: relative;
+        }
+        
+        .step-number {
+            position: absolute;
+            left: 0;
+            top: 0;
+            background-color: var(--procesos-exito);
+            color: white;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1rem;
+        }
+        
+        .step-content {
+            padding-left: 12px;
+        }
+        
+        .step-formula {
+            background-color: rgba(6, 214, 160, 0.1);
+            padding: 12px;
+            border-radius: 5px;
+            margin: 12px 0;
+            text-align: center;
+        }
+        
+        .step-explanation {
+            font-style: italic;
+            color: var(--gris-oscuro);
+            margin-top: 8px;
+        }
+        
+        .variable-explanation {
+            background-color: rgba(255, 209, 102, 0.2);
+            border-left: 4px solid var(--procesos-advertencia);
+            padding: 12px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+            font-style: italic;
+        }
+        
+        /* Estilos para el modo de accesibilidad */
+        .accessibility-toggle {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: var(--procesos-oscuro);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            font-size: 24px;
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .accessibility-menu {
+            position: fixed;
+            bottom: 90px;
+            right: 20px;
+            background-color: white;
+            border-radius: 8px;
+            padding: 15px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            z-index: 1000;
+            display: none;
+            min-width: 250px;
+        }
+        
+        .accessibility-option {
+            margin: 10px 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .accessibility-option label {
+            flex-grow: 1;
+        }
+        
+        .toggle-switch {
+            position: relative;
+            display: inline-block;
+            width: 50px;
+            height: 24px;
+        }
+        
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        
+        .toggle-slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 24px;
+        }
+        
+        .toggle-slider:before {
+            position: absolute;
+            content: "";
+            height: 16px;
+            width: 16px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+        
+        input:checked + .toggle-slider {
+            background-color: var(--procesos-secundario);
+        }
+        
+        input:checked + .toggle-slider:before {
+            transform: translateX(26px);
+        }
+        
+        /* Estilos para modo alto contraste */
+        body.high-contrast {
+            background-color: #000;
+            color: #FFF;
+        }
+        
+        body.high-contrast .container {
+            background-color: #000;
+        }
+        
+        body.high-contrast header,
+        body.high-contrast .tab-button,
+        body.high-contrast .concept-banner,
+        body.high-contrast .submit-button,
+        body.high-contrast .control-button,
+        body.high-contrast .solution-button,
+        body.high-contrast footer {
+            background-color: #000;
+            color: #FFF;
+            border: 2px solid #FFF;
+        }
+        
+        body.high-contrast .tab-content,
+        body.high-contrast .definition-box,
+        body.high-contrast .example-box,
+        body.high-contrast .exercise-box,
+        body.high-contrast .quiz-container,
+        body.high-contrast .graph-container,
+        body.high-contrast .application-box {
+            background-color: #000;
+            color: #FFF;
+            border: 2px solid #FFF;
+        }
+        
+        /* Estilos para texto grande */
+        body.large-text {
+            font-size: 1.2em;
+        }
+        
+        body.large-text h1 {
+            font-size: 2.8em;
+        }
+        
+        body.large-text h2 {
+            font-size: 2.2em;
+        }
+        
+        body.large-text h3 {
+            font-size: 1.8em;
+        }
+        
+        /* Estilos para modo disléxico */
+        body.dyslexic {
+            font-family: 'OpenDyslexic', 'Comic Sans MS', sans-serif;
+            line-height: 1.8;
+        }
+        
+        /* Estilos para indicador de progreso */
+        .progress-container {
+            margin: 20px 0;
+            background-color: var(--gris);
+            border-radius: 10px;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .progress-bar {
+            height: 20px;
+            background: linear-gradient(to right, var(--procesos-claro), var(--procesos-secundario));
+            border-radius: 10px;
+            width: 0%;
+            transition: width 0.5s ease-in-out;
+        }
+        
+        .progress-text {
+            text-align: center;
+            margin-top: 5px;
+            font-weight: bold;
+            color: var(--procesos-oscuro);
+        }
+        
+        /* Estilos para el botón de navegación */
+        .navigation-container {
+            display: flex;
+            justify-content: space-between;
+            margin: 30px 0;
+        }
+        
+        .nav-button {
+            background-color: var(--procesos-medio);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: bold;
+            transition: background-color 0.3s, transform 0.2s;
+            display: flex;
+            align-items: center;
+        }
+        
+        .nav-button:hover {
+            background-color: var(--procesos-oscuro);
+            transform: translateY(-2px);
+        }
+        
+        .nav-button i {
+            margin: 0 10px;
+        }
+        
+        .nav-button.prev i {
+            order: -1;
+        }
+        
+        /* Estilos responsivos */
+        @media (max-width: 768px) {
+            .tab-button {
+                font-size: 0.9rem;
+                padding: 12px 5px;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .value-row {
+                flex-direction: column;
+            }
+            
+            .accessibility-menu {
+                right: 10px;
+                left: 10px;
+                min-width: auto;
+            }
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=OpenDyslexic&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Análisis Matemático: Unidad 1 - Límites y Continuidad</h1>
+            <p class="subtitle">6° Año - Educación Secundaria Técnica - Industrias de Procesos</p>
+            <p class="institucion">Ministerio de Educación de la Provincia de Córdoba - Dirección General de Educación Técnica y Formación Profesional</p>
+        </header>
+        
+        <div class="progress-container">
+            <div class="progress-bar" id="progressBar"></div>
+            <div class="progress-text" id="progressText">Progreso: 0%</div>
+        </div>
+        
+        <div class="tab-container">
+            <button class="tab-button active" onclick="openTab(event, 'conceptos')">
+                <i class="fas fa-book-open"></i> Conceptos Fundamentales
+            </button>
+            <button class="tab-button" onclick="openTab(event, 'limitesLaterales')">
+                <i class="fas fa-arrows-alt-h"></i> Límites Laterales
+            </button>
+            <button class="tab-button" onclick="openTab(event, 'propiedades')">
+                <i class="fas fa-cogs"></i> Propiedades de los Límites
+            </button>
+            <button class="tab-button" onclick="openTab(event, 'limitesInfinitos')">
+                <i class="fas fa-infinity"></i> Límites Infinitos y Asíntotas
+            </button>
+            <button class="tab-button" onclick="openTab(event, 'continuidad')">
+                <i class="fas fa-link"></i> Continuidad de Funciones
+            </button>
+            <button class="tab-button" onclick="openTab(event, 'aplicaciones')">
+                <i class="fas fa-industry"></i> Aplicaciones en Industrias
+            </button>
+        </div>
+        
+        <div class="navigation-container">
+            <button class="nav-button prev" onclick="navigateTab(-1)">
+                <i class="fas fa-chevron-left"></i> Anterior
+            </button>
+            <button class="nav-button next" onclick="navigateTab(1)">
+                Siguiente <i class="fas fa-chevron-right"></i>
+            </button>
+        </div>
+        
+        <!-- CONCEPTOS FUNDAMENTALES -->
+        <div id="conceptos" class="tab-content active">
+            <div class="concept-banner">
+                <span class="process-icon">📐</span> Conceptos Fundamentales de Límites
+            </div>
+            
+            <div class="definition-box">
+                <h3>¿Qué es un límite?</h3>
+                <p>El límite de una función \( f(x) \) cuando \( x \) se acerca a un valor \( a \), denotado como \( \lim_{x \to a} f(x) = L \), es el valor \( L \) al que se aproximan los valores de \( f(x) \) cuando \( x \) se acerca arbitrariamente a \( a \), sin necesariamente alcanzarlo.</p>
+                <div class="formula-box">
+                    \( \lim_{x \to a} f(x) = L \)
+                </div>
+                <p>Esta expresión significa que cuando \( x \) se acerca a \( a \), \( f(x) \) se acerca a \( L \).</p>
+            </div>
+            
+            <div class="definition-box">
+                <h3>Interpretación intuitiva</h3>
+                <p>Imagina que te acercas a un punto en una curva, pero sin llegar exactamente a él. El límite es el valor al que se acerca la función a medida que te acercas a ese punto. Es importante destacar que el límite no depende del valor de la función en el punto, sino de los valores que toma cerca de él.</p>
+            </div>
+            
+            <div class="graph-container">
+                <h3>Visualización Interactiva: Concepto de Límite</h3>
+                <canvas id="limitConceptCanvas" width="700" height="450"></canvas>
+                <div class="controls">
+                    <div class="slider-container">
+                        <label for="approachSlider">Aproximación a x =</label>
+                        <input type="range" id="approachSlider" min="-3" max="3" step="0.1" value="1">
+                        <span id="approachValue">1</span>
+                    </div>
+                    <div class="slider-container">
+                        <label for="deltaSlider">Precisión (δ):</label>
+                        <input type="range" id="deltaSlider" min="0.1" max="1" step="0.05" value="0.5">
+                        <span id="deltaValue">0.5</span>
+                    </div>
+                    <button class="control-button" onclick="toggleLimitPoints()">
+                        <i class="fas fa-eye"></i> Mostrar/Ocultar Puntos
+                    </button>
+                    <button class="control-button" onclick="resetLimitGraph()">
+                        <i class="fas fa-redo"></i> Reiniciar Gráfico
+                    </button>
+                </div>
+                <div class="value-display">
+                    <div class="value-row">
+                        <div class="value-item">
+                            <div class="value-label">Límite cuando x → 1:</div>
+                            <div class="value-number">2</div>
+                        </div>
+                        <div class="value-item">
+                            <div class="value-label">f(1):</div>
+                            <div class="value-number">No definida</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="example-box">
+                <div class="example-title">Ejemplo: Temperatura en un reactor químico</div>
+                <p>En un reactor químico, la temperatura varía con el tiempo según la función \( T(t) = \frac{t^2 - 1}{t - 1} \) para \( t \neq 1 \). Queremos determinar la temperatura límite cuando el tiempo se aproxima a 1 hora.</p>
+                <div class="variable-explanation">
+                    <strong>Explicación de variables:</strong> En este modelo, <strong>t</strong> representa el tiempo transcurrido desde el inicio del proceso (en horas), y <strong>T(t)</strong> representa la temperatura del reactor en ese instante (en °C). La función no está definida en t=1 debido a una división por cero, lo que podría representar un momento crítico en el proceso.
+                </div>
+                <button class="solution-button" onclick="toggleSolution('sol1')">
+                    <i class="fas fa-lightbulb"></i> Ver solución
+                </button>
+                <div id="sol1" class="solution">
+                    <p>Observamos que la función \( T(t) = \frac{t^2 - 1}{t - 1} \) no está definida en t=1, pero podemos simplificarla para t ≠ 1:</p>
+                    <div class="formula-box">
+                        \( T(t) = \frac{t^2 - 1}{t - 1} = \frac{(t - 1)(t + 1)}{t - 1} = t + 1 \) para \( t \neq 1 \)
+                    </div>
+                    <p>Por lo tanto, el límite cuando t se aproxima a 1 es:</p>
+                    <div class="formula-box">
+                        \( \lim_{t \to 1} T(t) = \lim_{t \to 1} (t + 1) = 1 + 1 = 2 \) °C
+                    </div>
+                    <p>Esto significa que cuando el tiempo se aproxima a 1 hora, la temperatura del reactor se aproxima a 2°C, aunque en t=1 la función no esté definida (posiblemente debido a una lectura inválida del sensor en ese instante).</p>
+                </div>
+            </div>
+            
+            <div class="exercise-box">
+                <h3>Ejercicio Propuesto</h3>
+                <p>En un proceso de destilación, la concentración de un componente sigue la función \( C(t) = \frac{t^2 - 4}{t - 2} \) para \( t \neq 2 \), donde C es la concentración en g/L y t es el tiempo en horas. Calcula el límite de la concentración cuando t se aproxima a 2 horas.</p>
+                <div class="variable-explanation">
+                    <strong>Explicación de variables:</strong> En este modelo, <strong>t</strong> representa el tiempo transcurrido desde el inicio de la destilación (en horas), y <strong>C(t)</strong> representa la concentración del componente en ese instante (en g/L). La función no está definida en t=2, lo que podría corresponder a un cambio en las condiciones de operación.
+                </div>
+                <button class="solution-button" onclick="toggleSolution('ex1')">
+                    <i class="fas fa-pencil-alt"></i> Ver respuesta
+                </button>
+                <div id="ex1" class="solution">
+                    <p>Primero, simplificamos la función para t ≠ 2:</p>
+                    <div class="formula-box">
+                        \( C(t) = \frac{t^2 - 4}{t - 2} = \frac{(t - 2)(t + 2)}{t - 2} = t + 2 \) para \( t \neq 2 \)
+                    </div>
+                    <p>Por lo tanto, el límite cuando t se aproxima a 2 es:</p>
+                    <div class="formula-box">
+                        \( \lim_{t \to 2} C(t) = \lim_{t \to 2} (t + 2) = 2 + 2 = 4 \) g/L
+                    </div>
+                    <p>Esto significa que cuando el tiempo se aproxima a 2 horas, la concentración del componente se aproxima a 4 g/L, aunque en t=2 la función no esté definida.</p>
+                </div>
+            </div>
+            
+            <div class="application-box">
+                <div class="application-title">Aplicación en industrias de procesos</div>
+                <p>En los procesos industriales, los límites son fundamentales para predecir el comportamiento de sistemas en condiciones críticas o de transición. Por ejemplo, en el control de reactores químicos, los límites permiten determinar la estabilidad del sistema cuando se aproxima a puntos críticos de operación, como cambios de fase o reacciones inestables.</p>
+            </div>
+            
+            <div class="quiz-container">
+                <h3><i class="fas fa-question-circle"></i> Autoevaluación - Conceptos Fundamentales</h3>
+                <div class="question">1. ¿Qué representa el límite de una función cuando x se acerca a un valor a?</div>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" name="q1" value="a" id="q1a">
+                        <label for="q1a">El valor exacto de la función en x = a</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q1" value="b" id="q1b">
+                        <label for="q1b">El valor al que se aproxima la función cuando x se acerca a a</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q1" value="c" id="q1c">
+                        <label for="q1c">El valor máximo que alcanza la función cerca de x = a</label>
+                    </div>
+                </div>
+                <div id="feedback1" class="feedback"></div>
+                
+                <div class="question">2. Si una función no está definida en un punto, ¿puede tener límite en ese punto?</div>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" name="q2" value="a" id="q2a">
+                        <label for="q2a">No, si la función no está definida en un punto, no puede tener límite allí</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q2" value="b" id="q2b">
+                        <label for="q2b">Sí, el límite depende del comportamiento cerca del punto, no del valor en el punto</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q2" value="c" id="q2c">
+                        <label for="q2c">Solo si la función está definida en puntos cercanos</label>
+                    </div>
+                </div>
+                <div id="feedback2" class="feedback"></div>
+                
+                <button class="submit-button" onclick="checkQuiz('quiz1')">
+                    <i class="fas fa-check"></i> Verificar respuestas
+                </button>
+            </div>
+        </div>
+        
+        <!-- LÍMITES LATERALES -->
+        <div id="limitesLaterales" class="tab-content">
+            <div class="concept-banner">
+                <span class="process-icon">⬅️➡️</span> Límites Laterales
+            </div>
+            
+            <div class="definition-box">
+                <h3>Límite por la izquierda</h3>
+                <p>El límite por la izquierda de una función \( f(x) \) cuando \( x \) se acerca a un valor \( a \), denotado como \( \lim_{x \to a^-} f(x) = L \), es el valor \( L \) al que se aproximan los valores de \( f(x) \) cuando \( x \) se acerca a \( a \) por valores menores que \( a \).</p>
+                <div class="formula-box">
+                    \( \lim_{x \to a^-} f(x) = L \)
+                </div>
+            </div>
+            
+            <div class="definition-box">
+                <h3>Límite por la derecha</h3>
+                <p>El límite por la derecha de una función \( f(x) \) cuando \( x \) se acerca a un valor \( a \), denotado como \( \lim_{x \to a^+} f(x) = M \), es el valor \( M \) al que se aproximan los valores de \( f(x) \) cuando \( x \) se acerca a \( a \) por valores mayores que \( a \).</p>
+                <div class="formula-box">
+                    \( \lim_{x \to a^+} f(x) = M \)
+                </div>
+            </div>
+            
+            <div class="definition-box">
+                <h3>Existencia del límite</h3>
+                <p>Para que exista el límite de una función en un punto, los límites laterales deben existir y ser iguales:</p>
+                <div class="formula-box">
+                    \( \lim_{x \to a} f(x) = L \text{ si y solo si } \lim_{x \to a^-} f(x) = \lim_{x \to a^+} f(x) = L \)
+                </div>
+            </div>
+            
+            <div class="graph-container">
+                <h3>Visualización Interactiva: Límites Laterales</h3>
+                <canvas id="lateralLimitsCanvas" width="700" height="450"></canvas>
+                <div class="controls">
+                    <div class="slider-container">
+                        <label for="pointSlider">Punto de análisis x =</label>
+                        <input type="range" id="pointSlider" min="-3" max="3" step="0.1" value="0">
+                        <span id="pointValue">0</span>
+                    </div>
+                    <div class="slider-container">
+                        <label for="functionType">Tipo de función:</label>
+                        <select id="functionType">
+                            <option value="jump">Salto</option>
+                            <option value="infinite">Infinito</option>
+                            <option value="continuous">Continua</option>
+                        </select>
+                    </div>
+                    <button class="control-button" onclick="toggleLateralApproach()">
+                        <i class="fas fa-arrows-alt-h"></i> Mostrar/Ocultar Aproximación
+                    </button>
+                    <button class="control-button" onclick="resetLateralGraph()">
+                        <i class="fas fa-redo"></i> Reiniciar Gráfico
+                    </button>
+                </div>
+                <div class="value-display">
+                    <div class="value-row">
+                        <div class="value-item">
+                            <div class="value-label">Límite por la izquierda:</div>
+                            <div class="value-number" id="leftLimit">-1</div>
+                        </div>
+                        <div class="value-item">
+                            <div class="value-label">Límite por la derecha:</div>
+                            <div class="value-number" id="rightLimit">1</div>
+                        </div>
+                        <div class="value-item">
+                            <div class="value-label">¿Existe el límite?</div>
+                            <div class="value-number" id="limitExists">No</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="example-box">
+                <div class="example-title">Ejemplo: Control de presión en una válvula</div>
+                <p>En un sistema de control de presión, la presión en una válvula está modelada por la función:</p>
+                <div class="formula-box">
+                    P(t) = 
+                    \begin{cases} 
+                    2t + 1 & \text{si } t < 3 \\
+                    5 & \text{si } t = 3 \\
+                    t + 3 & \text{si } t > 3 
+                    \end{cases}
+                </div>
+                <p>Donde P es la presión en bar y t es el tiempo en segundos. Queremos analizar el comportamiento de la presión cuando t se aproxima a 3 segundos.</p>
+                <div class="variable-explanation">
+                    <strong>Explicación de variables:</strong> En este modelo, <strong>t</strong> representa el tiempo transcurrido desde el inicio del proceso (en segundos), y <strong>P(t)</strong> representa la presión en la válvula en ese instante (en bar). La función está definida por partes, lo que podría representar diferentes comportamientos antes y después de un evento específico en t=3 segundos.
+                </div>
+                <button class="solution-button" onclick="toggleSolution('sol2')">
+                    <i class="fas fa-lightbulb"></i> Ver solución
+                </button>
+                <div id="sol2" class="solution">
+                    <p>Calculamos los límites laterales cuando t se aproxima a 3:</p>
+                    <p><strong>Límite por la izquierda (t → 3⁻):</strong></p>
+                    <div class="formula-box">
+                        \( \lim_{t \to 3^-} P(t) = \lim_{t \to 3^-} (2t + 1) = 2 \cdot 3 + 1 = 7 \) bar
+                    </div>
+                    <p><strong>Límite por la derecha (t → 3⁺):</strong></p>
+                    <div class="formula-box">
+                        \( \lim_{t \to 3^+} P(t) = \lim_{t \to 3^+} (t + 3) = 3 + 3 = 6 \) bar
+                    </div>
+                    <p><strong>Análisis:</strong></p>
+                    <p>Como los límites laterales son diferentes (7 bar por la izquierda y 6 bar por la derecha), el límite cuando t se aproxima a 3 no existe. Esto indica un cambio abrupto en la presión en t=3 segundos, lo que podría corresponder a la apertura o cierre de una válvula auxiliar en el sistema.</p>
+                </div>
+            </div>
+            
+            <div class="exercise-box">
+                <h3>Ejercicio Propuesto</h3>
+                <p>En un proceso de calentamiento, la temperatura de un fluido está modelada por la función:</p>
+                <div class="formula-box">
+                    T(t) = 
+                    \begin{cases} 
+                    t^2 & \text{si } t < 2 \\
+                    5 & \text{si } t = 2 \\
+                    2t + 1 & \text{si } t > 2 
+                    \end{cases}
+                </div>
+                <p>Donde T es la temperatura en °C y t es el tiempo en minutos. Calcula los límites laterales cuando t se aproxima a 2 y determina si existe el límite en ese punto.</p>
+                <div class="variable-explanation">
+                    <strong>Explicación de variables:</strong> En este modelo, <strong>t</strong> representa el tiempo transcurrido desde el inicio del calentamiento (en minutos), y <strong>T(t)</strong> representa la temperatura del fluido en ese instante (en °C). La función está definida por partes, lo que podría representar diferentes fases del proceso de calentamiento.
+                </div>
+                <button class="solution-button" onclick="toggleSolution('ex2')">
+                    <i class="fas fa-pencil-alt"></i> Ver respuesta
+                </button>
+                <div id="ex2" class="solution">
+                    <p>Calculamos los límites laterales cuando t se aproxima a 2:</p>
+                    <p><strong>Límite por la izquierda (t → 2⁻):</strong></p>
+                    <div class="formula-box">
+                        \( \lim_{t \to 2^-} T(t) = \lim_{t \to 2^-} t^2 = 2^2 = 4 \) °C
+                    </div>
+                    <p><strong>Límite por la derecha (t → 2⁺):</strong></p>
+                    <div class="formula-box">
+                        \( \lim_{t \to 2^+} T(t) = \lim_{t \to 2^+} (2t + 1) = 2 \cdot 2 + 1 = 5 \) °C
+                    </div>
+                    <p><strong>Análisis:</strong></p>
+                    <p>Como los límites laterales son diferentes (4°C por la izquierda y 5°C por la derecha), el límite cuando t se aproxima a 2 no existe. Esto indica un cambio repentino en la tasa de calentamiento en t=2 minutos, posiblemente debido a un cambio en la potencia de calentamiento o a una reacción química que comienza a ese tiempo.</p>
+                </div>
+            </div>
+            
+            <div class="application-box">
+                <div class="application-title">Aplicación en industrias de procesos</div>
+                <p>En los sistemas de control industrial, los límites laterales son fundamentales para analizar el comportamiento de sistemas en puntos de transición. Por ejemplo, en el arranque y parada de equipos, o durante cambios en las condiciones de operación, los límites laterales permiten determinar si el sistema se comporta de manera predecible y segura cerca de puntos críticos.</p>
+            </div>
+            
+            <div class="quiz-container">
+                <h3><i class="fas fa-question-circle"></i> Autoevaluación - Límites Laterales</h3>
+                <div class="question">1. ¿Cuándo existe el límite de una función en un punto?</div>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" name="q3" value="a" id="q3a">
+                        <label for="q3a">Cuando la función está definida en ese punto</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q3" value="b" id="q3b">
+                        <label for="q3b">Cuando los límites laterales existen y son iguales</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q3" value="c" id="q3c">
+                        <label for="q3c">Cuando al menos uno de los límites laterales existe</label>
+                    </div>
+                </div>
+                <div id="feedback3" class="feedback"></div>
+                
+                <div class="question">2. Si los límites laterales de una función en un punto son diferentes, ¿qué podemos afirmar sobre el límite en ese punto?</div>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" name="q4" value="a" id="q4a">
+                        <label for="q4a">El límite es el promedio de los límites laterales</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q4" value="b" id="q4b">
+                        <label for="q4b">El límite no existe</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q4" value="c" id="q4c">
+                        <label for="q4c">El límite existe pero es infinito</label>
+                    </div>
+                </div>
+                <div id="feedback4" class="feedback"></div>
+                
+                <button class="submit-button" onclick="checkQuiz('quiz2')">
+                    <i class="fas fa-check"></i> Verificar respuestas
+                </button>
+            </div>
+        </div>
+        
+        <!-- PROPIEDADES DE LOS LÍMITES -->
+        <div id="propiedades" class="tab-content">
+            <div class="concept-banner">
+                <span class="process-icon">🔧</span> Propiedades de los Límites
+            </div>
+            
+            <div class="definition-box">
+                <h3>Propiedades básicas de los límites</h3>
+                <p>Si \( \lim_{x \to a} f(x) = L \) y \( \lim_{x \to a} g(x) = M \), entonces se cumplen las siguientes propiedades:</p>
+                <ol>
+                    <li><strong>Suma:</strong> \( \lim_{x \to a} [f(x) + g(x)] = L + M \)</li>
+                    <li><strong>Diferencia:</strong> \( \lim_{x \to a} [f(x) - g(x)] = L - M \)</li>
+                    <li><strong>Producto:</strong> \( \lim_{x \to a} [f(x) \cdot g(x)] = L \cdot M \)</li>
+                    <li><strong>Cociente:</strong> \( \lim_{x \to a} \frac{f(x)}{g(x)} = \frac{L}{M} \), si \( M \neq 0 \)</li>
+                    <li><strong>Potencia:</strong> \( \lim_{x \to a} [f(x)]^n = L^n \), para cualquier número real n</li>
+                    <li><strong>Raíz:</strong> \( \lim_{x \to a} \sqrt[n]{f(x)} = \sqrt[n]{L} \), si L > 0 cuando n es par</li>
+                </ol>
+            </div>
+            
+            <div class="definition-box">
+                <h3>Límite de una función constante</h3>
+                <p>El límite de una función constante es la propia constante:</p>
+                <div class="formula-box">
+                    \( \lim_{x \to a} c = c \)
+                </div>
+            </div>
+            
+            <div class="definition-box">
+                <h3>Límite de la función identidad</h3>
+                <p>El límite de la función identidad es el valor al que se aproxima x:</p>
+                <div class="formula-box">
+                    \( \lim_{x \to a} x = a \)
+                </div>
+            </div>
+            
+            <div class="example-box">
+                <div class="example-title">Ejemplo: Combinación de procesos químicos</div>
+                <p>En un reactor químico, la concentración de dos reactivos A y B sigue las funciones:</p>
+                <div class="formula-box">
+                    \( C_A(t) = 2t + 1 \)
+                    \( C_B(t) = t^2 - 3 \)
+                </div>
+                <p>Donde \( C_A \) y \( C_B \) son las concentraciones en mol/L y t es el tiempo en horas. Queremos encontrar el límite de la concentración total \( C_T(t) = C_A(t) + C_B(t) \) cuando t se aproxima a 2 horas.</p>
+                <div class="variable-explanation">
+                    <strong>Explicación de variables:</strong> En este modelo, <strong>t</strong> representa el tiempo transcurrido desde el inicio de la reacción (en horas), <strong>C_A(t)</strong> y <strong>C_B(t)</strong> representan las concentraciones de los reactivos A y B en ese instante (en mol/L), y <strong>C_T(t)</strong> representa la concentración total de reactivos (en mol/L).
+                </div>
+                <button class="solution-button" onclick="toggleSolution('sol3')">
+                    <i class="fas fa-lightbulb"></i> Ver solución
+                </button>
+                <div id="sol3" class="solution">
+                    <p>Primero, expresamos la concentración total:</p>
+                    <div class="formula-box">
+                        \( C_T(t) = C_A(t) + C_B(t) = (2t + 1) + (t^2 - 3) = t^2 + 2t - 2 \)
+                    </div>
+                    <p>Calculamos los límites individuales cuando t se aproxima a 2:</p>
+                    <div class="formula-box">
+                        \( \lim_{t \to 2} C_A(t) = \lim_{t \to 2} (2t + 1) = 2 \cdot 2 + 1 = 5 \) mol/L
+                    </div>
+                    <div class="formula-box">
+                        \( \lim_{t \to 2} C_B(t) = \lim_{t \to 2} (t^2 - 3) = 2^2 - 3 = 1 \) mol/L
+                    </div>
+                    <p>Aplicando la propiedad de suma de límites:</p>
+                    <div class="formula-box">
+                        \( \lim_{t \to 2} C_T(t) = \lim_{t \to 2} [C_A(t) + C_B(t)] = \lim_{t \to 2} C_A(t) + \lim_{t \to 2} C_B(t) = 5 + 1 = 6 \) mol/L
+                    </div>
+                    <p>Alternativamente, podemos calcular directamente:</p>
+                    <div class="formula-box">
+                        \( \lim_{t \to 2} C_T(t) = \lim_{t \to 2} (t^2 + 2t - 2) = 2^2 + 2 \cdot 2 - 2 = 4 + 4 - 2 = 6 \) mol/L
+                    </div>
+                    <p>Ambos métodos nos dan el mismo resultado, lo que verifica la propiedad de suma de límites.</p>
+                </div>
+            </div>
+            
+            <div class="exercise-box">
+                <h3>Ejercicio Propuesto</h3>
+                <p>En un proceso de fermentación, la tasa de producción de dos productos sigue las funciones:</p>
+                <div class="formula-box">
+                    \( P_1(t) = 3t - 1 \)
+                    \( P_2(t) = \frac{1}{t} \)
+                </div>
+                <p>Donde \( P_1 \) y \( P_2 \) son las tasas de producción en g/h y t es el tiempo en horas. Encuentra el límite del producto de las tasas de producción \( P_P(t) = P_1(t) \cdot P_2(t) \) cuando t se aproxima a 1 hora.</p>
+                <div class="variable-explanation">
+                    <strong>Explicación de variables:</strong> En este modelo, <strong>t</strong> representa el tiempo transcurrido desde el inicio de la fermentación (en horas), <strong>P_1(t)</strong> y <strong>P_2(t)</strong> representan las tasas de producción de los productos 1 y 2 en ese instante (en g/h), y <strong>P_P(t)</strong> representa el producto de las tasas de producción (en g²/h²).
+                </div>
+                <button class="solution-button" onclick="toggleSolution('ex3')">
+                    <i class="fas fa-pencil-alt"></i> Ver respuesta
+                </button>
+                <div id="ex3" class="solution">
+                    <p>Primero, expresamos el producto de las tasas:</p>
+                    <div class="formula-box">
+                        \( P_P(t) = P_1(t) \cdot P_2(t) = (3t - 1) \cdot \frac{1}{t} = \frac{3t - 1}{t} = 3 - \frac{1}{t} \)
+                    </div>
+                    <p>Calculamos los límites individuales cuando t se aproxima a 1:</p>
+                    <div class="formula-box">
+                        \( \lim_{t \to 1} P_1(t) = \lim_{t \to 1} (3t - 1) = 3 \cdot 1 - 1 = 2 \) g/h
+                    </div>
+                    <div class="formula-box">
+                        \( \lim_{t \to 1} P_2(t) = \lim_{t \to 1} \frac{1}{t} = \frac{1}{1} = 1 \) g/h
+                    </div>
+                    <p>Aplicando la propiedad de producto de límites:</p>
+                    <div class="formula-box">
+                        \( \lim_{t \to 1} P_P(t) = \lim_{t \to 1} [P_1(t) \cdot P_2(t)] = \lim_{t \to 1} P_1(t) \cdot \lim_{t \to 1} P_2(t) = 2 \cdot 1 = 2 \) g²/h²
+                    </div>
+                    <p>Alternativamente, podemos calcular directamente:</p>
+                    <div class="formula-box">
+                        \( \lim_{t \to 1} P_P(t) = \lim_{t \to 1} \left(3 - \frac{1}{t}\right) = 3 - \frac{1}{1} = 2 \) g²/h²
+                    </div>
+                    <p>Ambos métodos nos dan el mismo resultado, lo que verifica la propiedad de producto de límites.</p>
+                </div>
+            </div>
+            
+            <div class="application-box">
+                <div class="application-title">Aplicación en industrias de procesos</div>
+                <p>En el análisis de sistemas complejos, las propiedades de los límites permiten descomponer problemas complicados en partes más simples. Por ejemplo, en el modelado de reactores químicos múltiples o en cascada, podemos analizar cada reactor individualmente y luego combinar los resultados usando las propiedades de los límites para obtener el comportamiento del sistema completo.</p>
+            </div>
+            
+            <div class="quiz-container">
+                <h3><i class="fas fa-question-circle"></i> Autoevaluación - Propiedades de los Límites</h3>
+                <div class="question">1. Si \( \lim_{x \to a} f(x) = 3 \) y \( \lim_{x \to a} g(x) = 4 \), ¿cuál es el valor de \( \lim_{x \to a} [f(x) \cdot g(x)] \)?</div>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" name="q5" value="a" id="q5a">
+                        <label for="q5a">7</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q5" value="b" id="q5b">
+                        <label for="q5b">12</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q5" value="c" id="q5c">
+                        <label for="q5c">1</label>
+                    </div>
+                </div>
+                <div id="feedback5" class="feedback"></div>
+                
+                <div class="question">2. ¿Cuál es el límite de una función constante \( f(x) = 5 \) cuando x se aproxima a cualquier valor a?</div>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" name="q6" value="a" id="q6a">
+                        <label for="q6a">Depende del valor de a</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q6" value="b" id="q6b">
+                        <label for="q6b">5</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q6" value="c" id="q6c">
+                        <label for="q6c">0</label>
+                    </div>
+                </div>
+                <div id="feedback6" class="feedback"></div>
+                
+                <button class="submit-button" onclick="checkQuiz('quiz3')">
+                    <i class="fas fa-check"></i> Verificar respuestas
+                </button>
+            </div>
+        </div>
+        
+        <!-- LÍMITES INFINITOS Y ASÍNTOTAS -->
+        <div id="limitesInfinitos" class="tab-content">
+            <div class="concept-banner">
+                <span class="process-icon">∞</span> Límites Infinitos y Asíntotas
+            </div>
+            
+            <div class="definition-box">
+                <h3>Límites infinitos</h3>
+                <p>Decimos que el límite de una función \( f(x) \) cuando \( x \) se acerca a un valor \( a \) es infinito si los valores de \( f(x) \) crecen sin bound cuando \( x \) se acerca a \( a \).</p>
+                <div class="formula-box">
+                    \( \lim_{x \to a} f(x) = \infty \text{ si } f(x) \text{ crece sin bound cuando } x \to a \)
+                </div>
+                <div class="formula-box">
+                    \( \lim_{x \to a} f(x) = -\infty \text{ si } f(x) \text{ decrece sin bound cuando } x \to a \)
+                </div>
+            </div>
+            
+            <div class="definition-box">
+                <h3>Límites en el infinito</h3>
+                <p>El límite de una función \( f(x) \) cuando \( x \) tiende a infinito es el valor \( L \) al que se aproximan los valores de \( f(x) \) cuando \( x \) crece sin bound.</p>
+                <div class="formula-box">
+                    \( \lim_{x \to \infty} f(x) = L \text{ si } f(x) \text{ se aproxima a } L \text{ cuando } x \to \infty \)
+                </div>
+                <div class="formula-box">
+                    \( \lim_{x \to -\infty} f(x) = L \text{ si } f(x) \text{ se aproxima a } L \text{ cuando } x \to -\infty \)
+                </div>
+            </div>
+            
+            <div class="definition-box">
+                <h3>Asíntotas</h3>
+                <p>Una asíntota es una recta a la que se aproxima la gráfica de una función pero nunca toca. Hay tres tipos principales:</p>
+                <ul>
+                    <li><strong>Asíntota vertical:</strong> La recta \( x = a \) es una asíntota vertical de \( f(x) \) si \( \lim_{x \to a} f(x) = \pm\infty \).</li>
+                    <li><strong>Asíntota horizontal:</strong> La recta \( y = L \) es una asíntota horizontal de \( f(x) \) si \( \lim_{x \to \pm\infty} f(x) = L \).</li>
+                    <li><strong>Asíntota oblicua:</strong> La recta \( y = mx + b \) es una asíntota oblicua de \( f(x) \) si \( \lim_{x \to \pm\infty} [f(x) - (mx + b)] = 0 \).</li>
+                </ul>
+            </div>
+            
+            <div class="graph-container">
+                <h3>Visualización Interactiva: Límites Infinitos y Asíntotas</h3>
+                <canvas id="infiniteLimitsCanvas" width="700" height="450"></canvas>
+                <div class="controls">
+                    <div class="slider-container">
+                        <label for="asymptoteType">Tipo de asíntota:</label>
+                        <select id="asymptoteType">
+                            <option value="vertical">Vertical</option>
+                            <option value="horizontal">Horizontal</option>
+                            <option value="oblique">Oblicua</option>
+                        </select>
+                    </div>
+                    <div class="slider-container">
+                        <label for="functionParam">Parámetro:</label>
+                        <input type="range" id="functionParam" min="1" max="5" step="0.5" value="2">
+                        <span id="paramValue">2</span>
+                    </div>
+                    <button class="control-button" onclick="toggleAsymptote()">
+                        <i class="fas fa-eye"></i> Mostrar/Ocultar Asíntota
+                    </button>
+                    <button class="control-button" onclick="resetInfiniteGraph()">
+                        <i class="fas fa-redo"></i> Reiniciar Gráfico
+                    </button>
+                </div>
+            </div>
+            
+            <div class="example-box">
+                <div class="example-title">Ejemplo: Comportamiento de un reactor cerca de condiciones críticas</div>
+                <p>En un reactor químico, la presión sigue la función \( P(t) = \frac{1}{(t-5)^2} + 2 \), donde P es la presión en atm y t es el tiempo en horas. Queremos analizar el comportamiento de la presión cuando t se aproxima a 5 horas.</p>
+                <div class="variable-explanation">
+                    <strong>Explicación de variables:</strong> En este modelo, <strong>t</strong> representa el tiempo transcurrido desde el inicio del proceso (en horas), y <strong>P(t)</strong> representa la presión en el reactor en ese instante (en atm). El punto t=5 horas corresponde a una condición crítica de operación donde la presión podría volverse inestable.
+                </div>
+                <button class="solution-button" onclick="toggleSolution('sol4')">
+                    <i class="fas fa-lightbulb"></i> Ver solución
+                </button>
+                <div id="sol4" class="solution">
+                    <p>Analizamos el límite cuando t se aproxima a 5:</p>
+                    <div class="formula-box">
+                        \( \lim_{t \to 5} P(t) = \lim_{t \to 5} \left[\frac{1}{(t-5)^2} + 2\right] \)
+                    </div>
+                    <p>Cuando t se aproxima a 5, el denominador (t-5)² se aproxima a 0, pero siempre es positivo. Por lo tanto, \( \frac{1}{(t-5)^2} \) tiende a +∞:</p>
+                    <div class="formula-box">
+                        \( \lim_{t \to 5} P(t) = \lim_{t \to 5} \frac{1}{(t-5)^2} + \lim_{t \to 5} 2 = +\infty + 2 = +\infty \)
+                    </div>
+                    <p><strong>Interpretación:</strong></p>
+                    <p>El límite es +∞, lo que significa que cuando el tiempo se aproxima a 5 horas, la presión en el reactor aumenta sin bound. Esto indica una condición crítica de operación donde el reactor podría experimentar una falla catastrófica si no se toman medidas preventivas.</p>
+                    <p><strong>Asíntota vertical:</strong></p>
+                    <p>La recta t=5 es una asíntota vertical de la función P(t), ya que el límite cuando t se aproxima a 5 es infinito.</p>
+                </div>
+            </div>
+            
+            <div class="exercise-box">
+                <h3>Ejercicio Propuesto</h3>
+                <p>En un proceso de purificación, la concentración de un contaminante sigue la función \( C(t) = \frac{10}{t} + 3 \), donde C es la concentración en ppm y t es el tiempo en horas. Encuentra el límite de la concentración cuando t tiende a infinito y determina si existe una asíntota horizontal.</p>
+                <div class="variable-explanation">
+                    <strong>Explicación de variables:</strong> En este modelo, <strong>t</strong> representa el tiempo transcurrido desde el inicio del proceso de purificación (en horas), y <strong>C(t)</strong> representa la concentración del contaminante en ese instante (en ppm). El modelo describe cómo la concentración del contaminante disminuye con el tiempo.
+                </div>
+                <button class="solution-button" onclick="toggleSolution('ex4')">
+                    <i class="fas fa-pencil-alt"></i> Ver respuesta
+                </button>
+                <div id="ex4" class="solution">
+                    <p>Calculamos el límite cuando t tiende a infinito:</p>
+                    <div class="formula-box">
+                        \( \lim_{t \to \infty} C(t) = \lim_{t \to \infty} \left[\frac{10}{t} + 3\right] \)
+                    </div>
+                    <p>Cuando t tiende a infinito, \( \frac{10}{t} \) tiende a 0:</p>
+                    <div class="formula-box">
+                        \( \lim_{t \to \infty} C(t) = \lim_{t \to \infty} \frac{10}{t} + \lim_{t \to \infty} 3 = 0 + 3 = 3 \) ppm
+                    </div>
+                    <p><strong>Interpretación:</strong></p>
+                    <p>El límite es 3 ppm, lo que significa que a medida que pasa el tiempo, la concentración del contaminante se aproxima a 3 ppm. Esto representa el nivel residual de contaminante que no puede ser eliminado por el proceso de purificación.</p>
+                    <p><strong>Asíntota horizontal:</strong></p>
+                    <p>La recta C=3 es una asíntota horizontal de la función C(t), ya que el límite cuando t tiende a infinito es 3.</p>
+                </div>
+            </div>
+            
+            <div class="application-box">
+                <div class="application-title">Aplicación en industrias de procesos</div>
+                <p>En el diseño y operación de equipos industriales, los límites infinitos y las asíntotas son fundamentales para identificar condiciones críticas de operación. Por ejemplo, en el análisis de estabilidad de reactores, las asíntotas verticales pueden indicar puntos de falla, mientras que las asíntotas horizontales ayudan a determinar los valores de equilibrio a largo plazo en procesos de purificación o separación.</p>
+            </div>
+            
+            <div class="quiz-container">
+                <h3><i class="fas fa-question-circle"></i> Autoevaluación - Límites Infinitos y Asíntotas</h3>
+                <div class="question">1. ¿Qué significa que el límite de una función cuando x se acerca a a sea infinito?</div>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" name="q7" value="a" id="q7a">
+                        <label for="q7a">Que la función no está definida en x = a</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q7" value="b" id="q7b">
+                        <label for="q7b">Que los valores de la función crecen o decrecen sin bound cuando x se acerca a a</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q7" value="c" id="q7c">
+                        <label for="q7c">Que la función tiene un máximo o mínimo en x = a</label>
+                    </div>
+                </div>
+                <div id="feedback7" class="feedback"></div>
+                
+                <div class="question">2. Si \( \lim_{x \to \infty} f(x) = 5 \), ¿qué tipo de asíntota tiene la función?</div>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" name="q8" value="a" id="q8a">
+                        <label for="q8a">Asíntota vertical en x = 5</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q8" value="b" id="q8b">
+                        <label for="q8b">Asíntota horizontal en y = 5</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q8" value="c" id="q8c">
+                        <label for="q8c">Asíntota oblicua con pendiente 5</label>
+                    </div>
+                </div>
+                <div id="feedback8" class="feedback"></div>
+                
+                <button class="submit-button" onclick="checkQuiz('quiz4')">
+                    <i class="fas fa-check"></i> Verificar respuestas
+                </button>
+            </div>
+        </div>
+        
+        <!-- CONTINUIDAD DE FUNCIONES -->
+        <div id="continuidad" class="tab-content">
+            <div class="concept-banner">
+                <span class="process-icon">🔗</span> Continuidad de Funciones
+            </div>
+            
+            <div class="definition-box">
+                <h3>Continuidad en un punto</h3>
+                <p>Una función \( f(x) \) es continua en un punto \( x = a \) si se cumplen tres condiciones:</p>
+                <ol>
+                    <li>\( f(a) \) está definida (el punto existe en la función)</li>
+                    <li>\( \lim_{x \to a} f(x) \) existe (el límite existe)</li>
+                    <li>\( \lim_{x \to a} f(x) = f(a) \) (el límite coincide con el valor de la función)</li>
+                </ol>
+                <p>Si alguna de estas condiciones no se cumple, la función es discontinua en \( x = a \).</p>
+            </div>
+            
+            <div class="definition-box">
+                <h3>Tipos de discontinuidad</h3>
+                <ul>
+                    <li><strong>Discontinuidad evitable o de punto:</strong> El límite existe pero no coincide con el valor de la función, o la función no está definida en el punto.</li>
+                    <li><strong>Discontinuidad de salto:</strong> Los límites laterales existen pero son diferentes.</li>
+                    <li><strong>Discontinuidad esencial o infinita:</strong> Al menos uno de los límites laterales es infinito o no existe.</li>
+                </ul>
+            </div>
+            
+            <div class="definition-box">
+                <h3>Continuidad en un intervalo</h3>
+                <p>Una función es continua en un intervalo si es continua en todos los puntos de ese intervalo. Si el intervalo incluye sus extremos, la función debe ser continua por la derecha en el extremo izquierdo y por la izquierda en el extremo derecho.</p>
+            </div>
+            
+            <div class="graph-container">
+                <h3>Visualización Interactiva: Continuidad y Discontinuidad</h3>
+                <canvas id="continuityCanvas" width="700" height="450"></canvas>
+                <div class="controls">
+                    <div class="slider-container">
+                        <label for="discontinuityType">Tipo de discontinuidad:</label>
+                        <select id="discontinuityType">
+                            <option value="continuous">Continua</option>
+                            <option value="removable">Evitable</option>
+                            <option value="jump">Salto</option>
+                            <option value="infinite">Infinita</option>
+                        </select>
+                    </div>
+                    <div class="slider-container">
+                        <label for="discontinuityPoint">Punto de análisis x =</label>
+                        <input type="range" id="discontinuityPoint" min="-3" max="3" step="0.1" value="0">
+                        <span id="pointValue">0</span>
+                    </div>
+                    <button class="control-button" onclick="toggleContinuityInfo()">
+                        <i class="fas fa-info-circle"></i> Mostrar/Ocultar Información
+                    </button>
+                    <button class="control-button" onclick="resetContinuityGraph()">
+                        <i class="fas fa-redo"></i> Reiniciar Gráfico
+                    </button>
+                </div>
+                <div class="value-display">
+                    <div class="value-row">
+                        <div class="value-item">
+                            <div class="value-label">f(a) definida:</div>
+                            <div class="value-number" id="fDefined">Sí</div>
+                        </div>
+                        <div class="value-item">
+                            <div class="value-label">Límite existe:</div>
+                            <div class="value-number" id="limitExists">Sí</div>
+                        </div>
+                        <div class="value-item">
+                            <div class="value-label">¿Continua en a?</div>
+                            <div class="value-number" id="isContinuous">Sí</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="example-box">
+                <div class="example-title">Ejemplo: Control de temperatura en un horno industrial</div>
+                <p>En un horno industrial, la temperatura está controlada por un sistema que sigue la función:</p>
+                <div class="formula-box">
+                    T(t) = 
+                    \begin{cases} 
+                    100 + 5t & \text{si } 0 \leq t < 10 \\
+                    150 & \text{si } t = 10 \\
+                    100 + 5t & \text{si } t > 10 
+                    \end{cases}
+                </div>
+                <p>Donde T es la temperatura en °C y t es el tiempo en horas. Queremos analizar la continuidad de la función en t=10 horas.</p>
+                <div class="variable-explanation">
+                    <strong>Explicación de variables:</strong> En este modelo, <strong>t</strong> representa el tiempo transcurrido desde el inicio del proceso (en horas), y <strong>T(t)</strong> representa la temperatura del horno en ese instante (en °C). El punto t=10 horas podría corresponder a un momento específico del proceso donde se realiza una verificación o ajuste.
+                </div>
+                <button class="solution-button" onclick="toggleSolution('sol5')">
+                    <i class="fas fa-lightbulb"></i> Ver solución
+                </button>
+                <div id="sol5" class="solution">
+                    <p>Analizamos las tres condiciones de continuidad en t=10:</p>
+                    <p><strong>1. T(10) está definida:</strong></p>
+                    <div class="formula-box">
+                        T(10) = 150 °C
+                    </div>
+                    <p>La primera condición se cumple.</p>
+                    <p><strong>2. El límite cuando t → 10 existe:</strong></p>
+                    <p>Calculamos los límites laterales:</p>
+                    <div class="formula-box">
+                        \( \lim_{t \to 10^-} T(t) = \lim_{t \to 10^-} (100 + 5t) = 100 + 5 \cdot 10 = 150 \) °C
+                    </div>
+                    <div class="formula-box">
+                        \( \lim_{t \to 10^+} T(t) = \lim_{t \to 10^+} (100 + 5t) = 100 + 5 \cdot 10 = 150 \) °C
+                    </div>
+                    <p>Como los límites laterales son iguales, el límite existe:</p>
+                    <div class="formula-box">
+                        \( \lim_{t \to 10} T(t) = 150 \) °C
+                    </div>
+                    <p>La segunda condición se cumple.</p>
+                    <p><strong>3. El límite coincide con el valor de la función:</strong></p>
+                    <div class="formula-box">
+                        \( \lim_{t \to 10} T(t) = 150 = T(10) \)
+                    </div>
+                    <p>La tercera condición se cumple.</p>
+                    <p><strong>Conclusión:</strong></p>
+                    <p>Como se cumplen las tres condiciones, la función T(t) es continua en t=10. Esto significa que el control de temperatura funciona correctamente en ese punto, sin saltos ni interrupciones bruscas.</p>
+                </div>
+            </div>
+            
+            <div class="exercise-box">
+                <h3>Ejercicio Propuesto</h3>
+                <p>En un sistema de dosificación de productos químicos, el caudal de un reactivo sigue la función:</p>
+                <div class="formula-box">
+                    Q(t) = 
+                    \begin{cases} 
+                    2t & \text{si } 0 \leq t < 5 \\
+                    12 & \text{si } t = 5 \\
+                    3t - 3 & \text{si } t > 5 
+                    \end{cases}
+                </div>
+                <p>Donde Q es el caudal en L/min y t es el tiempo en minutos. Analiza la continuidad de la función en t=5 minutos y clasifica la discontinuidad si existe.</p>
+                <div class="variable-explanation">
+                    <strong>Explicación de variables:</strong> En este modelo, <strong>t</strong> representa el tiempo transcurrido desde el inicio del proceso (en minutos), y <strong>Q(t)</strong> representa el caudal del reactivo en ese instante (en L/min). El punto t=5 minutos podría corresponder a un cambio en el sistema de dosificación.
+                </div>
+                <button class="solution-button" onclick="toggleSolution('ex5')">
+                    <i class="fas fa-pencil-alt"></i> Ver respuesta
+                </button>
+                <div id="ex5" class="solution">
+                    <p>Analizamos las tres condiciones de continuidad en t=5:</p>
+                    <p><strong>1. Q(5) está definida:</strong></p>
+                    <div class="formula-box">
+                        Q(5) = 12 L/min
+                    </div>
+                    <p>La primera condición se cumple.</p>
+                    <p><strong>2. El límite cuando t → 5 existe:</strong></p>
+                    <p>Calculamos los límites laterales:</p>
+                    <div class="formula-box">
+                        \( \lim_{t \to 5^-} Q(t) = \lim_{t \to 5^-} 2t = 2 \cdot 5 = 10 \) L/min
+                    </div>
+                    <div class="formula-box">
+                        \( \lim_{t \to 5^+} Q(t) = \lim_{t \to 5^+} (3t - 3) = 3 \cdot 5 - 3 = 12 \) L/min
+                    </div>
+                    <p>Como los límites laterales son diferentes (10 L/min por la izquierda y 12 L/min por la derecha), el límite cuando t → 5 no existe.</p>
+                    <p>La segunda condición no se cumple.</p>
+                    <p><strong>Conclusión:</strong></p>
+                    <p>Como no se cumple la segunda condición, la función Q(t) es discontinua en t=5. Se trata de una discontinuidad de salto, ya que los límites laterales existen pero son diferentes, con un salto de 2 L/min (de 10 a 12 L/min).</p>
+                    <p><strong>Interpretación industrial:</strong></p>
+                    <p>Esta discontinuidad representa un cambio brusco en el caudal de dosificación en t=5 minutos, posiblemente debido a un cambio en la configuración del sistema o a la activación de una segunda bomba. En un proceso industrial, este tipo de discontinuidad podría ser intencional y controlada, o podría indicar un problema en el sistema de dosificación que requiere atención.</p>
+                </div>
+            </div>
+            
+            <div class="application-box">
+                <div class="application-title">Aplicación en industrias de procesos</div>
+                <p>En los procesos industriales, la continuidad de las funciones que modelan variables como temperatura, presión, caudal o concentración es fundamental para garantizar la estabilidad y seguridad del proceso. Las discontinuidades pueden indicar cambios intencionales en las condiciones de operación, fallos en los equipos o transiciones entre fases del proceso. El análisis de continuidad permite identificar puntos críticos donde pueden ocurrir problemas y diseñar sistemas de control adecuados.</p>
+            </div>
+            
+            <div class="quiz-container">
+                <h3><i class="fas fa-question-circle"></i> Autoevaluación - Continuidad de Funciones</h3>
+                <div class="question">1. ¿Cuáles son las condiciones para que una función sea continua en un punto?</div>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" name="q9" value="a" id="q9a">
+                        <label for="q9a">Que el límite exista y sea finito</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q9" value="b" id="q9b">
+                        <label for="q9b">Que la función esté definida, el límite exista y ambos coincidan</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q9" value="c" id="q9c">
+                        <label for="q9c">Que la función sea derivable en ese punto</label>
+                    </div>
+                </div>
+                <div id="feedback9" class="feedback"></div>
+                
+                <div class="question">2. ¿Qué tipo de discontinuidad ocurre cuando los límites laterales existen pero son diferentes?</div>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" name="q10" value="a" id="q10a">
+                        <label for="q10a">Discontinuidad evitable</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q10" value="b" id="q10b">
+                        <label for="q10b">Discontinuidad de salto</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q10" value="c" id="q10c">
+                        <label for="q10c">Discontinuidad infinita</label>
+                    </div>
+                </div>
+                <div id="feedback10" class="feedback"></div>
+                
+                <button class="submit-button" onclick="checkQuiz('quiz5')">
+                    <i class="fas fa-check"></i> Verificar respuestas
+                </button>
+            </div>
+        </div>
+        
+        <!-- APLICACIONES EN INDUSTRIAS -->
+        <div id="aplicaciones" class="tab-content">
+            <div class="concept-banner">
+                <span class="process-icon">🏭</span> Aplicaciones de Límites y Continuidad en Industrias de Procesos
+            </div>
+            
+            <p>Los conceptos de límites y continuidad son fundamentales en el análisis y diseño de procesos industriales. A continuación, exploramos algunas de sus aplicaciones más importantes en este campo.</p>
+            
+            <div class="definition-box">
+                <h3>Importancia en el modelado de procesos</h3>
+                <p>El modelado matemático de procesos industriales implica la creación de funciones que describen el comportamiento de variables como temperatura, presión, concentración, caudal, etc. El análisis de límites y continuidad de estas funciones permite:</p>
+                <ul>
+                    <li>Predecir el comportamiento del sistema en condiciones críticas</li>
+                    <li>Identificar puntos de operación inestables o peligrosos</li>
+                    <li>Diseñar sistemas de control adecuados</li>
+                    <li>Optimizar el rendimiento del proceso</li>
+                </ul>
+            </div>
+            
+            <div class="example-box">
+                <div class="example-title">Ejemplo: Análisis de estabilidad de un reactor químico</div>
+                <p>En un reactor químico tipo CSTR (Continuous Stirred-Tank Reactor), la concentración de un reactivo A sigue la función:</p>
+                <div class="formula-box">
+                    C_A(t) = \frac{C_{A0}}{1 + k \cdot t}
+                </div>
+                <p>Donde \( C_A \) es la concentración del reactivo A en mol/L, \( C_{A0} \) es la concentración inicial en mol/L, k es la constante de velocidad de reacción en h⁻¹, y t es el tiempo en horas. Queremos analizar el comportamiento a largo plazo del reactor.</p>
+                <div class="variable-explanation">
+                    <strong>Explicación de variables:</strong> En este modelo, <strong>t</strong> representa el tiempo transcurrido desde el inicio de la reacción (en horas), <strong>C_A(t)</strong> representa la concentración del reactivo A en ese instante (en mol/L), <strong>C_A0</strong> representa la concentración inicial del reactivo A (en mol/L), y <strong>k</strong> representa la constante de velocidad de la reacción (en h⁻¹).
+                </div>
+                <button class="solution-button" onclick="toggleSolution('sol6')">
+                    <i class="fas fa-lightbulb"></i> Ver solución
+                </button>
+                <div id="sol6" class="solution">
+                    <p>Para analizar el comportamiento a largo plazo, calculamos el límite cuando t tiende a infinito:</p>
+                    <div class="formula-box">
+                        \( \lim_{t \to \infty} C_A(t) = \lim_{t \to \infty} \frac{C_{A0}}{1 + k \cdot t} \)
+                    </div>
+                    <p>Cuando t tiende a infinito, el denominador (1 + k·t) tiende a infinito, por lo que:</p>
+                    <div class="formula-box">
+                        \( \lim_{t \to \infty} C_A(t) = 0 \) mol/L
+                    </div>
+                    <p><strong>Interpretación:</strong></p>
+                    <p>El límite es 0 mol/L, lo que significa que a medida que pasa el tiempo, la concentración del reactivo A se aproxima a cero. Esto indica que, teóricamente, el reactivo A se consume completamente en el reactor a largo plazo.</p>
+                    <p><strong>Asíntota horizontal:</strong></p>
+                    <p>La recta C_A = 0 es una asíntota horizontal de la función C_A(t), ya que el límite cuando t tiende a infinito es 0.</p>
+                    <p><strong>Implicaciones para el diseño:</strong></p>
+                    <p>Este resultado tiene varias implicaciones para el diseño y operación del reactor:</p>
+                    <ol>
+                        <li>El reactor puede alcanzar conversiones muy altas del reactivo A si se opera durante tiempos suficientemente largos.</li>
+                        <li>Para fines prácticos, se puede determinar un tiempo de operación óptimo donde la concentración residual de A sea aceptable.</li>
+                        <li>El sistema es estable a largo plazo, ya que la concentración tiende a un valor constante (cero).</li>
+                    </ol>
+                </div>
+            </div>
+            
+            <div class="exercise-box">
+                <h3>Ejercicio Propuesto</h3>
+                <p>En un proceso de enfriamiento, la temperatura de un producto sigue la función:</p>
+                <div class="formula-box">
+                    T(t) = T_a + (T_0 - T_a) \cdot e^{-k \cdot t}
+                </div>
+                <p>Donde T es la temperatura en °C, t es el tiempo en minutos, T_a es la temperatura ambiente en °C, T_0 es la temperatura inicial en °C, y k es la constante de enfriamiento en min⁻¹. Si T_a = 25°C, T_0 = 200°C y k = 0.05 min⁻¹, encuentra el límite de la temperatura cuando t tiende a infinito y determina si existe una asíntota horizontal.</p>
+                <div class="variable-explanation">
+                    <strong>Explicación de variables:</strong> En este modelo, <strong>t</strong> representa el tiempo transcurrido desde el inicio del enfriamiento (en minutos), <strong>T(t)</strong> representa la temperatura del producto en ese instante (en °C), <strong>T_a</strong> representa la temperatura ambiente constante (en °C), <strong>T_0</strong> representa la temperatura inicial del producto (en °C), y <strong>k</strong> representa la constante de enfriamiento (en min⁻¹).
+                </div>
+                <button class="solution-button" onclick="toggleSolution('ex6')">
+                    <i class="fas fa-pencil-alt"></i> Ver respuesta
+                </button>
+                <div id="ex6" class="solution">
+                    <p>Sustituimos los valores dados en la función:</p>
+                    <div class="formula-box">
+                        T(t) = 25 + (200 - 25) \cdot e^{-0.05 \cdot t} = 25 + 175 \cdot e^{-0.05t}
+                    </div>
+                    <p>Calculamos el límite cuando t tiende a infinito:</p>
+                    <div class="formula-box">
+                        \( \lim_{t \to \infty} T(t) = \lim_{t \to \infty} [25 + 175 \cdot e^{-0.05t}] \)
+                    </div>
+                    <p>Cuando t tiende a infinito, \( e^{-0.05t} \) tiende a 0:</p>
+                    <div class="formula-box">
+                        \( \lim_{t \to \infty} T(t) = 25 + 175 \cdot 0 = 25 \) °C
+                    </div>
+                    <p><strong>Interpretación:</strong></p>
+                    <p>El límite es 25°C, que coincide con la temperatura ambiente. Esto significa que a medida que pasa el tiempo, la temperatura del producto se aproxima a la temperatura ambiente.</p>
+                    <p><strong>Asíntota horizontal:</strong></p>
+                    <p>La recta T = 25 es una asíntota horizontal de la función T(t), ya que el límite cuando t tiende a infinito es 25.</p>
+                    <p><strong>Implicaciones para el proceso:</strong></p>
+                    <p>Este resultado tiene varias implicaciones para el proceso de enfriamiento:</p>
+                    <ol>
+                        <li>El producto eventualmente alcanzará la temperatura ambiente si se deja enfriar el tiempo suficiente.</li>
+                        <li>Para fines prácticos, se puede determinar un tiempo de enfriamiento óptimo donde la temperatura esté suficientemente cerca de la temperatura ambiente.</li>
+                        <li>La constante de enfriamiento k determina qué tan rápido se aproxima la temperatura a la asíntota. Un valor mayor de k significa un enfriamiento más rápido.</li>
+                    </ol>
+                </div>
+            </div>
+            
+            <div class="application-box">
+                <div class="application-title">Aplicaciones en industrias de procesos</div>
+                <p>Los límites y la continuidad tienen numerosas aplicaciones en las industrias de procesos:</p>
+                <ul>
+                    <li><strong>Análisis de estabilidad:</strong> Permite determinar si un proceso tenderá a un estado estable a largo plazo.</li>
+                    <li><strong>Diseño de equipos:</strong> Ayuda a dimensionar equipos considerando condiciones extremas o de operación crítica.</li>
+                    <li><strong>Control de calidad:</strong> Permite establecer tolerancias y especificaciones basadas en el comportamiento límite de los procesos.</li>
+                    <li><strong>Seguridad industrial:</strong> Identifica condiciones peligrosas donde las variables pueden alcanzar valores críticos.</li>
+                    <li><strong>Optimización de procesos:</strong> Facilita la determinación de puntos óptimos de operación mediante el análisis de máximos y mínimos.</li>
+                </ul>
+            </div>
+            
+            <div class="quiz-container">
+                <h3><i class="fas fa-question-circle"></i> Autoevaluación - Aplicaciones en Industrias</h3>
+                <div class="question">1. ¿Por qué son importantes los límites en el modelado de procesos industriales?</div>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" name="q11" value="a" id="q11a">
+                        <label for="q11a">Permiten calcular el costo exacto de los procesos</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q11" value="b" id="q11b">
+                        <label for="q11b">Ayudan a predecir el comportamiento en condiciones críticas y a largo plazo</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q11" value="c" id="q11c">
+                        <label for="q11c">Sirven para determinar la vida útil de los equipos</label>
+                    </div>
+                </div>
+                <div id="feedback11" class="feedback"></div>
+                
+                <div class="question">2. ¿Qué representa una asíntota horizontal en el contexto de un proceso industrial?</div>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" name="q12" value="a" id="q12a">
+                        <label for="q12a">Un valor máximo que nunca puede ser superado</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q12" value="b" id="q12b">
+                        <label for="q12b">Un valor al que se aproxima el sistema a largo plazo</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q12" value="c" id="q12c">
+                        <label for="q12c">Un punto de falla del sistema</label>
+                    </div>
+                </div>
+                <div id="feedback12" class="feedback"></div>
+                
+                <button class="submit-button" onclick="checkQuiz('quiz6')">
+                    <i class="fas fa-check"></i> Verificar respuestas
+                </button>
+            </div>
+        </div>
+        
+        <footer>
+            <p>Material de estudio para 6° Año - Educación Secundaria Técnica - Especialización en Industrias de Procesos</p>
+            <p>Ministerio de Educación de la Provincia de Córdoba - Dirección General de Educación Técnica y Formación Profesional</p>
+            <p>Desarrollado para el aprendizaje de límites y continuidad y sus aplicaciones en industrias de procesos</p>
+        </footer>
+    </div>
+    
+    <!-- Botón de accesibilidad -->
+    <button class="accessibility-toggle" onclick="toggleAccessibilityMenu()">
+        <i class="fas fa-universal-access"></i>
+    </button>
+    
+    <!-- Menú de accesibilidad -->
+    <div class="accessibility-menu" id="accessibilityMenu">
+        <h3>Opciones de Accesibilidad</h3>
+        <div class="accessibility-option">
+            <label for="highContrast">Alto Contraste:</label>
+            <label class="toggle-switch">
+                <input type="checkbox" id="highContrast" onchange="toggleHighContrast()">
+                <span class="toggle-slider"></span>
+            </label>
+        </div>
+        <div class="accessibility-option">
+            <label for="largeText">Texto Grande:</label>
+            <label class="toggle-switch">
+                <input type="checkbox" id="largeText" onchange="toggleLargeText()">
+                <span class="toggle-slider"></span>
+            </label>
+        </div>
+        <div class="accessibility-option">
+            <label for="dyslexicFont">Fuente para Disléxicos:</label>
+            <label class="toggle-switch">
+                <input type="checkbox" id="dyslexicFont" onchange="toggleDyslexicFont()">
+                <span class="toggle-slider"></span>
+            </label>
+        </div>
+    </div>
+    
+    <script>
+        // Variables globales para el seguimiento del progreso
+        let currentTab = 0;
+        const tabs = ['conceptos', 'limitesLaterales', 'propiedades', 'limitesInfinitos', 'continuidad', 'aplicaciones'];
+        let completedTabs = new Set();
+        
+        // Funciones para el manejo de pestañas
+        function openTab(evt, tabName) {
+            var i, tabcontent, tablinks;
+            
+            tabcontent = document.getElementsByClassName("tab-content");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].classList.remove("active");
+            }
+            
+            tablinks = document.getElementsByClassName("tab-button");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].classList.remove("active");
+            }
+            
+            document.getElementById(tabName).classList.add("active");
+            evt.currentTarget.classList.add("active");
+            
+            // Actualizar el índice de la pestaña actual
+            currentTab = tabs.indexOf(tabName);
+            
+            // Marcar la pestaña como completada
+            completedTabs.add(tabName);
+            updateProgress();
+            
+            // Inicializar gráficos cuando se abre una pestaña
+            if (tabName === 'conceptos') {
+                initLimitConceptGraph();
+            } else if (tabName === 'limitesLaterales') {
+                initLateralLimitsGraph();
+            } else if (tabName === 'limitesInfinitos') {
+                initInfiniteLimitsGraph();
+            } else if (tabName === 'continuidad') {
+                initContinuityGraph();
+            }
+        }
+        
+        // Función para actualizar el progreso
+        function updateProgress() {
+            const progress = (completedTabs.size / tabs.length) * 100;
+            document.getElementById('progressBar').style.width = progress + '%';
+            document.getElementById('progressText').textContent = `Progreso: ${Math.round(progress)}%`;
+        }
+        
+        // Funciones para mostrar/ocultar soluciones
+        function toggleSolution(id) {
+            var solution = document.getElementById(id);
+            if (solution.style.display === "block") {
+                solution.style.display = "none";
+            } else {
+                solution.style.display = "block";
+            }
+        }
+        
+        // Funciones para las evaluaciones
+        function checkQuiz(quizName) {
+            if (quizName === 'quiz1') {
+                checkQuiz1();
+            } else if (quizName === 'quiz2') {
+                checkQuiz2();
+            } else if (quizName === 'quiz3') {
+                checkQuiz3();
+            } else if (quizName === 'quiz4') {
+                checkQuiz4();
+            } else if (quizName === 'quiz5') {
+                checkQuiz5();
+            } else if (quizName === 'quiz6') {
+                checkQuiz6();
+            }
+        }
+        
+        function checkQuiz1() {
+            var q1 = document.querySelector('input[name="q1"]:checked');
+            var q2 = document.querySelector('input[name="q2"]:checked');
+            var feedback1 = document.getElementById('feedback1');
+            var feedback2 = document.getElementById('feedback2');
+            
+            if (q1) {
+                if (q1.value === 'b') {
+                    feedback1.innerHTML = "<i class='fas fa-check-circle'></i> ¡Correcto! El límite representa el valor al que se aproxima la función cuando x se acerca a a, no necesariamente el valor en el punto.";
+                    feedback1.className = "feedback correct";
+                } else {
+                    feedback1.innerHTML = "<i class='fas fa-times-circle'></i> Incorrecto. El límite representa el valor al que se aproxima la función cuando x se acerca a a, no necesariamente el valor en el punto.";
+                    feedback1.className = "feedback incorrect";
+                }
+                feedback1.style.display = "block";
+            }
+            
+            if (q2) {
+                if (q2.value === 'b') {
+                    feedback2.innerHTML = "<i class='fas fa-check-circle'></i> ¡Correcto! El límite depende del comportamiento cerca del punto, no del valor en el punto. Una función puede tener límite incluso si no está definida en el punto.";
+                    feedback2.className = "feedback correct";
+                } else {
+                    feedback2.innerHTML = "<i class='fas fa-times-circle'></i> Incorrecto. El límite depende del comportamiento cerca del punto, no del valor en el punto. Una función puede tener límite incluso si no está definida en el punto.";
+                    feedback2.className = "feedback incorrect";
+                }
+                feedback2.style.display = "block";
+            }
+        }
+        
+        function checkQuiz2() {
+            var q3 = document.querySelector('input[name="q3"]:checked');
+            var q4 = document.querySelector('input[name="q4"]:checked');
+            var feedback3 = document.getElementById('feedback3');
+            var feedback4 = document.getElementById('feedback4');
+            
+            if (q3) {
+                if (q3.value === 'b') {
+                    feedback3.innerHTML = "<i class='fas fa-check-circle'></i> ¡Correcto! Para que exista el límite en un punto, los límites laterales deben existir y ser iguales.";
+                    feedback3.className = "feedback correct";
+                } else {
+                    feedback3.innerHTML = "<i class='fas fa-times-circle'></i> Incorrecto. Para que exista el límite en un punto, los límites laterales deben existir y ser iguales.";
+                    feedback3.className = "feedback incorrect";
+                }
+                feedback3.style.display = "block";
+            }
+            
+            if (q4) {
+                if (q4.value === 'b') {
+                    feedback4.innerHTML = "<i class='fas fa-check-circle'></i> ¡Correcto! Si los límites laterales son diferentes, el límite en ese punto no existe.";
+                    feedback4.className = "feedback correct";
+                } else {
+                    feedback4.innerHTML = "<i class='fas fa-times-circle'></i> Incorrecto. Si los límites laterales son diferentes, el límite en ese punto no existe.";
+                    feedback4.className = "feedback incorrect";
+                }
+                feedback4.style.display = "block";
+            }
+        }
+        
+        function checkQuiz3() {
+            var q5 = document.querySelector('input[name="q5"]:checked');
+            var q6 = document.querySelector('input[name="q6"]:checked');
+            var feedback5 = document.getElementById('feedback5');
+            var feedback6 = document.getElementById('feedback6');
+            
+            if (q5) {
+                if (q5.value === 'b') {
+                    feedback5.innerHTML = "<i class='fas fa-check-circle'></i> ¡Correcto! Según la propiedad de producto de límites, el límite del producto es el producto de los límites: 3 × 4 = 12.";
+                    feedback5.className = "feedback correct";
+                } else {
+                    feedback5.innerHTML = "<i class='fas fa-times-circle'></i> Incorrecto. Según la propiedad de producto de límites, el límite del producto es el producto de los límites: 3 × 4 = 12.";
+                    feedback5.className = "feedback incorrect";
+                }
+                feedback5.style.display = "block";
+            }
+            
+            if (q6) {
+                if (q6.value === 'b') {
+                    feedback6.innerHTML = "<i class='fas fa-check-circle'></i> ¡Correcto! El límite de una función constante es la propia constante, independientemente del valor al que se aproxime x.";
+                    feedback6.className = "feedback correct";
+                } else {
+                    feedback6.innerHTML = "<i class='fas fa-times-circle'></i> Incorrecto. El límite de una función constante es la propia constante, independientemente del valor al que se aproxime x.";
+                    feedback6.className = "feedback incorrect";
+                }
+                feedback6.style.display = "block";
+            }
+        }
+        
+        function checkQuiz4() {
+            var q7 = document.querySelector('input[name="q7"]:checked');
+            var q8 = document.querySelector('input[name="q8"]:checked');
+            var feedback7 = document.getElementById('feedback7');
+            var feedback8 = document.getElementById('feedback8');
+            
+            if (q7) {
+                if (q7.value === 'b') {
+                    feedback7.innerHTML = "<i class='fas fa-check-circle'></i> ¡Correcto! Un límite infinito significa que los valores de la función crecen o decrecen sin bound cuando x se acerca a a.";
+                    feedback7.className = "feedback correct";
+                } else {
+                    feedback7.innerHTML = "<i class='fas fa-times-circle'></i> Incorrecto. Un límite infinito significa que los valores de la función crecen o decrecen sin bound cuando x se acerca a a.";
+                    feedback7.className = "feedback incorrect";
+                }
+                feedback7.style.display = "block";
+            }
+            
+            if (q8) {
+                if (q8.value === 'b') {
+                    feedback8.innerHTML = "<i class='fas fa-check-circle'></i> ¡Correcto! Si el límite cuando x tiende a infinito es 5, entonces la recta y=5 es una asíntota horizontal de la función.";
+                    feedback8.className = "feedback correct";
+                } else {
+                    feedback8.innerHTML = "<i class='fas fa-times-circle'></i> Incorrecto. Si el límite cuando x tiende a infinito es 5, entonces la recta y=5 es una asíntota horizontal de la función.";
+                    feedback8.className = "feedback incorrect";
+                }
+                feedback8.style.display = "block";
+            }
+        }
+        
+        function checkQuiz5() {
+            var q9 = document.querySelector('input[name="q9"]:checked');
+            var q10 = document.querySelector('input[name="q10"]:checked');
+            var feedback9 = document.getElementById('feedback9');
+            var feedback10 = document.getElementById('feedback10');
+            
+            if (q9) {
+                if (q9.value === 'b') {
+                    feedback9.innerHTML = "<i class='fas fa-check-circle'></i> ¡Correcto! Para que una función sea continua en un punto, debe estar definida en el punto, el límite debe existir y ambos deben coincidir.";
+                    feedback9.className = "feedback correct";
+                } else {
+                    feedback9.innerHTML = "<i class='fas fa-times-circle'></i> Incorrecto. Para que una función sea continua en un punto, debe estar definida en el punto, el límite debe existir y ambos deben coincidir.";
+                    feedback9.className = "feedback incorrect";
+                }
+                feedback9.style.display = "block";
+            }
+            
+            if (q10) {
+                if (q10.value === 'b') {
+                    feedback10.innerHTML = "<i class='fas fa-check-circle'></i> ¡Correcto! Cuando los límites laterales existen pero son diferentes, se produce una discontinuidad de salto.";
+                    feedback10.className = "feedback correct";
+                } else {
+                    feedback10.innerHTML = "<i class='fas fa-times-circle'></i> Incorrecto. Cuando los límites laterales existen pero son diferentes, se produce una discontinuidad de salto.";
+                    feedback10.className = "feedback incorrect";
+                }
+                feedback10.style.display = "block";
+            }
+        }
+        
+        function checkQuiz6() {
+            var q11 = document.querySelector('input[name="q11"]:checked');
+            var q12 = document.querySelector('input[name="q12"]:checked');
+            var feedback11 = document.getElementById('feedback11');
+            var feedback12 = document.getElementById('feedback12');
+            
+            if (q11) {
+                if (q11.value === 'b') {
+                    feedback11.innerHTML = "<i class='fas fa-check-circle'></i> ¡Correcto! Los límites son fundamentales para predecir el comportamiento de los sistemas en condiciones críticas y a largo plazo.";
+                    feedback11.className = "feedback correct";
+                } else {
+                    feedback11.innerHTML = "<i class='fas fa-times-circle'></i> Incorrecto. Los límites son fundamentales para predecir el comportamiento de los sistemas en condiciones críticas y a largo plazo.";
+                    feedback11.className = "feedback incorrect";
+                }
+                feedback11.style.display = "block";
+            }
+            
+            if (q12) {
+                if (q12.value === 'b') {
+                    feedback12.innerHTML = "<i class='fas fa-check-circle'></i> ¡Correcto! Una asíntota horizontal representa un valor al que el sistema se aproxima a largo plazo.";
+                    feedback12.className = "feedback correct";
+                } else {
+                    feedback12.innerHTML = "<i class='fas fa-times-circle'></i> Incorrecto. Una asíntota horizontal representa un valor al que el sistema se aproxima a largo plazo.";
+                    feedback12.className = "feedback incorrect";
+                }
+                feedback12.style.display = "block";
+            }
+        }
+        
+        // Funciones para los gráficos interactivos
+        
+        // Gráfico de concepto de límite
+        let showLimitPoints = true;
+        
+        function initLimitConceptGraph() {
+            const canvas = document.getElementById('limitConceptCanvas');
+            if (!canvas) return;
+            
+            const approachSlider = document.getElementById('approachSlider');
+            const deltaSlider = document.getElementById('deltaSlider');
+            
+            drawLimitConceptGraph();
+            
+            approachSlider.addEventListener('input', drawLimitConceptGraph);
+            deltaSlider.addEventListener('input', drawLimitConceptGraph);
+            
+            // Actualizar valores mostrados
+            document.getElementById('approachValue').textContent = approachSlider.value;
+            document.getElementById('deltaValue').textContent = deltaSlider.value;
+        }
+        
+        function drawLimitConceptGraph() {
+            const canvas = document.getElementById('limitConceptCanvas');
+            const ctx = canvas.getContext('2d');
+            const approachSlider = document.getElementById('approachSlider');
+            const deltaSlider = document.getElementById('deltaSlider');
+            
+            const width = canvas.width;
+            const height = canvas.height;
+            const a = parseFloat(approachSlider.value);
+            const delta = parseFloat(deltaSlider.value);
+            
+            // Actualizar valores mostrados
+            document.getElementById('approachValue').textContent = a;
+            document.getElementById('deltaValue').textContent = delta;
+            
+            // Limpiar canvas
+            ctx.clearRect(0, 0, width, height);
+            
+            // Configurar sistema de coordenadas
+            const scale = 50;
+            const originX = width / 2;
+            const originY = height / 2;
+            
+            // Dibujar ejes
+            ctx.strokeStyle = '#000';
+            ctx.lineWidth = 1;
+            ctx.beginPath();
+            ctx.moveTo(0, originY);
+            ctx.lineTo(width, originY);
+            ctx.moveTo(originX, 0);
+            ctx.lineTo(originX, height);
+            ctx.stroke();
+            
+            // Dibujar función f(x) = (x^2 - 1)/(x - 1) para x ≠ 1
+            ctx.strokeStyle = '#1976D2';
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            
+            for (let x = -width / (2 * scale); x <= width / (2 * scale); x += 0.05) {
+                let y;
+                
+                if (Math.abs(x - 1) > 0.01) {  // Evitar la división por cero cerca de x=1
+                    y = (x * x - 1) / (x - 1);
+                } else {
+                    y = 2;  // Valor aproximado cuando x está cerca de 1
+                }
+                
+                const screenX = originX + x * scale;
+                const screenY = originY - y * scale;
+                
+                if (x === -width / (2 * scale)) {
+                    ctx.moveTo(screenX, screenY);
+                } else {
+                    ctx.lineTo(screenX, screenY);
+                }
+            }
+            ctx.stroke();
+            
+            // Marcar el punto x = a
+            const screenXa = originX + a * scale;
+            
+            // Dibujar línea vertical punteada en x = a
+            ctx.strokeStyle = '#999';
+            ctx.lineWidth = 1;
+            ctx.setLineDash([5, 3]);
+            ctx.beginPath();
+            ctx.moveTo(screenXa, 0);
+            ctx.lineTo(screenXa, height);
+            ctx.stroke();
+            ctx.setLineDash([]);
+            
+            // Dibujar puntos de aproximación si está activado
+            if (showLimitPoints) {
+                // Punto a la izquierda de a
+                const x1 = a - delta;
+                const y1 = (x1 * x1 - 1) / (x1 - 1);
+                const screenX1 = originX + x1 * scale;
+                const screenY1 = originY - y1 * scale;
+                
+                // Punto a la derecha de a
+                const x2 = a + delta;
+                const y2 = (x2 * x2 - 1) / (x2 - 1);
+                const screenX2 = originX + x2 * scale;
+                const screenY2 = originY - y2 * scale;
+                
+                // Dibujar puntos
+                ctx.fillStyle = '#E63946';
+                ctx.beginPath();
+                ctx.arc(screenX1, screenY1, 5, 0, 2 * Math.PI);
+                ctx.fill();
+                
+                ctx.fillStyle = '#E63946';
+                ctx.beginPath();
+                ctx.arc(screenX2, screenY2, 5, 0, 2 * Math.PI);
+                ctx.fill();
+                
+                // Dibujar línea entre los puntos
+                ctx.strokeStyle = '#E63946';
+                ctx.lineWidth = 1;
+                ctx.setLineDash([5, 3]);
+                ctx.beginPath();
+                ctx.moveTo(screenX1, screenY1);
+                ctx.lineTo(screenX2, screenY2);
+                ctx.stroke();
+                ctx.setLineDash([]);
+                
+                // Etiquetas de los puntos
+                ctx.fillStyle = '#000';
+                ctx.font = '12px Arial';
+                ctx.fillText(`(${x1.toFixed(1)}, ${y1.toFixed(1)})`, screenX1 - 30, screenY1 - 10);
+                ctx.fillText(`(${x2.toFixed(1)}, ${y2.toFixed(1)})`, screenX2 + 10, screenY2 - 10);
+            }
+            
+            // Etiqueta del punto a
+            ctx.fillStyle = '#000';
+            ctx.font = '14px Arial';
+            ctx.fillText(`x = ${a}`, screenXa + 5, originY - 10);
+        }
+        
+        function toggleLimitPoints() {
+            showLimitPoints = !showLimitPoints;
+            drawLimitConceptGraph();
+        }
+        
+        function resetLimitGraph() {
+            document.getElementById('approachSlider').value = 1;
+            document.getElementById('deltaSlider').value = 0.5;
+            drawLimitConceptGraph();
+        }
+        
+        // Gráfico de límites laterales
+        let showLateralApproach = true;
+        
+        function initLateralLimitsGraph() {
+            const canvas = document.getElementById('lateralLimitsCanvas');
+            if (!canvas) return;
+            
+            const pointSlider = document.getElementById('pointSlider');
+            const functionType = document.getElementById('functionType');
+            
+            drawLateralLimitsGraph();
+            
+            pointSlider.addEventListener('input', drawLateralLimitsGraph);
+            functionType.addEventListener('change', drawLateralLimitsGraph);
+            
+            // Actualizar valores mostrados
+            document.getElementById('pointValue').textContent = pointSlider.value;
+        }
+        
+        function drawLateralLimitsGraph() {
+            const canvas = document.getElementById('lateralLimitsCanvas');
+            const ctx = canvas.getContext('2d');
+            const pointSlider = document.getElementById('pointSlider');
+            const functionType = document.getElementById('functionType');
+            
+            const width = canvas.width;
+            const height = canvas.height;
+            const a = parseFloat(pointSlider.value);
+            const type = functionType.value;
+            
+            // Actualizar valores mostrados
+            document.getElementById('pointValue').textContent = a;
+            
+            // Limpiar canvas
+            ctx.clearRect(0, 0, width, height);
+            
+            // Configurar sistema de coordenadas
+            const scale = 50;
+            const originX = width / 2;
+            const originY = height / 2;
+            
+            // Dibujar ejes
+            ctx.strokeStyle = '#000';
+            ctx.lineWidth = 1;
+            ctx.beginPath();
+            ctx.moveTo(0, originY);
+            ctx.lineTo(width, originY);
+            ctx.moveTo(originX, 0);
+            ctx.lineTo(originX, height);
+            ctx.stroke();
+            
+            // Dibujar función según el tipo seleccionado
+            ctx.strokeStyle = '#1976D2';
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            
+            let leftLimit, rightLimit, limitExists;
+            
+            for (let x = -width / (2 * scale); x <= width / (2 * scale); x += 0.05) {
+                let y;
+                
+                switch (type) {
+                    case 'jump':
+                        if (x < a) {
+                            y = x - 1;
+                        } else {
+                            y = x + 1;
+                        }
+                        break;
+                    case 'infinite':
+                        y = 1 / (x - a);
+                        break;
+                    case 'continuous':
+                    default:
+                        y = x * x / 4;
+                        break;
+                }
+                
+                const screenX = originX + x * scale;
+                const screenY = originY - y * scale;
+                
+                if (x === -width / (2 * scale)) {
+                    ctx.moveTo(screenX, screenY);
+                } else {
+                    ctx.lineTo(screenX, screenY);
+                }
+            }
+            ctx.stroke();
+            
+            // Calcular límites laterales según el tipo de función
+            switch (type) {
+                case 'jump':
+                    leftLimit = a - 1;
+                    rightLimit = a + 1;
+                    limitExists = leftLimit === rightLimit;
+                    break;
+                case 'infinite':
+                    if (a > 0) {
+                        leftLimit = -Infinity;
+                        rightLimit = Infinity;
+                    } else {
+                        leftLimit = Infinity;
+                        rightLimit = -Infinity;
+                    }
+                    limitExists = false;
+                    break;
+                case 'continuous':
+                default:
+                    leftLimit = a * a / 4;
+                    rightLimit = a * a / 4;
+                    limitExists = true;
+                    break;
+            }
+            
+            // Marcar el punto x = a
+            const screenXa = originX + a * scale;
+            
+            // Dibujar línea vertical punteada en x = a
+            ctx.strokeStyle = '#999';
+            ctx.lineWidth = 1;
+            ctx.setLineDash([5, 3]);
+            ctx.beginPath();
+            ctx.moveTo(screenXa, 0);
+            ctx.lineTo(screenXa, height);
+            ctx.stroke();
+            ctx.setLineDash([]);
+            
+            // Dibujar aproximación lateral si está activado
+            if (showLateralApproach) {
+                // Puntos de aproximación
+                const delta = 0.5;
+                
+                // Punto a la izquierda de a
+                const x1 = a - delta;
+                let y1;
+                switch (type) {
+                    case 'jump':
+                        y1 = x1 - 1;
+                        break;
+                    case 'infinite':
+                        y1 = 1 / (x1 - a);
+                        break;
+                    case 'continuous':
+                    default:
+                        y1 = x1 * x1 / 4;
+                        break;
+                }
+                const screenX1 = originX + x1 * scale;
+                const screenY1 = originY - y1 * scale;
+                
+                // Punto a la derecha de a
+                const x2 = a + delta;
+                let y2;
+                switch (type) {
+                    case 'jump':
+                        y2 = x2 + 1;
+                        break;
+                    case 'infinite':
+                        y2 = 1 / (x2 - a);
+                        break;
+                    case 'continuous':
+                    default:
+                        y2 = x2 * x2 / 4;
+                        break;
+                }
+                const screenX2 = originX + x2 * scale;
+                const screenY2 = originY - y2 * scale;
+                
+                // Dibujar puntos
+                ctx.fillStyle = '#E63946';
+                ctx.beginPath();
+                ctx.arc(screenX1, screenY1, 5, 0, 2 * Math.PI);
+                ctx.fill();
+                
+                ctx.fillStyle = '#06D6A0';
+                ctx.beginPath();
+                ctx.arc(screenX2, screenY2, 5, 0, 2 * Math.PI);
+                ctx.fill();
+                
+                // Dibujar líneas de aproximación
+                ctx.strokeStyle = '#E63946';
+                ctx.lineWidth = 1;
+                ctx.setLineDash([5, 3]);
+                ctx.beginPath();
+                ctx.moveTo(screenX1, screenY1);
+                ctx.lineTo(screenXa, screenY1);
+                ctx.stroke();
+                
+                ctx.strokeStyle = '#06D6A0';
+                ctx.beginPath();
+                ctx.moveTo(screenX2, screenY2);
+                ctx.lineTo(screenXa, screenY2);
+                ctx.stroke();
+                ctx.setLineDash([]);
+                
+                // Etiquetas de los puntos
+                ctx.fillStyle = '#000';
+                ctx.font = '12px Arial';
+                ctx.fillText(`Izq: (${x1.toFixed(1)}, ${y1.toFixed(1)})`, screenX1 - 40, screenY1 - 10);
+                ctx.fillText(`Der: (${x2.toFixed(1)}, ${y2.toFixed(1)})`, screenX2 + 10, screenY2 - 10);
+            }
+            
+            // Etiqueta del punto a
+            ctx.fillStyle = '#000';
+            ctx.font = '14px Arial';
+            ctx.fillText(`x = ${a}`, screenXa + 5, originY - 10);
+            
+            // Actualizar valores de límites
+            document.getElementById('leftLimit').textContent = leftLimit === Infinity || leftLimit === -Infinity ? 
+                (leftLimit === Infinity ? '∞' : '-∞') : leftLimit.toFixed(1);
+            document.getElementById('rightLimit').textContent = rightLimit === Infinity || rightLimit === -Infinity ? 
+                (rightLimit === Infinity ? '∞' : '-∞') : rightLimit.toFixed(1);
+            document.getElementById('limitExists').textContent = limitExists ? 'Sí' : 'No';
+        }
+        
+        function toggleLateralApproach() {
+            showLateralApproach = !showLateralApproach;
+            drawLateralLimitsGraph();
+        }
+        
+        function resetLateralGraph() {
+            document.getElementById('pointSlider').value = 0;
+            document.getElementById('functionType').value = 'jump';
+            drawLateralLimitsGraph();
+        }
+        
+        // Gráfico de límites infinitos y asíntotas
+        let showAsymptote = true;
+        
+        function initInfiniteLimitsGraph() {
+            const canvas = document.getElementById('infiniteLimitsCanvas');
+            if (!canvas) return;
+            
+            const asymptoteType = document.getElementById('asymptoteType');
+            const functionParam = document.getElementById('functionParam');
+            
+            drawInfiniteLimitsGraph();
+            
+            asymptoteType.addEventListener('change', drawInfiniteLimitsGraph);
+            functionParam.addEventListener('input', drawInfiniteLimitsGraph);
+            
+            // Actualizar valores mostrados
+            document.getElementById('paramValue').textContent = functionParam.value;
+        }
+        
+        function drawInfiniteLimitsGraph() {
+            const canvas = document.getElementById('infiniteLimitsCanvas');
+            const ctx = canvas.getContext('2d');
+            const asymptoteType = document.getElementById('asymptoteType');
+            const functionParam = document.getElementById('functionParam');
+            
+            const width = canvas.width;
+            const height = canvas.height;
+            const type = asymptoteType.value;
+            const param = parseFloat(functionParam.value);
+            
+            // Actualizar valores mostrados
+            document.getElementById('paramValue').textContent = param;
+            
+            // Limpiar canvas
+            ctx.clearRect(0, 0, width, height);
+            
+            // Configurar sistema de coordenadas
+            const scale = 50;
+            const originX = width / 2;
+            const originY = height / 2;
+            
+            // Dibujar ejes
+            ctx.strokeStyle = '#000';
+            ctx.lineWidth = 1;
+            ctx.beginPath();
+            ctx.moveTo(0, originY);
+            ctx.lineTo(width, originY);
+            ctx.moveTo(originX, 0);
+            ctx.lineTo(originX, height);
+            ctx.stroke();
+            
+            // Dibujar función según el tipo seleccionado
+            ctx.strokeStyle = '#1976D2';
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            
+            for (let x = -width / (2 * scale); x <= width / (2 * scale); x += 0.05) {
+                let y;
+                
+                switch (type) {
+                    case 'vertical':
+                        if (Math.abs(x - param) > 0.05) {
+                            y = 1 / (x - param);
+                        } else {
+                            y = (x > param) ? 10 : -10;  // Valores grandes para evitar división por cero
+                        }
+                        break;
+                    case 'horizontal':
+                        y = param + 1 / x;
+                        break;
+                    case 'oblique':
+                        y = param * x + 2 + 1 / x;
+                        break;
+                }
+                
+                const screenX = originX + x * scale;
+                const screenY = originY - y * scale;
+                
+                if (x === -width / (2 * scale)) {
+                    ctx.moveTo(screenX, screenY);
+                } else {
+                    ctx.lineTo(screenX, screenY);
+                }
+            }
+            ctx.stroke();
+            
+            // Dibujar asíntota si está activado
+            if (showAsymptote) {
+                ctx.strokeStyle = '#E63946';
+                ctx.lineWidth = 2;
+                ctx.setLineDash([5, 3]);
+                ctx.beginPath();
+                
+                switch (type) {
+                    case 'vertical':
+                        // Asíntota vertical en x = param
+                        const screenXa = originX + param * scale;
+                        ctx.moveTo(screenXa, 0);
+                        ctx.lineTo(screenXa, height);
+                        break;
+                    case 'horizontal':
+                        // Asíntota horizontal en y = param
+                        const screenYa = originY - param * scale;
+                        ctx.moveTo(0, screenYa);
+                        ctx.lineTo(width, screenYa);
+                        break;
+                    case 'oblique':
+                        // Asíntota oblicua y = param * x + 2
+                        const y1 = param * (-width / (2 * scale)) + 2;
+                        const y2 = param * (width / (2 * scale)) + 2;
+                        const screenY1 = originY - y1 * scale;
+                        const screenY2 = originY - y2 * scale;
+                        ctx.moveTo(0, screenY1);
+                        ctx.lineTo(width, screenY2);
+                        break;
+                }
+                
+                ctx.stroke();
+                ctx.setLineDash([]);
+            }
+            
+            // Etiqueta de la asíntota
+            ctx.fillStyle = '#E63946';
+            ctx.font = '14px Arial';
+            
+            switch (type) {
+                case 'vertical':
+                    ctx.fillText(`Asíntota vertical: x = ${param}`, 20, 30);
+                    break;
+                case 'horizontal':
+                    ctx.fillText(`Asíntota horizontal: y = ${param}`, 20, 30);
+                    break;
+                case 'oblique':
+                    ctx.fillText(`Asíntota oblicua: y = ${param}x + 2`, 20, 30);
+                    break;
+            }
+        }
+        
+        function toggleAsymptote() {
+            showAsymptote = !showAsymptote;
+            drawInfiniteLimitsGraph();
+        }
+        
+        function resetInfiniteGraph() {
+            document.getElementById('asymptoteType').value = 'vertical';
+            document.getElementById('functionParam').value = 2;
+            drawInfiniteLimitsGraph();
+        }
+        
+        // Gráfico de continuidad
+        let showContinuityInfo = true;
+        
+        function initContinuityGraph() {
+            const canvas = document.getElementById('continuityCanvas');
+            if (!canvas) return;
+            
+            const discontinuityType = document.getElementById('discontinuityType');
+            const discontinuityPoint = document.getElementById('discontinuityPoint');
+            
+            drawContinuityGraph();
+            
+            discontinuityType.addEventListener('change', drawContinuityGraph);
+            discontinuityPoint.addEventListener('input', drawContinuityGraph);
+            
+            // Actualizar valores mostrados
+            document.getElementById('pointValue').textContent = discontinuityPoint.value;
+        }
+        
+        function drawContinuityGraph() {
+            const canvas = document.getElementById('continuityCanvas');
+            const ctx = canvas.getContext('2d');
+            const discontinuityType = document.getElementById('discontinuityType');
+            const discontinuityPoint = document.getElementById('discontinuityPoint');
+            
+            const width = canvas.width;
+            const height = canvas.height;
+            const type = discontinuityType.value;
+            const a = parseFloat(discontinuityPoint.value);
+            
+            // Actualizar valores mostrados
+            document.getElementById('pointValue').textContent = a;
+            
+            // Limpiar canvas
+            ctx.clearRect(0, 0, width, height);
+            
+            // Configurar sistema de coordenadas
+            const scale = 50;
+            const originX = width / 2;
+            const originY = height / 2;
+            
+            // Dibujar ejes
+            ctx.strokeStyle = '#000';
+            ctx.lineWidth = 1;
+            ctx.beginPath();
+            ctx.moveTo(0, originY);
+            ctx.lineTo(width, originY);
+            ctx.moveTo(originX, 0);
+            ctx.lineTo(originX, height);
+            ctx.stroke();
+            
+            // Dibujar función según el tipo seleccionado
+            ctx.strokeStyle = '#1976D2';
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            
+            let fDefined, limitExists, limitEqualsF;
+            
+            for (let x = -width / (2 * scale); x <= width / (2 * scale); x += 0.05) {
+                let y;
+                
+                switch (type) {
+                    case 'continuous':
+                        y = x * x / 4;
+                        break;
+                    case 'removable':
+                        if (Math.abs(x - a) > 0.05) {
+                            y = (x * x - a * a) / (x - a);
+                        } else {
+                            y = 2 * a;  // Valor corregido para evitar división por cero
+                        }
+                        break;
+                    case 'jump':
+                        if (x < a) {
+                            y = x - 1;
+                        } else {
+                            y = x + 1;
+                        }
+                        break;
+                    case 'infinite':
+                        if (Math.abs(x - a) > 0.05) {
+                            y = 1 / (x - a);
+                        } else {
+                            y = (x > a) ? 10 : -10;  // Valores grandes para evitar división por cero
+                        }
+                        break;
+                }
+                
+                const screenX = originX + x * scale;
+                const screenY = originY - y * scale;
+                
+                if (x === -width / (2 * scale)) {
+                    ctx.moveTo(screenX, screenY);
+                } else {
+                    ctx.lineTo(screenX, screenY);
+                }
+            }
+            ctx.stroke();
+            
+            // Calcular propiedades de continuidad según el tipo de función
+            switch (type) {
+                case 'continuous':
+                    fDefined = true;
+                    limitExists = true;
+                    limitEqualsF = true;
+                    break;
+                case 'removable':
+                    fDefined = true;
+                    limitExists = true;
+                    limitEqualsF = false;
+                    break;
+                case 'jump':
+                    fDefined = true;
+                    limitExists = false;
+                    limitEqualsF = false;
+                    break;
+                case 'infinite':
+                    fDefined = true;
+                    limitExists = false;
+                    limitEqualsF = false;
+                    break;
+            }
+            
+            // Marcar el punto x = a
+            const screenXa = originX + a * scale;
+            
+            // Dibujar línea vertical punteada en x = a
+            ctx.strokeStyle = '#999';
+            ctx.lineWidth = 1;
+            ctx.setLineDash([5, 3]);
+            ctx.beginPath();
+            ctx.moveTo(screenXa, 0);
+            ctx.lineTo(screenXa, height);
+            ctx.stroke();
+            ctx.setLineDash([]);
+            
+            // Dibujar punto en x = a si la función está definida allí
+            if (fDefined) {
+                let ya;
+                switch (type) {
+                    case 'continuous':
+                        ya = a * a / 4;
+                        break;
+                    case 'removable':
+                        ya = 2 * a + 1;  // Valor diferente al límite
+                        break;
+                    case 'jump':
+                        ya = a + 1;  // Valor por la derecha
+                        break;
+                    case 'infinite':
+                        ya = 0;  // Valor arbitrario
+                        break;
+                }
+                
+                const screenYa = originY - ya * scale;
+                
+                ctx.fillStyle = '#E63946';
+                ctx.beginPath();
+                ctx.arc(screenXa, screenYa, 6, 0, 2 * Math.PI);
+                ctx.fill();
+                
+                // Etiqueta del punto
+                ctx.fillStyle = '#000';
+                ctx.font = '12px Arial';
+                ctx.fillText(`(${a.toFixed(1)}, ${ya.toFixed(1)})`, screenXa + 10, screenYa - 10);
+            }
+            
+            // Etiqueta del punto a
+            ctx.fillStyle = '#000';
+            ctx.font = '14px Arial';
+            ctx.fillText(`x = ${a}`, screenXa + 5, originY - 10);
+            
+            // Actualizar valores de continuidad
+            document.getElementById('fDefined').textContent = fDefined ? 'Sí' : 'No';
+            document.getElementById('limitExists').textContent = limitExists ? 'Sí' : 'No';
+            document.getElementById('isContinuous').textContent = (fDefined && limitExists && limitEqualsF) ? 'Sí' : 'No';
+        }
+        
+        function toggleContinuityInfo() {
+            showContinuityInfo = !showContinuityInfo;
+            drawContinuityGraph();
+        }
+        
+        function resetContinuityGraph() {
+            document.getElementById('discontinuityType').value = 'continuous';
+            document.getElementById('discontinuityPoint').value = 0;
+            drawContinuityGraph();
+        }
+        
+        // Funciones de navegación entre pestañas
+        function navigateTab(direction) {
+            currentTab += direction;
+            
+            // Asegurarse de que el índice esté dentro de los límites
+            if (currentTab < 0) {
+                currentTab = tabs.length - 1;
+            } else if (currentTab >= tabs.length) {
+                currentTab = 0;
+            }
+            
+            // Obtener el botón de la pestaña correspondiente
+            const tabButton = document.querySelectorAll('.tab-button')[currentTab];
+            
+            // Simular un clic en el botón
+            tabButton.click();
+        }
+        
+        // Funciones de accesibilidad
+        function toggleAccessibilityMenu() {
+            const menu = document.getElementById('accessibilityMenu');
+            if (menu.style.display === 'block') {
+                menu.style.display = 'none';
+            } else {
+                menu.style.display = 'block';
+            }
+        }
+        
+        function toggleHighContrast() {
+            document.body.classList.toggle('high-contrast');
+        }
+        
+        function toggleLargeText() {
+            document.body.classList.toggle('large-text');
+        }
+        
+        function toggleDyslexicFont() {
+            document.body.classList.toggle('dyslexic');
+        }
+        
+        // Inicializar el primer gráfico al cargar la página
+        window.onload = function() {
+            initLimitConceptGraph();
+            updateProgress();
+            
+            // Cerrar el menú de accesibilidad si se hace clic fuera de él
+            document.addEventListener('click', function(event) {
+                const menu = document.getElementById('accessibilityMenu');
+                const button = document.querySelector('.accessibility-toggle');
+                
+                if (menu.style.display === 'block' && 
+                    !menu.contains(event.target) && 
+                    !button.contains(event.target)) {
+                    menu.style.display = 'none';
+                }
+            });
+        };
+    </script>
+</body>
+</html>
