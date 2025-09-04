@@ -1,0 +1,817 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Explorando la Función Cuadrática</title>
+    
+    <!-- Google Fonts: Poppins -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <!-- MathJax para renderizar LaTeX -->
+    <script>
+        MathJax = {
+          tex: {
+            inlineMath: [['$', '$'], ['\\(', '\\)']],
+            displayMath: [['$$', '$$'], ['\\[', '\\]']]
+          },
+          svg: {
+            fontCache: 'global'
+          }
+        };
+    </script>
+    <script type="text/javascript" id="MathJax-script" async
+      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js">
+    </script>
+
+    <!-- Scripts para la librería de gráficos Function Plot -->
+    <script src="https://d3js.org/d3.v3.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/function-plot@1.22.4/dist/function-plot.js"></script>
+
+    <style>
+        /* Estilos Generales y Nueva Paleta de Colores */
+        :root {
+            --primary-color: #6a11cb;
+            --secondary-color: #2575fc;
+            --background-color: #f7f9fc;
+            --text-color: #34495e;
+            --card-bg-color: #ffffff;
+            --header-text-color: #ffffff;
+            --button-text-color: #ffffff;
+            --success-color: #2ecc71;
+            --error-color: #e74c3c;
+        }
+
+        body {
+            font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.7;
+            margin: 0;
+            padding: 0;
+            background-color: var(--background-color);
+            color: var(--text-color);
+        }
+
+        header {
+            background: linear-gradient(90deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: var(--header-text-color);
+            text-align: center;
+            padding: 2rem 1rem;
+            border-bottom-left-radius: 20px;
+            border-bottom-right-radius: 20px;
+        }
+        
+        header h1 {
+            color: var(--header-text-color);
+            font-weight: 700;
+            margin: 0;
+        }
+
+        h2 {
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+
+        h3 {
+            color: var(--text-color);
+            border-bottom: 3px solid var(--secondary-color);
+            padding-bottom: 8px;
+            font-weight: 600;
+        }
+
+        main {
+            padding: 20px;
+            max-width: 900px;
+            margin: 20px auto;
+            background-color: transparent;
+        }
+
+        /* Navegación por Pestañas con nuevo estilo */
+        nav {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            background-color: var(--card-bg-color);
+            padding: 10px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .tab-button {
+            background-color: transparent;
+            color: var(--text-color);
+            border: none;
+            padding: 10px 15px;
+            cursor: pointer;
+            font-size: 0.95em;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border-radius: 8px;
+            margin: 2px;
+        }
+
+        .tab-button:hover {
+            background-color: #eef2f7;
+            color: var(--primary-color);
+        }
+
+        .tab-button.active {
+            background-color: var(--primary-color);
+            color: var(--button-text-color);
+            box-shadow: 0 4px 10px rgba(106, 17, 203, 0.3);
+        }
+
+        /* Contenido de las Pestañas */
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.5s;
+            background: var(--card-bg-color);
+            padding: 25px;
+            border-radius: 12px;
+            margin-top: 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Actividades y Evaluaciones con estilo de tarjeta */
+        .actividad {
+            background-color: #fcfdff;
+            border: 1px solid #eef2f7;
+            border-left: 5px solid var(--secondary-color);
+            padding: 20px;
+            margin: 25px 0;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+        }
+
+        button {
+            background: linear-gradient(90deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: var(--button-text-color);
+            border: none;
+            padding: 10px 18px;
+            border-radius: 8px;
+            cursor: pointer;
+            margin: 5px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+        }
+
+        .solucion {
+            background-color: #eef2f7;
+            border: 1px solid #dce5f2;
+            padding: 15px;
+            margin-top: 15px;
+            border-radius: 8px;
+        }
+
+        #quiz1 label, #quiz2 label, #quiz3 label, #quiz4 label {
+            display: block;
+            margin: 8px 0;
+            padding: 10px;
+            border: 1px solid #eee;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease-in-out;
+        }
+
+        #quiz1 label:hover, #quiz2 label:hover, #quiz3 label:hover, #quiz4 label:hover {
+            background-color: #eef2f7;
+            border-color: var(--secondary-color);
+        }
+
+
+        /* Gráficos */
+        .grafico {
+            width: 100%;
+            height: 400px;
+            margin: 20px 0;
+        }
+
+        /* Síntesis */
+        .sintesis-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        .sintesis-box {
+            background-color: #f7f9fc;
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+            border: 1px solid #eef2f7;
+            transition: all 0.3s ease;
+        }
+        .sintesis-box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+        }
+        .sintesis-box h4 {
+            color: var(--primary-color);
+        }
+
+        /* Línea de Tiempo mejorada */
+        .timeline {
+            list-style-type: none;
+            position: relative;
+            padding-left: 2rem;
+        }
+        .timeline:before {
+            content: '';
+            background: linear-gradient(var(--primary-color), var(--secondary-color));
+            display: inline-block;
+            position: absolute;
+            left: 0;
+            width: 3px;
+            height: 100%;
+            border-radius: 3px;
+        }
+        .timeline li {
+            margin: 2.5em 0;
+            padding-left: 1em;
+        }
+        .timeline li:before {
+            content: '';
+            background: var(--card-bg-color);
+            display: inline-block;
+            position: absolute;
+            border-radius: 50%;
+            border: 3px solid var(--secondary-color);
+            left: -8px;
+            width: 12px;
+            height: 12px;
+            z-index: 400;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Universo Cuadrático</h1>
+        <p style="font-weight: 300;">De los Proyectiles a las Ganancias</p>
+    </header>
+
+    <nav>
+        <button class="tab-button active" onclick="openTab(event, 'introduccion')">Introducción</button>
+        <button class="tab-button" onclick="openTab(event, 'nivel1')">Nivel 1</button>
+        <button class="tab-button" onclick="openTab(event, 'nivel2')">Nivel 2</button>
+        <button class="tab-button" onclick="openTab(event, 'nivel3')">Nivel 3</button>
+        <button class="tab-button" onclick="openTab(event, 'nivel4')">Nivel 4</button>
+        <button class="tab-button" onclick="openTab(event, 'sintesis')">Síntesis</button>
+        <button class="tab-button" onclick="openTab(event, 'historia')">Historia</button>
+        <button class="tab-button" onclick="openTab(event, 'bibliografia')">Bibliografía</button>
+    </nav>
+
+    <main>
+        <!-- Pestaña de Introducción -->
+        <section id="introduccion" class="tab-content active">
+            <h2>Bienvenida/o al Mundo de las Parábolas 👋</h2>
+            <p>Esta página está diseñada para guiarte en el estudio de la <strong>función cuadrática</strong>. No se trata solo de fórmulas, sino de entender cómo este concepto matemático nos ayuda a describir y predecir fenómenos del mundo real.</p>
+            
+            <h3>Propósito del Sitio 🎯</h3>
+            <p>El objetivo es que logres <strong>modelizar situaciones</strong> y resolver problemas utilizando la función cuadrática. Exploraremos desde la trayectoria de un proyectil hasta cómo una empresa puede calcular sus ganancias máximas. Usaremos un enfoque gradual, construyendo el conocimiento paso a paso.</p>
+
+            <h3>Hoja de Ruta 🗺️</h3>
+            <ul>
+                <li><strong>Nivel 1:</strong> Nos familiarizaremos con la forma de la función cuadrática, su gráfico (la parábola) y sus elementos clave: raíces, vértice y ordenada al origen.</li>
+                <li><strong>Nivel 2:</strong> Descubriremos que una misma función puede escribirse de tres maneras distintas (polinómica, canónica y factorizada) y aprenderemos a usar la más conveniente en cada caso.</li>
+                <li><strong>Nivel 3:</strong> Analizaremos el "discriminante", una herramienta poderosa que nos anticipa cuántas soluciones tendrá un problema antes de resolverlo. Lo aplicaremos a problemas de optimización.</li>
+                <li><strong>Nivel 4:</strong> Investigaremos cómo interactúan las parábolas con otras curvas (como las rectas) y aprenderemos a resolver inecuaciones cuadráticas.</li>
+            </ul>
+
+            <h3>Contenidos Previos Necesarios 🎒</h3>
+            <p>Para aprovechar al máximo este recorrido, es importante que te sientas cómodo/a con:</p>
+            <ul>
+                <li>Operaciones con polinomios.</li>
+                <li>Resolución de ecuaciones de segundo grado (usando la fórmula resolvente o de Bhaskara).</li>
+                <li>Representación de puntos en el plano cartesiano.</li>
+                <li>Concepto básico de función y su gráfico.</li>
+            </ul>
+        </section>
+
+        <!-- Pestaña Nivel 1 -->
+        <section id="nivel1" class="tab-content">
+            <h2>Nivel 1: La Parábola y sus Secretos 🔍</h2>
+            <h3>Problema Disparador: El Tiro Libre 🏀</h3>
+            <p>Imagina que un jugador de básquet lanza un tiro libre. La pelota parte de sus manos a 2 metros de altura. Sube hasta una altura máxima de 5 metros cuando está a 3 metros de distancia horizontal del jugador. ¿Podemos encontrar un modelo matemático para la trayectoria de la pelota? Este problema nos acompañará; por ahora, nos enfocaremos en entender las piezas que necesitamos para resolverlo.</p>
+
+            <h3>Definiciones Fundamentales</h3>
+            <p>Una <strong>función cuadrática</strong> es una función de la forma: $$f(x) = ax^2 + bx + c$$ donde $a$, $b$ y $c$ son números reales y, muy importante, $a \neq 0$. Su gráfico es una curva llamada <strong>parábola</strong>.</p>
+            <ul>
+                <li>Si $a > 0$, la parábola es cóncava hacia arriba (como una U).</li>
+                <li>Si $a < 0$, la parábola es cóncava hacia abajo (como una U invertida).</li>
+            </ul>
+            
+            <h4>Elementos Clave de la Parábola</h4>
+            <div id="grafico-nivel1" class="grafico"></div>
+            <ul>
+                <li><strong>Vértice $(x_v, y_v)$</strong>: Es el punto mínimo (si $a>0$) o máximo (si $a<0$) de la parábola. La coordenada $x_v$ se calcula como $x_v = \frac{-b}{2a}$.</li>
+                <li><strong>Raíces (o ceros)</strong>: Son los puntos donde la parábola corta al eje X. Se encuentran resolviendo la ecuación $ax^2 + bx + c = 0$.</li>
+                <li><strong>Ordenada al Origen</strong>: Es el punto donde la parábola corta al eje Y. Siempre es el punto $(0, c)$.</li>
+                <li><strong>Eje de Simetría</strong>: Es una recta vertical que parte la parábola en dos mitades iguales. Su ecuación es $x = x_v$.</li>
+            </ul>
+
+            <hr>
+            <h3>Actividades</h3>
+            <div class="actividad">
+                <h4>Actividad 1: Analizando una función</h4>
+                <p>Dada la función $f(x) = x^2 - 6x + 5$, encuentra su vértice, raíces y ordenada al origen. Luego, comprueba tus cálculos en el gráfico.</p>
+                <button onclick="toggleVisibility('ayuda1')">Ayuda</button>
+                <button onclick="toggleVisibility('solucion1')">Ver Solución</button>
+                <div id="ayuda1" class="solucion" style="display:none;">
+                    <p>Para las raíces, usa la fórmula resolvente: $x = \frac{-b \pm \sqrt{b^2-4ac}}{2a}$. Para el vértice, usa la fórmula $x_v = \frac{-b}{2a}$ y luego reemplaza ese valor en la función para hallar $y_v$.</p>
+                </div>
+                <div id="solucion1" class="solucion" style="display:none;">
+                    <p><strong>Ordenada al origen:</strong> $(0, 5)$</p>
+                    <p><strong>Raíces:</strong> $x=1$, $x=5$. Puntos: $(1, 0)$ y $(5, 0)$.</p>
+                    <p><strong>Vértice:</strong> $x_v = \frac{-(-6)}{2 \cdot 1} = 3$. $y_v = 3^2 - 6 \cdot 3 + 5 = 9 - 18 + 5 = -4$. Vértice: $(3, -4)$.</p>
+                    <div id="grafico-actividad1" class="grafico"></div>
+                </div>
+            </div>
+             <div class="actividad">
+                <h4>Actividad 2: Gráfico a fórmula</h4>
+                <p>Una parábola tiene su vértice en $(-2, -1)$ y su ordenada al origen es $(0, 3)$. ¿Cuál es su concavidad? ¿Positiva o negativa?</p>
+                <button onclick="toggleVisibility('ayuda1_2')">Ayuda</button>
+                <button onclick="toggleVisibility('solucion1_2')">Ver Solución</button>
+                <div id="ayuda1_2" class="solucion" style="display:none;"><p>Ubica los dos puntos en un plano mental o en papel. ¿La parábola tiene que "abrirse" hacia arriba o hacia abajo para conectar esos dos puntos?</p></div>
+                <div id="solucion1_2" class="solucion" style="display:none;"><p>La parábola debe abrirse hacia arriba para ir desde el vértice $(-2, -1)$ hasta la ordenada al origen $(0, 3)$. Por lo tanto, su concavidad es <strong>positiva</strong> (el coeficiente '$a$' será mayor que 0).</p></div>
+            </div>
+            <div class="actividad">
+                <h4>Actividad 3: Elementos en contexto</h4>
+                <p>El arco de un puente tiene forma de parábola con la ecuación $h(x) = -0.1x^2 + 10$, donde '$h$' es la altura en metros y '$x$' es la distancia horizontal desde el centro. ¿Cuál es la altura máxima del puente y dónde se alcanza?</p>
+                <button onclick="toggleVisibility('ayuda1_3')">Ayuda</button>
+                <button onclick="toggleVisibility('solucion1_3')">Ver Solución</button>
+                <div id="ayuda1_3" class="solucion" style="display:none;"><p>La altura máxima de una parábola con concavidad negativa corresponde a su <strong>vértice</strong>.</p></div>
+                <div id="solucion1_3" class="solucion" style="display:none;"><p>En la función $h(x) = -0.1x^2 + 0x + 10$, el vértice está en $x_v = \frac{-0}{2 \cdot (-0.1)} = 0$. La altura en ese punto es $h(0) = 10$. La altura máxima es de <strong>10 metros</strong> y se alcanza justo en el centro del puente ($x=0$).</p></div>
+            </div>
+
+            <hr>
+            <h3>Evaluación Rápida</h3>
+            <div id="quiz1">
+                <p>Observando el primer gráfico de esta sección ($f(x) = -x^2+2x+3$), ¿cuál es el vértice de la parábola?</p>
+                <label><input type="radio" name="q1" value="a"> (0, 3)</label>
+                <label><input type="radio" name="q1" value="b"> (1, 4)</label>
+                <label><input type="radio" name="q1" value="c"> (-1, 0)</label>
+                <button onclick="checkQuiz('q1', 'b')">Corregir</button>
+                <p id="feedback-q1"></p>
+            </div>
+        </section>
+
+        <!-- Pestaña Nivel 2 -->
+        <section id="nivel2" class="tab-content">
+            <h2>Nivel 2: Las Tres Caras de la Parábola 🎭</h2>
+            <p>Ya conocemos los elementos de la parábola, pero ¿cómo escribimos su ecuación si solo tenemos algunos datos, como en el problema del básquet? La clave está en que la función cuadrática tiene tres formas de expresarse.</p>
+
+            <h3>Las 3 Formas de la Ecuación Cuadrática</h3>
+            <ol>
+                <li><strong>Forma Polinómica:</strong> $f(x) = ax^2 + bx + c$
+                    <ul><li><strong>Ventaja:</strong> Permite ver la <strong>ordenada al origen</strong> $(0,c)$ a simple vista.</li></ul>
+                </li>
+                <li><strong>Forma Canónica:</strong> $f(x) = a(x - x_v)^2 + y_v$
+                    <ul><li><strong>Ventaja:</strong> Explicita las coordenadas del <strong>vértice</strong> $(x_v, y_v)$.</li></ul>
+                </li>
+                <li><strong>Forma Factorizada:</strong> $f(x) = a(x - x_1)(x - x_2)$
+                    <ul><li><strong>Ventaja:</strong> Muestra directamente las <strong>raíces</strong> $x_1$ y $x_2$. (Solo existe si la función tiene raíces reales).</li></ul>
+                </li>
+            </ol>
+            <p>Pasar de la forma canónica o factorizada a la polinómica es sencillo: solo hay que desarrollar las operaciones (el cuadrado de un binomio o la distributiva).</p>
+
+            <h3>Resolviendo el problema del tiro libre (Parte 1)</h3>
+            <p>Los datos eran: altura máxima de 5 metros a los 3 metros de distancia. Esto es el vértice: $V=(3, 5)$. ¿Qué forma nos conviene usar?</p>
+            <p>¡La canónica! $f(x) = a(x - 3)^2 + 5$.</p>
+            <p>Sabemos también que parte de una altura de 2 metros, es decir, pasa por el punto $(0, 2)$. Usamos este punto para hallar $a$:</p>
+            <p>$2 = a(0 - 3)^2 + 5 \implies 2 = a(9) + 5 \implies -3 = 9a \implies a = -\frac{1}{3}$.</p>
+            <p>La ecuación es: $f(x) = -\frac{1}{3}(x - 3)^2 + 5$. ¡Ya tenemos el modelo!</p>
+            <div id="grafico-nivel2" class="grafico"></div>
+
+            <hr>
+            <h3>Actividades</h3>
+             <div class="actividad">
+                <h4>Actividad 1: En busca de la ecuación</h4>
+                <p>Encuentra la ecuación de la parábola que tiene raíces en $x=-1$ y $x=4$, y que pasa por el punto $(2, -6)$.</p>
+                <button onclick="toggleVisibility('ayuda2_1')">Ayuda</button>
+                <button onclick="toggleVisibility('solucion2_1')">Ver Solución</button>
+                <div id="ayuda2_1" class="solucion" style="display:none;">
+                    <p>Si conoces las raíces, la forma factorizada es tu mejor aliada. Reemplaza las raíces en la fórmula y luego usa el otro punto para despejar el coeficiente '$a$'.</p>
+                </div>
+                <div id="solucion2_1" class="solucion" style="display:none;">
+                    <p>Usamos la forma factorizada: $f(x) = a(x - (-1))(x - 4) = a(x+1)(x-4)$.</p>
+                    <p>Reemplazamos el punto $(2, -6)$: $-6 = a(2+1)(2-4) \implies -6 = a(3)(-2) \implies -6 = -6a \implies a = 1$.</p>
+                    <p>La ecuación es: $f(x) = 1(x+1)(x-4)$, o $f(x) = x^2 - 3x - 4$.</p>
+                </div>
+            </div>
+             <div class="actividad">
+                <h4>Actividad 2: Pasando de una forma a otra</h4>
+                <p>Expresa la función $f(x) = 2(x - 3)^2 - 8$ en su forma polinómica y factorizada.</p>
+                <button onclick="toggleVisibility('ayuda2_2')">Ayuda</button>
+                <button onclick="toggleVisibility('solucion2_2')">Ver Solución</button>
+                <div id="ayuda2_2" class="solucion" style="display:none;"><p>Para la forma polinómica, desarrolla el cuadrado del binomio. Para la factorizada, primero encuentra las raíces de la función igualándola a cero.</p></div>
+                <div id="solucion2_2" class="solucion" style="display:none;">
+                    <p><strong>Forma Polinómica:</strong> $f(x) = 2(x^2 - 6x + 9) - 8 = 2x^2 - 12x + 18 - 8 = 2x^2 - 12x + 10$.</p>
+                    <p><strong>Forma Factorizada:</strong> Buscamos las raíces de $2x^2 - 12x + 10 = 0$. Las raíces son $x=1$ y $x=5$. Con $a=2$, la forma es $f(x) = 2(x-1)(x-5)$.</p>
+                </div>
+            </div>
+             <div class="actividad">
+                <h4>Actividad 3: La información justa</h4>
+                <p>Se sabe que el eje de simetría de una parábola es $x=5$ y una de sus raíces es $x=2$. ¿Cuál es la otra raíz?</p>
+                <button onclick="toggleVisibility('ayuda2_3')">Ayuda</button>
+                <button onclick="toggleVisibility('solucion2_3')">Ver Solución</button>
+                <div id="ayuda2_3" class="solucion" style="display:none;"><p>El eje de simetría está siempre a la misma distancia de ambas raíces.</p></div>
+                <div id="solucion2_3" class="solucion" style="display:none;"><p>La distancia entre la raíz $x=2$ y el eje $x=5$ es de 3 unidades. La otra raíz debe estar a la misma distancia, pero del otro lado: $5 + 3 = 8$. La otra raíz es <strong>$x=8$</strong>.</p></div>
+            </div>
+             <hr>
+            <h3>Evaluación Rápida</h3>
+            <div id="quiz2">
+                <p>Si necesitas encontrar la fórmula de una parábola y el único dato claro es su punto máximo, ¿qué forma de la ecuación es más conveniente para empezar?</p>
+                <label><input type="radio" name="q2" value="a"> Polinómica</label>
+                <label><input type="radio" name="q2" value="b"> Factorizada</label>
+                <label><input type="radio" name="q2" value="c"> Canónica</label>
+                <button onclick="checkQuiz('q2', 'c')">Corregir</button>
+                <p id="feedback-q2"></p>
+            </div>
+        </section>
+        
+        <!-- Pestaña Nivel 3 -->
+        <section id="nivel3" class="tab-content">
+             <h2>Nivel 3: El Poder del Discriminante 💎</h2>
+            <p>Vimos que una parábola puede cortar al eje X en dos puntos, uno o ninguno. ¿Hay alguna forma de saber esto sin tener que hacer todo el cálculo de las raíces? La respuesta es sí, y se llama <strong>discriminante</strong>.</p>
+            
+            <h3>El Discriminante ($\Delta$)</h3>
+            <p>Dentro de la fórmula resolvente, la parte que está bajo la raíz cuadrada se llama discriminante:</p>
+            $$\Delta = b^2 - 4ac$$
+            <p>Su valor nos "discrimina" o dice el tipo de solución que encontraremos:</p>
+            <ul>
+                <li>Si $\Delta > 0$: Hay dos raíces reales y distintas. La parábola <strong>corta</strong> al eje X en dos puntos.</li>
+                <li>Si $\Delta = 0$: Hay una única raíz real (doble). La parábola <strong>toca</strong> al eje X en un solo punto (su vértice).</li>
+                <li>Si $\Delta < 0$: No hay raíces reales. La parábola <strong>no corta</strong> al eje X.</li>
+            </ul>
+            <div id="grafico-nivel3" class="grafico"></div>
+
+            <h3>Aplicación: Maximizar un Área</h3>
+            <p>Un granjero quiere cercar un terreno rectangular con 80 metros de alambrado para que sus animales pasten. Quiere que el área sea la máxima posible. ¿Qué dimensiones debe tener el terreno?</p>
+            <p>Llamemos '$x$' a un lado y '$y$' al otro. El perímetro es $2x + 2y = 80 \implies y = 40 - x$.</p>
+            <p>El área es $A = x \cdot y$. Reemplazando '$y$', tenemos una función cuadrática para el área: $A(x) = x(40-x) = -x^2 + 40x$.</p>
+            <p>Como el coeficiente '$a$' es -1 (negativo), es una parábola hacia abajo. El área máxima estará en el <strong>vértice</strong>.</p>
+            <p>$x_v = \frac{-b}{2a} = \frac{-40}{2 \cdot (-1)} = 20$.</p>
+            <p>Si $x=20$, entonces $y = 40 - 20 = 20$.</p>
+            <p><strong>Respuesta:</strong> El terreno debe ser un cuadrado de 20x20 metros para obtener el área máxima de 400 m².</p>
+
+            <hr>
+            <h3>Actividades</h3>
+            <div class="actividad">
+                <h4>Actividad 1: Buscando el valor de 'k'</h4>
+                <p>¿Qué valor debe tener '$k$' para que la función $f(x) = x^2 - 8x + k$ tenga una única raíz real?</p>
+                 <button onclick="toggleVisibility('ayuda3_1')">Ayuda</button>
+                <button onclick="toggleVisibility('solucion3_1')">Ver Solución</button>
+                <div id="ayuda3_1" class="solucion" style="display:none;"><p>Para que tenga una única raíz, el discriminante debe ser igual a cero ($\Delta = 0$).</p></div>
+                <div id="solucion3_1" class="solucion" style="display:none;"><p>Calculamos el discriminante: $\Delta = (-8)^2 - 4 \cdot 1 \cdot k = 64 - 4k$. Lo igualamos a cero: $64 - 4k = 0 \implies 64 = 4k \implies k = 16$. El valor debe ser <strong>$k=16$</strong>.</p></div>
+            </div>
+             <div class="actividad">
+                <h4>Actividad 2: Sin resolver</h4>
+                <p>Sin calcular las raíces, determina cuántas soluciones reales tiene la ecuación $-3x^2 + 5x - 4 = 0$.</p>
+                 <button onclick="toggleVisibility('ayuda3_2')">Ayuda</button>
+                <button onclick="toggleVisibility('solucion3_2')">Ver Solución</button>
+                <div id="ayuda3_2" class="solucion" style="display:none;"><p>Solo necesitas analizar el signo del discriminante.</p></div>
+                <div id="solucion3_2" class="solucion" style="display:none;"><p>$\Delta = 5^2 - 4(-3)(-4) = 25 - 48 = -23$. Como el discriminante es negativo, la ecuación <strong>no tiene soluciones reales</strong>.</p></div>
+            </div>
+             <div class="actividad">
+                <h4>Actividad 3: Problema de ganancias</h4>
+                <p>La ganancia $G$ (en miles de pesos) de una empresa está dada por $G(x) = -2x^2 + 24x - 54$, donde '$x$' es el precio de venta de su producto. ¿Cuál es el precio que maximiza la ganancia y cuál es esa ganancia máxima?</p>
+                 <button onclick="toggleVisibility('ayuda3_3')">Ayuda</button>
+                <button onclick="toggleVisibility('solucion3_3')">Ver Solución</button>
+                <div id="ayuda3_3" class="solucion" style="display:none;"><p>La ganancia máxima se encontrará en el vértice de la parábola.</p></div>
+                <div id="solucion3_3" class="solucion" style="display:none;"><p>$x_v = \frac{-24}{2 \cdot (-2)} = 6$. El precio que maximiza la ganancia es <strong>$6</strong>. La ganancia máxima es $G(6) = -2(6)^2 + 24(6) - 54 = -72 + 144 - 54 = 18$. La ganancia máxima es de <strong>18 mil pesos</strong>.</p></div>
+            </div>
+            <hr>
+            <h3>Evaluación Rápida</h3>
+            <div id="quiz3">
+                <p>Si el discriminante de una función cuadrática es -15, ¿qué se puede afirmar sobre su gráfico?</p>
+                <label><input type="radio" name="q3" value="a"> Corta al eje X en dos puntos.</label>
+                <label><input type="radio" name="q3" value="b"> No corta al eje X.</label>
+                <label><input type="radio" name="q3" value="c"> Su vértice está sobre el eje X.</label>
+                <button onclick="checkQuiz('q3', 'b')">Corregir</button>
+                <p id="feedback-q3"></p>
+            </div>
+        </section>
+        
+        <!-- Pestaña Nivel 4 -->
+        <section id="nivel4" class="tab-content">
+            <h2>Nivel 4: Cruces y Desigualdades 📈</h2>
+            <h3>Intersección entre una Parábola y una Recta</h3>
+            <p>¿En qué punto se cruzan la parábola $y = x^2 - 4$ y la recta $y = x - 2$? Gráficamente, buscamos los puntos donde las dos curvas se tocan.</p>
+            <p>Analíticamente, si ambos '$y$' deben ser iguales, simplemente igualamos las ecuaciones:</p>
+            $$x^2 - 4 = x - 2$$
+            <p>Y resolvemos la ecuación cuadrática resultante: $x^2 - x - 2 = 0$.</p>
+            <p>Usando la fórmula resolvente, encontramos que las soluciones son $x_1=2$ y $x_2=-1$. Para hallar los puntos completos, reemplazamos estos valores de '$x$' en la ecuación de la recta (que es más fácil):</p>
+            <ul>
+                <li>Si $x=2$, $y = 2-2=0$. Punto 1: $(2, 0)$.</li>
+                <li>Si $x=-1$, $y = -1-2=-3$. Punto 2: $(-1, -3)$.</li>
+            </ul>
+            <div id="grafico-nivel4" class="grafico"></div>
+            
+            <h3>Inecuaciones Cuadráticas</h3>
+            <p>Resolver una inecuación como $x^2 - x - 6 > 0$ significa encontrar para qué valores de '$x$' el gráfico de la parábola $f(x)=x^2-x-6$ está <strong>por encima</strong> del eje X.</p>
+            <p>El primer paso es encontrar las raíces de la ecuación $x^2-x-6=0$, que son $x_1=3$ y $x_2=-2$. Estos son los puntos donde la parábola cruza el eje. Como es una parábola cóncava hacia arriba, estará por encima del eje X antes de la primera raíz y después de la segunda.</p>
+            <p><strong>Solución:</strong> El conjunto solución es $(-\infty, -2) \cup (3, +\infty)$.</p>
+
+            <hr>
+            <h3>Actividades</h3>
+            <div class="actividad">
+                <h4>Actividad 1: Buscando intersecciones</h4>
+                <p>Halla los puntos de intersección entre la parábola $y = x^2 + 2x + 1$ y la recta $y = x + 3$.</p>
+                <button onclick="toggleVisibility('ayuda4_1')">Ayuda</button>
+                <button onclick="toggleVisibility('solucion4_1')">Ver Solución</button>
+                <div id="ayuda4_1" class="solucion" style="display:none;"><p>Iguala las dos ecuaciones para formar una única ecuación cuadrática y resuélvela.</p></div>
+                <div id="solucion4_1" class="solucion" style="display:none;">
+                    <p>$x^2 + 2x + 1 = x + 3 \implies x^2 + x - 2 = 0$. Las soluciones son $x=1$ y $x=-2$.</p>
+                    <p>Si $x=1$, $y=1+3=4$. Punto: $(1, 4)$.</p>
+                    <p>Si $x=-2$, $y=-2+3=1$. Punto: $(-2, 1)$.</p>
+                </div>
+            </div>
+            <div class="actividad">
+                <h4>Actividad 2: ¿Cuándo es negativo?</h4>
+                <p>Resuelve la inecuación $-x^2 + 4 < 0$.</p>
+                <button onclick="toggleVisibility('ayuda4_2')">Ayuda</button>
+                <button onclick="toggleVisibility('solucion4_2')">Ver Solución</button>
+                <div id="ayuda4_2" class="solucion" style="display:none;"><p>Busca cuándo la parábola $y=-x^2+4$ está por debajo del eje X. Encuentra las raíces primero.</p></div>
+                <div id="solucion4_2" class="solucion" style="display:none;"><p>Las raíces de $-x^2+4=0$ son $x=2$ y $x=-2$. Como es una parábola cóncava hacia abajo, estará por debajo del eje X en los "extremos". El conjunto solución es $(-\infty, -2) \cup (2, +\infty)$.</p></div>
+            </div>
+            <div class="actividad">
+                <h4>Actividad 3: Un problema de altura</h4>
+                <p>La altura de un cohete de juguete está dada por $h(t) = -5t^2 + 40t$, donde '$t$' es el tiempo en segundos. ¿Durante qué intervalo de tiempo el cohete está a una altura superior a 60 metros?</p>
+                <button onclick="toggleVisibility('ayuda4_3')">Ayuda</button>
+                <button onclick="toggleVisibility('solucion4_3')">Ver Solución</button>
+                <div id="ayuda4_3" class="solucion" style="display:none;"><p>Debes resolver la inecuación $-5t^2 + 40t > 60$.</p></div>
+                <div id="solucion4_3" class="solucion" style="display:none;"><p>Resolvemos $-5t^2 + 40t - 60 > 0$. Primero buscamos las raíces de la ecuación igualada a cero. Dividiendo por -5: $t^2 - 8t + 12 = 0$. Las raíces son $t=2$ y $t=6$. Como la parábola original es cóncava hacia abajo, estará por encima de 60 metros <strong>entre</strong> las raíces. El intervalo es <strong>(2, 6)</strong>. Estará por encima de los 60 metros entre el segundo 2 y el segundo 6.</p></div>
+            </div>
+            <hr>
+            <h3>Evaluación Rápida</h3>
+            <div id="quiz4">
+                <p>Si al igualar la ecuación de una parábola y una recta, la ecuación cuadrática resultante tiene un discriminante igual a cero ($\Delta=0$), ¿qué significa gráficamente?</p>
+                <label><input type="radio" name="q4" value="a"> La recta y la parábola no se tocan.</label>
+                <label><input type="radio" name="q4" value="b"> La recta corta a la parábola en dos puntos.</label>
+                <label><input type="radio" name="q4" value="c"> La recta es tangente a la parábola (la toca en un solo punto).</label>
+                <button onclick="checkQuiz('q4', 'c')">Corregir</button>
+                <p id="feedback-q4"></p>
+            </div>
+        </section>
+
+        <!-- Pestaña Síntesis -->
+        <section id="sintesis" class="tab-content">
+            <h2>Síntesis Visual 🧠</h2>
+            <div class="sintesis-container">
+                <div class="sintesis-box">
+                    <h4>La Fórmula Maestra</h4>
+                    <p>$f(x) = ax^2+bx+c$</p>
+                    <p>($a \neq 0$)</p>
+                </div>
+                <div class="sintesis-box">
+                    <h4>El Gráfico: La Parábola</h4>
+                    <p>Si $a>0 \implies$ 😊 (Cóncava hacia arriba)</p>
+                    <p>Si $a<0 \implies$ ☹️ (Cóncava hacia abajo)</p>
+                </div>
+                 <div class="sintesis-box">
+                    <h4>Puntos Clave</h4>
+                    <ul>
+                        <li>Vértice: $(\frac{-b}{2a}, f(\frac{-b}{2a}))$</li>
+                        <li>Raíces: $f(x)=0$</li>
+                        <li>Ord. Origen: $(0, c)$</li>
+                    </ul>
+                </div>
+                <div class="sintesis-box">
+                    <h4>Las 3 Formas</h4>
+                    <p><strong>Polinómica:</strong> Muestra '$c$'.</p>
+                    <p><strong>Canónica:</strong> Muestra el Vértice.</p>
+                    <p><strong>Factorizada:</strong> Muestra las Raíces.</p>
+                </div>
+                 <div class="sintesis-box">
+                    <h4>El Discriminante</h4>
+                    <p>$\Delta = b^2 - 4ac$</p>
+                    <p>$\Delta > 0 \implies 2$ raíces</p>
+                    <p>$\Delta = 0 \implies 1$ raíz</p>
+                    <p>$\Delta < 0 \implies 0$ raíces</p>
+                </div>
+                 <div class="sintesis-box">
+                    <h4>Aplicaciones</h4>
+                    <p>Trayectorias, áreas máximas, ganancias, diseño de puentes y antenas.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Pestaña Historia -->
+        <section id="historia" class="tab-content">
+            <h2>Línea de Tiempo: La Historia de la Parábola 📜</h2>
+            <ul class="timeline">
+                <li>
+                    <h4>~350 a.C. - Antigua Grecia</h4>
+                    <p><strong>Menecmo</strong>, un matemático griego, fue el primero en estudiar las secciones cónicas (elipse, hipérbola y parábola) mientras intentaba resolver el problema de la duplicación del cubo.</p>
+                </li>
+                <li>
+                    <h4>~225 a.C. - Antigua Grecia</h4>
+                    <p><strong>Apolonio de Perga</strong> escribe su monumental obra "Cónicas", donde da nombre a la parábola y describe sus propiedades geométricas de forma exhaustiva.</p>
+                </li>
+                <li>
+                    <h4>~820 d.C. - Bagdad</h4>
+                    <p>El gran matemático persa <strong>Al-Juarismi</strong> desarrolla métodos algebraicos sistemáticos para resolver ecuaciones cuadráticas, sentando las bases del álgebra.</p>
+                </li>
+                <li>
+                    <h4>~1600 d.C. - Italia</h4>
+                    <p><strong>Galileo Galilei</strong>, a través de sus experimentos, demuestra que la trayectoria de un proyectil bajo la influencia de la gravedad es una parábola, conectando la geometría abstracta con la física del mundo real.</p>
+                </li>
+                <li>
+                    <h4>~1637 d.C. - Francia</h4>
+                    <p><strong>René Descartes</strong> publica su "Geometría", creando la geometría analítica. Esto permite por primera vez describir las curvas, como la parábola, mediante ecuaciones algebraicas, unificando definitivamente álgebra y geometría.</p>
+                </li>
+            </ul>
+        </section>
+        
+        <!-- Pestaña Bibliografía -->
+        <section id="bibliografia" class="tab-content">
+            <h2>Bibliografía y Recursos Sugeridos 📚</h2>
+            
+            <h3>Textos Escolares (Argentina)</h3>
+            <ul>
+                <li><strong>Matemática I y II</strong> de la editorial Santillana (Serie Conectar, Saber es clave).</li>
+                <li><strong>Activados - Matemática</strong> de la editorial Puerto de Palos.</li>
+                <li>Propuestas de editoriales como Kapelusz, Aique, Estrada, que suelen tener un tratamiento muy didáctico del tema.</li>
+            </ul>
+
+            <h3>Recursos Digitales</h3>
+            <ul>
+                <li><a href="https://es.khanacademy.org/math/algebra/x2f8bb11595b61c86:quadratic-functions-equations" target="_blank">Khan Academy</a>: Ofrece videos explicativos, artículos y ejercicios interactivos gratuitos.</li>
+                <li><a href="https://www.geogebra.org" target="_blank">GeoGebra</a>: Herramienta potentísima para graficar y experimentar de forma dinámica con las funciones cuadráticas y otros objetos matemáticos.</li>
+                <li>Canales de YouTube educativos como "Matemática del Profe Alex" o "Daniel Carreón".</li>
+            </ul>
+
+            <h3>Lectura de Divulgación</h3>
+            <ul>
+                <li><strong>"El hombre que calculaba"</strong> de Malba Tahan. Aunque no trata específicamente de la función cuadrática, es una excelente obra para despertar la curiosidad y el gusto por la resolución de problemas matemáticos.</li>
+            </ul>
+        </section>
+    </main>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Un conjunto para rastrear qué gráficos ya se han dibujado.
+        const loadedTabs = new Set();
+
+        function inicializarGraficos(tabId) {
+            // No volver a dibujar si ya está cargado
+            if (loadedTabs.has(tabId)) return; 
+
+            const options = {
+                grid: true,
+                width: 580, // Ajustar al contenedor
+                height: 400
+            };
+
+            let plotData = null;
+
+            // Define la configuración para cada gráfico
+            if (tabId === 'nivel1') {
+                plotData = {
+                    target: '#grafico-nivel1', ...options,
+                    yAxis: { domain: [-5, 5] }, xAxis: { domain: [-2, 4] },
+                    data: [{ fn: '-x^2 + 2x + 3', color: 'var(--primary-color)' }],
+                    annotations: [
+                        { x: 1, text: 'Vértice (1, 4)'}, { x: -1, text: 'Raíz (-1, 0)'},
+                        { x: 3, text: 'Raíz (3, 0)'}, { y: 3, text: 'Ord. Origen (0,3)'}
+                    ]
+                };
+            } else if (tabId === 'nivel2') {
+                plotData = {
+                    target: '#grafico-nivel2', ...options,
+                    yAxis: { domain: [0, 6] }, xAxis: { domain: [-1, 7] },
+                    data: [{ fn: '(-1/3)*(x-3)^2 + 5', color: '#f39c12' }],
+                    annotations: [
+                        { x: 3, y: 5, text: 'Vértice (3, 5) - Altura Máxima'},
+                        { x: 0, y: 2, text: 'Punto Inicial (0, 2)'}
+                    ]
+                };
+            } else if (tabId === 'nivel3') {
+                plotData = {
+                    target: "#grafico-nivel3", ...options, xAxis: {domain: [-5, 5]},
+                    data: [
+                        { fn: "x^2 - x - 2", color: 'var(--success-color)', attrs: { "stroke-width": 2.5 } },
+                        { fn: "x^2 - 2x + 1", color: '#e67e22', attrs: { "stroke-width": 2.5 } },
+                        { fn: "x^2 + x + 2", color: 'var(--error-color)', attrs: { "stroke-width": 2.5 } }
+                    ],
+                    annotations: [
+                        {x: 0, y: -2, text: 'Δ > 0 (2 raíces)'}, {x: 1, y: 0.5, text: 'Δ = 0 (1 raíz)'},
+                        {x: -2, y: 4, text: 'Δ < 0 (0 raíces)'},
+                    ]
+                };
+            } else if (tabId === 'nivel4') {
+                plotData = {
+                    target: '#grafico-nivel4', ...options,
+                    data: [
+                        { fn: 'x^2 - 4', color: 'var(--primary-color)' },
+                        { fn: 'x - 2', color: 'var(--error-color)' }
+                    ],
+                    annotations: [
+                        { x: 2, y: 0, text: 'Intersección (2, 0)'},
+                        { x: -1, y: -3, text: 'Intersección (-1, -3)'}
+                    ]
+                };
+            }
+
+            if (plotData) {
+                try {
+                    functionPlot(plotData);
+                    loadedTabs.add(tabId); // Marcar como cargado
+                } catch (e) {
+                    console.error("Error al graficar en " + tabId + ": ", e);
+                }
+            }
+        }
+        
+        function inicializarGraficoActividad() {
+            if (loadedTabs.has('grafico-actividad1')) return;
+            try {
+                functionPlot({
+                    target: '#grafico-actividad1', grid: true, width: 550, height: 400,
+                    yAxis: { domain: [-5, 6] }, xAxis: { domain: [0, 6] },
+                    data: [{ fn: 'x^2 - 6x + 5', color: '#e67e22' }],
+                    annotations: [
+                        { x: 3, y: -4, text: 'Vértice (3, -4)'}, { x: 1, text: 'Raíz (1, 0)'},
+                        { x: 5, text: 'Raíz (5, 0)'}, { y: 5, text: 'Ord. Origen (0,5)'}
+                    ]
+                });
+                loadedTabs.add('grafico-actividad1');
+            } catch(e) { console.error("Error al graficar la actividad 1: ", e); }
+        }
+
+        window.openTab = function(event, tabId) {
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            document.querySelectorAll('.tab-button').forEach(b => b.classList.remove('active'));
+            
+            document.getElementById(tabId).classList.add('active');
+            event.currentTarget.classList.add('active');
+            
+            inicializarGraficos(tabId);
+        };
+
+        window.toggleVisibility = function(elementId) {
+            const element = document.getElementById(elementId);
+            const isVisible = element.style.display === 'block';
+            element.style.display = isVisible ? 'none' : 'block';
+
+            // Si se muestra la solución que contiene el gráfico, se inicializa
+            if (!isVisible && elementId === 'solucion1') {
+                inicializarGraficoActividad();
+            }
+        };
+        
+        window.checkQuiz = function(questionName, correctValue) {
+            const radios = document.getElementsByName(questionName);
+            const feedback = document.getElementById(`feedback-${questionName}`);
+            let isCorrect = false;
+            let isSelected = false;
+
+            for (const radio of radios) {
+                if (radio.checked) {
+                    isSelected = true;
+                    if (radio.value === correctValue) {
+                        isCorrect = true;
+                    }
+                    break;
+                }
+            }
+
+            if (!isSelected) {
+                feedback.textContent = "Por favor, selecciona una respuesta.";
+                feedback.style.color = "orange";
+            } else if (isCorrect) {
+                feedback.textContent = "¡Correcto! Muy bien. ✅";
+                feedback.style.color = "var(--success-color)";
+            } else {
+                feedback.textContent = "Respuesta incorrecta. ¡Inténtalo de nuevo! ❌";
+                feedback.style.color = "var(--error-color)";
+            }
+        };
+
+        // Inicializar los gráficos de la primera pestaña visible al cargar la página
+        inicializarGraficos('nivel1');
+    });
+    </script>
+
+</body>
+</html>
+
