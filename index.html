@@ -382,6 +382,47 @@
         #school-selection { display: block; }
         #course-selection { display: none; }
         #topic-selection { display: none; }
+        
+        /* Botones de navegación */
+        .navigation-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 40px;
+            flex-wrap: wrap;
+        }
+        .nav-btn {
+            display: inline-flex;
+            align-items: center;
+            background: linear-gradient(to right, #5DADE2, #3498DB);
+            color: white;
+            padding: 12px 25px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(52, 152, 219, 0.3);
+        }
+        .nav-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(52, 152, 219, 0.4);
+        }
+        .nav-btn i {
+            margin-right: 8px;
+        }
+        .nav-btn.home {
+            background: linear-gradient(to right, #4A00E0, #8E2DE2);
+            box-shadow: 0 4px 10px rgba(138, 43, 226, 0.3);
+        }
+        .nav-btn.back {
+            background: linear-gradient(to right, #FFD700, #FFA500);
+            color: #333;
+            box-shadow: 0 4px 10px rgba(255, 165, 0, 0.3);
+        }
+        
         @media (max-width: 768px) {
             .container {
                 margin: 20px auto;
@@ -416,6 +457,16 @@
                 padding: 12px 25px;
                 font-size: 1rem;
                 width: 100%;
+            }
+            
+            .navigation-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .nav-btn {
+                width: 100%;
+                justify-content: center;
             }
         }
         @media (max-width: 480px) {
@@ -521,7 +572,15 @@
                         </div>
                     </div>
                 </div>
+                
+                <!-- Botones de navegación para la sección de escuela -->
+                <div class="navigation-buttons">
+                    <button class="nav-btn home" onclick="goToHome()" style="display: none;">
+                        <i class="fas fa-home"></i> Volver al Inicio
+                    </button>
+                </div>
             </div>
+            
             <!-- Selección de Curso -->
             <div id="course-selection" class="section-transition">
                 <div class="welcome-text">
@@ -531,7 +590,18 @@
                 <div class="selection-section" id="course-selection-content">
                     <!-- Los cursos se cargarán dinámicamente según la escuela seleccionada -->
                 </div>
+                
+                <!-- Botones de navegación para la sección de curso -->
+                <div class="navigation-buttons">
+                    <button class="nav-btn back" onclick="goBackToSchool()">
+                        <i class="fas fa-arrow-left"></i> Volver a Escuelas
+                    </button>
+                    <button class="nav-btn home" onclick="goToHome()">
+                        <i class="fas fa-home"></i> Volver al Inicio
+                    </button>
+                </div>
             </div>
+            
             <!-- Selección de Temas -->
             <div id="topic-selection" class="section-transition">
                 <div class="welcome-text">
@@ -544,6 +614,16 @@
                 
                 <div class="motivation">
                     <p>Las matemáticas son el alfabeto con el cual Dios ha escrito el universo. - Galileo Galilei</p>
+                </div>
+                
+                <!-- Botones de navegación para la sección de temas -->
+                <div class="navigation-buttons">
+                    <button class="nav-btn back" onclick="goBackToCourse()">
+                        <i class="fas fa-arrow-left"></i> Volver a Cursos
+                    </button>
+                    <button class="nav-btn home" onclick="goToHome()">
+                        <i class="fas fa-home"></i> Volver al Inicio
+                    </button>
                 </div>
             </div>
         </div>
@@ -799,10 +879,18 @@
             document.getElementById('school-selection').style.display = 'none';
         }
         
+        function goToHome() {
+            document.getElementById('topic-selection').style.display = 'none';
+            document.getElementById('course-selection').style.display = 'none';
+            document.getElementById('school-selection').style.display = 'block';
+            document.getElementById('school-crumb').style.display = 'none';
+            document.getElementById('course-crumb').style.display = 'none';
+        }
+        
         // Navegación desde el breadcrumb
         document.getElementById('home-link').addEventListener('click', function(e) {
             e.preventDefault();
-            goBackToSchool();
+            goToHome();
         });
         
         // Animación para los elementos matemáticos
@@ -830,9 +918,3 @@
     </script>
 </body>
 </html>
-
-
-
-
-
-
