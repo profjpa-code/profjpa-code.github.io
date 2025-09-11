@@ -10,130 +10,266 @@
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <style>
         :root {
-            --primary-color: #3498db;
-            --secondary-color: #2980b9;
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
             --accent-color: #e74c3c;
-            --light-bg: #f8f9fa;
+            --light-bg: #ecf0f1;
             --dark-text: #2c3e50;
+            --gradient-1: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --gradient-2: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            --gradient-3: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            --gradient-4: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
         
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             color: var(--dark-text);
             background-color: var(--light-bg);
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(52, 152, 219, 0.05) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(46, 204, 113, 0.05) 0%, transparent 20%),
+                radial-gradient(circle at 50% 50%, rgba(155, 89, 182, 0.03) 0%, transparent 30%);
+            background-attachment: fixed;
+            min-height: 100vh;
         }
         
         .navbar {
-            background-color: var(--primary-color);
-            box-shadow: 0 2px 4px rgba(0,0,0,.1);
+            background: var(--gradient-1);
+            box-shadow: 0 4px 12px rgba(0,0,0,.15);
+            padding: 1rem 0;
+        }
+        
+        .navbar-brand {
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: white !important;
+            text-shadow: 0 2px 4px rgba(0,0,0,.2);
+        }
+        
+        .navbar-brand i {
+            margin-right: 0.5rem;
+            color: #f1c40f;
+        }
+        
+        .nav-tabs {
+            border-bottom: 2px solid rgba(52, 152, 219, 0.3);
+            margin-bottom: 0;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 10px 10px 0 0;
+            padding: 0.5rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,.05);
         }
         
         .nav-tabs .nav-link {
             color: var(--dark-text);
             font-weight: 500;
             border: none;
-            border-bottom: 3px solid transparent;
+            border-radius: 8px;
+            margin-right: 0.5rem;
+            padding: 0.75rem 1.25rem;
             transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .nav-tabs .nav-link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--gradient-1);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: -1;
         }
         
         .nav-tabs .nav-link:hover {
-            border-bottom: 3px solid var(--primary-color);
+            border: none;
             background-color: rgba(52, 152, 219, 0.1);
+            transform: translateY(-2px);
         }
         
         .nav-tabs .nav-link.active {
-            color: var(--primary-color);
-            background-color: transparent;
-            border-bottom: 3px solid var(--primary-color);
+            color: white;
+            background: var(--gradient-1);
+            border: none;
             font-weight: 600;
+            box-shadow: 0 4px 8px rgba(0,0,0,.1);
         }
         
         .tab-content {
-            padding: 25px;
+            padding: 30px;
             background-color: white;
-            border-radius: 0 0 10px 10px;
-            box-shadow: 0 2px 10px rgba(0,0,0,.05);
+            border-radius: 0 0 15px 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,.08);
             margin-bottom: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .tab-content::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: var(--gradient-1);
         }
         
         .card {
             border: none;
-            border-radius: 10px;
-            box-shadow: 0 2px 8px rgba(0,0,0,.08);
-            margin-bottom: 20px;
-            transition: transform 0.3s ease;
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0,0,0,.06);
+            margin-bottom: 25px;
+            transition: all 0.4s ease;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.1) 100%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
         }
         
         .card:hover {
-            transform: translateY(-5px);
+            transform: translateY(-8px);
+            box-shadow: 0 15px 35px rgba(0,0,0,.1);
+        }
+        
+        .card:hover::after {
+            opacity: 1;
         }
         
         .card-header {
-            background-color: var(--primary-color);
+            background: var(--gradient-1);
             color: white;
             font-weight: 600;
-            border-radius: 10px 10px 0 0 !important;
+            border-radius: 15px 15px 0 0 !important;
+            padding: 1.25rem;
+            border: none;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .card-header::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 100px;
+            height: 100px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            transform: translate(30%, 30%);
+        }
+        
+        .card-header h4 {
+            margin: 0;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .card-body {
+            padding: 1.75rem;
         }
         
         .btn-primary {
-            background-color: var(--primary-color);
-            border-color: var(--primary-color);
+            background: var(--gradient-1);
+            border: none;
+            border-radius: 30px;
+            padding: 0.6rem 1.5rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(52, 152, 219, 0.3);
         }
         
         .btn-primary:hover {
-            background-color: var(--secondary-color);
-            border-color: var(--secondary-color);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(52, 152, 219, 0.4);
+            background: var(--gradient-1);
         }
         
         .btn-outline-primary {
-            color: var(--primary-color);
-            border-color: var(--primary-color);
+            color: var(--secondary-color);
+            border: 2px solid var(--secondary-color);
+            border-radius: 30px;
+            padding: 0.6rem 1.5rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
         }
         
         .btn-outline-primary:hover {
-            background-color: var(--primary-color);
-            border-color: var(--primary-color);
+            background: var(--gradient-1);
+            border-color: transparent;
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(52, 152, 219, 0.4);
         }
         
         .help-btn {
             position: fixed;
-            bottom: 20px;
-            right: 20px;
-            width: 60px;
-            height: 60px;
+            bottom: 25px;
+            right: 25px;
+            width: 65px;
+            height: 65px;
             border-radius: 50%;
-            background-color: var(--accent-color);
+            background: var(--gradient-2);
             color: white;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 24px;
-            box-shadow: 0 2px 10px rgba(0,0,0,.2);
+            font-size: 28px;
+            box-shadow: 0 8px 20px rgba(231, 76, 60, 0.4);
             cursor: pointer;
             z-index: 1000;
             transition: all 0.3s ease;
+            border: none;
         }
         
         .help-btn:hover {
-            background-color: #c0392b;
             transform: scale(1.1);
+            box-shadow: 0 12px 25px rgba(231, 76, 60, 0.5);
         }
         
         .solution {
             display: none;
-            margin-top: 15px;
-            padding: 15px;
-            background-color: #e8f4fc;
-            border-left: 4px solid var(--primary-color);
-            border-radius: 0 5px 5px 0;
+            margin-top: 20px;
+            padding: 20px;
+            background-color: #f8f9fa;
+            border-left: 5px solid var(--secondary-color);
+            border-radius: 0 10px 10px 0;
+            box-shadow: 0 5px 15px rgba(0,0,0,.05);
+            animation: fadeIn 0.5s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
         
         .formula-box {
-            background-color: #f8f9fa;
-            padding: 15px;
-            border-radius: 8px;
-            margin: 15px 0;
-            border-left: 4px solid var(--primary-color);
+            background: linear-gradient(to right, #f8f9fa, #e9ecef);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border-left: 5px solid var(--secondary-color);
+            box-shadow: 0 5px 15px rgba(0,0,0,.05);
         }
         
         .timeline {
@@ -145,78 +281,102 @@
             content: '';
             position: absolute;
             height: 100%;
-            width: 4px;
-            background: var(--primary-color);
+            width: 5px;
+            background: var(--gradient-1);
             left: 0;
             top: 0;
+            border-radius: 5px;
         }
         
         .timeline-item {
             margin-left: 30px;
-            padding-bottom: 20px;
+            padding-bottom: 25px;
             position: relative;
         }
         
         .timeline-item::before {
             content: '';
             position: absolute;
-            width: 15px;
-            height: 15px;
+            width: 20px;
+            height: 20px;
             border-radius: 50%;
-            background: var(--primary-color);
+            background: white;
+            border: 4px solid var(--secondary-color);
             left: -37px;
             top: 5px;
+            box-shadow: 0 0 0 4px rgba(52, 152, 219, 0.2);
         }
         
         .synthesis-concept {
-            background-color: white;
-            border-radius: 8px;
-            padding: 15px;
-            margin-bottom: 15px;
-            box-shadow: 0 2px 5px rgba(0,0,0,.1);
-            border-left: 4px solid var(--primary-color);
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 8px 20px rgba(0,0,0,.06);
+            border-left: 5px solid var(--secondary-color);
+            transition: all 0.3s ease;
+        }
+        
+        .synthesis-concept:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 25px rgba(0,0,0,.1);
         }
         
         .quiz-option {
-            padding: 10px 15px;
-            margin: 8px 0;
-            border-radius: 8px;
+            padding: 15px 20px;
+            margin: 10px 0;
+            border-radius: 10px;
             cursor: pointer;
-            transition: all 0.2s ease;
+            transition: all 0.3s ease;
             border: 1px solid #ddd;
+            background-color: #f8f9fa;
         }
         
         .quiz-option:hover {
             background-color: rgba(52, 152, 219, 0.1);
+            transform: translateX(5px);
         }
         
         .quiz-option.correct {
             background-color: #d4edda;
             border-color: #c3e6cb;
+            color: #155724;
         }
         
         .quiz-option.incorrect {
             background-color: #f8d7da;
             border-color: #f5c6cb;
+            color: #721c24;
         }
         
         .roadmap-step {
             display: flex;
             align-items: center;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
+            padding: 15px;
+            border-radius: 10px;
+            background-color: #f8f9fa;
+            transition: all 0.3s ease;
+        }
+        
+        .roadmap-step:hover {
+            background-color: rgba(52, 152, 219, 0.1);
+            transform: translateX(5px);
         }
         
         .step-number {
-            width: 30px;
-            height: 30px;
-            background-color: var(--primary-color);
+            width: 40px;
+            height: 40px;
+            background: var(--gradient-1);
             color: white;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-right: 15px;
+            margin-right: 20px;
             font-weight: bold;
+            font-size: 1.2rem;
+            box-shadow: 0 4px 10px rgba(52, 152, 219, 0.3);
         }
         
         .step-content {
@@ -224,13 +384,213 @@
         }
         
         .modal-content {
-            border-radius: 10px;
+            border-radius: 15px;
+            border: none;
+            box-shadow: 0 20px 60px rgba(0,0,0,.2);
         }
         
         .modal-header {
-            background-color: var(--primary-color);
+            background: var(--gradient-1);
             color: white;
-            border-radius: 10px 10px 0 0;
+            border-radius: 15px 15px 0 0;
+            border: none;
+        }
+        
+        .modal-title {
+            font-weight: 600;
+        }
+        
+        .modal-body {
+            padding: 2rem;
+        }
+        
+        .modal-footer {
+            border: none;
+            padding-top: 0;
+        }
+        
+        h2 {
+            color: var(--primary-color);
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-bottom: 15px;
+        }
+        
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 80px;
+            height: 4px;
+            background: var(--gradient-1);
+            border-radius: 2px;
+        }
+        
+        h3, h4, h5 {
+            color: var(--primary-color);
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+        
+        ul {
+            padding-left: 20px;
+        }
+        
+        li {
+            margin-bottom: 8px;
+            position: relative;
+            padding-left: 5px;
+        }
+        
+        li::before {
+            content: '•';
+            color: var(--secondary-color);
+            font-weight: bold;
+            position: absolute;
+            left: -15px;
+        }
+        
+        p {
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+        
+        .activity {
+            padding: 20px;
+            border-radius: 12px;
+            background-color: #f8f9fa;
+            margin-bottom: 20px;
+            border-left: 5px solid var(--accent-color);
+            box-shadow: 0 5px 15px rgba(0,0,0,.05);
+        }
+        
+        .activity h5 {
+            color: var(--accent-color);
+        }
+        
+        .text-center img {
+            border-radius: 10px;
+            box-shadow: 0 8px 20px rgba(0,0,0,.1);
+            max-width: 100%;
+        }
+        
+        .device-example {
+            background-color: #f8f9fa;
+            border-radius: 12px;
+            padding: 20px;
+            margin: 20px 0;
+            border-left: 5px solid var(--secondary-color);
+            box-shadow: 0 5px 15px rgba(0,0,0,.05);
+        }
+        
+        .device-example h5 {
+            color: var(--secondary-color);
+            margin-top: 0;
+        }
+        
+        .device-example img {
+            max-width: 200px;
+            border-radius: 8px;
+            margin: 10px 0;
+            box-shadow: 0 4px 8px rgba(0,0,0,.1);
+        }
+        
+        footer {
+            background: var(--primary-color);
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+            margin-top: 3rem;
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 1rem;
+        }
+        
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .footer-links a:hover {
+            color: #f1c40f;
+            transform: translateY(-3px);
+        }
+        
+        .decorative-element {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.05;
+            z-index: -1;
+        }
+        
+        .decorative-element-1 {
+            width: 300px;
+            height: 300px;
+            background: var(--gradient-2);
+            top: -100px;
+            right: -100px;
+        }
+        
+        .decorative-element-2 {
+            width: 200px;
+            height: 200px;
+            background: var(--gradient-3);
+            bottom: -50px;
+            left: -50px;
+        }
+        
+        .decorative-element-3 {
+            width: 150px;
+            height: 150px;
+            background: var(--gradient-4);
+            top: 50%;
+            right: 5%;
+        }
+        
+        .example-device {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+            padding: 15px;
+            background-color: rgba(52, 152, 219, 0.05);
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+        
+        .example-device:hover {
+            background-color: rgba(52, 152, 219, 0.1);
+            transform: translateX(5px);
+        }
+        
+        .example-device img {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-right: 15px;
+            box-shadow: 0 4px 8px rgba(0,0,0,.1);
+        }
+        
+        .example-device-content {
+            flex: 1;
+        }
+        
+        .example-device-content h6 {
+            color: var(--primary-color);
+            margin-bottom: 5px;
         }
     </style>
 </head>
@@ -287,7 +647,10 @@
         <div class="tab-content" id="mainTabContent">
             <!-- Pestaña de Introducción -->
             <div class="tab-pane fade show active" id="intro" role="tabpanel">
-                <h2 class="mb-4">Introducción a los Circuitos Eléctricos y Componentes Electrónicos</h2>
+                <div class="decorative-element decorative-element-1"></div>
+                <div class="decorative-element decorative-element-2"></div>
+                
+                <h2>Introducción a los Circuitos Eléctricos y Componentes Electrónicos</h2>
                 
                 <div class="card mb-4">
                     <div class="card-header">
@@ -298,7 +661,7 @@
                         <ul>
                             <li>Modelado de componentes electrónicos básicos</li>
                             <li>Funcionamiento de circuitos simples</li>
-                            <li>Dispositivos tácticos como motores y generadores</li>
+                            <li>Dispositivos táctiles como motores y generadores</li>
                             <li>Conceptos eléctricos fundamentales</li>
                             <li>Análisis y diseño de circuitos</li>
                         </ul>
@@ -361,7 +724,6 @@
                         <ul>
                             <li>Matemáticas básicas: álgebra, ecuaciones lineales y sistemas de ecuaciones</li>
                             <li>Física fundamental: conceptos de energía, fuerza y movimiento</li>
-                            <li>Cálculo básico: derivadas e integrales simples</li>
                         </ul>
                         <p>Si no tienes dominio en estos temas, te recomendamos repasarlos antes de comenzar con el Nivel 1.</p>
                     </div>
@@ -370,7 +732,9 @@
             
             <!-- Pestaña Nivel 1 -->
             <div class="tab-pane fade" id="nivel1" role="tabpanel">
-                <h2 class="mb-4">Nivel 1: Conceptos Básicos de Electricidad</h2>
+                <div class="decorative-element decorative-element-3"></div>
+                
+                <h2>Nivel 1: Conceptos Básicos de Electricidad</h2>
                 
                 <div class="card mb-4">
                     <div class="card-header">
@@ -440,6 +804,37 @@
                         <p>Permiten abrir o cerrar el circuito, controlando el paso de la corriente.</p>
                         <div class="text-center my-3">
                             <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/Switch_symbol.svg/120px-Switch_symbol.svg.png" alt="Símbolo de interruptor">
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h4 class="mb-0">Ejemplos de Dispositivos Cotidianos</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="example-device">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1d/Led_bulb.jpg/220px-Led_bulb.jpg" alt="Bombilla LED">
+                            <div class="example-device-content">
+                                <h6>Bombilla LED</h6>
+                                <p>Las bombillas LED son dispositivos que convierten la energía eléctrica en luz. Funcionan con un circuito simple que incluye una fuente de alimentación y un resistor para limitar la corriente que pasa por el LED.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="example-device">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3d/AA_and_AAA_batteries.jpg/220px-AA_and_AAA_batteries.jpg" alt="Baterías AA y AAA">
+                            <div class="example-device-content">
+                                <h6>Baterías</h6>
+                                <p>Las baterías son fuentes de voltaje que almacenan energía química y la convierten en energía eléctrica. Las baterías AA y AAA son comunes en dispositivos como controles remotos y juguetes.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="example-device">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/Regulable.jpg/220px-Regulable.jpg" alt="Interruptor de luz">
+                            <div class="example-device-content">
+                                <h6>Interruptores de luz</h6>
+                                <p>Los interruptores son dispositivos que permiten abrir o cerrar un circuito eléctrico. Cuando enciendes una luz, estás cerrando el circuito para que la corriente fluya hacia la bombilla.</p>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -516,7 +911,9 @@
             
             <!-- Pestaña Nivel 2 -->
             <div class="tab-pane fade" id="nivel2" role="tabpanel">
-                <h2 class="mb-4">Nivel 2: Análisis de Circuitos en Serie y Paralelo</h2>
+                <div class="decorative-element decorative-element-1"></div>
+                
+                <h2>Nivel 2: Análisis de Circuitos en Serie y Paralelo</h2>
                 
                 <div class="card mb-4">
                     <div class="card-header">
@@ -594,6 +991,37 @@
                         <p>La suma algebraica de las diferencias de potencial en cualquier malla cerrada de un circuito es igual a cero.</p>
                         <div class="formula-box">
                             $$\sum_{i=1}^{n} V_i = 0$$
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h4 class="mb-0">Ejemplos de Dispositivos Cotidianos</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="example-device">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5d/Christmas_lights_in_January.jpg/220px-Christmas_lights_in_January.jpg" alt="Luces de Navidad">
+                            <div class="example-device-content">
+                                <h6>Luces de Navidad</h6>
+                                <p>Las luces de Navidad son un ejemplo clásico de circuitos en serie. Si una bombilla se quema, todas las luces se apagan porque se interrumpe el único camino para la corriente.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="example-device">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1c/Power_strip_with_four_outlets_and_two_USB_ports.jpg/220px-Power_strip_with_four_outlets_and_two_USB_ports.jpg" alt="Regleta de enchufes">
+                            <div class="example-device-content">
+                                <h6>Regletas de enchufes</h6>
+                                <p>Las regletas de enchufes son un ejemplo de circuitos en paralelo. Cada dispositivo conectado a la regleta recibe el mismo voltaje y funciona de manera independiente.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="example-device">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7f/LED_string_lights.jpg/220px-LED_string_lights.jpg" alt="Cinta de LEDs">
+                            <div class="example-device-content">
+                                <h6>Cintas de LEDs</h6>
+                                <p>Las cintas de LEDs modernas utilizan circuitos en paralelo para que si un LED se daña, los demás sigan funcionando. Esto es una mejora respecto a las luces de Navidad tradicionales.</p>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -685,7 +1113,9 @@
             
             <!-- Pestaña Nivel 3 -->
             <div class="tab-pane fade" id="nivel3" role="tabpanel">
-                <h2 class="mb-4">Nivel 3: Componentes Electrónicos Avanzados</h2>
+                <div class="decorative-element decorative-element-2"></div>
+                
+                <h2>Nivel 3: Componentes Electrónicos Avanzados</h2>
                 
                 <div class="card mb-4">
                     <div class="card-header">
@@ -743,17 +1173,8 @@
                         <h5>Inductancia (L)</h5>
                         <p>Es la medida de la capacidad de un inductor para oponerse a los cambios en la corriente. Se mide en henrios (H).</p>
                         
-                        <h5>Ley de Faraday</h5>
-                        <p>El voltaje inducido en un inductor es proporcional a la tasa de cambio de la corriente:</p>
-                        <div class="formula-box">
-                            $$V = -L \cdot \frac{dI}{dt}$$
-                            <p>Donde:</p>
-                            <ul>
-                                <li>$V$ = voltaje inducido (V)</li>
-                                <li>$L$ = inductancia (H)</li>
-                                <li>$\frac{dI}{dt}$ = tasa de cambio de la corriente (A/s)</li>
-                            </ul>
-                        </div>
+                        <h5>Ley de Faraday (versión simplificada)</h5>
+                        <p>Cuando la corriente que pasa por un inductor cambia, se genera un voltaje que se opone a ese cambio. Este voltaje es mayor cuando el cambio de corriente es más rápido.</p>
                         
                         <h5>Comportamiento en circuitos de corriente continua</h5>
                         <p>Cuando un inductor se conecta a una fuente de corriente continua:</p>
@@ -794,17 +1215,7 @@
                         </div>
                         
                         <h5>Carga de un capacitor</h5>
-                        <p>La carga en un capacitor en un circuito RC aumenta exponencialmente:</p>
-                        <div class="formula-box">
-                            $$Q(t) = Q_{max} \cdot \left(1 - e^{-\frac{t}{\tau}}\right)$$
-                            <p>Donde:</p>
-                            <ul>
-                                <li>$Q(t)$ = carga en el tiempo t (C)</li>
-                                <li>$Q_{max}$ = carga máxima (C)</li>
-                                <li>$t$ = tiempo (s)</li>
-                                <li>$\tau$ = constante de tiempo (s)</li>
-                            </ul>
-                        </div>
+                        <p>La carga en un capacitor en un circuito RC aumenta con el tiempo. Después de un tiempo igual a τ, el capacitor alcanza aproximadamente el 63% de su carga máxima.</p>
                         
                         <h5>Circuitos RL (Resistor-Inductor)</h5>
                         <p>Un circuito RL combina resistencias e inductores. Su comportamiento está determinado por la constante de tiempo τ (tau):</p>
@@ -819,16 +1230,45 @@
                         </div>
                         
                         <h5>Corriente en un circuito RL</h5>
-                        <p>La corriente en un circuito RL aumenta exponencialmente:</p>
-                        <div class="formula-box">
-                            $$I(t) = I_{max} \cdot \left(1 - e^{-\frac{t}{\tau}}\right)$$
-                            <p>Donde:</p>
-                            <ul>
-                                <li>$I(t)$ = corriente en el tiempo t (A)</li>
-                                <li>$I_{max}$ = corriente máxima (A)</li>
-                                <li>$t$ = tiempo (s)</li>
-                                <li>$\tau$ = constante de tiempo (s)</li>
-                            </ul>
+                        <p>La corriente en un circuito RL aumenta con el tiempo. Después de un tiempo igual a τ, la corriente alcanza aproximadamente el 63% de su valor máximo.</p>
+                    </div>
+                </div>
+                
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h4 class="mb-0">Ejemplos de Dispositivos Cotidianos</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="example-device">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Capacitors_in_a_pcb.jpg/220px-Capacitors_in_a_pcb.jpg" alt="Capacitores en una placa de circuito">
+                            <div class="example-device-content">
+                                <h6>Capacitores en dispositivos electrónicos</h6>
+                                <p>Los capacitores se encuentran en casi todos los dispositivos electrónicos. En las fuentes de alimentación, suavizan el voltaje y filtran el ruido. En las radios, sintonizan diferentes frecuencias.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="example-device">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Fluorescent_Lamp_Ballast.jpg/220px-Fluorescent_Lamp_Ballast.jpg" alt="Balastro de lámpara fluorescente">
+                            <div class="example-device-content">
+                                <h6>Balastros de lámparas fluorescentes</h6>
+                                <p>Los balastros contienen inductores que limitan la corriente que pasa por las lámparas fluorescentes. Sin ellos, la corriente sería demasiado alta y dañaría la lámpara.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="example-device">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/Camera_flash.jpg/220px-Camera_flash.jpg" alt="Flash de cámara">
+                            <div class="example-device-content">
+                                <h6>Flash de cámaras fotográficas</h6>
+                                <p>Los flashes de las cámaras utilizan circuitos RC para almacenar energía en un capacitor y luego liberarla rápidamente para producir un destello de luz brillante.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="example-device">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Relay_with_cover_removed.jpg/220px-Relay_with_cover_removed.jpg" alt="Relé">
+                            <div class="example-device-content">
+                                <h6>Relés</h6>
+                                <p>Los relés son interruptores controlados eléctricamente que utilizan inductores para generar un campo magnético que cierra o abre un contacto mecánico. Se usan en sistemas de automatización y control.</p>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -865,8 +1305,9 @@
                             <div id="solution9" class="solution">
                                 <p>Constante de tiempo: $\tau = \frac{L}{R} = \frac{200 \times 10^{-3}H}{50Ω} = \frac{0.2H}{50Ω} = 0.004s = 4ms$</p>
                                 <p>Corriente máxima: $I_{max} = \frac{V}{R} = \frac{10V}{50Ω} = 0.2A$</p>
-                                <p>Corriente después de 0.01s: $I(t) = I_{max} \cdot \left(1 - e^{-\frac{t}{\tau}}\right) = 0.2A \cdot \left(1 - e^{-\frac{0.01s}{0.004s}}\right)$</p>
-                                <p>$I(t) = 0.2A \cdot \left(1 - e^{-2.5}\right) = 0.2A \cdot (1 - 0.0821) = 0.2A \cdot 0.9179 = 0.1836A$</p>
+                                <p>Después de un tiempo igual a τ (4ms), la corriente alcanza aproximadamente el 63% de su valor máximo.</p>
+                                <p>Como 0.01s es 2.5 veces la constante de tiempo (0.01s / 0.004s = 2.5), la corriente será aproximadamente el 92% de su valor máximo.</p>
+                                <p>Corriente después de 0.01s: $I = 0.92 \cdot I_{max} = 0.92 \cdot 0.2A = 0.184A$</p>
                             </div>
                         </div>
                     </div>
@@ -900,7 +1341,9 @@
             
             <!-- Pestaña Nivel 4 -->
             <div class="tab-pane fade" id="nivel4" role="tabpanel">
-                <h2 class="mb-4">Nivel 4: Dispositivos Electromecánicos</h2>
+                <div class="decorative-element decorative-element-3"></div>
+                
+                <h2>Nivel 4: Dispositivos Electromecánicos</h2>
                 
                 <div class="card mb-4">
                     <div class="card-header">
@@ -910,17 +1353,7 @@
                         <p>Un motor eléctrico es un dispositivo que convierte la energía eléctrica en energía mecánica mediante la interacción de campos magnéticos.</p>
                         
                         <h5>Principio de funcionamiento</h5>
-                        <p>Los motores eléctricos se basan en la ley de Lorentz, que establece que un conductor por el que circula una corriente en un campo magnético experimenta una fuerza perpendicular a ambos.</p>
-                        <div class="formula-box">
-                            $$\vec{F} = I \cdot \vec{L} \times \vec{B}$$
-                            <p>Donde:</p>
-                            <ul>
-                                <li>$\vec{F}$ = fuerza (N)</li>
-                                <li>$I$ = corriente (A)</li>
-                                <li>$\vec{L}$ = longitud del conductor (m)</li>
-                                <li>$\vec{B}$ = campo magnético (T)</li>
-                            </ul>
-                        </div>
+                        <p>Los motores eléctricos se basan en el principio de que un conductor por el que circula una corriente en un campo magnético experimenta una fuerza que lo hace moverse.</p>
                         
                         <h5>Tipos de motores</h5>
                         <ul>
@@ -961,16 +1394,7 @@
                         <p>Un generador eléctrico es un dispositivo que convierte la energía mecánica en energía eléctrica mediante la inducción electromagnética.</p>
                         
                         <h5>Principio de funcionamiento</h5>
-                        <p>Los generadores se basan en la ley de Faraday de la inducción electromagnética, que establece que se produce una corriente inducida en un conductor cuando se mueve a través de un campo magnético o cuando el campo magnético cambia con respecto al conductor.</p>
-                        <div class="formula-box">
-                            $$\varepsilon = -N \cdot \frac{d\Phi_B}{dt}$$
-                            <p>Donde:</p>
-                            <ul>
-                                <li>$\varepsilon$ = fuerza electromotriz inducida (V)</li>
-                                <li>$N$ = número de espiras de la bobina</li>
-                                <li>$\frac{d\Phi_B}{dt}$ = tasa de cambio del flujo magnético (Wb/s)</li>
-                            </ul>
-                        </div>
+                        <p>Los generadores se basan en el principio de que cuando un conductor se mueve a través de un campo magnético, se induce una corriente eléctrica en él.</p>
                         
                         <h5>Tipos de generadores</h5>
                         <ul>
@@ -1025,6 +1449,61 @@
                                 <li>$P_s$ = potencia en el secundario (W)</li>
                                 <li>$P_p$ = potencia en el primario (W)</li>
                             </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h4 class="mb-0">Ejemplos de Dispositivos Cotidianos</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="example-device">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1c/Electric_drill.jpg/220px-Electric_drill.jpg" alt="Taladro eléctrico">
+                            <div class="example-device-content">
+                                <h6>Taladros eléctricos</h6>
+                                <p>Los taladros eléctricos utilizan motores de corriente continua para convertir la energía eléctrica en energía mecánica de rotación. La velocidad se puede regular mediante un circuito que controla el voltaje aplicado al motor.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="example-device">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Washing_machine.jpg/220px-Washing_machine.jpg" alt="Lavadora">
+                            <div class="example-device-content">
+                                <h6>Lavadoras</h6>
+                                <p>Las lavadoras utilizan motores de corriente alterna para mover el tambor. Estos motores pueden cambiar de dirección de rotación para agitar la ropa en ambos sentidos durante el ciclo de lavado.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="example-device">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Hydroelectric_dam.jpg/220px-Hydroelectric_dam.jpg" alt="Central hidroeléctrica">
+                            <div class="example-device-content">
+                                <h6>Centrales hidroeléctricas</h6>
+                                <p>Las centrales hidroeléctricas utilizan generadores eléctricos para convertir la energía mecánica del agua en movimiento en energía eléctrica. El agua hace girar turbinas que están conectadas a los generadores.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="example-device">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/43/Power_transformer.jpg/220px-Power_transformer.jpg" alt="Transformador de potencia">
+                            <div class="example-device-content">
+                                <h6>Transformadores de distribución</h6>
+                                <p>Los transformadores de distribución, esos cilindros que vemos en los postes de luz, reducen el voltaje de la red eléctrica (generalmente 13,200V) a los 220V que usamos en nuestras casas.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="example-device">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2b/Celular_antiguo.jpg/220px-Celular_antiguo.jpg" alt="Cargador de celular">
+                            <div class="example-device-content">
+                                <h6>Cargadores de celulares</h6>
+                                <p>Los cargadores de celulares utilizan transformadores para reducir el voltaje de la red eléctrica (220V) al voltaje necesario para cargar el celular (generalmente 5V). También incluyen circuitos rectificadores para convertir corriente alterna en corriente continua.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="example-device">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Alternator_in_car.jpg/220px-Alternator_in_car.jpg" alt="Alternador de automóvil">
+                            <div class="example-device-content">
+                                <h6>Alternadores de automóviles</h6>
+                                <p>Los alternadores en los automóviles son generadores que convierten la energía mecánica del motor en energía eléctrica para cargar la batería y alimentar los sistemas eléctricos del vehículo cuando está en marcha.</p>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -1093,7 +1572,7 @@
                         
                         <h5 class="mt-4">Pregunta 3: Un generador eléctrico se basa en...</h5>
                         <div class="quiz-option" onclick="checkAnswer(this, false)">a) La ley de Ohm</div>
-                        <div class="quiz-option" onclick="checkAnswer(this, true)">b) La ley de Faraday de la inducción electromagnética</div>
+                        <div class="quiz-option" onclick="checkAnswer(this, true)">b) El principio de inducción electromagnética</div>
                         <div class="quiz-option" onclick="checkAnswer(this, false)">c) La ley de Coulomb</div>
                         <div class="quiz-option" onclick="checkAnswer(this, false)">d) La ley de Joule</div>
                     </div>
@@ -1102,7 +1581,10 @@
             
             <!-- Pestaña Síntesis -->
             <div class="tab-pane fade" id="sintesis" role="tabpanel">
-                <h2 class="mb-4">Síntesis Visual</h2>
+                <div class="decorative-element decorative-element-1"></div>
+                <div class="decorative-element decorative-element-2"></div>
+                
+                <h2>Síntesis Visual</h2>
                 
                 <div class="card mb-4">
                     <div class="card-header">
@@ -1155,9 +1637,6 @@
                         
                         <div class="synthesis-concept">
                             <h5>Inductores</h5>
-                            <div class="formula-box">
-                                $$V = -L \cdot \frac{dI}{dt}$$
-                            </div>
                             <p>Almacenan energía en forma de campo magnético. Se oponen a los cambios de corriente.</p>
                         </div>
                     </div>
@@ -1178,9 +1657,6 @@
                         
                         <div class="synthesis-concept">
                             <h5>Generadores Eléctricos</h5>
-                            <div class="formula-box">
-                                $$\varepsilon = -N \cdot \frac{d\Phi_B}{dt}$$
-                            </div>
                             <p>Convierten energía mecánica en energía eléctrica mediante inducción electromagnética.</p>
                         </div>
                         
@@ -1200,7 +1676,13 @@
                     </div>
                     <div class="card-body">
                         <div class="text-center">
-                            <img src="https://i.imgur.com/placeholder.png" alt="Mapa conceptual de circuitos eléctricos" class="img-fluid">
+                            <div style="width: 100%; height: 300px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 15px; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.2rem; box-shadow: 0 10px 30px rgba(0,0,0,.1);">
+                                <div>
+                                    <i class="bi bi-lightning-charge-fill" style="font-size: 3rem; margin-bottom: 1rem;"></i>
+                                    <p>Mapa conceptual interactivo de circuitos eléctricos</p>
+                                    <p>Relación entre conceptos fundamentales y aplicaciones prácticas</p>
+                                </div>
+                            </div>
                             <p class="mt-3">Este mapa conceptual muestra la relación entre los diferentes conceptos estudiados a lo largo de los cuatro niveles del curso.</p>
                         </div>
                     </div>
@@ -1209,7 +1691,9 @@
             
             <!-- Pestaña Contexto Histórico -->
             <div class="tab-pane fade" id="historia" role="tabpanel">
-                <h2 class="mb-4">Contexto Histórico</h2>
+                <div class="decorative-element decorative-element-3"></div>
+                
+                <h2>Contexto Histórico</h2>
                 
                 <div class="card">
                     <div class="card-header">
@@ -1298,7 +1782,10 @@
             
             <!-- Pestaña Bibliografía -->
             <div class="tab-pane fade" id="bibliografia" role="tabpanel">
-                <h2 class="mb-4">Bibliografía Sugerida</h2>
+                <div class="decorative-element decorative-element-1"></div>
+                <div class="decorative-element decorative-element-2"></div>
+                
+                <h2>Bibliografía Sugerida</h2>
                 
                 <div class="card mb-4">
                     <div class="card-header">
@@ -1359,10 +1846,22 @@
         </div>
     </div>
     
+    <!-- Pie de página -->
+    <footer>
+        <div class="footer-content">
+            <p>&copy; 2023 Circuitos Eléctricos y Componentes Electrónicos - Plataforma Educativa</p>
+            <div class="footer-links">
+                <a href="#"><i class="bi bi-house-door-fill"></i> Inicio</a>
+                <a href="#"><i class="bi bi-envelope-fill"></i> Contacto</a>
+                <a href="#"><i class="bi bi-info-circle-fill"></i> Acerca de</a>
+            </div>
+        </div>
+    </footer>
+    
     <!-- Botón de ayuda -->
-    <div class="help-btn" data-bs-toggle="modal" data-bs-target="#helpModal">
+    <button class="help-btn" data-bs-toggle="modal" data-bs-target="#helpModal">
         <i class="bi bi-question-lg"></i>
-    </div>
+    </button>
     
     <!-- Modal de ayuda -->
     <div class="modal fade" id="helpModal" tabindex="-1" aria-labelledby="helpModalLabel" aria-hidden="true">
