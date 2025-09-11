@@ -730,7 +730,7 @@
                             { title: "Energía Hidroeléctrica", link: "posterfisica.html" },
                             { title: "¿cómo se integra la termodinámica a la generación de energía?", link: "FisicaAvanzado.html" }
                         ]
-                    }
+                    },
                     { 
                         title: "Electrones en movimiento", 
                         description: "Veamos cuánto podemos aprender de Electromagnetismo y electricidad por acá",
@@ -773,7 +773,8 @@
             // Actualizar breadcrumb
             document.getElementById('school-crumb').style.display = 'inline';
             document.getElementById('school-link').textContent = school;
-            document.getElementById('school-link').onclick = function() {
+            document.getElementById('school-link').onclick = function(e) {
+                e.preventDefault();
                 goBackToSchool();
                 return false;
             };
@@ -798,7 +799,7 @@
                         </div>
                         <div class="card-body">
                             <p>Material organizado por temas para ${course}</p>
-                            <a href="#" class="btn" onclick="selectCourse('${course}')">Seleccionar <i class="fas fa-arrow-right"></i></a>
+                            <a href="#" class="btn" onclick="selectCourse('${course}'); return false;">Seleccionar <i class="fas fa-arrow-right"></i></a>
                         </div>
                     `;
                     coursesContainer.appendChild(courseCard);
@@ -815,7 +816,8 @@
             // Actualizar breadcrumb
             document.getElementById('course-crumb').style.display = 'inline';
             document.getElementById('course-link').textContent = course;
-            document.getElementById('course-link').onclick = function() {
+            document.getElementById('course-link').onclick = function(e) {
+                e.preventDefault();
                 goBackToCourse();
                 return false;
             };
@@ -928,6 +930,3 @@
     </script>
 </body>
 </html>
-
-
-
