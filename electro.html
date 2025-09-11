@@ -1,0 +1,1438 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Circuitos Eléctricos y Componentes Electrónicos</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style>
+        :root {
+            --primary-color: #3498db;
+            --secondary-color: #2980b9;
+            --accent-color: #e74c3c;
+            --light-bg: #f8f9fa;
+            --dark-text: #2c3e50;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: var(--dark-text);
+            background-color: var(--light-bg);
+        }
+        
+        .navbar {
+            background-color: var(--primary-color);
+            box-shadow: 0 2px 4px rgba(0,0,0,.1);
+        }
+        
+        .nav-tabs .nav-link {
+            color: var(--dark-text);
+            font-weight: 500;
+            border: none;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-tabs .nav-link:hover {
+            border-bottom: 3px solid var(--primary-color);
+            background-color: rgba(52, 152, 219, 0.1);
+        }
+        
+        .nav-tabs .nav-link.active {
+            color: var(--primary-color);
+            background-color: transparent;
+            border-bottom: 3px solid var(--primary-color);
+            font-weight: 600;
+        }
+        
+        .tab-content {
+            padding: 25px;
+            background-color: white;
+            border-radius: 0 0 10px 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,.05);
+            margin-bottom: 30px;
+        }
+        
+        .card {
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,.08);
+            margin-bottom: 20px;
+            transition: transform 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .card-header {
+            background-color: var(--primary-color);
+            color: white;
+            font-weight: 600;
+            border-radius: 10px 10px 0 0 !important;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--secondary-color);
+            border-color: var(--secondary-color);
+        }
+        
+        .btn-outline-primary {
+            color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+        
+        .btn-outline-primary:hover {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+        
+        .help-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background-color: var(--accent-color);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            box-shadow: 0 2px 10px rgba(0,0,0,.2);
+            cursor: pointer;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+        
+        .help-btn:hover {
+            background-color: #c0392b;
+            transform: scale(1.1);
+        }
+        
+        .solution {
+            display: none;
+            margin-top: 15px;
+            padding: 15px;
+            background-color: #e8f4fc;
+            border-left: 4px solid var(--primary-color);
+            border-radius: 0 5px 5px 0;
+        }
+        
+        .formula-box {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            border-left: 4px solid var(--primary-color);
+        }
+        
+        .timeline {
+            position: relative;
+            padding: 20px 0;
+        }
+        
+        .timeline::before {
+            content: '';
+            position: absolute;
+            height: 100%;
+            width: 4px;
+            background: var(--primary-color);
+            left: 0;
+            top: 0;
+        }
+        
+        .timeline-item {
+            margin-left: 30px;
+            padding-bottom: 20px;
+            position: relative;
+        }
+        
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            background: var(--primary-color);
+            left: -37px;
+            top: 5px;
+        }
+        
+        .synthesis-concept {
+            background-color: white;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 5px rgba(0,0,0,.1);
+            border-left: 4px solid var(--primary-color);
+        }
+        
+        .quiz-option {
+            padding: 10px 15px;
+            margin: 8px 0;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border: 1px solid #ddd;
+        }
+        
+        .quiz-option:hover {
+            background-color: rgba(52, 152, 219, 0.1);
+        }
+        
+        .quiz-option.correct {
+            background-color: #d4edda;
+            border-color: #c3e6cb;
+        }
+        
+        .quiz-option.incorrect {
+            background-color: #f8d7da;
+            border-color: #f5c6cb;
+        }
+        
+        .roadmap-step {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .step-number {
+            width: 30px;
+            height: 30px;
+            background-color: var(--primary-color);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            font-weight: bold;
+        }
+        
+        .step-content {
+            flex: 1;
+        }
+        
+        .modal-content {
+            border-radius: 10px;
+        }
+        
+        .modal-header {
+            background-color: var(--primary-color);
+            color: white;
+            border-radius: 10px 10px 0 0;
+        }
+    </style>
+</head>
+<body>
+    <!-- Barra de navegación -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">
+                <i class="bi bi-lightning-charge-fill"></i> Circuitos Eléctricos
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#"><i class="bi bi-person-circle"></i> Profesor</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        <!-- Pestañas de navegación -->
+        <ul class="nav nav-tabs" id="mainTabs" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="intro-tab" data-bs-toggle="tab" data-bs-target="#intro" type="button" role="tab">Introducción</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="nivel1-tab" data-bs-toggle="tab" data-bs-target="#nivel1" type="button" role="tab">Nivel 1</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="nivel2-tab" data-bs-toggle="tab" data-bs-target="#nivel2" type="button" role="tab">Nivel 2</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="nivel3-tab" data-bs-toggle="tab" data-bs-target="#nivel3" type="button" role="tab">Nivel 3</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="nivel4-tab" data-bs-toggle="tab" data-bs-target="#nivel4" type="button" role="tab">Nivel 4</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="sintesis-tab" data-bs-toggle="tab" data-bs-target="#sintesis" type="button" role="tab">Síntesis</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="historia-tab" data-bs-toggle="tab" data-bs-target="#historia" type="button" role="tab">Contexto Histórico</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="bibliografia-tab" data-bs-toggle="tab" data-bs-target="#bibliografia" type="button" role="tab">Bibliografía</button>
+            </li>
+        </ul>
+
+        <!-- Contenido de las pestañas -->
+        <div class="tab-content" id="mainTabContent">
+            <!-- Pestaña de Introducción -->
+            <div class="tab-pane fade show active" id="intro" role="tabpanel">
+                <h2 class="mb-4">Introducción a los Circuitos Eléctricos y Componentes Electrónicos</h2>
+                
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h4 class="mb-0">¿Qué vamos a estudiar?</h4>
+                    </div>
+                    <div class="card-body">
+                        <p>En este curso, exploraremos los fundamentos de los circuitos eléctricos y los componentes electrónicos esenciales. Abordaremos:</p>
+                        <ul>
+                            <li>Modelado de componentes electrónicos básicos</li>
+                            <li>Funcionamiento de circuitos simples</li>
+                            <li>Dispositivos tácticos como motores y generadores</li>
+                            <li>Conceptos eléctricos fundamentales</li>
+                            <li>Análisis y diseño de circuitos</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h4 class="mb-0">Propósito de la página</h4>
+                    </div>
+                    <div class="card-body">
+                        <p>Este sitio web tiene como objetivo proporcionar una plataforma educativa interactiva para el aprendizaje de conceptos eléctricos y electrónicos. A través de una estructura modular por niveles, los estudiantes podrán:</p>
+                        <ul>
+                            <li>Comprender los fundamentos teóricos de la electricidad</li>
+                            <li>Aplicar conceptos matemáticos en la resolución de problemas</li>
+                            <li>Desarrollar habilidades de modelado y análisis de circuitos</li>
+                            <li>Explorar aplicaciones prácticas de los componentes electrónicos</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h4 class="mb-0">Hoja de ruta</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="roadmap-step">
+                            <div class="step-number">1</div>
+                            <div class="step-content">
+                                <strong>Nivel 1:</strong> Conceptos básicos de electricidad, introducción a componentes simples y circuitos elementales.
+                            </div>
+                        </div>
+                        <div class="roadmap-step">
+                            <div class="step-number">2</div>
+                            <div class="step-content">
+                                <strong>Nivel 2:</strong> Análisis de circuitos en serie y paralelo, leyes de Kirchhoff y aplicaciones prácticas.
+                            </div>
+                        </div>
+                        <div class="roadmap-step">
+                            <div class="step-number">3</div>
+                            <div class="step-content">
+                                <strong>Nivel 3:</strong> Componentes electrónicos avanzados, circuitos con capacitores e inductores.
+                            </div>
+                        </div>
+                        <div class="roadmap-step">
+                            <div class="step-number">4</div>
+                            <div class="step-content">
+                                <strong>Nivel 4:</strong> Dispositivos electromecánicos, motores, generadores y aplicaciones complejas.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="mb-0">Contenidos previos necesarios</h4>
+                    </div>
+                    <div class="card-body">
+                        <p>Para aprovechar al máximo este curso, se recomienda tener conocimientos previos en:</p>
+                        <ul>
+                            <li>Matemáticas básicas: álgebra, ecuaciones lineales y sistemas de ecuaciones</li>
+                            <li>Física fundamental: conceptos de energía, fuerza y movimiento</li>
+                            <li>Cálculo básico: derivadas e integrales simples</li>
+                        </ul>
+                        <p>Si no tienes dominio en estos temas, te recomendamos repasarlos antes de comenzar con el Nivel 1.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Pestaña Nivel 1 -->
+            <div class="tab-pane fade" id="nivel1" role="tabpanel">
+                <h2 class="mb-4">Nivel 1: Conceptos Básicos de Electricidad</h2>
+                
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h4 class="mb-0">Problema Inicial: Iluminación de una Habitación</h4>
+                    </div>
+                    <div class="card-body">
+                        <p>Imagina que quieres diseñar el sistema de iluminación para una habitación pequeña. Necesitas instalar tres bombillas que puedan encenderse y apagarse de manera independiente. ¿Cómo diseñarías el circuito eléctrico para lograrlo?</p>
+                        <p>Este problema nos servirá como disparador para introducir los conceptos fundamentales de los circuitos eléctricos.</p>
+                    </div>
+                </div>
+                
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h4 class="mb-0">Definiciones Fundamentales</h4>
+                    </div>
+                    <div class="card-body">
+                        <h5>Corriente Eléctrica (I)</h5>
+                        <p>La corriente eléctrica es el flujo de carga eléctrica a través de un material conductor. Se mide en amperios (A).</p>
+                        <div class="formula-box">
+                            $$I = \frac{Q}{t}$$
+                            <p>Donde:</p>
+                            <ul>
+                                <li>$I$ = corriente eléctrica (A)</li>
+                                <li>$Q$ = carga eléctrica (C)</li>
+                                <li>$t$ = tiempo (s)</li>
+                            </ul>
+                        </div>
+                        
+                        <h5>Voltaje o Diferencia de Potencial (V)</h5>
+                        <p>Es la energía por unidad de carga necesaria para mover una carga entre dos puntos. Se mide en voltios (V).</p>
+                        
+                        <h5>Resistencia Eléctrica (R)</h5>
+                        <p>Es la oposición que presenta un material al paso de la corriente eléctrica. Se mide en ohmios (Ω).</p>
+                        
+                        <h5>Ley de Ohm</h5>
+                        <p>Establece la relación entre voltaje, corriente y resistencia:</p>
+                        <div class="formula-box">
+                            $$V = I \cdot R$$
+                            <p>Donde:</p>
+                            <ul>
+                                <li>$V$ = voltaje (V)</li>
+                                <li>$I$ = corriente (A)</li>
+                                <li>$R$ = resistencia (Ω)</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h4 class="mb-0">Componentes Básicos de un Circuito</h4>
+                    </div>
+                    <div class="card-body">
+                        <h5>Resistores</h5>
+                        <p>Componentes que oponen resistencia al paso de la corriente eléctrica. Se representan con el símbolo:</p>
+                        <div class="text-center my-3">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Resistor_symbol.svg/120px-Resistor_symbol.svg.png" alt="Símbolo de resistor">
+                        </div>
+                        
+                        <h5>Fuente de Voltaje</h5>
+                        <p>Proporciona la energía necesaria para que circule la corriente. Puede ser una batería o una fuente de alimentación.</p>
+                        <div class="text-center my-3">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a3/Battery_symbol.svg/120px-Battery_symbol.svg.png" alt="Símbolo de batería">
+                        </div>
+                        
+                        <h5>Interruptores</h5>
+                        <p>Permiten abrir o cerrar el circuito, controlando el paso de la corriente.</p>
+                        <div class="text-center my-3">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/Switch_symbol.svg/120px-Switch_symbol.svg.png" alt="Símbolo de interruptor">
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h4 class="mb-0">Actividades</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="activity mb-4">
+                            <h5>Actividad 1: Cálculo de corriente</h5>
+                            <p>Un resistor de 100 Ω está conectado a una fuente de 9V. Calcula la corriente que circula por el circuito.</p>
+                            <button class="btn btn-outline-primary" onclick="toggleSolution('solution1')">Ver solución</button>
+                            <div id="solution1" class="solution">
+                                <p>Aplicando la Ley de Ohm: $V = I \cdot R$</p>
+                                <p>Despejando la corriente: $I = \frac{V}{R} = \frac{9V}{100Ω} = 0.09A = 90mA$</p>
+                                <p>La corriente que circula por el circuito es de 90mA.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="activity mb-4">
+                            <h5>Actividad 2: Cálculo de resistencia</h5>
+                            <p>Si por un resistor circula una corriente de 0.5A y la diferencia de potencial entre sus extremos es de 12V, ¿cuál es el valor de la resistencia?</p>
+                            <button class="btn btn-outline-primary" onclick="toggleSolution('solution2')">Ver solución</button>
+                            <div id="solution2" class="solution">
+                                <p>Aplicando la Ley de Ohm: $V = I \cdot R$</p>
+                                <p>Despejando la resistencia: $R = \frac{V}{I} = \frac{12V}{0.5A} = 24Ω$</p>
+                                <p>El valor de la resistencia es de 24Ω.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="activity">
+                            <h5>Actividad 3: Diseño de circuito simple</h5>
+                            <p>Dibuja un circuito que incluya una batería de 6V, un resistor de 200Ω y un interruptor en serie. Calcula la corriente cuando el interruptor está cerrado.</p>
+                            <button class="btn btn-outline-primary" onclick="toggleSolution('solution3')">Ver solución</button>
+                            <div id="solution3" class="solution">
+                                <p>El circuito sería:</p>
+                                <div class="text-center my-3">
+                                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Simple_series_circuit.svg/300px-Simple_series_circuit.svg.png" alt="Circuito en serie">
+                                </div>
+                                <p>Aplicando la Ley de Ohm: $V = I \cdot R$</p>
+                                <p>Despejando la corriente: $I = \frac{V}{R} = \frac{6V}{200Ω} = 0.03A = 30mA$</p>
+                                <p>La corriente cuando el interruptor está cerrado es de 30mA.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="mb-0">Evaluación: Nivel 1</h4>
+                    </div>
+                    <div class="card-body">
+                        <h5>Pregunta 1: ¿Cuál es la unidad de medida de la corriente eléctrica?</h5>
+                        <div class="quiz-option" onclick="checkAnswer(this, false)">a) Voltio</div>
+                        <div class="quiz-option" onclick="checkAnswer(this, true)">b) Amperio</div>
+                        <div class="quiz-option" onclick="checkAnswer(this, false)">c) Ohmio</div>
+                        <div class="quiz-option" onclick="checkAnswer(this, false)">d) Vatio</div>
+                        
+                        <h5 class="mt-4">Pregunta 2: Según la Ley de Ohm, si duplicamos el voltaje en un circuito con resistencia constante...</h5>
+                        <div class="quiz-option" onclick="checkAnswer(this, false)">a) La corriente se reduce a la mitad</div>
+                        <div class="quiz-option" onclick="checkAnswer(this, true)">b) La corriente se duplica</div>
+                        <div class="quiz-option" onclick="checkAnswer(this, false)">c) La corriente no cambia</div>
+                        <div class="quiz-option" onclick="checkAnswer(this, false)">d) La resistencia se duplica</div>
+                        
+                        <h5 class="mt-4">Pregunta 3: Un resistor de 50Ω está conectado a una fuente de 10V. ¿Cuál es la corriente que circula por el circuito?</h5>
+                        <div class="quiz-option" onclick="checkAnswer(this, false)">a) 0.2A</div>
+                        <div class="quiz-option" onclick="checkAnswer(this, true)">b) 0.2A</div>
+                        <div class="quiz-option" onclick="checkAnswer(this, false)">c) 5A</div>
+                        <div class="quiz-option" onclick="checkAnswer(this, false)">d) 500A</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Pestaña Nivel 2 -->
+            <div class="tab-pane fade" id="nivel2" role="tabpanel">
+                <h2 class="mb-4">Nivel 2: Análisis de Circuitos en Serie y Paralelo</h2>
+                
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h4 class="mb-0">Continuación del Problema Inicial</h4>
+                    </div>
+                    <div class="card-body">
+                        <p>Recordando nuestro problema de iluminación, ahora que conocemos los conceptos básicos, podemos diseñar un circuito que permita encender y apagar cada bombilla de forma independiente.</p>
+                        <p>Para lograrlo, necesitamos entender cómo se comportan los circuitos cuando conectamos componentes en serie y en paralelo.</p>
+                    </div>
+                </div>
+                
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h4 class="mb-0">Circuitos en Serie</h4>
+                    </div>
+                    <div class="card-body">
+                        <p>En un circuito en serie, los componentes están conectados uno después del otro, formando un único camino para la corriente.</p>
+                        <div class="text-center my-3">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Simple_series_circuit.svg/300px-Simple_series_circuit.svg.png" alt="Circuito en serie">
+                        </div>
+                        
+                        <h5>Características de los circuitos en serie:</h5>
+                        <ul>
+                            <li>La corriente es la misma en todos los componentes: $I = I_1 = I_2 = ... = I_n$</li>
+                            <li>El voltaje total es la suma de los voltajes individuales: $V = V_1 + V_2 + ... + V_n$</li>
+                            <li>La resistencia total es la suma de las resistencias individuales: $R_T = R_1 + R_2 + ... + R_n$</li>
+                        </ul>
+                        
+                        <div class="formula-box">
+                            $$R_T = \sum_{i=1}^{n} R_i = R_1 + R_2 + ... + R_n$$
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h4 class="mb-0">Circuitos en Paralelo</h4>
+                    </div>
+                    <div class="card-body">
+                        <p>En un circuito en paralelo, los componentes están conectados entre los mismos dos puntos, proporcionando múltiples caminos para la corriente.</p>
+                        <div class="text-center my-3">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Parallel_circuit.svg/300px-Parallel_circuit.svg.png" alt="Circuito en paralelo">
+                        </div>
+                        
+                        <h5>Características de los circuitos en paralelo:</h5>
+                        <ul>
+                            <li>El voltaje es el mismo en todos los componentes: $V = V_1 = V_2 = ... = V_n$</li>
+                            <li>La corriente total es la suma de las corrientes individuales: $I = I_1 + I_2 + ... + I_n$</li>
+                            <li>La inversa de la resistencia total es la suma de las inversas de las resistencias individuales: $\frac{1}{R_T} = \frac{1}{R_1} + \frac{1}{R_2} + ... + \frac{1}{R_n}$</li>
+                        </ul>
+                        
+                        <div class="formula-box">
+                            $$\frac{1}{R_T} = \sum_{i=1}^{n} \frac{1}{R_i} = \frac{1}{R_1} + \frac{1}{R_2} + ... + \frac{1}{R_n}$$
+                        </div>
+                        
+                        <p>Para el caso particular de dos resistencias en paralelo:</p>
+                        <div class="formula-box">
+                            $$R_T = \frac{R_1 \cdot R_2}{R_1 + R_2}$$
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h4 class="mb-0">Leyes de Kirchhoff</h4>
+                    </div>
+                    <div class="card-body">
+                        <h5>Primera Ley de Kirchhoff (Ley de Corrientes)</h5>
+                        <p>La suma de las corrientes que entran a un nodo es igual a la suma de las corrientes que salen de ese nodo.</p>
+                        <div class="formula-box">
+                            $$\sum_{i=1}^{n} I_{entran} = \sum_{j=1}^{m} I_{salen}$$
+                        </div>
+                        
+                        <h5>Segunda Ley de Kirchhoff (Ley de Voltajes)</h5>
+                        <p>La suma algebraica de las diferencias de potencial en cualquier malla cerrada de un circuito es igual a cero.</p>
+                        <div class="formula-box">
+                            $$\sum_{i=1}^{n} V_i = 0$$
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h4 class="mb-0">Actividades</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="activity mb-4">
+                            <h5>Actividad 1: Resistencias en serie</h5>
+                            <p>Tres resistencias de 10Ω, 20Ω y 30Ω están conectadas en serie a una fuente de 12V. Calcula la corriente del circuito y el voltaje en cada resistencia.</p>
+                            <button class="btn btn-outline-primary" onclick="toggleSolution('solution4')">Ver solución</button>
+                            <div id="solution4" class="solution">
+                                <p>Resistencia total: $R_T = R_1 + R_2 + R_3 = 10Ω + 20Ω + 30Ω = 60Ω$</p>
+                                <p>Corriente del circuito: $I = \frac{V}{R_T} = \frac{12V}{60Ω} = 0.2A$</p>
+                                <p>Voltaje en cada resistencia:</p>
+                                <ul>
+                                    <li>$V_1 = I \cdot R_1 = 0.2A \cdot 10Ω = 2V$</li>
+                                    <li>$V_2 = I \cdot R_2 = 0.2A \cdot 20Ω = 4V$</li>
+                                    <li>$V_3 = I \cdot R_3 = 0.2A \cdot 30Ω = 6V$</li>
+                                </ul>
+                                <p>Verificación: $V_1 + V_2 + V_3 = 2V + 4V + 6V = 12V$ (cumple la Ley de Voltajes de Kirchhoff)</p>
+                            </div>
+                        </div>
+                        
+                        <div class="activity mb-4">
+                            <h5>Actividad 2: Resistencias en paralelo</h5>
+                            <p>Dos resistencias de 40Ω y 60Ω están conectadas en paralelo a una fuente de 24V. Calcula la resistencia equivalente y la corriente total del circuito.</p>
+                            <button class="btn btn-outline-primary" onclick="toggleSolution('solution5')">Ver solución</button>
+                            <div id="solution5" class="solution">
+                                <p>Resistencia equivalente: $R_T = \frac{R_1 \cdot R_2}{R_1 + R_2} = \frac{40Ω \cdot 60Ω}{40Ω + 60Ω} = \frac{2400Ω^2}{100Ω} = 24Ω$</p>
+                                <p>Corriente total: $I = \frac{V}{R_T} = \frac{24V}{24Ω} = 1A$</p>
+                            </div>
+                        </div>
+                        
+                        <div class="activity">
+                            <h5>Actividad 3: Circuito mixto</h5>
+                            <p>En el siguiente circuito, calcula la corriente total y la corriente que pasa por cada resistencia:</p>
+                            <div class="text-center my-3">
+                                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Series-parallel_circuit_1.svg/300px-Series-parallel_circuit_1.svg.png" alt="Circuito mixto">
+                            </div>
+                            <p>Datos: $R_1 = 10Ω$, $R_2 = 20Ω$, $R_3 = 30Ω$, $V = 12V$</p>
+                            <button class="btn btn-outline-primary" onclick="toggleSolution('solution6')">Ver solución</button>
+                            <div id="solution6" class="solution">
+                                <p>Primero calculamos la resistencia equivalente de las resistencias en paralelo ($R_2$ y $R_3$):</p>
+                                <p>$R_{23} = \frac{R_2 \cdot R_3}{R_2 + R_3} = \frac{20Ω \cdot 30Ω}{20Ω + 30Ω} = \frac{600Ω^2}{50Ω} = 12Ω$</p>
+                                <p>Luego, la resistencia total del circuito es: $R_T = R_1 + R_{23} = 10Ω + 12Ω = 22Ω$</p>
+                                <p>La corriente total es: $I_T = \frac{V}{R_T} = \frac{12V}{22Ω} ≈ 0.545A$</p>
+                                <p>La corriente que pasa por $R_1$ es la misma que la corriente total: $I_1 = I_T ≈ 0.545A$</p>
+                                <p>El voltaje en $R_1$ es: $V_1 = I_1 \cdot R_1 = 0.545A \cdot 10Ω ≈ 5.45V$</p>
+                                <p>El voltaje en las resistencias en paralelo es: $V_{23} = V - V_1 = 12V - 5.45V = 6.55V$</p>
+                                <p>Las corrientes en $R_2$ y $R_3$ son:</p>
+                                <ul>
+                                    <li>$I_2 = \frac{V_{23}}{R_2} = \frac{6.55V}{20Ω} ≈ 0.328A$</li>
+                                    <li>$I_3 = \frac{V_{23}}{R_3} = \frac{6.55V}{30Ω} ≈ 0.218A$</li>
+                                </ul>
+                                <p>Verificación: $I_2 + I_3 = 0.328A + 0.218A = 0.546A ≈ I_T$ (cumple la Ley de Corrientes de Kirchhoff)</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="mb-0">Evaluación: Nivel 2</h4>
+                    </div>
+                    <div class="card-body">
+                        <h5>Pregunta 1: En un circuito en serie, si se quita una de las resistencias...</h5>
+                        <div class="quiz-option" onclick="checkAnswer(this, false)">a) Las otras resistencias seguirán funcionando</div>
+                        <div class="quiz-option" onclick="checkAnswer(this, true)">b) El circuito se interrumpe y deja de funcionar</div>
+                        <div class="quiz-option" onclick="checkAnswer(this, false)">c) La corriente aumenta</div>
+                        <div class="quiz-option" onclick="checkAnswer(this, false)">d) El voltaje total disminuye</div>
+                        
+                        <h5 class="mt-4">Pregunta 2: En un circuito en paralelo, el voltaje en cada resistencia es...</h5>
+                        <div class="quiz-option" onclick="checkAnswer(this, false)">a) Diferente en cada resistencia</div>
+                        <div class="quiz-option" onclick="checkAnswer(this, false)">b) Mayor en la resistencia de mayor valor</div>
+                        <div class="quiz-option" onclick="checkAnswer(this, true)">c) Igual en todas las resistencias</div>
+                        <div class="quiz-option" onclick="checkAnswer(this, false)">d) Inversamente proporcional al valor de la resistencia</div>
+                        
+                        <h5 class="mt-4">Pregunta 3: Dos resistencias de 6Ω y 12Ω conectadas en paralelo tienen una resistencia equivalente de...</h5>
+                        <div class="quiz-option" onclick="checkAnswer(this, false)">a) 3Ω</div>
+                        <div class="quiz-option" onclick="checkAnswer(this, false)">b) 6Ω</div>
+                        <div class="quiz-option" onclick="checkAnswer(this, true)">c) 4Ω</div>
+                        <div class="quiz-option" onclick="checkAnswer(this, false)">d) 18Ω</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Pestaña Nivel 3 -->
+            <div class="tab-pane fade" id="nivel3" role="tabpanel">
+                <h2 class="mb-4">Nivel 3: Componentes Electrónicos Avanzados</h2>
+                
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h4 class="mb-0">Capacitores</h4>
+                    </div>
+                    <div class="card-body">
+                        <p>Un capacitor es un componente que almacena energía en forma de campo eléctrico. Consiste en dos placas conductoras separadas por un material dieléctrico.</p>
+                        <div class="text-center my-3">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Capacitor_symbol.svg/120px-Capacitor_symbol.svg.png" alt="Símbolo de capacitor">
+                        </div>
+                        
+                        <h5>Capacitancia (C)</h5>
+                        <p>Es la medida de la capacidad de un capacitor para almacenar carga. Se mide en faradios (F).</p>
+                        <div class="formula-box">
+                            $$C = \frac{Q}{V}$$
+                            <p>Donde:</p>
+                            <ul>
+                                <li>$C$ = capacitancia (F)</li>
+                                <li>$Q$ = carga almacenada (C)</li>
+                                <li>$V$ = voltaje (V)</li>
+                            </ul>
+                        </div>
+                        
+                        <h5>Comportamiento en circuitos de corriente continua</h5>
+                        <p>Cuando un capacitor se conecta a una fuente de corriente continua:</p>
+                        <ul>
+                            <li>Inicialmente se comporta como un cortocircuito (resistencia cero)</li>
+                            <li>A medida que se carga, su resistencia aumenta</li>
+                            <li>Cuando está completamente cargado, se comporta como un circuito abierto (resistencia infinita)</li>
+                        </ul>
+                        
+                        <h5>Energía almacenada en un capacitor</h5>
+                        <div class="formula-box">
+                            $$E = \frac{1}{2} \cdot C \cdot V^2$$
+                            <p>Donde:</p>
+                            <ul>
+                                <li>$E$ = energía (J)</li>
+                                <li>$C$ = capacitancia (F)</li>
+                                <li>$V$ = voltaje (V)</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h4 class="mb-0">Inductores</h4>
+                    </div>
+                    <div class="card-body">
+                        <p>Un inductor es un componente que almacena energía en forma de campo magnético. Consiste típicamente en una bobina de alambre conductor.</p>
+                        <div class="text-center my-3">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/78/Inductor_symbol.svg/120px-Inductor_symbol.svg.png" alt="Símbolo de inductor">
+                        </div>
+                        
+                        <h5>Inductancia (L)</h5>
+                        <p>Es la medida de la capacidad de un inductor para oponerse a los cambios en la corriente. Se mide en henrios (H).</p>
+                        
+                        <h5>Ley de Faraday</h5>
+                        <p>El voltaje inducido en un inductor es proporcional a la tasa de cambio de la corriente:</p>
+                        <div class="formula-box">
+                            $$V = -L \cdot \frac{dI}{dt}$$
+                            <p>Donde:</p>
+                            <ul>
+                                <li>$V$ = voltaje inducido (V)</li>
+                                <li>$L$ = inductancia (H)</li>
+                                <li>$\frac{dI}{dt}$ = tasa de cambio de la corriente (A/s)</li>
+                            </ul>
+                        </div>
+                        
+                        <h5>Comportamiento en circuitos de corriente continua</h5>
+                        <p>Cuando un inductor se conecta a una fuente de corriente continua:</p>
+                        <ul>
+                            <li>Inicialmente se comporta como un circuito abierto (resistencia infinita)</li>
+                            <li>A medida que la corriente se establece, su resistencia disminuye</li>
+                            <li>Cuando la corriente es constante, se comporta como un cortocircuito (resistencia cero)</li>
+                        </ul>
+                        
+                        <h5>Energía almacenada en un inductor</h5>
+                        <div class="formula-box">
+                            $$E = \frac{1}{2} \cdot L \cdot I^2$$
+                            <p>Donde:</p>
+                            <ul>
+                                <li>$E$ = energía (J)</li>
+                                <li>$L$ = inductancia (H)</li>
+                                <li>$I$ = corriente (A)</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h4 class="mb-0">Circuitos RC y RL</h4>
+                    </div>
+                    <div class="card-body">
+                        <h5>Circuitos RC (Resistor-Capacitor)</h5>
+                        <p>Un circuito RC combina resistencias y capacitores. Su comportamiento está determinado por la constante de tiempo τ (tau):</p>
+                        <div class="formula-box">
+                            $$\tau = R \cdot C$$
+                            <p>Donde:</p>
+                            <ul>
+                                <li>$\tau$ = constante de tiempo (s)</li>
+                                <li>$R$ = resistencia (Ω)</li>
+                                <li>$C$ = capacitancia (F)</li>
+                            </ul>
+                        </div>
+                        
+                        <h5>Carga de un capacitor</h5>
+                        <p>La carga en un capacitor en un circuito RC aumenta exponencialmente:</p>
+                        <div class="formula-box">
+                            $$Q(t) = Q_{max} \cdot \left(1 - e^{-\frac{t}{\tau}}\right)$$
+                            <p>Donde:</p>
+                            <ul>
+                                <li>$Q(t)$ = carga en el tiempo t (C)</li>
+                                <li>$Q_{max}$ = carga máxima (C)</li>
+                                <li>$t$ = tiempo (s)</li>
+                                <li>$\tau$ = constante de tiempo (s)</li>
+                            </ul>
+                        </div>
+                        
+                        <h5>Circuitos RL (Resistor-Inductor)</h5>
+                        <p>Un circuito RL combina resistencias e inductores. Su comportamiento está determinado por la constante de tiempo τ (tau):</p>
+                        <div class="formula-box">
+                            $$\tau = \frac{L}{R}$$
+                            <p>Donde:</p>
+                            <ul>
+                                <li>$\tau$ = constante de tiempo (s)</li>
+                                <li>$L$ = inductancia (H)</li>
+                                <li>$R$ = resistencia (Ω)</li>
+                            </ul>
+                        </div>
+                        
+                        <h5>Corriente en un circuito RL</h5>
+                        <p>La corriente en un circuito RL aumenta exponencialmente:</p>
+                        <div class="formula-box">
+                            $$I(t) = I_{max} \cdot \left(1 - e^{-\frac{t}{\tau}}\right)$$
+                            <p>Donde:</p>
+                            <ul>
+                                <li>$I(t)$ = corriente en el tiempo t (A)</li>
+                                <li>$I_{max}$ = corriente máxima (A)</li>
+                                <li>$t$ = tiempo (s)</li>
+                                <li>$\tau$ = constante de tiempo (s)</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h4 class="mb-0">Actividades</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="activity mb-4">
+                            <h5>Actividad 1: Carga de un capacitor</h5>
+                            <p>Un capacitor de 100μF está conectado en serie con una resistencia de 10kΩ a una fuente de 12V. Calcula la constante de tiempo del circuito y la carga máxima que puede almacenar el capacitor.</p>
+                            <button class="btn btn-outline-primary" onclick="toggleSolution('solution7')">Ver solución</button>
+                            <div id="solution7" class="solution">
+                                <p>Constante de tiempo: $\tau = R \cdot C = 10 \times 10^3Ω \cdot 100 \times 10^{-6}F = 1s$</p>
+                                <p>Carga máxima: $Q_{max} = C \cdot V = 100 \times 10^{-6}F \cdot 12V = 1.2 \times 10^{-3}C = 1.2mC$</p>
+                            </div>
+                        </div>
+                        
+                        <div class="activity mb-4">
+                            <h5>Actividad 2: Energía almacenada</h5>
+                            <p>Un capacitor de 470μF está cargado a 25V. Calcula la energía almacenada en el capacitor.</p>
+                            <button class="btn btn-outline-primary" onclick="toggleSolution('solution8')">Ver solución</button>
+                            <div id="solution8" class="solution">
+                                <p>Energía almacenada: $E = \frac{1}{2} \cdot C \cdot V^2 = \frac{1}{2} \cdot 470 \times 10^{-6}F \cdot (25V)^2$</p>
+                                <p>$E = \frac{1}{2} \cdot 470 \times 10^{-6}F \cdot 625V^2 = 0.5 \cdot 0.29375J = 0.146875J$</p>
+                            </div>
+                        </div>
+                        
+                        <div class="activity">
+                            <h5>Actividad 3: Circuito RL</h5>
+                            <p>Un circuito RL tiene una inductancia de 200mH y una resistencia de 50Ω. Calcula la constante de tiempo del circuito y la corriente después de 0.01s si se conecta a una fuente de 10V.</p>
+                            <button class="btn btn-outline-primary" onclick="toggleSolution('solution9')">Ver solución</button>
+                            <div id="solution9" class="solution">
+                                <p>Constante de tiempo: $\tau = \frac{L}{R} = \frac{200 \times 10^{-3}H}{50Ω} = \frac{0.2H}{50Ω} = 0.004s = 4ms$</p>
+                                <p>Corriente máxima: $I_{max} = \frac{V}{R} = \frac{10V}{50Ω} = 0.2A$</p>
+                                <p>Corriente después de 0.01s: $I(t) = I_{max} \cdot \left(1 - e^{-\frac{t}{\tau}}\right) = 0.2A \cdot \left(1 - e^{-\frac{0.01s}{0.004s}}\right)$</p>
+                                <p>$I(t) = 0.2A \cdot \left(1 - e^{-2.5}\right) = 0.2A \cdot (1 - 0.0821) = 0.2A \cdot 0.9179 = 0.1836A$</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="mb-0">Evaluación: Nivel 3</h4>
+                    </div>
+                    <div class="card-body">
+                        <h5>Pregunta 1: La unidad de medida de la capacitancia es...</h5>
+                        <div class="quiz-option" onclick="checkAnswer(this, false)">a) Henry</div>
+                        <div class="quiz-option" onclick="checkAnswer(this, false)">b) Ohmio</div>
+                        <div class="quiz-option" onclick="checkAnswer(this, true)">c) Faradio</div>
+                        <div class="quiz-option" onclick="checkAnswer(this, false)">d) Tesla</div>
+                        
+                        <h5 class="mt-4">Pregunta 2: En un circuito RC, si aumentamos el valor de la resistencia...</h5>
+                        <div class="quiz-option" onclick="checkAnswer(this, true)">a) Aumenta la constante de tiempo</div>
+                        <div class="quiz-option" onclick="checkAnswer(this, false)">b) Disminuye la constante de tiempo</div>
+                        <div class="quiz-option" onclick="checkAnswer(this, false)">c) No afecta a la constante de tiempo</div>
+                        <div class="quiz-option" onclick="checkAnswer(this, false)">d) Aumenta la capacitancia</div>
+                        
+                        <h5 class="mt-4">Pregunta 3: La energía almacenada en un capacitor de 100μF cargado a 10V es...</h5>
+                        <div class="quiz-option" onclick="checkAnswer(this, false)">a) 0.001J</div>
+                        <div class="quiz-option" onclick="checkAnswer(this, false)">b) 0.01J</div>
+                        <div class="quiz-option" onclick="checkAnswer(this, true)">c) 0.005J</div>
+                        <div class="quiz-option" onclick="checkAnswer(this, false)">d) 1J</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Pestaña Nivel 4 -->
+            <div class="tab-pane fade" id="nivel4" role="tabpanel">
+                <h2 class="mb-4">Nivel 4: Dispositivos Electromecánicos</h2>
+                
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h4 class="mb-0">Motores Eléctricos</h4>
+                    </div>
+                    <div class="card-body">
+                        <p>Un motor eléctrico es un dispositivo que convierte la energía eléctrica en energía mecánica mediante la interacción de campos magnéticos.</p>
+                        
+                        <h5>Principio de funcionamiento</h5>
+                        <p>Los motores eléctricos se basan en la ley de Lorentz, que establece que un conductor por el que circula una corriente en un campo magnético experimenta una fuerza perpendicular a ambos.</p>
+                        <div class="formula-box">
+                            $$\vec{F} = I \cdot \vec{L} \times \vec{B}$$
+                            <p>Donde:</p>
+                            <ul>
+                                <li>$\vec{F}$ = fuerza (N)</li>
+                                <li>$I$ = corriente (A)</li>
+                                <li>$\vec{L}$ = longitud del conductor (m)</li>
+                                <li>$\vec{B}$ = campo magnético (T)</li>
+                            </ul>
+                        </div>
+                        
+                        <h5>Tipos de motores</h5>
+                        <ul>
+                            <li><strong>Motores de corriente continua (DC):</strong> Funcionan con corriente continua y son ideales para aplicaciones que requieren control de velocidad.</li>
+                            <li><strong>Motores de corriente alterna (AC):</strong> Funcionan con corriente alterna y son los más comunes en aplicaciones industriales y domésticas.</li>
+                            <li><strong>Motores universales:</strong> Pueden funcionar tanto con corriente continua como con corriente alterna.</li>
+                        </ul>
+                        
+                        <h5>Potencia mecánica de un motor</h5>
+                        <div class="formula-box">
+                            $$P = \tau \cdot \omega$$
+                            <p>Donde:</p>
+                            <ul>
+                                <li>$P$ = potencia mecánica (W)</li>
+                                <li>$\tau$ = par motor (N·m)</li>
+                                <li>$\omega$ = velocidad angular (rad/s)</li>
+                            </ul>
+                        </div>
+                        
+                        <h5>Rendimiento de un motor</h5>
+                        <div class="formula-box">
+                            $$\eta = \frac{P_{salida}}{P_{entrada}} \times 100\%$$
+                            <p>Donde:</p>
+                            <ul>
+                                <li>$\eta$ = rendimiento (%)</li>
+                                <li>$P_{salida}$ = potencia mecánica de salida (W)</li>
+                                <li>$P_{entrada}$ = potencia eléctrica de entrada (W)</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h4 class="mb-0">Generadores Eléctricos</h4>
+                    </div>
+                    <div class="card-body">
+                        <p>Un generador eléctrico es un dispositivo que convierte la energía mecánica en energía eléctrica mediante la inducción electromagnética.</p>
+                        
+                        <h5>Principio de funcionamiento</h5>
+                        <p>Los generadores se basan en la ley de Faraday de la inducción electromagnética, que establece que se produce una corriente inducida en un conductor cuando se mueve a través de un campo magnético o cuando el campo magnético cambia con respecto al conductor.</p>
+                        <div class="formula-box">
+                            $$\varepsilon = -N \cdot \frac{d\Phi_B}{dt}$$
+                            <p>Donde:</p>
+                            <ul>
+                                <li>$\varepsilon$ = fuerza electromotriz inducida (V)</li>
+                                <li>$N$ = número de espiras de la bobina</li>
+                                <li>$\frac{d\Phi_B}{dt}$ = tasa de cambio del flujo magnético (Wb/s)</li>
+                            </ul>
+                        </div>
+                        
+                        <h5>Tipos de generadores</h5>
+                        <ul>
+                            <li><strong>Generadores de corriente continua (DC):</strong> Producen corriente continua mediante un mecanismo de conmutación.</li>
+                            <li><strong>Generadores de corriente alterna (AC):</strong> Producen corriente alterna y son los más comunes en las centrales eléctricas.</li>
+                            <li><strong>Alternadores:</strong> Un tipo específico de generador de corriente alterna utilizado en automóviles y centrales eléctricas.</li>
+                        </ul>
+                        
+                        <h5>Frecuencia de la corriente generada</h5>
+                        <div class="formula-box">
+                            $$f = \frac{p \cdot n}{120}$$
+                            <p>Donde:</p>
+                            <ul>
+                                <li>$f$ = frecuencia (Hz)</li>
+                                <li>$p$ = número de polos del generador</li>
+                                <li>$n$ = velocidad de rotación (rpm)</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h4 class="mb-0">Transformadores</h4>
+                    </div>
+                    <div class="card-body">
+                        <p>Un transformador es un dispositivo que transfiere energía eléctrica de un circuito a otro mediante inducción electromagnética, cambiando los niveles de voltaje y corriente.</p>
+                        
+                        <h5>Principio de funcionamiento</h5>
+                        <p>Un transformador consta de dos bobinas (primaria y secundaria) enrolladas alrededor de un núcleo magnético. Cuando una corriente alterna circula por la bobina primaria, genera un campo magnético variable que induce una corriente en la bobina secundaria.</p>
+                        
+                        <h5>Relación de transformación</h5>
+                        <div class="formula-box">
+                            $$\frac{V_p}{V_s} = \frac{N_p}{N_s} = \frac{I_s}{I_p}$$
+                            <p>Donde:</p>
+                            <ul>
+                                <li>$V_p$ = voltaje en el primario (V)</li>
+                                <li>$V_s$ = voltaje en el secundario (V)</li>
+                                <li>$N_p$ = número de espiras en el primario</li>
+                                <li>$N_s$ = número de espiras en el secundario</li>
+                                <li>$I_p$ = corriente en el primario (A)</li>
+                                <li>$I_s$ = corriente en el secundario (A)</li>
+                            </ul>
+                        </div>
+                        
+                        <h5>Rendimiento de un transformador</h5>
+                        <div class="formula-box">
+                            $$\eta = \frac{P_s}{P_p} \times 100\% = \frac{V_s \cdot I_s}{V_p \cdot I_p} \times 100\%$$
+                            <p>Donde:</p>
+                            <ul>
+                                <li>$\eta$ = rendimiento (%)</li>
+                                <li>$P_s$ = potencia en el secundario (W)</li>
+                                <li>$P_p$ = potencia en el primario (W)</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h4 class="mb-0">Actividades</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="activity mb-4">
+                            <h5>Actividad 1: Potencia de un motor</h5>
+                            <p>Un motor eléctrico desarrolla un par de 5 N·m a una velocidad de 1500 rpm. Calcula la potencia mecánica desarrollada por el motor.</p>
+                            <button class="btn btn-outline-primary" onclick="toggleSolution('solution10')">Ver solución</button>
+                            <div id="solution10" class="solution">
+                                <p>Primero convertimos la velocidad de rpm a rad/s:</p>
+                                <p>$\omega = \frac{1500 \text{ rpm} \cdot 2\pi \text{ rad}}{60 \text{ s}} = \frac{1500 \cdot 2\pi}{60} = 50\pi \text{ rad/s} \approx 157.08 \text{ rad/s}$</p>
+                                <p>La potencia mecánica es:</p>
+                                <p>$P = \tau \cdot \omega = 5 \text{ N·m} \cdot 157.08 \text{ rad/s} = 785.4 \text{ W}$</p>
+                            </div>
+                        </div>
+                        
+                        <div class="activity mb-4">
+                            <h5>Actividad 2: Transformador</h5>
+                            <p>Un transformador tiene 500 espiras en el primario y 50 espiras en el secundario. Si se conecta a una fuente de 220V en el primario, ¿cuál será el voltaje en el secundario?</p>
+                            <button class="btn btn-outline-primary" onclick="toggleSolution('solution11')">Ver solución</button>
+                            <div id="solution11" class="solution">
+                                <p>Aplicando la relación de transformación:</p>
+                                <p>$\frac{V_p}{V_s} = \frac{N_p}{N_s}$</p>
+                                <p>Despejando $V_s$:</p>
+                                <p>$V_s = V_p \cdot \frac{N_s}{N_p} = 220V \cdot \frac{50}{500} = 220V \cdot 0.1 = 22V$</p>
+                                <p>El voltaje en el secundario será de 22V.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="activity">
+                            <h5>Actividad 3: Rendimiento de un motor</h5>
+                            <p>Un motor eléctrico consume 1500W de la red eléctrica y desarrolla una potencia mecánica de 1200W. Calcula el rendimiento del motor y las pérdidas de energía.</p>
+                            <button class="btn btn-outline-primary" onclick="toggleSolution('solution12')">Ver solución</button>
+                            <div id="solution12" class="solution">
+                                <p>Rendimiento del motor:</p>
+                                <p>$\eta = \frac{P_{salida}}{P_{entrada}} \times 100\% = \frac{1200W}{1500W} \times 100\% = 0.8 \times 100\% = 80\%$</p>
+                                <p>Pérdidas de energía:</p>
+                                <p>$P_{pérdidas} = P_{entrada} - P_{salida} = 1500W - 1200W = 300W$</p>
+                                <p>El motor tiene un rendimiento del 80% y pierde 300W de energía, principalmente en forma de calor.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="mb-0">Evaluación: Nivel 4</h4>
+                    </div>
+                    <div class="card-body">
+                        <h5>Pregunta 1: Un motor eléctrico convierte...</h5>
+                        <div class="quiz-option" onclick="checkAnswer(this, false)">a) Energía mecánica en energía eléctrica</div>
+                        <div class="quiz-option" onclick="checkAnswer(this, true)">b) Energía eléctrica en energía mecánica</div>
+                        <div class="quiz-option" onclick="checkAnswer(this, false)">c) Energía química en energía eléctrica</div>
+                        <div class="quiz-option" onclick="checkAnswer(this, false)">d) Energía térmica en energía mecánica</div>
+                        
+                        <h5 class="mt-4">Pregunta 2: En un transformador, si el número de espiras del secundario es menor que el del primario...</h5>
+                        <div class="quiz-option" onclick="checkAnswer(this, true)">a) El voltaje de salida es menor que el de entrada</div>
+                        <div class="quiz-option" onclick="checkAnswer(this, false)">b) El voltaje de salida es mayor que el de entrada</div>
+                        <div class="quiz-option" onclick="checkAnswer(this, false)">c) El voltaje de salida es igual que el de entrada</div>
+                        <div class="quiz-option" onclick="checkAnswer(this, false)">d) No hay relación entre el número de espiras y el voltaje</div>
+                        
+                        <h5 class="mt-4">Pregunta 3: Un generador eléctrico se basa en...</h5>
+                        <div class="quiz-option" onclick="checkAnswer(this, false)">a) La ley de Ohm</div>
+                        <div class="quiz-option" onclick="checkAnswer(this, true)">b) La ley de Faraday de la inducción electromagnética</div>
+                        <div class="quiz-option" onclick="checkAnswer(this, false)">c) La ley de Coulomb</div>
+                        <div class="quiz-option" onclick="checkAnswer(this, false)">d) La ley de Joule</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Pestaña Síntesis -->
+            <div class="tab-pane fade" id="sintesis" role="tabpanel">
+                <h2 class="mb-4">Síntesis Visual</h2>
+                
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h4 class="mb-0">Conceptos Fundamentales</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="synthesis-concept">
+                            <h5>Corriente, Voltaje y Resistencia</h5>
+                            <div class="formula-box">
+                                $$V = I \cdot R$$
+                            </div>
+                            <p>La Ley de Ohm relaciona las tres magnitudes fundamentales de los circuitos eléctricos: voltaje (V), corriente (I) y resistencia (R).</p>
+                        </div>
+                        
+                        <div class="synthesis-concept">
+                            <h5>Circuitos en Serie</h5>
+                            <div class="formula-box">
+                                $$R_T = R_1 + R_2 + ... + R_n$$
+                            </div>
+                            <p>En circuitos en serie, las resistencias se suman y la corriente es la misma en todos los componentes.</p>
+                        </div>
+                        
+                        <div class="synthesis-concept">
+                            <h5>Circuitos en Paralelo</h5>
+                            <div class="formula-box">
+                                $$\frac{1}{R_T} = \frac{1}{R_1} + \frac{1}{R_2} + ... + \frac{1}{R_n}$$
+                            </div>
+                            <p>En circuitos en paralelo, el voltaje es el mismo en todas las ramas y las corrientes se suman.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h4 class="mb-0">Componentes Electrónicos</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="synthesis-concept">
+                            <h5>Resistores</h5>
+                            <p>Componentes que oponen resistencia al paso de la corriente eléctrica. Cumplen la Ley de Ohm.</p>
+                        </div>
+                        
+                        <div class="synthesis-concept">
+                            <h5>Capacitores</h5>
+                            <div class="formula-box">
+                                $$C = \frac{Q}{V}$$
+                            </div>
+                            <p>Almacenan energía en forma de campo eléctrico. Su comportamiento depende del tiempo.</p>
+                        </div>
+                        
+                        <div class="synthesis-concept">
+                            <h5>Inductores</h5>
+                            <div class="formula-box">
+                                $$V = -L \cdot \frac{dI}{dt}$$
+                            </div>
+                            <p>Almacenan energía en forma de campo magnético. Se oponen a los cambios de corriente.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h4 class="mb-0">Dispositivos Electromecánicos</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="synthesis-concept">
+                            <h5>Motores Eléctricos</h5>
+                            <div class="formula-box">
+                                $$P = \tau \cdot \omega$$
+                            </div>
+                            <p>Convierten energía eléctrica en energía mecánica. Su potencia depende del par motor y la velocidad angular.</p>
+                        </div>
+                        
+                        <div class="synthesis-concept">
+                            <h5>Generadores Eléctricos</h5>
+                            <div class="formula-box">
+                                $$\varepsilon = -N \cdot \frac{d\Phi_B}{dt}$$
+                            </div>
+                            <p>Convierten energía mecánica en energía eléctrica mediante inducción electromagnética.</p>
+                        </div>
+                        
+                        <div class="synthesis-concept">
+                            <h5>Transformadores</h5>
+                            <div class="formula-box">
+                                $$\frac{V_p}{V_s} = \frac{N_p}{N_s} = \frac{I_s}{I_p}$$
+                            </div>
+                            <p>Transfieren energía eléctrica entre circuitos mediante inducción electromagnética, cambiando los niveles de voltaje y corriente.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="mb-0">Mapa Conceptual</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="text-center">
+                            <img src="https://i.imgur.com/placeholder.png" alt="Mapa conceptual de circuitos eléctricos" class="img-fluid">
+                            <p class="mt-3">Este mapa conceptual muestra la relación entre los diferentes conceptos estudiados a lo largo de los cuatro niveles del curso.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Pestaña Contexto Histórico -->
+            <div class="tab-pane fade" id="historia" role="tabpanel">
+                <h2 class="mb-4">Contexto Histórico</h2>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="mb-0">Línea de Tiempo: Descubrimientos en Electricidad y Electromagnetismo</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="timeline">
+                            <div class="timeline-item">
+                                <h5>1600 - William Gilbert</h5>
+                                <p>Publica "De Magnete", donde estudia el magnetismo y la electricidad estática. Acuña el término "electricus" (eléctrico).</p>
+                            </div>
+                            
+                            <div class="timeline-item">
+                                <h5>1752 - Benjamin Franklin</h5>
+                                <p>Realiza su famoso experimento de la cometa, demostrando que los rayos son un fenómeno eléctrico. Introduce los conceptos de carga positiva y negativa.</p>
+                            </div>
+                            
+                            <div class="timeline-item">
+                                <h5>1785 - Charles-Augustin de Coulomb</h5>
+                                <p>Formula la Ley de Coulomb, que describe la fuerza entre dos cargas eléctricas.</p>
+                            </div>
+                            
+                            <div class="timeline-item">
+                                <h5>1800 - Alessandro Volta</h5>
+                                <p>Inventa la pila voltaica, la primera batería eléctrica, que produce una corriente eléctrica continua.</p>
+                            </div>
+                            
+                            <div class="timeline-item">
+                                <h5>1820 - Hans Christian Ørsted</h5>
+                                <p>Descubre que una corriente eléctrica produce un campo magnético, estableciendo la conexión entre electricidad y magnetismo.</p>
+                            </div>
+                            
+                            <div class="timeline-item">
+                                <h5>1820 - André-Marie Ampère</h5>
+                                <p>Desarrolla la ley de Ampère, que describe la fuerza entre dos corrientes eléctricas. La unidad de corriente eléctrica, el amperio, lleva su nombre.</p>
+                            </div>
+                            
+                            <div class="timeline-item">
+                                <h5>1827 - Georg Simon Ohm</h5>
+                                <p>Publica su famosa Ley de Ohm, que relaciona el voltaje, la corriente y la resistencia en un circuito eléctrico.</p>
+                            </div>
+                            
+                            <div class="timeline-item">
+                                <h5>1831 - Michael Faraday</h5>
+                                <p>Descubre la inducción electromagnética, el principio fundamental de los generadores eléctricos y transformadores.</p>
+                            </div>
+                            
+                            <div class="timeline-item">
+                                <h5>1865 - James Clerk Maxwell</h5>
+                                <p>Publica "A Dynamical Theory of the Electromagnetic Field", unificando la electricidad, el magnetismo y la luz en una sola teoría: el electromagnetismo.</p>
+                            </div>
+                            
+                            <div class="timeline-item">
+                                <h5>1873 - Ernst Werner von Siemens</h5>
+                                <p>Inventa el dinamoeléctrico, un generador de corriente continua que utiliza el principio de la autoexcitación.</p>
+                            </div>
+                            
+                            <div class="timeline-item">
+                                <h5>1879 - Thomas Edison</h5>
+                                <p>Desarrolla la primera bombilla incandescente práctica y construye la primera central eléctrica comercial en Nueva York.</p>
+                            </div>
+                            
+                            <div class="timeline-item">
+                                <h5>1888 - Nikola Tesla</h5>
+                                <p>Desarrolla el sistema de corriente alterna y patenta el motor de inducción de corriente alterna, que revoluciona la transmisión y distribución de energía eléctrica.</p>
+                            </div>
+                            
+                            <div class="timeline-item">
+                                <h5>1897 - J.J. Thomson</h5>
+                                <p>Descubre el electrón, la partícula fundamental responsable de la corriente eléctrica.</p>
+                            </div>
+                            
+                            <div class="timeline-item">
+                                <h5>1947 - John Bardeen, Walter Brattain y William Shockley</h5>
+                                <p>Inventan el transistor en los Bell Labs, un dispositivo semiconductor que reemplaza a las válvulas de vacío y da inicio a la electrónica moderna.</p>
+                            </div>
+                            
+                            <div class="timeline-item">
+                                <h5>1958 - Jack Kilby</h5>
+                                <p>Inventa el circuito integrado, que permite miniaturizar los componentes electrónicos y da origen a la revolución digital.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Pestaña Bibliografía -->
+            <div class="tab-pane fade" id="bibliografia" role="tabpanel">
+                <h2 class="mb-4">Bibliografía Sugerida</h2>
+                
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h4 class="mb-0">Libros de Texto</h4>
+                    </div>
+                    <div class="card-body">
+                        <ul>
+                            <li><strong>Hayt, W. H., & Kemmerly, J. E. (2012).</strong> <em>Análisis de circuitos en ingeniería.</em> McGraw-Hill.</li>
+                            <li><strong>Sadiku, M. N. O. (2018).</strong> <em>Fundamentos de circuitos eléctricos.</em> Alfaomega.</li>
+                            <li><strong>Nilsson, J. W., & Riedel, S. A. (2015).</strong> <em>Circuitos eléctricos.</em> Pearson.</li>
+                            <li><strong>Boylestad, R. L. (2011).</strong> <em>Introducción al análisis de circuitos.</em> Pearson.</li>
+                            <li><strong>Floyd, T. L. (2011).</strong> <em>Dispositivos electrónicos.</em> Pearson.</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h4 class="mb-0">Recursos Digitales</h4>
+                    </div>
+                    <div class="card-body">
+                        <ul>
+                            <li><strong>Khan Academy.</strong> <em>Circuitos eléctricos.</em> Disponible en: <a href="https://es.khanacademy.org/science/electrical-engineering" target="_blank">https://es.khanacademy.org/science/electrical-engineering</a></li>
+                            <li><strong>MIT OpenCourseWare.</strong> <em>Introduction to Electronics, Signals, and Measurement.</em> Disponible en: <a href="https://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-071j-introduction-to-electronics-signals-and-measurement-spring-2006/" target="_blank">https://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-071j-introduction-to-electronics-signals-and-measurement-spring-2006/</a></li>
+                            <li><strong>Falstad, P.</strong> <em>Circuit Simulator Applet.</em> Disponible en: <a href="https://www.falstad.com/circuit/" target="_blank">https://www.falstad.com/circuit/</a></li>
+                            <li><strong>All About Circuits.</strong> <em>Textbook.</em> Disponible en: <a href="https://www.allaboutcircuits.com/textbook/" target="_blank">https://www.allaboutcircuits.com/textbook/</a></li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h4 class="mb-0">Artículos y Publicaciones Científicas</h4>
+                    </div>
+                    <div class="card-body">
+                        <ul>
+                            <li><strong>Maxwell, J. C. (1865).</strong> "A Dynamical Theory of the Electromagnetic Field". <em>Philosophical Transactions of the Royal Society of London.</em></li>
+                            <li><strong>Bardeen, J., & Brattain, W. H. (1948).</strong> "The Transistor, a Semi-Conductor Triode". <em>Physical Review.</em></li>
+                            <li><strong>Kilby, J. S. (1959).</strong> "Invention of the Integrated Circuit". <em>IEEE Transactions on Electron Devices.</em></li>
+                            <li><strong>Meindl, J. D. (2001).</strong> "Low Power Microelectronics: Retrospect and Prospect". <em>Proceedings of the IEEE.</em></li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="mb-0">Videos y Tutoriales</h4>
+                    </div>
+                    <div class="card-body">
+                        <ul>
+                            <li><strong>The Organic Chemistry Tutor.</strong> <em>Circuit Analysis.</em> Disponible en: <a href="https://www.youtube.com/playlist?list=PL0o_zxa4K1BVkRxCZubMPcCJ5Q5QwZdEM" target="_blank">https://www.youtube.com/playlist?list=PL0o_zxa4K1BVkRxCZubMPcCJ5Q5QwZdEM</a></li>
+                            <li><strong>ElectroBOOM.</strong> <em>Tutoriales de electrónica.</em> Disponible en: <a href="https://www.youtube.com/user/msadaghd" target="_blank">https://www.youtube.com/user/msadaghd</a></li>
+                            <li><strong>Ben Eater.</strong> <em>Building circuits on breadboards.</em> Disponible en: <a href="https://www.youtube.com/playlist?list=PLowKtXNTBypGqImE405J2565dvjafglHU" target="_blank">https://www.youtube.com/playlist?list=PLowKtXNTBypGqImE405J2565dvjafglHU</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Botón de ayuda -->
+    <div class="help-btn" data-bs-toggle="modal" data-bs-target="#helpModal">
+        <i class="bi bi-question-lg"></i>
+    </div>
+    
+    <!-- Modal de ayuda -->
+    <div class="modal fade" id="helpModal" tabindex="-1" aria-labelledby="helpModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="helpModalLabel">Ayuda</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <h5>Navegación del sitio</h5>
+                    <p>Utiliza las pestañas superiores para navegar entre los diferentes niveles y secciones del contenido. Cada nivel está diseñado para construir sobre los conceptos del nivel anterior.</p>
+                    
+                    <h5>Actividades y soluciones</h5>
+                    <p>Cada nivel incluye actividades prácticas para reforzar los conceptos aprendidos. Puedes ver las soluciones haciendo clic en el botón "Ver solución" debajo de cada actividad.</p>
+                    
+                    <h5>Evaluaciones</h5>
+                    <p>Al final de cada nivel encontrarás una evaluación con preguntas de opción múltiple para autoevaluar tu comprensión de los conceptos. Haz clic en las opciones para verificar tus respuestas.</p>
+                    
+                    <h5>Fórmulas matemáticas</h5>
+                    <p>Todas las fórmulas están escritas en código LaTeX para garantizar una visualización clara y precisa. Si tienes problemas para visualizar alguna fórmula, recarga la página.</p>
+                    
+                    <h5>Recursos adicionales</h5>
+                    <p>En las pestañas "Síntesis", "Contexto Histórico" y "Bibliografía" encontrarás recursos adicionales para profundizar en los temas estudiados.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Entendido</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            }
+        };
+        
+        function toggleSolution(id) {
+            const solution = document.getElementById(id);
+            if (solution.style.display === 'block') {
+                solution.style.display = 'none';
+            } else {
+                solution.style.display = 'block';
+            }
+        }
+        
+        function checkAnswer(element, isCorrect) {
+            // Remove previous styling
+            const options = element.parentElement.querySelectorAll('.quiz-option');
+            options.forEach(option => {
+                option.classList.remove('correct', 'incorrect');
+            });
+            
+            // Add styling to selected option
+            if (isCorrect) {
+                element.classList.add('correct');
+            } else {
+                element.classList.add('incorrect');
+            }
+        }
+        
+        // Initialize tooltips
+        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+        var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+            return new bootstrap.Tooltip(tooltipTriggerEl)
+        });
+    </script>
+</body>
+</html>
