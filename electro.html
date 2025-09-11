@@ -1,1937 +1,468 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Circuitos Eléctricos y Componentes Electrónicos</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
-    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <style>
-        :root {
-            --primary-color: #2c3e50;
-            --secondary-color: #3498db;
-            --accent-color: #e74c3c;
-            --light-bg: #ecf0f1;
-            --dark-text: #2c3e50;
-            --gradient-1: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            --gradient-2: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-            --gradient-3: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-            --gradient-4: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
-        }
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            color: var(--dark-text);
-            background-color: var(--light-bg);
-            background-image: 
-                radial-gradient(circle at 10% 20%, rgba(52, 152, 219, 0.05) 0%, transparent 20%),
-                radial-gradient(circle at 90% 80%, rgba(46, 204, 113, 0.05) 0%, transparent 20%),
-                radial-gradient(circle at 50% 50%, rgba(155, 89, 182, 0.03) 0%, transparent 30%);
-            background-attachment: fixed;
-            min-height: 100vh;
-        }
-        
-        .navbar {
-            background: var(--gradient-1);
-            box-shadow: 0 4px 12px rgba(0,0,0,.15);
-            padding: 1rem 0;
-        }
-        
-        .navbar-brand {
-            font-weight: 700;
-            font-size: 1.5rem;
-            color: white !important;
-            text-shadow: 0 2px 4px rgba(0,0,0,.2);
-        }
-        
-        .navbar-brand i {
-            margin-right: 0.5rem;
-            color: #f1c40f;
-        }
-        
-        .nav-tabs {
-            border-bottom: 2px solid rgba(52, 152, 219, 0.3);
-            margin-bottom: 0;
-            background: rgba(255, 255, 255, 0.8);
-            border-radius: 10px 10px 0 0;
-            padding: 0.5rem;
-            box-shadow: 0 2px 10px rgba(0,0,0,.05);
-        }
-        
-        .nav-tabs .nav-link {
-            color: var(--dark-text);
-            font-weight: 500;
-            border: none;
-            border-radius: 8px;
-            margin-right: 0.5rem;
-            padding: 0.75rem 1.25rem;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .nav-tabs .nav-link::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: var(--gradient-1);
-            opacity: 0;
-            transition: opacity 0.3s ease;
-            z-index: -1;
-        }
-        
-        .nav-tabs .nav-link:hover {
-            border: none;
-            background-color: rgba(52, 152, 219, 0.1);
-            transform: translateY(-2px);
-        }
-        
-        .nav-tabs .nav-link.active {
-            color: white;
-            background: var(--gradient-1);
-            border: none;
-            font-weight: 600;
-            box-shadow: 0 4px 8px rgba(0,0,0,.1);
-        }
-        
-        .tab-content {
-            padding: 30px;
-            background-color: white;
-            border-radius: 0 0 15px 15px;
-            box-shadow: 0 10px 30px rgba(0,0,0,.08);
-            margin-bottom: 30px;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .tab-content::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 5px;
-            background: var(--gradient-1);
-        }
-        
-        .card {
-            border: none;
-            border-radius: 15px;
-            box-shadow: 0 8px 20px rgba(0,0,0,.06);
-            margin-bottom: 25px;
-            transition: all 0.4s ease;
-            overflow: hidden;
-            position: relative;
-        }
-        
-        .card::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.1) 100%);
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-        
-        .card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 15px 35px rgba(0,0,0,.1);
-        }
-        
-        .card:hover::after {
-            opacity: 1;
-        }
-        
-        .card-header {
-            background: var(--gradient-1);
-            color: white;
-            font-weight: 600;
-            border-radius: 15px 15px 0 0 !important;
-            padding: 1.25rem;
-            border: none;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .card-header::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            right: 0;
-            width: 100px;
-            height: 100px;
-            background: rgba(255,255,255,0.1);
-            border-radius: 50%;
-            transform: translate(30%, 30%);
-        }
-        
-        .card-header h4 {
-            margin: 0;
-            position: relative;
-            z-index: 1;
-        }
-        
-        .card-body {
-            padding: 1.75rem;
-        }
-        
-        .btn-primary {
-            background: var(--gradient-1);
-            border: none;
-            border-radius: 30px;
-            padding: 0.6rem 1.5rem;
-            font-weight: 500;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 10px rgba(52, 152, 219, 0.3);
-        }
-        
-        .btn-primary:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 6px 15px rgba(52, 152, 219, 0.4);
-            background: var(--gradient-1);
-        }
-        
-        .btn-outline-primary {
-            color: var(--secondary-color);
-            border: 2px solid var(--secondary-color);
-            border-radius: 30px;
-            padding: 0.6rem 1.5rem;
-            font-weight: 500;
-            transition: all 0.3s ease;
-        }
-        
-        .btn-outline-primary:hover {
-            background: var(--gradient-1);
-            border-color: transparent;
-            color: white;
-            transform: translateY(-3px);
-            box-shadow: 0 6px 15px rgba(52, 152, 219, 0.4);
-        }
-        
-        .help-btn {
-            position: fixed;
-            bottom: 25px;
-            right: 25px;
-            width: 65px;
-            height: 65px;
-            border-radius: 50%;
-            background: var(--gradient-2);
-            color: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 28px;
-            box-shadow: 0 8px 20px rgba(231, 76, 60, 0.4);
-            cursor: pointer;
-            z-index: 1000;
-            transition: all 0.3s ease;
-            border: none;
-        }
-        
-        .help-btn:hover {
-            transform: scale(1.1);
-            box-shadow: 0 12px 25px rgba(231, 76, 60, 0.5);
-        }
-        
-        .solution {
-            display: none;
-            margin-top: 20px;
-            padding: 20px;
-            background-color: #f8f9fa;
-            border-left: 5px solid var(--secondary-color);
-            border-radius: 0 10px 10px 0;
-            box-shadow: 0 5px 15px rgba(0,0,0,.05);
-            animation: fadeIn 0.5s ease;
-        }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        
-        .formula-box {
-            background: linear-gradient(to right, #f8f9fa, #e9ecef);
-            padding: 20px;
-            border-radius: 10px;
-            margin: 20px 0;
-            border-left: 5px solid var(--secondary-color);
-            box-shadow: 0 5px 15px rgba(0,0,0,.05);
-        }
-        
-        .timeline {
-            position: relative;
-            padding: 20px 0;
-        }
-        
-        .timeline::before {
-            content: '';
-            position: absolute;
-            height: 100%;
-            width: 5px;
-            background: var(--gradient-1);
-            left: 0;
-            top: 0;
-            border-radius: 5px;
-        }
-        
-        .timeline-item {
-            margin-left: 30px;
-            padding-bottom: 25px;
-            position: relative;
-        }
-        
-        .timeline-item::before {
-            content: '';
-            position: absolute;
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-            background: white;
-            border: 4px solid var(--secondary-color);
-            left: -37px;
-            top: 5px;
-            box-shadow: 0 0 0 4px rgba(52, 152, 219, 0.2);
-        }
-        
-        .synthesis-concept {
-            background: white;
-            border-radius: 12px;
-            padding: 20px;
-            margin-bottom: 20px;
-            box-shadow: 0 8px 20px rgba(0,0,0,.06);
-            border-left: 5px solid var(--secondary-color);
-            transition: all 0.3s ease;
-        }
-        
-        .synthesis-concept:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 12px 25px rgba(0,0,0,.1);
-        }
-        
-        .quiz-option {
-            padding: 15px 20px;
-            margin: 10px 0;
-            border-radius: 10px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            border: 1px solid #ddd;
-            background-color: #f8f9fa;
-        }
-        
-        .quiz-option:hover {
-            background-color: rgba(52, 152, 219, 0.1);
-            transform: translateX(5px);
-        }
-        
-        .quiz-option.correct {
-            background-color: #d4edda;
-            border-color: #c3e6cb;
-            color: #155724;
-        }
-        
-        .quiz-option.incorrect {
-            background-color: #f8d7da;
-            border-color: #f5c6cb;
-            color: #721c24;
-        }
-        
-        .roadmap-step {
-            display: flex;
-            align-items: center;
-            margin-bottom: 20px;
-            padding: 15px;
-            border-radius: 10px;
-            background-color: #f8f9fa;
-            transition: all 0.3s ease;
-        }
-        
-        .roadmap-step:hover {
-            background-color: rgba(52, 152, 219, 0.1);
-            transform: translateX(5px);
-        }
-        
-        .step-number {
-            width: 40px;
-            height: 40px;
-            background: var(--gradient-1);
-            color: white;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-right: 20px;
-            font-weight: bold;
-            font-size: 1.2rem;
-            box-shadow: 0 4px 10px rgba(52, 152, 219, 0.3);
-        }
-        
-        .step-content {
-            flex: 1;
-        }
-        
-        .modal-content {
-            border-radius: 15px;
-            border: none;
-            box-shadow: 0 20px 60px rgba(0,0,0,.2);
-        }
-        
-        .modal-header {
-            background: var(--gradient-1);
-            color: white;
-            border-radius: 15px 15px 0 0;
-            border: none;
-        }
-        
-        .modal-title {
-            font-weight: 600;
-        }
-        
-        .modal-body {
-            padding: 2rem;
-        }
-        
-        .modal-footer {
-            border: none;
-            padding-top: 0;
-        }
-        
-        h2 {
-            color: var(--primary-color);
-            font-weight: 700;
-            margin-bottom: 1.5rem;
-            position: relative;
-            padding-bottom: 15px;
-        }
-        
-        h2::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 80px;
-            height: 4px;
-            background: var(--gradient-1);
-            border-radius: 2px;
-        }
-        
-        h3, h4, h5 {
-            color: var(--primary-color);
-            font-weight: 600;
-            margin-bottom: 1rem;
-        }
-        
-        ul {
-            padding-left: 20px;
-        }
-        
-        li {
-            margin-bottom: 8px;
-            position: relative;
-            padding-left: 5px;
-        }
-        
-        li::before {
-            content: '•';
-            color: var(--secondary-color);
-            font-weight: bold;
-            position: absolute;
-            left: -15px;
-        }
-        
-        p {
-            margin-bottom: 15px;
-            line-height: 1.6;
-        }
-        
-        .activity {
-            padding: 20px;
-            border-radius: 12px;
-            background-color: #f8f9fa;
-            margin-bottom: 20px;
-            border-left: 5px solid var(--accent-color);
-            box-shadow: 0 5px 15px rgba(0,0,0,.05);
-        }
-        
-        .activity h5 {
-            color: var(--accent-color);
-        }
-        
-        .text-center img {
-            border-radius: 10px;
-            box-shadow: 0 8px 20px rgba(0,0,0,.1);
-            max-width: 100%;
-        }
-        
-        .device-example {
-            background-color: #f8f9fa;
-            border-radius: 12px;
-            padding: 20px;
-            margin: 20px 0;
-            border-left: 5px solid var(--secondary-color);
-            box-shadow: 0 5px 15px rgba(0,0,0,.05);
-        }
-        
-        .device-example h5 {
-            color: var(--secondary-color);
-            margin-top: 0;
-        }
-        
-        .device-example img {
-            max-width: 200px;
-            border-radius: 8px;
-            margin: 10px 0;
-            box-shadow: 0 4px 8px rgba(0,0,0,.1);
-        }
-        
-        footer {
-            background: var(--primary-color);
-            color: white;
-            padding: 2rem 0;
-            text-align: center;
-            margin-top: 3rem;
-        }
-        
-        .footer-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 1rem;
-        }
-        
-        .footer-links {
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
-            margin-top: 1rem;
-        }
-        
-        .footer-links a {
-            color: white;
-            text-decoration: none;
-            transition: all 0.3s ease;
-        }
-        
-        .footer-links a:hover {
-            color: #f1c40f;
-            transform: translateY(-3px);
-        }
-        
-        .decorative-element {
-            position: absolute;
-            border-radius: 50%;
-            opacity: 0.05;
-            z-index: -1;
-        }
-        
-        .decorative-element-1 {
-            width: 300px;
-            height: 300px;
-            background: var(--gradient-2);
-            top: -100px;
-            right: -100px;
-        }
-        
-        .decorative-element-2 {
-            width: 200px;
-            height: 200px;
-            background: var(--gradient-3);
-            bottom: -50px;
-            left: -50px;
-        }
-        
-        .decorative-element-3 {
-            width: 150px;
-            height: 150px;
-            background: var(--gradient-4);
-            top: 50%;
-            right: 5%;
-        }
-        
-        .example-device {
-            display: flex;
-            align-items: center;
-            margin: 15px 0;
-            padding: 15px;
-            background-color: rgba(52, 152, 219, 0.05);
-            border-radius: 10px;
-            transition: all 0.3s ease;
-        }
-        
-        .example-device:hover {
-            background-color: rgba(52, 152, 219, 0.1);
-            transform: translateX(5px);
-        }
-        
-        .example-device img {
-            width: 80px;
-            height: 80px;
-            object-fit: cover;
-            border-radius: 8px;
-            margin-right: 15px;
-            box-shadow: 0 4px 8px rgba(0,0,0,.1);
-        }
-        
-        .example-device-content {
-            flex: 1;
-        }
-        
-        .example-device-content h6 {
-            color: var(--primary-color);
-            margin-bottom: 5px;
-        }
-    </style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Electromagnetismo — 5.º año — Entorno de aprendizaje</title>
+  <meta name="description" content="Secuencia didáctica para 5.º año: electromagnetismo. Contenidos, experimentos, simuladores y autoevaluaciones.">
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Merriweather:wght@300;400;700&display=swap" rel="stylesheet">
+  <!-- Bootstrap 5 + Icons (CDN) -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-qZ6Z9A1k0Wq3wF6E5u0I2c04u6Qp2w3dGqvix49bq8k5QmTzV0QhX9Fz3qI7W6yK" crossorigin="anonymous">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+
+  <!-- MathJax: configure BEFORE loading the script -->
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$','$'], ['\\(','\\)']],
+        displayMath: [['$$','$$'], ['\\[','\\]']]
+      },
+      options: { skipHtmlTags: ['script','noscript','style','textarea','pre'] }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+  <style>
+    :root{
+      --bg:#f6fafc;
+      --card:#ffffff;
+      --brand:#0b5ed7;
+      --accent:#7c3aed;
+      --muted:#6b7280;
+      --radius:12px;
+    }
+    *{box-sizing:border-box}
+    body{font-family:'Inter',system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial; background:var(--bg); color:#0f1724; margin:0; -webkit-font-smoothing:antialiased}
+    header{background:linear-gradient(90deg,var(--brand),var(--accent)); color:white; padding:16px 20px; box-shadow: 0 8px 30px rgba(15,23,36,.08)}
+    header h1{font-size:1.05rem;margin:0}
+    header p{margin:0;font-size:.9rem;opacity:.92}
+    .container-xl{max-width:1180px;margin:20px auto;padding:0 16px}
+    .grid{display:grid; grid-template-columns: 1fr 340px; gap:18px}
+    @media (max-width:992px){ .grid{grid-template-columns:1fr} }
+    .card{background:var(--card); border-radius:var(--radius); box-shadow: 0 12px 36px rgba(15,23,36,.06); overflow:hidden}
+    .card-header{background:linear-gradient(90deg,var(--accent),var(--brand)); color:#fff; padding:12px 16px; font-weight:600}
+    .card-body{padding:16px}
+    nav.nav-tabs .nav-link{border-radius:10rem; margin-right:8px}
+    .solution{max-height:0; overflow:hidden; transition:max-height .36s ease, opacity .25s ease, padding .25s ease; opacity:0; padding:0 12px}
+    .solution.show{max-height:900px; opacity:1; padding:12px}
+    .btn-pill{border-radius:999px}
+    .diagram{background:#fff;border-radius:8px;padding:10px;border:1px solid rgba(0,0,0,0.04); margin:10px 0}
+    .formula{display:inline-block;background:#ffffff;padding:8px;border-radius:8px;border-left:4px solid var(--brand); margin:8px 0}
+    .quiz-option{padding:10px;border-radius:10px;border:1px solid rgba(0,0,0,0.06); background:#fff; margin:8px 0; cursor:pointer}
+    .quiz-option.correct{background:#e6f7ee;border-color:#bde8c8;color:#0b6623}
+    .quiz-option.incorrect{background:#fff2f2;border-color:#f3b9b9;color:#8b1c1c}
+    footer{padding:14px 0; text-align:center; color:#fff; background:linear-gradient(90deg,var(--brand),var(--accent)); margin-top:24px}
+    .small-muted{color:var(--muted); font-size:.92rem}
+    .badge-topic{background:rgba(11,94,215,0.08); color:var(--brand); border-radius:8px; padding:6px 10px; font-weight:600}
+    .toc{font-size:.95rem}
+    a.external{color:var(--brand); text-decoration:underline}
+  </style>
 </head>
 <body>
-    <!-- Barra de navegación -->
-    <nav class="navbar navbar-expand-lg navbar-dark">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="#">
-                <i class="bi bi-lightning-charge-fill"></i> Circuitos Eléctricos
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="#"><i class="bi bi-person-circle"></i> Profesor</a>
-                    </li>
+  <header>
+    <div class="container-xl d-flex align-items-center gap-3">
+      <svg width="36" height="36" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+        <path fill="#ffd54f" d="M11 2L3 13h6l-1 9 10-14h-7z"></path>
+      </svg>
+      <div>
+        <h1>Electromagnetismo — 5.º año — Espacio de aprendizaje</h1>
+        <p class="small-muted">Material auto-didáctico para estudiantes secundarios — recursos web integrados (simuladores y videos).</p>
+      </div>
+    </div>
+  </header>
+
+  <main class="container-xl">
+    <!-- Nav tabs -->
+    <div class="mt-4 mb-3">
+      <ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item"><button class="nav-link active" data-bs-toggle="tab" data-bs-target="#intro">Introducción</button></li>
+        <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#fund">Fundamentos</button></li>
+        <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#leyes">Leyes & Fórmulas</button></li>
+        <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#exps">Experimentos</button></li>
+        <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#acts">Actividades</button></li>
+        <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#doc">Guía docente</button></li>
+      </ul>
+    </div>
+
+    <div class="grid">
+      <!-- MAIN COLUMN -->
+      <section class="tab-content">
+        <!-- INTRO -->
+        <article id="intro" class="tab-pane fade show active card mb-3">
+          <div class="card-header">Introducción y objetivos</div>
+          <div class="card-body">
+            <h2 class="h5">¿Qué vas a aprender?</h2>
+            <p>Esta secuencia aborda: generación de campos magnéticos por corrientes, fuerza magnética (Ley de Lorentz), inducción electromagnética (Faraday-Lenz) y aplicaciones tecnológicas (motores, generadores, transformadores).</p>
+
+            <div class="row g-3">
+              <div class="col-md-8">
+                <h3 class="h6">Competencias</h3>
+                <ul>
+                  <li>Modelar fenómenos electromagnéticos de forma cualitativa y cuantitativa.</li>
+                  <li>Planificar y ejecutar experimentos sencillos en laboratorio o con materiales caseros.</li>
+                  <li>Interpretar resultados y comunicar conclusiones científicas.</li>
                 </ul>
+                <p class="small-muted">Tiempo orientativo: 4 a 6 clases de 80 minutos (adaptable).</p>
+              </div>
+              <div class="col-md-4">
+                <div class="card p-3">
+                  <div class="badge-topic mb-2">5.º año — Física</div>
+                  <div class="small-muted">Nivel: secundario. Modalidad: presencial/híbrida.</div>
+                </div>
+              </div>
             </div>
-        </div>
-    </nav>
+          </div>
+        </article>
 
-    <div class="container mt-4">
-        <!-- Pestañas de navegación -->
-        <ul class="nav nav-tabs" id="mainTabs" role="tablist">
-            <li class="nav-item" role="presentation">
-                <button class="nav-link active" id="intro-tab" data-bs-toggle="tab" data-bs-target="#intro" type="button" role="tab">Introducción</button>
-            </li>
-            <li class="nav-item" role="presentation">
-                <button class="nav-link" id="nivel1-tab" data-bs-toggle="tab" data-bs-target="#nivel1" type="button" role="tab">Nivel 1</button>
-            </li>
-            <li class="nav-item" role="presentation">
-                <button class="nav-link" id="nivel2-tab" data-bs-toggle="tab" data-bs-target="#nivel2" type="button" role="tab">Nivel 2</button>
-            </li>
-            <li class="nav-item" role="presentation">
-                <button class="nav-link" id="nivel3-tab" data-bs-toggle="tab" data-bs-target="#nivel3" type="button" role="tab">Nivel 3</button>
-            </li>
-            <li class="nav-item" role="presentation">
-                <button class="nav-link" id="nivel4-tab" data-bs-toggle="tab" data-bs-target="#nivel4" type="button" role="tab">Nivel 4</button>
-            </li>
-            <li class="nav-item" role="presentation">
-                <button class="nav-link" id="sintesis-tab" data-bs-toggle="tab" data-bs-target="#sintesis" type="button" role="tab">Síntesis</button>
-            </li>
-            <li class="nav-item" role="presentation">
-                <button class="nav-link" id="historia-tab" data-bs-toggle="tab" data-bs-target="#historia" type="button" role="tab">Contexto Histórico</button>
-            </li>
-            <li class="nav-item" role="presentation">
-                <button class="nav-link" id="bibliografia-tab" data-bs-toggle="tab" data-bs-target="#bibliografia" type="button" role="tab">Bibliografía</button>
-            </li>
-        </ul>
+        <!-- FUNDAMENTOS -->
+        <article id="fund" class="tab-pane fade card mb-3">
+          <div class="card-header">Fundamentos: campo magnético y fuerza</div>
+          <div class="card-body">
+            <h3 class="h6">Campo magnético alrededor de un conductor</h3>
+            <p>La corriente crea líneas de campo concéntricas. El sentido se obtiene por la regla de la mano derecha.</p>
 
-        <!-- Contenido de las pestañas -->
-        <div class="tab-content" id="mainTabContent">
-            <!-- Pestaña de Introducción -->
-            <div class="tab-pane fade show active" id="intro" role="tabpanel">
-                <div class="decorative-element decorative-element-1"></div>
-                <div class="decorative-element decorative-element-2"></div>
-                
-                <h2>Introducción a los Circuitos Eléctricos y Componentes Electrónicos</h2>
-                
-                <div class="card mb-4">
-                    <div class="card-header">
-                        <h4 class="mb-0">¿Qué vamos a estudiar?</h4>
-                    </div>
-                    <div class="card-body">
-                        <p>En este curso, exploraremos los fundamentos de los circuitos eléctricos y los componentes electrónicos esenciales. Abordaremos:</p>
-                        <ul>
-                            <li>Modelado de componentes electrónicos básicos</li>
-                            <li>Funcionamiento de circuitos simples</li>
-                            <li>Dispositivos táctiles como motores y generadores</li>
-                            <li>Conceptos eléctricos fundamentales</li>
-                            <li>Análisis y diseño de circuitos</li>
-                        </ul>
-                    </div>
+            <div class="row">
+              <div class="col-lg-6">
+                <div class="diagram">
+                  <!-- inline SVG -->
+                  <svg viewBox="0 0 240 140" width="100%" height="140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Campo alrededor de conductor">
+                    <circle cx="36" cy="70" r="12" fill="#0b5ed7"/>
+                    <g stroke="#0b5ed7" stroke-width="2" fill="none" stroke-linecap="round" opacity="0.8">
+                      <circle cx="36" cy="70" r="28"/>
+                      <circle cx="36" cy="70" r="44" opacity="0.6"/>
+                      <circle cx="36" cy="70" r="64" opacity="0.35"/>
+                    </g>
+                    <text x="86" y="30" font-size="12" fill="#0f1724">Sentido: regla de la mano derecha</text>
+                  </svg>
                 </div>
-                
-                <div class="card mb-4">
-                    <div class="card-header">
-                        <h4 class="mb-0">Propósito de la página</h4>
-                    </div>
-                    <div class="card-body">
-                        <p>Este sitio web tiene como objetivo proporcionar una plataforma educativa interactiva para el aprendizaje de conceptos eléctricos y electrónicos. A través de una estructura modular por niveles, los estudiantes podrán:</p>
-                        <ul>
-                            <li>Comprender los fundamentos teóricos de la electricidad</li>
-                            <li>Aplicar conceptos matemáticos en la resolución de problemas</li>
-                            <li>Desarrollar habilidades de modelado y análisis de circuitos</li>
-                            <li>Explorar aplicaciones prácticas de los componentes electrónicos</li>
-                        </ul>
-                    </div>
-                </div>
-                
-                <div class="card mb-4">
-                    <div class="card-header">
-                        <h4 class="mb-0">Hoja de ruta</h4>
-                    </div>
-                    <div class="card-body">
-                        <div class="roadmap-step">
-                            <div class="step-number">1</div>
-                            <div class="step-content">
-                                <strong>Nivel 1:</strong> Conceptos básicos de electricidad, introducción a componentes simples y circuitos elementales.
-                            </div>
-                        </div>
-                        <div class="roadmap-step">
-                            <div class="step-number">2</div>
-                            <div class="step-content">
-                                <strong>Nivel 2:</strong> Análisis de circuitos en serie y paralelo, leyes de Kirchhoff y aplicaciones prácticas.
-                            </div>
-                        </div>
-                        <div class="roadmap-step">
-                            <div class="step-number">3</div>
-                            <div class="step-content">
-                                <strong>Nivel 3:</strong> Componentes electrónicos avanzados, circuitos con capacitores e inductores.
-                            </div>
-                        </div>
-                        <div class="roadmap-step">
-                            <div class="step-number">4</div>
-                            <div class="step-content">
-                                <strong>Nivel 4:</strong> Dispositivos electromecánicos, motores, generadores y aplicaciones complejas.
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="card">
-                    <div class="card-header">
-                        <h4 class="mb-0">Contenidos previos necesarios</h4>
-                    </div>
-                    <div class="card-body">
-                        <p>Para aprovechar al máximo este curso, se recomienda tener conocimientos previos en:</p>
-                        <ul>
-                            <li>Matemáticas básicas: álgebra, ecuaciones lineales y sistemas de ecuaciones</li>
-                            <li>Física fundamental: conceptos de energía, fuerza y movimiento</li>
-                        </ul>
-                        <p>Si no tienes dominio en estos temas, te recomendamos repasarlos antes de comenzar con el Nivel 1.</p>
-                    </div>
-                </div>
+              </div>
+
+              <div class="col-lg-6">
+                <h4 class="h6">Fuerza magnética (concepto)</h4>
+                <p>Una carga eléctrica q con velocidad v en presencia de un campo magnético B sufre una fuerza:</p>
+                <div class="formula">$\mathbf{F}=q(\mathbf{v}\times\mathbf{B})$</div>
+                <p>Para un conductor de longitud L con corriente I en campo B perpendicular: <span class="formula">$\mathbf{F}=I\; \mathbf{L}\times\mathbf{B}$</span></p>
+                <p class="small-muted">Recuerda: la fuerza es perpendicular a v y B; no siempre realiza trabajo sobre la partícula.</p>
+              </div>
             </div>
-            
-            <!-- Pestaña Nivel 1 -->
-            <div class="tab-pane fade" id="nivel1" role="tabpanel">
-                <div class="decorative-element decorative-element-3"></div>
-                
-                <h2>Nivel 1: Conceptos Básicos de Electricidad</h2>
-                
-                <div class="card mb-4">
-                    <div class="card-header">
-                        <h4 class="mb-0">Problema Inicial: Iluminación de una Habitación</h4>
-                    </div>
-                    <div class="card-body">
-                        <p>Imagina que quieres diseñar el sistema de iluminación para una habitación pequeña. Necesitas instalar tres bombillas que puedan encenderse y apagarse de manera independiente. ¿Cómo diseñarías el circuito eléctrico para lograrlo?</p>
-                        <p>Este problema nos servirá como disparador para introducir los conceptos fundamentales de los circuitos eléctricos.</p>
-                    </div>
-                </div>
-                
-                <div class="card mb-4">
-                    <div class="card-header">
-                        <h4 class="mb-0">Definiciones Fundamentales</h4>
-                    </div>
-                    <div class="card-body">
-                        <h5>Corriente Eléctrica (I)</h5>
-                        <p>La corriente eléctrica es el flujo de carga eléctrica a través de un material conductor. Se mide en amperios (A).</p>
-                        <div class="formula-box">
-                            $$I = \frac{Q}{t}$$
-                            <p>Donde:</p>
-                            <ul>
-                                <li>$I$ = corriente eléctrica (A)</li>
-                                <li>$Q$ = carga eléctrica (C)</li>
-                                <li>$t$ = tiempo (s)</li>
-                            </ul>
-                        </div>
-                        
-                        <h5>Voltaje o Diferencia de Potencial (V)</h5>
-                        <p>Es la energía por unidad de carga necesaria para mover una carga entre dos puntos. Se mide en voltios (V).</p>
-                        
-                        <h5>Resistencia Eléctrica (R)</h5>
-                        <p>Es la oposición que presenta un material al paso de la corriente eléctrica. Se mide en ohmios (Ω).</p>
-                        
-                        <h5>Ley de Ohm</h5>
-                        <p>Establece la relación entre voltaje, corriente y resistencia:</p>
-                        <div class="formula-box">
-                            $$V = I \cdot R$$
-                            <p>Donde:</p>
-                            <ul>
-                                <li>$V$ = voltaje (V)</li>
-                                <li>$I$ = corriente (A)</li>
-                                <li>$R$ = resistencia (Ω)</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="card mb-4">
-                    <div class="card-header">
-                        <h4 class="mb-0">Componentes Básicos de un Circuito</h4>
-                    </div>
-                    <div class="card-body">
-                        <h5>Resistores</h5>
-                        <p>Componentes que oponen resistencia al paso de la corriente eléctrica. Se representan con el símbolo:</p>
-                        <div class="text-center my-3">
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Resistor_symbol.svg/120px-Resistor_symbol.svg.png" alt="Símbolo de resistor">
-                        </div>
-                        
-                        <h5>Fuente de Voltaje</h5>
-                        <p>Proporciona la energía necesaria para que circule la corriente. Puede ser una batería o una fuente de alimentación.</p>
-                        <div class="text-center my-3">
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a3/Battery_symbol.svg/120px-Battery_symbol.svg.png" alt="Símbolo de batería">
-                        </div>
-                        
-                        <h5>Interruptores</h5>
-                        <p>Permiten abrir o cerrar el circuito, controlando el paso de la corriente.</p>
-                        <div class="text-center my-3">
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/Switch_symbol.svg/120px-Switch_symbol.svg.png" alt="Símbolo de interruptor">
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="card mb-4">
-                    <div class="card-header">
-                        <h4 class="mb-0">Ejemplos de Dispositivos Cotidianos</h4>
-                    </div>
-                    <div class="card-body">
-                        <div class="example-device">
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1d/Led_bulb.jpg/220px-Led_bulb.jpg" alt="Bombilla LED">
-                            <div class="example-device-content">
-                                <h6>Bombilla LED</h6>
-                                <p>Las bombillas LED son dispositivos que convierten la energía eléctrica en luz. Funcionan con un circuito simple que incluye una fuente de alimentación y un resistor para limitar la corriente que pasa por el LED.</p>
-                            </div>
-                        </div>
-                        
-                        <div class="example-device">
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3d/AA_and_AAA_batteries.jpg/220px-AA_and_AAA_batteries.jpg" alt="Baterías AA y AAA">
-                            <div class="example-device-content">
-                                <h6>Baterías</h6>
-                                <p>Las baterías son fuentes de voltaje que almacenan energía química y la convierten en energía eléctrica. Las baterías AA y AAA son comunes en dispositivos como controles remotos y juguetes.</p>
-                            </div>
-                        </div>
-                        
-                        <div class="example-device">
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/Regulable.jpg/220px-Regulable.jpg" alt="Interruptor de luz">
-                            <div class="example-device-content">
-                                <h6>Interruptores de luz</h6>
-                                <p>Los interruptores son dispositivos que permiten abrir o cerrar un circuito eléctrico. Cuando enciendes una luz, estás cerrando el circuito para que la corriente fluya hacia la bombilla.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="card mb-4">
-                    <div class="card-header">
-                        <h4 class="mb-0">Actividades</h4>
-                    </div>
-                    <div class="card-body">
-                        <div class="activity mb-4">
-                            <h5>Actividad 1: Cálculo de corriente</h5>
-                            <p>Un resistor de 100 Ω está conectado a una fuente de 9V. Calcula la corriente que circula por el circuito.</p>
-                            <button class="btn btn-outline-primary" onclick="toggleSolution('solution1')">Ver solución</button>
-                            <div id="solution1" class="solution">
-                                <p>Aplicando la Ley de Ohm: $V = I \cdot R$</p>
-                                <p>Despejando la corriente: $I = \frac{V}{R} = \frac{9V}{100Ω} = 0.09A = 90mA$</p>
-                                <p>La corriente que circula por el circuito es de 90mA.</p>
-                            </div>
-                        </div>
-                        
-                        <div class="activity mb-4">
-                            <h5>Actividad 2: Cálculo de resistencia</h5>
-                            <p>Si por un resistor circula una corriente de 0.5A y la diferencia de potencial entre sus extremos es de 12V, ¿cuál es el valor de la resistencia?</p>
-                            <button class="btn btn-outline-primary" onclick="toggleSolution('solution2')">Ver solución</button>
-                            <div id="solution2" class="solution">
-                                <p>Aplicando la Ley de Ohm: $V = I \cdot R$</p>
-                                <p>Despejando la resistencia: $R = \frac{V}{I} = \frac{12V}{0.5A} = 24Ω$</p>
-                                <p>El valor de la resistencia es de 24Ω.</p>
-                            </div>
-                        </div>
-                        
-                        <div class="activity">
-                            <h5>Actividad 3: Diseño de circuito simple</h5>
-                            <p>Dibuja un circuito que incluya una batería de 6V, un resistor de 200Ω y un interruptor en serie. Calcula la corriente cuando el interruptor está cerrado.</p>
-                            <button class="btn btn-outline-primary" onclick="toggleSolution('solution3')">Ver solución</button>
-                            <div id="solution3" class="solution">
-                                <p>El circuito sería:</p>
-                                <div class="text-center my-3">
-                                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Simple_series_circuit.svg/300px-Simple_series_circuit.svg.png" alt="Circuito en serie">
-                                </div>
-                                <p>Aplicando la Ley de Ohm: $V = I \cdot R$</p>
-                                <p>Despejando la corriente: $I = \frac{V}{R} = \frac{6V}{200Ω} = 0.03A = 30mA$</p>
-                                <p>La corriente cuando el interruptor está cerrado es de 30mA.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="card">
-                    <div class="card-header">
-                        <h4 class="mb-0">Evaluación: Nivel 1</h4>
-                    </div>
-                    <div class="card-body">
-                        <h5>Pregunta 1: ¿Cuál es la unidad de medida de la corriente eléctrica?</h5>
-                        <div class="quiz-option" onclick="checkAnswer(this, false)">a) Voltio</div>
-                        <div class="quiz-option" onclick="checkAnswer(this, true)">b) Amperio</div>
-                        <div class="quiz-option" onclick="checkAnswer(this, false)">c) Ohmio</div>
-                        <div class="quiz-option" onclick="checkAnswer(this, false)">d) Vatio</div>
-                        
-                        <h5 class="mt-4">Pregunta 2: Según la Ley de Ohm, si duplicamos el voltaje en un circuito con resistencia constante...</h5>
-                        <div class="quiz-option" onclick="checkAnswer(this, false)">a) La corriente se reduce a la mitad</div>
-                        <div class="quiz-option" onclick="checkAnswer(this, true)">b) La corriente se duplica</div>
-                        <div class="quiz-option" onclick="checkAnswer(this, false)">c) La corriente no cambia</div>
-                        <div class="quiz-option" onclick="checkAnswer(this, false)">d) La resistencia se duplica</div>
-                        
-                        <h5 class="mt-4">Pregunta 3: Un resistor de 50Ω está conectado a una fuente de 10V. ¿Cuál es la corriente que circula por el circuito?</h5>
-                        <div class="quiz-option" onclick="checkAnswer(this, false)">a) 0.2A</div>
-                        <div class="quiz-option" onclick="checkAnswer(this, true)">b) 0.2A</div>
-                        <div class="quiz-option" onclick="checkAnswer(this, false)">c) 5A</div>
-                        <div class="quiz-option" onclick="checkAnswer(this, false)">d) 500A</div>
-                    </div>
-                </div>
+
+            <hr>
+
+            <h3 class="h6">Recurso interactivo: visualización de campo</h3>
+            <p>Pulsa para abrir un simulador (ventana nueva):</p>
+            <a class="btn btn-outline-primary btn-pill" href="https://phet.colorado.edu/sims/html/magnetic-field-interaction/latest/magnetic-field-interaction_en.html" target="_blank" rel="noopener">
+              <i class="bi bi-box-arrow-up-right"></i> Abrir simulador PhET (Magnetic Field)
+            </a>
+
+            <p class="small-muted mt-2">(Si el simulador no abre por restricciones del dispositivo, usar Falstad o vídeos en la sección recursos).</p>
+          </div>
+        </article>
+
+        <!-- LEYES -->
+        <article id="leyes" class="tab-pane fade card mb-3">
+          <div class="card-header">Leyes y fórmulas relevantes</div>
+          <div class="card-body">
+            <h4 class="h6">Resumen</h4>
+            <ul>
+              <li><strong>Lorentz:</strong> $\mathbf{F}=q(\mathbf{v}\times\mathbf{B})$</li>
+              <li><strong>Conductor:</strong> $F=I\,L\,B$ (L ⟂ B)</li>
+              <li><strong>Faraday:</strong> $\mathcal{E}=-\dfrac{d\Phi}{dt}$</li>
+              <li><strong>Energía en inductancia:</strong> $U=\tfrac12 L I^2$</li>
+            </ul>
+
+            <h4 class="h6 mt-3">Ejemplo resuelto</h4>
+            <p><em>Enunciado:</em> Conductor de 0.5 m, I = 4 A, B = 0.3 T (perpendicular). Calculá F.</p>
+            <div class="muted p-3 rounded" style="background:#fff;border-left:6px solid var(--brand)">
+              <p class="mb-1">Usamos $F=I L B$ →</p>
+              <div class="formula">$F = 4\cdot0.5\cdot0.3=0.6\; \mathrm{N}$</div>
             </div>
-            
-            <!-- Pestaña Nivel 2 -->
-            <div class="tab-pane fade" id="nivel2" role="tabpanel">
-                <div class="decorative-element decorative-element-1"></div>
-                
-                <h2>Nivel 2: Análisis de Circuitos en Serie y Paralelo</h2>
-                
-                <div class="card mb-4">
-                    <div class="card-header">
-                        <h4 class="mb-0">Continuación del Problema Inicial</h4>
-                    </div>
-                    <div class="card-body">
-                        <p>Recordando nuestro problema de iluminación, ahora que conocemos los conceptos básicos, podemos diseñar un circuito que permita encender y apagar cada bombilla de forma independiente.</p>
-                        <p>Para lograrlo, necesitamos entender cómo se comportan los circuitos cuando conectamos componentes en serie y en paralelo.</p>
-                    </div>
-                </div>
-                
-                <div class="card mb-4">
-                    <div class="card-header">
-                        <h4 class="mb-0">Circuitos en Serie</h4>
-                    </div>
-                    <div class="card-body">
-                        <p>En un circuito en serie, los componentes están conectados uno después del otro, formando un único camino para la corriente.</p>
-                        <div class="text-center my-3">
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Simple_series_circuit.svg/300px-Simple_series_circuit.svg.png" alt="Circuito en serie">
-                        </div>
-                        
-                        <h5>Características de los circuitos en serie:</h5>
-                        <ul>
-                            <li>La corriente es la misma en todos los componentes: $I = I_1 = I_2 = ... = I_n$</li>
-                            <li>El voltaje total es la suma de los voltajes individuales: $V = V_1 + V_2 + ... + V_n$</li>
-                            <li>La resistencia total es la suma de las resistencias individuales: $R_T = R_1 + R_2 + ... + R_n$</li>
-                        </ul>
-                        
-                        <div class="formula-box">
-                            $$R_T = \sum_{i=1}^{n} R_i = R_1 + R_2 + ... + R_n$$
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="card mb-4">
-                    <div class="card-header">
-                        <h4 class="mb-0">Circuitos en Paralelo</h4>
-                    </div>
-                    <div class="card-body">
-                        <p>En un circuito en paralelo, los componentes están conectados entre los mismos dos puntos, proporcionando múltiples caminos para la corriente.</p>
-                        <div class="text-center my-3">
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Parallel_circuit.svg/300px-Parallel_circuit.svg.png" alt="Circuito en paralelo">
-                        </div>
-                        
-                        <h5>Características de los circuitos en paralelo:</h5>
-                        <ul>
-                            <li>El voltaje es el mismo en todos los componentes: $V = V_1 = V_2 = ... = V_n$</li>
-                            <li>La corriente total es la suma de las corrientes individuales: $I = I_1 + I_2 + ... + I_n$</li>
-                            <li>La inversa de la resistencia total es la suma de las inversas de las resistencias individuales: $\frac{1}{R_T} = \frac{1}{R_1} + \frac{1}{R_2} + ... + \frac{1}{R_n}$</li>
-                        </ul>
-                        
-                        <div class="formula-box">
-                            $$\frac{1}{R_T} = \sum_{i=1}^{n} \frac{1}{R_i} = \frac{1}{R_1} + \frac{1}{R_2} + ... + \frac{1}{R_n}$$
-                        </div>
-                        
-                        <p>Para el caso particular de dos resistencias en paralelo:</p>
-                        <div class="formula-box">
-                            $$R_T = \frac{R_1 \cdot R_2}{R_1 + R_2}$$
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="card mb-4">
-                    <div class="card-header">
-                        <h4 class="mb-0">Leyes de Kirchhoff</h4>
-                    </div>
-                    <div class="card-body">
-                        <h5>Primera Ley de Kirchhoff (Ley de Corrientes)</h5>
-                        <p>La suma de las corrientes que entran a un nodo es igual a la suma de las corrientes que salen de ese nodo.</p>
-                        <div class="formula-box">
-                            $$\sum_{i=1}^{n} I_{entran} = \sum_{j=1}^{m} I_{salen}$$
-                        </div>
-                        
-                        <h5>Segunda Ley de Kirchhoff (Ley de Voltajes)</h5>
-                        <p>La suma algebraica de las diferencias de potencial en cualquier malla cerrada de un circuito es igual a cero.</p>
-                        <div class="formula-box">
-                            $$\sum_{i=1}^{n} V_i = 0$$
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="card mb-4">
-                    <div class="card-header">
-                        <h4 class="mb-0">Ejemplos de Dispositivos Cotidianos</h4>
-                    </div>
-                    <div class="card-body">
-                        <div class="example-device">
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5d/Christmas_lights_in_January.jpg/220px-Christmas_lights_in_January.jpg" alt="Luces de Navidad">
-                            <div class="example-device-content">
-                                <h6>Luces de Navidad</h6>
-                                <p>Las luces de Navidad son un ejemplo clásico de circuitos en serie. Si una bombilla se quema, todas las luces se apagan porque se interrumpe el único camino para la corriente.</p>
-                            </div>
-                        </div>
-                        
-                        <div class="example-device">
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1c/Power_strip_with_four_outlets_and_two_USB_ports.jpg/220px-Power_strip_with_four_outlets_and_two_USB_ports.jpg" alt="Regleta de enchufes">
-                            <div class="example-device-content">
-                                <h6>Regletas de enchufes</h6>
-                                <p>Las regletas de enchufes son un ejemplo de circuitos en paralelo. Cada dispositivo conectado a la regleta recibe el mismo voltaje y funciona de manera independiente.</p>
-                            </div>
-                        </div>
-                        
-                        <div class="example-device">
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7f/LED_string_lights.jpg/220px-LED_string_lights.jpg" alt="Cinta de LEDs">
-                            <div class="example-device-content">
-                                <h6>Cintas de LEDs</h6>
-                                <p>Las cintas de LEDs modernas utilizan circuitos en paralelo para que si un LED se daña, los demás sigan funcionando. Esto es una mejora respecto a las luces de Navidad tradicionales.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="card mb-4">
-                    <div class="card-header">
-                        <h4 class="mb-0">Actividades</h4>
-                    </div>
-                    <div class="card-body">
-                        <div class="activity mb-4">
-                            <h5>Actividad 1: Resistencias en serie</h5>
-                            <p>Tres resistencias de 10Ω, 20Ω y 30Ω están conectadas en serie a una fuente de 12V. Calcula la corriente del circuito y el voltaje en cada resistencia.</p>
-                            <button class="btn btn-outline-primary" onclick="toggleSolution('solution4')">Ver solución</button>
-                            <div id="solution4" class="solution">
-                                <p>Resistencia total: $R_T = R_1 + R_2 + R_3 = 10Ω + 20Ω + 30Ω = 60Ω$</p>
-                                <p>Corriente del circuito: $I = \frac{V}{R_T} = \frac{12V}{60Ω} = 0.2A$</p>
-                                <p>Voltaje en cada resistencia:</p>
-                                <ul>
-                                    <li>$V_1 = I \cdot R_1 = 0.2A \cdot 10Ω = 2V$</li>
-                                    <li>$V_2 = I \cdot R_2 = 0.2A \cdot 20Ω = 4V$</li>
-                                    <li>$V_3 = I \cdot R_3 = 0.2A \cdot 30Ω = 6V$</li>
-                                </ul>
-                                <p>Verificación: $V_1 + V_2 + V_3 = 2V + 4V + 6V = 12V$ (cumple la Ley de Voltajes de Kirchhoff)</p>
-                            </div>
-                        </div>
-                        
-                        <div class="activity mb-4">
-                            <h5>Actividad 2: Resistencias en paralelo</h5>
-                            <p>Dos resistencias de 40Ω y 60Ω están conectadas en paralelo a una fuente de 24V. Calcula la resistencia equivalente y la corriente total del circuito.</p>
-                            <button class="btn btn-outline-primary" onclick="toggleSolution('solution5')">Ver solución</button>
-                            <div id="solution5" class="solution">
-                                <p>Resistencia equivalente: $R_T = \frac{R_1 \cdot R_2}{R_1 + R_2} = \frac{40Ω \cdot 60Ω}{40Ω + 60Ω} = \frac{2400Ω^2}{100Ω} = 24Ω$</p>
-                                <p>Corriente total: $I = \frac{V}{R_T} = \frac{24V}{24Ω} = 1A$</p>
-                            </div>
-                        </div>
-                        
-                        <div class="activity">
-                            <h5>Actividad 3: Circuito mixto</h5>
-                            <p>En el siguiente circuito, calcula la corriente total y la corriente que pasa por cada resistencia:</p>
-                            <div class="text-center my-3">
-                                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Series-parallel_circuit_1.svg/300px-Series-parallel_circuit_1.svg.png" alt="Circuito mixto">
-                            </div>
-                            <p>Datos: $R_1 = 10Ω$, $R_2 = 20Ω$, $R_3 = 30Ω$, $V = 12V$</p>
-                            <button class="btn btn-outline-primary" onclick="toggleSolution('solution6')">Ver solución</button>
-                            <div id="solution6" class="solution">
-                                <p>Primero calculamos la resistencia equivalente de las resistencias en paralelo ($R_2$ y $R_3$):</p>
-                                <p>$R_{23} = \frac{R_2 \cdot R_3}{R_2 + R_3} = \frac{20Ω \cdot 30Ω}{20Ω + 30Ω} = \frac{600Ω^2}{50Ω} = 12Ω$</p>
-                                <p>Luego, la resistencia total del circuito es: $R_T = R_1 + R_{23} = 10Ω + 12Ω = 22Ω$</p>
-                                <p>La corriente total es: $I_T = \frac{V}{R_T} = \frac{12V}{22Ω} ≈ 0.545A$</p>
-                                <p>La corriente que pasa por $R_1$ es la misma que la corriente total: $I_1 = I_T ≈ 0.545A$</p>
-                                <p>El voltaje en $R_1$ es: $V_1 = I_1 \cdot R_1 = 0.545A \cdot 10Ω ≈ 5.45V$</p>
-                                <p>El voltaje en las resistencias en paralelo es: $V_{23} = V - V_1 = 12V - 5.45V = 6.55V$</p>
-                                <p>Las corrientes en $R_2$ y $R_3$ son:</p>
-                                <ul>
-                                    <li>$I_2 = \frac{V_{23}}{R_2} = \frac{6.55V}{20Ω} ≈ 0.328A$</li>
-                                    <li>$I_3 = \frac{V_{23}}{R_3} = \frac{6.55V}{30Ω} ≈ 0.218A$</li>
-                                </ul>
-                                <p>Verificación: $I_2 + I_3 = 0.328A + 0.218A = 0.546A ≈ I_T$ (cumple la Ley de Corrientes de Kirchhoff)</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="card">
-                    <div class="card-header">
-                        <h4 class="mb-0">Evaluación: Nivel 2</h4>
-                    </div>
-                    <div class="card-body">
-                        <h5>Pregunta 1: En un circuito en serie, si se quita una de las resistencias...</h5>
-                        <div class="quiz-option" onclick="checkAnswer(this, false)">a) Las otras resistencias seguirán funcionando</div>
-                        <div class="quiz-option" onclick="checkAnswer(this, true)">b) El circuito se interrumpe y deja de funcionar</div>
-                        <div class="quiz-option" onclick="checkAnswer(this, false)">c) La corriente aumenta</div>
-                        <div class="quiz-option" onclick="checkAnswer(this, false)">d) El voltaje total disminuye</div>
-                        
-                        <h5 class="mt-4">Pregunta 2: En un circuito en paralelo, el voltaje en cada resistencia es...</h5>
-                        <div class="quiz-option" onclick="checkAnswer(this, false)">a) Diferente en cada resistencia</div>
-                        <div class="quiz-option" onclick="checkAnswer(this, false)">b) Mayor en la resistencia de mayor valor</div>
-                        <div class="quiz-option" onclick="checkAnswer(this, true)">c) Igual en todas las resistencias</div>
-                        <div class="quiz-option" onclick="checkAnswer(this, false)">d) Inversamente proporcional al valor de la resistencia</div>
-                        
-                        <h5 class="mt-4">Pregunta 3: Dos resistencias de 6Ω y 12Ω conectadas en paralelo tienen una resistencia equivalente de...</h5>
-                        <div class="quiz-option" onclick="checkAnswer(this, false)">a) 3Ω</div>
-                        <div class="quiz-option" onclick="checkAnswer(this, false)">b) 6Ω</div>
-                        <div class="quiz-option" onclick="checkAnswer(this, true)">c) 4Ω</div>
-                        <div class="quiz-option" onclick="checkAnswer(this, false)">d) 18Ω</div>
-                    </div>
-                </div>
+          </div>
+        </article>
+
+        <!-- EXPERIMENTOS -->
+        <article id="exps" class="tab-pane fade card mb-3">
+          <div class="card-header">Experimentos sencillos (seguridad incluida)</div>
+          <div class="card-body">
+            <h4 class="h6">A — Campo alrededor de un conductor</h4>
+            <p><strong>Materiales:</strong> pila 9 V, alambre esmaltado, brújula pequeña o virutas de hierro (con supervisión).</p>
+            <ol>
+              <li>Montá un tramo de alambre recto, conectalo a la pila y acerca la brújula: observá la desviación.</li>
+              <li>Cambia el sentido de la corriente: la brújula se invertirá.</li>
+            </ol>
+            <details>
+              <summary>Seguridad y notas</summary>
+              <ul>
+                <li>Evitar cortocircuitos. Usá porta pilas y resistencias si hace falta.</li>
+                <li>Limitar cercanía con dispositivos electrónicos sensibles.</li>
+              </ul>
+            </details>
+
+            <h4 class="h6 mt-3">B — Inducción: bobina e imán</h4>
+            <p>Materiales: bobina (varias vueltas), imán, multímetro o LED+resistencia.</p>
+            <ol>
+              <li>Mover el imán dentro/afuera de la bobina y observar la f.e.m. inducida.</li>
+              <li>Aumentar número de vueltas o velocidad para observar mayor f.e.m.</li>
+            </ol>
+
+            <h5 class="mt-3">Simulador embebido: Falstad (circuitos / magnetismo)</h5>
+            <p>Ejecuta y experimenta con circuitos y campos magnéticos en la ventana embebida:</p>
+            <div class="ratio ratio-16x9 mb-2">
+              <!-- Falstad Circuit JS is embeddable via URL; opens within iframe -->
+              <iframe title="Falstad circuit" src="https://falstad.github.io/circuit/circuitjs.html" style="border:1px solid rgba(0,0,0,0.08);" allowfullscreen></iframe>
             </div>
-            
-            <!-- Pestaña Nivel 3 -->
-            <div class="tab-pane fade" id="nivel3" role="tabpanel">
-                <div class="decorative-element decorative-element-2"></div>
-                
-                <h2>Nivel 3: Componentes Electrónicos Avanzados</h2>
-                
-                <div class="card mb-4">
-                    <div class="card-header">
-                        <h4 class="mb-0">Capacitores</h4>
-                    </div>
-                    <div class="card-body">
-                        <p>Un capacitor es un componente que almacena energía en forma de campo eléctrico. Consiste en dos placas conductoras separadas por un material dieléctrico.</p>
-                        <div class="text-center my-3">
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Capacitor_symbol.svg/120px-Capacitor_symbol.svg.png" alt="Símbolo de capacitor">
-                        </div>
-                        
-                        <h5>Capacitancia (C)</h5>
-                        <p>Es la medida de la capacidad de un capacitor para almacenar carga. Se mide en faradios (F).</p>
-                        <div class="formula-box">
-                            $$C = \frac{Q}{V}$$
-                            <p>Donde:</p>
-                            <ul>
-                                <li>$C$ = capacitancia (F)</li>
-                                <li>$Q$ = carga almacenada (C)</li>
-                                <li>$V$ = voltaje (V)</li>
-                            </ul>
-                        </div>
-                        
-                        <h5>Comportamiento en circuitos de corriente continua</h5>
-                        <p>Cuando un capacitor se conecta a una fuente de corriente continua:</p>
-                        <ul>
-                            <li>Inicialmente se comporta como un cortocircuito (resistencia cero)</li>
-                            <li>A medida que se carga, su resistencia aumenta</li>
-                            <li>Cuando está completamente cargado, se comporta como un circuito abierto (resistencia infinita)</li>
-                        </ul>
-                        
-                        <h5>Energía almacenada en un capacitor</h5>
-                        <div class="formula-box">
-                            $$E = \frac{1}{2} \cdot C \cdot V^2$$
-                            <p>Donde:</p>
-                            <ul>
-                                <li>$E$ = energía (J)</li>
-                                <li>$C$ = capacitancia (F)</li>
-                                <li>$V$ = voltaje (V)</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="card mb-4">
-                    <div class="card-header">
-                        <h4 class="mb-0">Inductores</h4>
-                    </div>
-                    <div class="card-body">
-                        <p>Un inductor es un componente que almacena energía en forma de campo magnético. Consiste típicamente en una bobina de alambre conductor.</p>
-                        <div class="text-center my-3">
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/78/Inductor_symbol.svg/120px-Inductor_symbol.svg.png" alt="Símbolo de inductor">
-                        </div>
-                        
-                        <h5>Inductancia (L)</h5>
-                        <p>Es la medida de la capacidad de un inductor para oponerse a los cambios en la corriente. Se mide en henrios (H).</p>
-                        
-                        <h5>Ley de Faraday (versión simplificada)</h5>
-                        <p>Cuando la corriente que pasa por un inductor cambia, se genera un voltaje que se opone a ese cambio. Este voltaje es mayor cuando el cambio de corriente es más rápido.</p>
-                        
-                        <h5>Comportamiento en circuitos de corriente continua</h5>
-                        <p>Cuando un inductor se conecta a una fuente de corriente continua:</p>
-                        <ul>
-                            <li>Inicialmente se comporta como un circuito abierto (resistencia infinita)</li>
-                            <li>A medida que la corriente se establece, su resistencia disminuye</li>
-                            <li>Cuando la corriente es constante, se comporta como un cortocircuito (resistencia cero)</li>
-                        </ul>
-                        
-                        <h5>Energía almacenada en un inductor</h5>
-                        <div class="formula-box">
-                            $$E = \frac{1}{2} \cdot L \cdot I^2$$
-                            <p>Donde:</p>
-                            <ul>
-                                <li>$E$ = energía (J)</li>
-                                <li>$L$ = inductancia (H)</li>
-                                <li>$I$ = corriente (A)</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="card mb-4">
-                    <div class="card-header">
-                        <h4 class="mb-0">Circuitos RC y RL</h4>
-                    </div>
-                    <div class="card-body">
-                        <h5>Circuitos RC (Resistor-Capacitor)</h5>
-                        <p>Un circuito RC combina resistencias y capacitores. Su comportamiento está determinado por la constante de tiempo τ (tau):</p>
-                        <div class="formula-box">
-                            $$\tau = R \cdot C$$
-                            <p>Donde:</p>
-                            <ul>
-                                <li>$\tau$ = constante de tiempo (s)</li>
-                                <li>$R$ = resistencia (Ω)</li>
-                                <li>$C$ = capacitancia (F)</li>
-                            </ul>
-                        </div>
-                        
-                        <h5>Carga de un capacitor</h5>
-                        <p>La carga en un capacitor en un circuito RC aumenta con el tiempo. Después de un tiempo igual a τ, el capacitor alcanza aproximadamente el 63% de su carga máxima.</p>
-                        
-                        <h5>Circuitos RL (Resistor-Inductor)</h5>
-                        <p>Un circuito RL combina resistencias e inductores. Su comportamiento está determinado por la constante de tiempo τ (tau):</p>
-                        <div class="formula-box">
-                            $$\tau = \frac{L}{R}$$
-                            <p>Donde:</p>
-                            <ul>
-                                <li>$\tau$ = constante de tiempo (s)</li>
-                                <li>$L$ = inductancia (H)</li>
-                                <li>$R$ = resistencia (Ω)</li>
-                            </ul>
-                        </div>
-                        
-                        <h5>Corriente en un circuito RL</h5>
-                        <p>La corriente en un circuito RL aumenta con el tiempo. Después de un tiempo igual a τ, la corriente alcanza aproximadamente el 63% de su valor máximo.</p>
-                    </div>
-                </div>
-                
-                <div class="card mb-4">
-                    <div class="card-header">
-                        <h4 class="mb-0">Ejemplos de Dispositivos Cotidianos</h4>
-                    </div>
-                    <div class="card-body">
-                        <div class="example-device">
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Capacitors_in_a_pcb.jpg/220px-Capacitors_in_a_pcb.jpg" alt="Capacitores en una placa de circuito">
-                            <div class="example-device-content">
-                                <h6>Capacitores en dispositivos electrónicos</h6>
-                                <p>Los capacitores se encuentran en casi todos los dispositivos electrónicos. En las fuentes de alimentación, suavizan el voltaje y filtran el ruido. En las radios, sintonizan diferentes frecuencias.</p>
-                            </div>
-                        </div>
-                        
-                        <div class="example-device">
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Fluorescent_Lamp_Ballast.jpg/220px-Fluorescent_Lamp_Ballast.jpg" alt="Balastro de lámpara fluorescente">
-                            <div class="example-device-content">
-                                <h6>Balastros de lámparas fluorescentes</h6>
-                                <p>Los balastros contienen inductores que limitan la corriente que pasa por las lámparas fluorescentes. Sin ellos, la corriente sería demasiado alta y dañaría la lámpara.</p>
-                            </div>
-                        </div>
-                        
-                        <div class="example-device">
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/Camera_flash.jpg/220px-Camera_flash.jpg" alt="Flash de cámara">
-                            <div class="example-device-content">
-                                <h6>Flash de cámaras fotográficas</h6>
-                                <p>Los flashes de las cámaras utilizan circuitos RC para almacenar energía en un capacitor y luego liberarla rápidamente para producir un destello de luz brillante.</p>
-                            </div>
-                        </div>
-                        
-                        <div class="example-device">
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Relay_with_cover_removed.jpg/220px-Relay_with_cover_removed.jpg" alt="Relé">
-                            <div class="example-device-content">
-                                <h6>Relés</h6>
-                                <p>Los relés son interruptores controlados eléctricamente que utilizan inductores para generar un campo magnético que cierra o abre un contacto mecánico. Se usan en sistemas de automatización y control.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="card mb-4">
-                    <div class="card-header">
-                        <h4 class="mb-0">Actividades</h4>
-                    </div>
-                    <div class="card-body">
-                        <div class="activity mb-4">
-                            <h5>Actividad 1: Carga de un capacitor</h5>
-                            <p>Un capacitor de 100μF está conectado en serie con una resistencia de 10kΩ a una fuente de 12V. Calcula la constante de tiempo del circuito y la carga máxima que puede almacenar el capacitor.</p>
-                            <button class="btn btn-outline-primary" onclick="toggleSolution('solution7')">Ver solución</button>
-                            <div id="solution7" class="solution">
-                                <p>Constante de tiempo: $\tau = R \cdot C = 10 \times 10^3Ω \cdot 100 \times 10^{-6}F = 1s$</p>
-                                <p>Carga máxima: $Q_{max} = C \cdot V = 100 \times 10^{-6}F \cdot 12V = 1.2 \times 10^{-3}C = 1.2mC$</p>
-                            </div>
-                        </div>
-                        
-                        <div class="activity mb-4">
-                            <h5>Actividad 2: Energía almacenada</h5>
-                            <p>Un capacitor de 470μF está cargado a 25V. Calcula la energía almacenada en el capacitor.</p>
-                            <button class="btn btn-outline-primary" onclick="toggleSolution('solution8')">Ver solución</button>
-                            <div id="solution8" class="solution">
-                                <p>Energía almacenada: $E = \frac{1}{2} \cdot C \cdot V^2 = \frac{1}{2} \cdot 470 \times 10^{-6}F \cdot (25V)^2$</p>
-                                <p>$E = \frac{1}{2} \cdot 470 \times 10^{-6}F \cdot 625V^2 = 0.5 \cdot 0.29375J = 0.146875J$</p>
-                            </div>
-                        </div>
-                        
-                        <div class="activity">
-                            <h5>Actividad 3: Circuito RL</h5>
-                            <p>Un circuito RL tiene una inductancia de 200mH y una resistencia de 50Ω. Calcula la constante de tiempo del circuito y la corriente después de 0.01s si se conecta a una fuente de 10V.</p>
-                            <button class="btn btn-outline-primary" onclick="toggleSolution('solution9')">Ver solución</button>
-                            <div id="solution9" class="solution">
-                                <p>Constante de tiempo: $\tau = \frac{L}{R} = \frac{200 \times 10^{-3}H}{50Ω} = \frac{0.2H}{50Ω} = 0.004s = 4ms$</p>
-                                <p>Corriente máxima: $I_{max} = \frac{V}{R} = \frac{10V}{50Ω} = 0.2A$</p>
-                                <p>Después de un tiempo igual a τ (4ms), la corriente alcanza aproximadamente el 63% de su valor máximo.</p>
-                                <p>Como 0.01s es 2.5 veces la constante de tiempo (0.01s / 0.004s = 2.5), la corriente será aproximadamente el 92% de su valor máximo.</p>
-                                <p>Corriente después de 0.01s: $I = 0.92 \cdot I_{max} = 0.92 \cdot 0.2A = 0.184A$</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="card">
-                    <div class="card-header">
-                        <h4 class="mb-0">Evaluación: Nivel 3</h4>
-                    </div>
-                    <div class="card-body">
-                        <h5>Pregunta 1: La unidad de medida de la capacitancia es...</h5>
-                        <div class="quiz-option" onclick="checkAnswer(this, false)">a) Henry</div>
-                        <div class="quiz-option" onclick="checkAnswer(this, false)">b) Ohmio</div>
-                        <div class="quiz-option" onclick="checkAnswer(this, true)">c) Faradio</div>
-                        <div class="quiz-option" onclick="checkAnswer(this, false)">d) Tesla</div>
-                        
-                        <h5 class="mt-4">Pregunta 2: En un circuito RC, si aumentamos el valor de la resistencia...</h5>
-                        <div class="quiz-option" onclick="checkAnswer(this, true)">a) Aumenta la constante de tiempo</div>
-                        <div class="quiz-option" onclick="checkAnswer(this, false)">b) Disminuye la constante de tiempo</div>
-                        <div class="quiz-option" onclick="checkAnswer(this, false)">c) No afecta a la constante de tiempo</div>
-                        <div class="quiz-option" onclick="checkAnswer(this, false)">d) Aumenta la capacitancia</div>
-                        
-                        <h5 class="mt-4">Pregunta 3: La energía almacenada en un capacitor de 100μF cargado a 10V es...</h5>
-                        <div class="quiz-option" onclick="checkAnswer(this, false)">a) 0.001J</div>
-                        <div class="quiz-option" onclick="checkAnswer(this, false)">b) 0.01J</div>
-                        <div class="quiz-option" onclick="checkAnswer(this, true)">c) 0.005J</div>
-                        <div class="quiz-option" onclick="checkAnswer(this, false)">d) 1J</div>
-                    </div>
-                </div>
+            <p class="small-muted">Nota: algunos navegadores bloquean iframes por políticas; en ese caso abre Falstad en una pestaña nueva: <a href="https://falstad.github.io/circuit/" target="_blank" rel="noopener" class="external">falstad circuit</a>.</p>
+          </div>
+        </article>
+
+        <!-- ACTIVIDADES -->
+        <article id="acts" class="tab-pane fade card mb-3">
+          <div class="card-header">Actividades prácticas y autoevaluaciones</div>
+          <div class="card-body">
+            <h4 class="h6">Actividad rápida 1</h4>
+            <p>Conductor L = 0.75 m, I = 3 A, B = 0.2 T (perp.). Calculá la magnitud de la fuerza.</p>
+            <button class="btn btn-outline-primary btn-pill" data-bs-target="#sol-act1" data-bs-toggle="collapse" aria-expanded="false">
+              <i class="bi bi-lightning-charge"></i> Ver solución
+            </button>
+            <div id="sol-act1" class="collapse mt-2">
+              <div class="card card-body">
+                <p class="mb-1">F = I L B = 3·0.75·0.2 = <strong>0.45 N</strong>.</p>
+                <p class="small-muted mb-0">Interpretá el resultado: pequeña fuerza, perceptible en condiciones de laboratorio con palancas o sensores.</p>
+              </div>
             </div>
-            
-            <!-- Pestaña Nivel 4 -->
-            <div class="tab-pane fade" id="nivel4" role="tabpanel">
-                <div class="decorative-element decorative-element-3"></div>
-                
-                <h2>Nivel 4: Dispositivos Electromecánicos</h2>
-                
-                <div class="card mb-4">
-                    <div class="card-header">
-                        <h4 class="mb-0">Motores Eléctricos</h4>
-                    </div>
-                    <div class="card-body">
-                        <p>Un motor eléctrico es un dispositivo que convierte la energía eléctrica en energía mecánica mediante la interacción de campos magnéticos.</p>
-                        
-                        <h5>Principio de funcionamiento</h5>
-                        <p>Los motores eléctricos se basan en el principio de que un conductor por el que circula una corriente en un campo magnético experimenta una fuerza que lo hace moverse.</p>
-                        
-                        <h5>Tipos de motores</h5>
-                        <ul>
-                            <li><strong>Motores de corriente continua (DC):</strong> Funcionan con corriente continua y son ideales para aplicaciones que requieren control de velocidad.</li>
-                            <li><strong>Motores de corriente alterna (AC):</strong> Funcionan con corriente alterna y son los más comunes en aplicaciones industriales y domésticas.</li>
-                            <li><strong>Motores universales:</strong> Pueden funcionar tanto con corriente continua como con corriente alterna.</li>
-                        </ul>
-                        
-                        <h5>Potencia mecánica de un motor</h5>
-                        <div class="formula-box">
-                            $$P = \tau \cdot \omega$$
-                            <p>Donde:</p>
-                            <ul>
-                                <li>$P$ = potencia mecánica (W)</li>
-                                <li>$\tau$ = par motor (N·m)</li>
-                                <li>$\omega$ = velocidad angular (rad/s)</li>
-                            </ul>
-                        </div>
-                        
-                        <h5>Rendimiento de un motor</h5>
-                        <div class="formula-box">
-                            $$\eta = \frac{P_{salida}}{P_{entrada}} \times 100\%$$
-                            <p>Donde:</p>
-                            <ul>
-                                <li>$\eta$ = rendimiento (%)</li>
-                                <li>$P_{salida}$ = potencia mecánica de salida (W)</li>
-                                <li>$P_{entrada}$ = potencia eléctrica de entrada (W)</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="card mb-4">
-                    <div class="card-header">
-                        <h4 class="mb-0">Generadores Eléctricos</h4>
-                    </div>
-                    <div class="card-body">
-                        <p>Un generador eléctrico es un dispositivo que convierte la energía mecánica en energía eléctrica mediante la inducción electromagnética.</p>
-                        
-                        <h5>Principio de funcionamiento</h5>
-                        <p>Los generadores se basan en el principio de que cuando un conductor se mueve a través de un campo magnético, se induce una corriente eléctrica en él.</p>
-                        
-                        <h5>Tipos de generadores</h5>
-                        <ul>
-                            <li><strong>Generadores de corriente continua (DC):</strong> Producen corriente continua mediante un mecanismo de conmutación.</li>
-                            <li><strong>Generadores de corriente alterna (AC):</strong> Producen corriente alterna y son los más comunes en las centrales eléctricas.</li>
-                            <li><strong>Alternadores:</strong> Un tipo específico de generador de corriente alterna utilizado en automóviles y centrales eléctricas.</li>
-                        </ul>
-                        
-                        <h5>Frecuencia de la corriente generada</h5>
-                        <div class="formula-box">
-                            $$f = \frac{p \cdot n}{120}$$
-                            <p>Donde:</p>
-                            <ul>
-                                <li>$f$ = frecuencia (Hz)</li>
-                                <li>$p$ = número de polos del generador</li>
-                                <li>$n$ = velocidad de rotación (rpm)</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="card mb-4">
-                    <div class="card-header">
-                        <h4 class="mb-0">Transformadores</h4>
-                    </div>
-                    <div class="card-body">
-                        <p>Un transformador es un dispositivo que transfiere energía eléctrica de un circuito a otro mediante inducción electromagnética, cambiando los niveles de voltaje y corriente.</p>
-                        
-                        <h5>Principio de funcionamiento</h5>
-                        <p>Un transformador consta de dos bobinas (primaria y secundaria) enrolladas alrededor de un núcleo magnético. Cuando una corriente alterna circula por la bobina primaria, genera un campo magnético variable que induce una corriente en la bobina secundaria.</p>
-                        
-                        <h5>Relación de transformación</h5>
-                        <div class="formula-box">
-                            $$\frac{V_p}{V_s} = \frac{N_p}{N_s} = \frac{I_s}{I_p}$$
-                            <p>Donde:</p>
-                            <ul>
-                                <li>$V_p$ = voltaje en el primario (V)</li>
-                                <li>$V_s$ = voltaje en el secundario (V)</li>
-                                <li>$N_p$ = número de espiras en el primario</li>
-                                <li>$N_s$ = número de espiras en el secundario</li>
-                                <li>$I_p$ = corriente en el primario (A)</li>
-                                <li>$I_s$ = corriente en el secundario (A)</li>
-                            </ul>
-                        </div>
-                        
-                        <h5>Rendimiento de un transformador</h5>
-                        <div class="formula-box">
-                            $$\eta = \frac{P_s}{P_p} \times 100\% = \frac{V_s \cdot I_s}{V_p \cdot I_p} \times 100\%$$
-                            <p>Donde:</p>
-                            <ul>
-                                <li>$\eta$ = rendimiento (%)</li>
-                                <li>$P_s$ = potencia en el secundario (W)</li>
-                                <li>$P_p$ = potencia en el primario (W)</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="card mb-4">
-                    <div class="card-header">
-                        <h4 class="mb-0">Ejemplos de Dispositivos Cotidianos</h4>
-                    </div>
-                    <div class="card-body">
-                        <div class="example-device">
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1c/Electric_drill.jpg/220px-Electric_drill.jpg" alt="Taladro eléctrico">
-                            <div class="example-device-content">
-                                <h6>Taladros eléctricos</h6>
-                                <p>Los taladros eléctricos utilizan motores de corriente continua para convertir la energía eléctrica en energía mecánica de rotación. La velocidad se puede regular mediante un circuito que controla el voltaje aplicado al motor.</p>
-                            </div>
-                        </div>
-                        
-                        <div class="example-device">
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Washing_machine.jpg/220px-Washing_machine.jpg" alt="Lavadora">
-                            <div class="example-device-content">
-                                <h6>Lavadoras</h6>
-                                <p>Las lavadoras utilizan motores de corriente alterna para mover el tambor. Estos motores pueden cambiar de dirección de rotación para agitar la ropa en ambos sentidos durante el ciclo de lavado.</p>
-                            </div>
-                        </div>
-                        
-                        <div class="example-device">
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Hydroelectric_dam.jpg/220px-Hydroelectric_dam.jpg" alt="Central hidroeléctrica">
-                            <div class="example-device-content">
-                                <h6>Centrales hidroeléctricas</h6>
-                                <p>Las centrales hidroeléctricas utilizan generadores eléctricos para convertir la energía mecánica del agua en movimiento en energía eléctrica. El agua hace girar turbinas que están conectadas a los generadores.</p>
-                            </div>
-                        </div>
-                        
-                        <div class="example-device">
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/43/Power_transformer.jpg/220px-Power_transformer.jpg" alt="Transformador de potencia">
-                            <div class="example-device-content">
-                                <h6>Transformadores de distribución</h6>
-                                <p>Los transformadores de distribución, esos cilindros que vemos en los postes de luz, reducen el voltaje de la red eléctrica (generalmente 13,200V) a los 220V que usamos en nuestras casas.</p>
-                            </div>
-                        </div>
-                        
-                        <div class="example-device">
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2b/Celular_antiguo.jpg/220px-Celular_antiguo.jpg" alt="Cargador de celular">
-                            <div class="example-device-content">
-                                <h6>Cargadores de celulares</h6>
-                                <p>Los cargadores de celulares utilizan transformadores para reducir el voltaje de la red eléctrica (220V) al voltaje necesario para cargar el celular (generalmente 5V). También incluyen circuitos rectificadores para convertir corriente alterna en corriente continua.</p>
-                            </div>
-                        </div>
-                        
-                        <div class="example-device">
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Alternator_in_car.jpg/220px-Alternator_in_car.jpg" alt="Alternador de automóvil">
-                            <div class="example-device-content">
-                                <h6>Alternadores de automóviles</h6>
-                                <p>Los alternadores en los automóviles son generadores que convierten la energía mecánica del motor en energía eléctrica para cargar la batería y alimentar los sistemas eléctricos del vehículo cuando está en marcha.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="card mb-4">
-                    <div class="card-header">
-                        <h4 class="mb-0">Actividades</h4>
-                    </div>
-                    <div class="card-body">
-                        <div class="activity mb-4">
-                            <h5>Actividad 1: Potencia de un motor</h5>
-                            <p>Un motor eléctrico desarrolla un par de 5 N·m a una velocidad de 1500 rpm. Calcula la potencia mecánica desarrollada por el motor.</p>
-                            <button class="btn btn-outline-primary" onclick="toggleSolution('solution10')">Ver solución</button>
-                            <div id="solution10" class="solution">
-                                <p>Primero convertimos la velocidad de rpm a rad/s:</p>
-                                <p>$\omega = \frac{1500 \text{ rpm} \cdot 2\pi \text{ rad}}{60 \text{ s}} = \frac{1500 \cdot 2\pi}{60} = 50\pi \text{ rad/s} \approx 157.08 \text{ rad/s}$</p>
-                                <p>La potencia mecánica es:</p>
-                                <p>$P = \tau \cdot \omega = 5 \text{ N·m} \cdot 157.08 \text{ rad/s} = 785.4 \text{ W}$</p>
-                            </div>
-                        </div>
-                        
-                        <div class="activity mb-4">
-                            <h5>Actividad 2: Transformador</h5>
-                            <p>Un transformador tiene 500 espiras en el primario y 50 espiras en el secundario. Si se conecta a una fuente de 220V en el primario, ¿cuál será el voltaje en el secundario?</p>
-                            <button class="btn btn-outline-primary" onclick="toggleSolution('solution11')">Ver solución</button>
-                            <div id="solution11" class="solution">
-                                <p>Aplicando la relación de transformación:</p>
-                                <p>$\frac{V_p}{V_s} = \frac{N_p}{N_s}$</p>
-                                <p>Despejando $V_s$:</p>
-                                <p>$V_s = V_p \cdot \frac{N_s}{N_p} = 220V \cdot \frac{50}{500} = 220V \cdot 0.1 = 22V$</p>
-                                <p>El voltaje en el secundario será de 22V.</p>
-                            </div>
-                        </div>
-                        
-                        <div class="activity">
-                            <h5>Actividad 3: Rendimiento de un motor</h5>
-                            <p>Un motor eléctrico consume 1500W de la red eléctrica y desarrolla una potencia mecánica de 1200W. Calcula el rendimiento del motor y las pérdidas de energía.</p>
-                            <button class="btn btn-outline-primary" onclick="toggleSolution('solution12')">Ver solución</button>
-                            <div id="solution12" class="solution">
-                                <p>Rendimiento del motor:</p>
-                                <p>$\eta = \frac{P_{salida}}{P_{entrada}} \times 100\% = \frac{1200W}{1500W} \times 100\% = 0.8 \times 100\% = 80\%$</p>
-                                <p>Pérdidas de energía:</p>
-                                <p>$P_{pérdidas} = P_{entrada} - P_{salida} = 1500W - 1200W = 300W$</p>
-                                <p>El motor tiene un rendimiento del 80% y pierde 300W de energía, principalmente en forma de calor.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="card">
-                    <div class="card-header">
-                        <h4 class="mb-0">Evaluación: Nivel 4</h4>
-                    </div>
-                    <div class="card-body">
-                        <h5>Pregunta 1: Un motor eléctrico convierte...</h5>
-                        <div class="quiz-option" onclick="checkAnswer(this, false)">a) Energía mecánica en energía eléctrica</div>
-                        <div class="quiz-option" onclick="checkAnswer(this, true)">b) Energía eléctrica en energía mecánica</div>
-                        <div class="quiz-option" onclick="checkAnswer(this, false)">c) Energía química en energía eléctrica</div>
-                        <div class="quiz-option" onclick="checkAnswer(this, false)">d) Energía térmica en energía mecánica</div>
-                        
-                        <h5 class="mt-4">Pregunta 2: En un transformador, si el número de espiras del secundario es menor que el del primario...</h5>
-                        <div class="quiz-option" onclick="checkAnswer(this, true)">a) El voltaje de salida es menor que el de entrada</div>
-                        <div class="quiz-option" onclick="checkAnswer(this, false)">b) El voltaje de salida es mayor que el de entrada</div>
-                        <div class="quiz-option" onclick="checkAnswer(this, false)">c) El voltaje de salida es igual que el de entrada</div>
-                        <div class="quiz-option" onclick="checkAnswer(this, false)">d) No hay relación entre el número de espiras y el voltaje</div>
-                        
-                        <h5 class="mt-4">Pregunta 3: Un generador eléctrico se basa en...</h5>
-                        <div class="quiz-option" onclick="checkAnswer(this, false)">a) La ley de Ohm</div>
-                        <div class="quiz-option" onclick="checkAnswer(this, true)">b) El principio de inducción electromagnética</div>
-                        <div class="quiz-option" onclick="checkAnswer(this, false)">c) La ley de Coulomb</div>
-                        <div class="quiz-option" onclick="checkAnswer(this, false)">d) La ley de Joule</div>
-                    </div>
-                </div>
+
+            <hr>
+
+            <h4 class="h6 mt-3">Autoevaluación: Lenz y Faraday</h4>
+            <p>¿Qué ocurre si acercás un imán a una espira cerrada?</p>
+            <div id="quiz1" class="mb-2">
+              <div class="quiz-option" data-correct="false" tabindex="0">a) No ocurre nada</div>
+              <div class="quiz-option" data-correct="true" tabindex="0">b) Se induce una corriente que se opone al cambio de flujo (Ley de Lenz)</div>
+              <div class="quiz-option" data-correct="false" tabindex="0">c) La espira se magnetiza permanentemente</div>
+              <div class="quiz-option" data-correct="false" tabindex="0">d) Aparece corriente sin relación con el cambio</div>
             </div>
-            
-            <!-- Pestaña Síntesis -->
-            <div class="tab-pane fade" id="sintesis" role="tabpanel">
-                <div class="decorative-element decorative-element-1"></div>
-                <div class="decorative-element decorative-element-2"></div>
-                
-                <h2>Síntesis Visual</h2>
-                
-                <div class="card mb-4">
-                    <div class="card-header">
-                        <h4 class="mb-0">Conceptos Fundamentales</h4>
-                    </div>
-                    <div class="card-body">
-                        <div class="synthesis-concept">
-                            <h5>Corriente, Voltaje y Resistencia</h5>
-                            <div class="formula-box">
-                                $$V = I \cdot R$$
-                            </div>
-                            <p>La Ley de Ohm relaciona las tres magnitudes fundamentales de los circuitos eléctricos: voltaje (V), corriente (I) y resistencia (R).</p>
-                        </div>
-                        
-                        <div class="synthesis-concept">
-                            <h5>Circuitos en Serie</h5>
-                            <div class="formula-box">
-                                $$R_T = R_1 + R_2 + ... + R_n$$
-                            </div>
-                            <p>En circuitos en serie, las resistencias se suman y la corriente es la misma en todos los componentes.</p>
-                        </div>
-                        
-                        <div class="synthesis-concept">
-                            <h5>Circuitos en Paralelo</h5>
-                            <div class="formula-box">
-                                $$\frac{1}{R_T} = \frac{1}{R_1} + \frac{1}{R_2} + ... + \frac{1}{R_n}$$
-                            </div>
-                            <p>En circuitos en paralelo, el voltaje es el mismo en todas las ramas y las corrientes se suman.</p>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="card mb-4">
-                    <div class="card-header">
-                        <h4 class="mb-0">Componentes Electrónicos</h4>
-                    </div>
-                    <div class="card-body">
-                        <div class="synthesis-concept">
-                            <h5>Resistores</h5>
-                            <p>Componentes que oponen resistencia al paso de la corriente eléctrica. Cumplen la Ley de Ohm.</p>
-                        </div>
-                        
-                        <div class="synthesis-concept">
-                            <h5>Capacitores</h5>
-                            <div class="formula-box">
-                                $$C = \frac{Q}{V}$$
-                            </div>
-                            <p>Almacenan energía en forma de campo eléctrico. Su comportamiento depende del tiempo.</p>
-                        </div>
-                        
-                        <div class="synthesis-concept">
-                            <h5>Inductores</h5>
-                            <p>Almacenan energía en forma de campo magnético. Se oponen a los cambios de corriente.</p>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="card mb-4">
-                    <div class="card-header">
-                        <h4 class="mb-0">Dispositivos Electromecánicos</h4>
-                    </div>
-                    <div class="card-body">
-                        <div class="synthesis-concept">
-                            <h5>Motores Eléctricos</h5>
-                            <div class="formula-box">
-                                $$P = \tau \cdot \omega$$
-                            </div>
-                            <p>Convierten energía eléctrica en energía mecánica. Su potencia depende del par motor y la velocidad angular.</p>
-                        </div>
-                        
-                        <div class="synthesis-concept">
-                            <h5>Generadores Eléctricos</h5>
-                            <p>Convierten energía mecánica en energía eléctrica mediante inducción electromagnética.</p>
-                        </div>
-                        
-                        <div class="synthesis-concept">
-                            <h5>Transformadores</h5>
-                            <div class="formula-box">
-                                $$\frac{V_p}{V_s} = \frac{N_p}{N_s} = \frac{I_s}{I_p}$$
-                            </div>
-                            <p>Transfieren energía eléctrica entre circuitos mediante inducción electromagnética, cambiando los niveles de voltaje y corriente.</p>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="card">
-                    <div class="card-header">
-                        <h4 class="mb-0">Mapa Conceptual</h4>
-                    </div>
-                    <div class="card-body">
-                        <div class="text-center">
-                            <div style="width: 100%; height: 300px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 15px; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.2rem; box-shadow: 0 10px 30px rgba(0,0,0,.1);">
-                                <div>
-                                    <i class="bi bi-lightning-charge-fill" style="font-size: 3rem; margin-bottom: 1rem;"></i>
-                                    <p>Mapa conceptual interactivo de circuitos eléctricos</p>
-                                    <p>Relación entre conceptos fundamentales y aplicaciones prácticas</p>
-                                </div>
-                            </div>
-                            <p class="mt-3">Este mapa conceptual muestra la relación entre los diferentes conceptos estudiados a lo largo de los cuatro niveles del curso.</p>
-                        </div>
-                    </div>
-                </div>
+            <div aria-live="polite" id="quiz1-feedback" class="small-muted"></div>
+
+            <hr>
+
+            <h4 class="h6 mt-3">Proyecto breve (evaluable)</h4>
+            <p>Diseñá un experimento que demuestre la ley de Faraday: entregá objetivo, materiales, procedimiento, resultados (fotos o datos) y conclusión.</p>
+            <div class="small-muted">Criterios de evaluación: claridad del procedimiento, calidad del registro, interpretación física, comunicación.</div>
+
+            <hr>
+
+            <h4 class="h6 mt-3">Recursos didácticos en vídeo</h4>
+            <p>Vídeo explicativo (Khan Academy — magnetismo):</p>
+            <div class="ratio ratio-16x9 mb-2">
+              <iframe src="https://www.youtube.com/embed/0o8Gox2Vb14" title="Magnetic Forces - Khan Academy (example)" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
             </div>
-            
-            <!-- Pestaña Contexto Histórico -->
-            <div class="tab-pane fade" id="historia" role="tabpanel">
-                <div class="decorative-element decorative-element-3"></div>
-                
-                <h2>Contexto Histórico</h2>
-                
-                <div class="card">
-                    <div class="card-header">
-                        <h4 class="mb-0">Línea de Tiempo: Descubrimientos en Electricidad y Electromagnetismo</h4>
-                    </div>
-                    <div class="card-body">
-                        <div class="timeline">
-                            <div class="timeline-item">
-                                <h5>1600 - William Gilbert</h5>
-                                <p>Publica "De Magnete", donde estudia el magnetismo y la electricidad estática. Acuña el término "electricus" (eléctrico).</p>
-                            </div>
-                            
-                            <div class="timeline-item">
-                                <h5>1752 - Benjamin Franklin</h5>
-                                <p>Realiza su famoso experimento de la cometa, demostrando que los rayos son un fenómeno eléctrico. Introduce los conceptos de carga positiva y negativa.</p>
-                            </div>
-                            
-                            <div class="timeline-item">
-                                <h5>1785 - Charles-Augustin de Coulomb</h5>
-                                <p>Formula la Ley de Coulomb, que describe la fuerza entre dos cargas eléctricas.</p>
-                            </div>
-                            
-                            <div class="timeline-item">
-                                <h5>1800 - Alessandro Volta</h5>
-                                <p>Inventa la pila voltaica, la primera batería eléctrica, que produce una corriente eléctrica continua.</p>
-                            </div>
-                            
-                            <div class="timeline-item">
-                                <h5>1820 - Hans Christian Ørsted</h5>
-                                <p>Descubre que una corriente eléctrica produce un campo magnético, estableciendo la conexión entre electricidad y magnetismo.</p>
-                            </div>
-                            
-                            <div class="timeline-item">
-                                <h5>1820 - André-Marie Ampère</h5>
-                                <p>Desarrolla la ley de Ampère, que describe la fuerza entre dos corrientes eléctricas. La unidad de corriente eléctrica, el amperio, lleva su nombre.</p>
-                            </div>
-                            
-                            <div class="timeline-item">
-                                <h5>1827 - Georg Simon Ohm</h5>
-                                <p>Publica su famosa Ley de Ohm, que relaciona el voltaje, la corriente y la resistencia en un circuito eléctrico.</p>
-                            </div>
-                            
-                            <div class="timeline-item">
-                                <h5>1831 - Michael Faraday</h5>
-                                <p>Descubre la inducción electromagnética, el principio fundamental de los generadores eléctricos y transformadores.</p>
-                            </div>
-                            
-                            <div class="timeline-item">
-                                <h5>1865 - James Clerk Maxwell</h5>
-                                <p>Publica "A Dynamical Theory of the Electromagnetic Field", unificando la electricidad, el magnetismo y la luz en una sola teoría: el electromagnetismo.</p>
-                            </div>
-                            
-                            <div class="timeline-item">
-                                <h5>1873 - Ernst Werner von Siemens</h5>
-                                <p>Inventa el dinamoeléctrico, un generador de corriente continua que utiliza el principio de la autoexcitación.</p>
-                            </div>
-                            
-                            <div class="timeline-item">
-                                <h5>1879 - Thomas Edison</h5>
-                                <p>Desarrolla la primera bombilla incandescente práctica y construye la primera central eléctrica comercial en Nueva York.</p>
-                            </div>
-                            
-                            <div class="timeline-item">
-                                <h5>1888 - Nikola Tesla</h5>
-                                <p>Desarrolla el sistema de corriente alterna y patenta el motor de inducción de corriente alterna, que revoluciona la transmisión y distribución de energía eléctrica.</p>
-                            </div>
-                            
-                            <div class="timeline-item">
-                                <h5>1897 - J.J. Thomson</h5>
-                                <p>Descubre el electrón, la partícula fundamental responsable de la corriente eléctrica.</p>
-                            </div>
-                            
-                            <div class="timeline-item">
-                                <h5>1947 - John Bardeen, Walter Brattain y William Shockley</h5>
-                                <p>Inventan el transistor en los Bell Labs, un dispositivo semiconductor que reemplaza a las válvulas de vacío y da inicio a la electrónica moderna.</p>
-                            </div>
-                            
-                            <div class="timeline-item">
-                                <h5>1958 - Jack Kilby</h5>
-                                <p>Inventa el circuito integrado, que permite miniaturizar los componentes electrónicos y da origen a la revolución digital.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Pestaña Bibliografía -->
-            <div class="tab-pane fade" id="bibliografia" role="tabpanel">
-                <div class="decorative-element decorative-element-1"></div>
-                <div class="decorative-element decorative-element-2"></div>
-                
-                <h2>Bibliografía Sugerida</h2>
-                
-                <div class="card mb-4">
-                    <div class="card-header">
-                        <h4 class="mb-0">Libros de Texto</h4>
-                    </div>
-                    <div class="card-body">
-                        <ul>
-                            <li><strong>Hayt, W. H., & Kemmerly, J. E. (2012).</strong> <em>Análisis de circuitos en ingeniería.</em> McGraw-Hill.</li>
-                            <li><strong>Sadiku, M. N. O. (2018).</strong> <em>Fundamentos de circuitos eléctricos.</em> Alfaomega.</li>
-                            <li><strong>Nilsson, J. W., & Riedel, S. A. (2015).</strong> <em>Circuitos eléctricos.</em> Pearson.</li>
-                            <li><strong>Boylestad, R. L. (2011).</strong> <em>Introducción al análisis de circuitos.</em> Pearson.</li>
-                            <li><strong>Floyd, T. L. (2011).</strong> <em>Dispositivos electrónicos.</em> Pearson.</li>
-                        </ul>
-                    </div>
-                </div>
-                
-                <div class="card mb-4">
-                    <div class="card-header">
-                        <h4 class="mb-0">Recursos Digitales</h4>
-                    </div>
-                    <div class="card-body">
-                        <ul>
-                            <li><strong>Khan Academy.</strong> <em>Circuitos eléctricos.</em> Disponible en: <a href="https://es.khanacademy.org/science/electrical-engineering" target="_blank">https://es.khanacademy.org/science/electrical-engineering</a></li>
-                            <li><strong>MIT OpenCourseWare.</strong> <em>Introduction to Electronics, Signals, and Measurement.</em> Disponible en: <a href="https://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-071j-introduction-to-electronics-signals-and-measurement-spring-2006/" target="_blank">https://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-071j-introduction-to-electronics-signals-and-measurement-spring-2006/</a></li>
-                            <li><strong>Falstad, P.</strong> <em>Circuit Simulator Applet.</em> Disponible en: <a href="https://www.falstad.com/circuit/" target="_blank">https://www.falstad.com/circuit/</a></li>
-                            <li><strong>All About Circuits.</strong> <em>Textbook.</em> Disponible en: <a href="https://www.allaboutcircuits.com/textbook/" target="_blank">https://www.allaboutcircuits.com/textbook/</a></li>
-                        </ul>
-                    </div>
-                </div>
-                
-                <div class="card mb-4">
-                    <div class="card-header">
-                        <h4 class="mb-0">Artículos y Publicaciones Científicas</h4>
-                    </div>
-                    <div class="card-body">
-                        <ul>
-                            <li><strong>Maxwell, J. C. (1865).</strong> "A Dynamical Theory of the Electromagnetic Field". <em>Philosophical Transactions of the Royal Society of London.</em></li>
-                            <li><strong>Bardeen, J., & Brattain, W. H. (1948).</strong> "The Transistor, a Semi-Conductor Triode". <em>Physical Review.</em></li>
-                            <li><strong>Kilby, J. S. (1959).</strong> "Invention of the Integrated Circuit". <em>IEEE Transactions on Electron Devices.</em></li>
-                            <li><strong>Meindl, J. D. (2001).</strong> "Low Power Microelectronics: Retrospect and Prospect". <em>Proceedings of the IEEE.</em></li>
-                        </ul>
-                    </div>
-                </div>
-                
-                <div class="card">
-                    <div class="card-header">
-                        <h4 class="mb-0">Videos y Tutoriales</h4>
-                    </div>
-                    <div class="card-body">
-                        <ul>
-                            <li><strong>The Organic Chemistry Tutor.</strong> <em>Circuit Analysis.</em> Disponible en: <a href="https://www.youtube.com/playlist?list=PL0o_zxa4K1BVkRxCZubMPcCJ5Q5QwZdEM" target="_blank">https://www.youtube.com/playlist?list=PL0o_zxa4K1BVkRxCZubMPcCJ5Q5QwZdEM</a></li>
-                            <li><strong>ElectroBOOM.</strong> <em>Tutoriales de electrónica.</em> Disponible en: <a href="https://www.youtube.com/user/msadaghd" target="_blank">https://www.youtube.com/user/msadaghd</a></li>
-                            <li><strong>Ben Eater.</strong> <em>Building circuits on breadboards.</em> Disponible en: <a href="https://www.youtube.com/playlist?list=PLowKtXNTBypGqImE405J2565dvjafglHU" target="_blank">https://www.youtube.com/playlist?list=PLowKtXNTBypGqImE405J2565dvjafglHU</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
+            <p class="small-muted">Si el video no está disponible, ver la lista de referencias en la bibliografía para alternativas.</p>
+          </div>
+        </article>
+
+        <!-- GUÍA DOCENTE -->
+        <article id="doc" class="tab-pane fade card mb-3">
+          <div class="card-header">Guía docente y alineamiento curricular</div>
+          <div class="card-body">
+            <h4 class="h6">Secuencia sugerida (5 clases de 80 minutos)</h4>
+            <ol>
+              <li>Clase 1: Conceptos fundamentales y demostración del campo alrededor de un conductor.</li>
+              <li>Clase 2: Fuerza magnética y aplicación en motores (manos a la obra).</li>
+              <li>Clase 3: Inducción electromagnética y experimento con bobina e imán.</li>
+              <li>Clase 4: Proyecto práctico — montaje y registro de datos.</li>
+              <li>Clase 5: Presentación de resultados y evaluación final.</li>
+            </ol>
+
+            <h5 class="mt-3">Adaptaciones</h5>
+            <p>Incluye alternativas accesibles (demostraciones dirigidas, vídeos, roles en grupo), ajustar matemáticas según grupo y ofrecer evaluaciones formativas.</p>
+
+            <details>
+              <summary class="small-muted">Enlaces oficiales y recursos de referencia (abrir)</summary>
+              <ul>
+                <li><a class="external" href="https://www.argentina.gob.ar/educacion" target="_blank" rel="noopener">Ministerio de Educación (Argentina)</a></li>
+                <li><a class="external" href="https://recursos.educ.ar" target="_blank" rel="noopener">Recursos.edu.ar</a></li>
+                <li><a class="external" href="https://ocw.mit.edu" target="_blank" rel="noopener">MIT OCW</a></li>
+                <li><a class="external" href="https://phet.colorado.edu" target="_blank" rel="noopener">PhET Interactive Simulations</a></li>
+              </ul>
+            </details>
+          </div>
+        </article>
+      </section>
+
+      <!-- SIDEBAR -->
+      <aside>
+        <div class="card mb-3">
+          <div class="card-header">Índice y progreso</div>
+          <div class="card-body toc">
+            <ol>
+              <li>Introducción</li>
+              <li>Fundamentos</li>
+              <li>Leyes & Fórmulas</li>
+              <li>Experimentos</li>
+              <li>Actividades</li>
+              <li>Guía docente</li>
+            </ol>
+            <hr>
+            <div class="small-muted mb-2">Progreso (local)</div>
+            <progress id="prog" max="6" value="0" style="width:100%"></progress>
+            <div id="prog-label" class="small-muted mt-2">0 / 6 completadas</div>
+          </div>
         </div>
+
+        <div class="card mb-3">
+          <div class="card-header">Atajos y utilidades</div>
+          <div class="card-body">
+            <p class="small-muted mb-2">Teclas rápidas:</p>
+            <ul class="small-muted">
+              <li><kbd>T</kbd> — Introducción</li>
+              <li><kbd>F</kbd> — Fundamentos</li>
+              <li><kbd>E</kbd> — Experimentos</li>
+            </ul>
+            <button id="download-notes" class="btn btn-primary btn-pill mt-2 w-100"><i class="bi bi-download"></i> Descargar guía (txt)</button>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">Recomendaciones</div>
+          <div class="card-body small-muted">
+            <p>Si publicás en GitHub Pages: subí este archivo como <code>index.html</code> en la rama correspondiente. Para que los iframes funcionen en algunos entornos (PhET, Falstad), confirmá políticas de CORS o usa enlaces en nueva pestaña.</p>
+          </div>
+        </div>
+      </aside>
     </div>
-    
-    <!-- Pie de página -->
-    <footer>
-        <div class="footer-content">
-            <p>&copy; 2023 Circuitos Eléctricos y Componentes Electrónicos - Plataforma Educativa</p>
-            <div class="footer-links">
-                <a href="#"><i class="bi bi-house-door-fill"></i> Inicio</a>
-                <a href="#"><i class="bi bi-envelope-fill"></i> Contacto</a>
-                <a href="#"><i class="bi bi-info-circle-fill"></i> Acerca de</a>
-            </div>
-        </div>
-    </footer>
-    
-    <!-- Botón de ayuda -->
-    <button class="help-btn" data-bs-toggle="modal" data-bs-target="#helpModal">
-        <i class="bi bi-question-lg"></i>
-    </button>
-    
-    <!-- Modal de ayuda -->
-    <div class="modal fade" id="helpModal" tabindex="-1" aria-labelledby="helpModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="helpModalLabel">Ayuda</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <h5>Navegación del sitio</h5>
-                    <p>Utiliza las pestañas superiores para navegar entre los diferentes niveles y secciones del contenido. Cada nivel está diseñado para construir sobre los conceptos del nivel anterior.</p>
-                    
-                    <h5>Actividades y soluciones</h5>
-                    <p>Cada nivel incluye actividades prácticas para reforzar los conceptos aprendidos. Puedes ver las soluciones haciendo clic en el botón "Ver solución" debajo de cada actividad.</p>
-                    
-                    <h5>Evaluaciones</h5>
-                    <p>Al final de cada nivel encontrarás una evaluación con preguntas de opción múltiple para autoevaluar tu comprensión de los conceptos. Haz clic en las opciones para verificar tus respuestas.</p>
-                    
-                    <h5>Fórmulas matemáticas</h5>
-                    <p>Todas las fórmulas están escritas en código LaTeX para garantizar una visualización clara y precisa. Si tienes problemas para visualizar alguna fórmula, recarga la página.</p>
-                    
-                    <h5>Recursos adicionales</h5>
-                    <p>En las pestañas "Síntesis", "Contexto Histórico" y "Bibliografía" encontrarás recursos adicionales para profundizar en los temas estudiados.</p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Entendido</button>
-                </div>
-            </div>
-        </div>
-    </div>
-    
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script>
-        window.MathJax = {
-            tex: {
-                inlineMath: [['$', '$'], ['\\(', '\\)']],
-                displayMath: [['$$', '$$'], ['\\[', '\\]']]
-            }
-        };
-        
-        function toggleSolution(id) {
-            const solution = document.getElementById(id);
-            if (solution.style.display === 'block') {
-                solution.style.display = 'none';
-            } else {
-                solution.style.display = 'block';
-            }
-        }
-        
-        function checkAnswer(element, isCorrect) {
-            // Remove previous styling
-            const options = element.parentElement.querySelectorAll('.quiz-option');
-            options.forEach(option => {
-                option.classList.remove('correct', 'incorrect');
-            });
-            
-            // Add styling to selected option
-            if (isCorrect) {
-                element.classList.add('correct');
-            } else {
-                element.classList.add('incorrect');
-            }
-        }
-        
-        // Initialize tooltips
-        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
-        var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
-            return new bootstrap.Tooltip(tooltipTriggerEl)
+  </main>
+
+  <footer>
+    <div class="container-xl small-muted">Creado por docente — Material con fines educativos. Adaptá según tus necesidades. · Versión enriquecida con recursos web.</div>
+  </footer>
+
+  <!-- Bootstrap JS bundle (includes Popper) -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-7G5lVbSN0Gok8wYk3QFWnq4CqZ6gk6D14pYk1Zx8yq6c+9zVhZ6Vt1x0c6Q4uK7E" crossorigin="anonymous"></script>
+
+  <script>
+    // Client-side behavior: tabs progress, quiz, solution reveal, shortcuts, MathJax rerender.
+    (function(){
+      // Progress & section mapping
+      const navLinks = document.querySelectorAll('.nav-link[data-bs-target]');
+      const sections = Array.from(document.querySelectorAll('.tab-pane'));
+      const prog = document.getElementById('prog');
+      const progLabel = document.getElementById('prog-label');
+      // mark visited
+      function updateProgress(){
+        const visited = JSON.parse(localStorage.getItem('em_visited') || '{}');
+        const keys = sections.map(s => s.id);
+        const count = keys.filter(k => visited[k]).length;
+        prog.value = count;
+        prog.max = keys.length;
+        progLabel.textContent = count + ' / ' + keys.length + ' completadas';
+      }
+      function showSectionById(id){
+        sections.forEach(s => {
+          if (s.id === id) s.classList.add('show','active'); else s.classList.remove('show','active');
         });
-    </script>
+        // activate matching tab
+        navLinks.forEach(t => {
+          const target = t.getAttribute('data-bs-target').replace('#','');
+          t.classList.toggle('active', target === id);
+        });
+        // store visited
+        const visited = JSON.parse(localStorage.getItem('em_visited') || '{}');
+        visited[id] = true;
+        localStorage.setItem('em_visited', JSON.stringify(visited));
+        updateProgress();
+        // scroll to top
+        window.scrollTo({top:0, behavior:'smooth'});
+      }
+      // tabs click handlers: use bootstrap tab toggles already present, but also mark visited
+      navLinks.forEach(link => {
+        link.addEventListener('shown.bs.tab', function(e){
+          const target = e.target.getAttribute('data-bs-target').replace('#','');
+          showSectionById(target);
+        });
+      });
+      // initialize based on stored or default to intro
+      const last = localStorage.getItem('em_last') || 'intro';
+      showSectionById(last);
+      // store last when changed
+      navLinks.forEach(link => {
+        link.addEventListener('click', () => {
+          const target = link.getAttribute('data-bs-target').replace('#','');
+          localStorage.setItem('em_last', target);
+        });
+      });
+
+      // Solution toggles: collapse components used for solutions use Bootstrap collapse. Ensure MathJax typeset when shown.
+      document.querySelectorAll('[data-bs-toggle="collapse"]').forEach(btn => {
+        btn.addEventListener('click', function(){
+          // The collapse is handled by bootstrap, but re-render MathJax after short delay when element shows
+          const targetSelector = btn.getAttribute('data-bs-target');
+          const target = document.querySelector(targetSelector);
+          setTimeout(()=> {
+            if (window.MathJax && MathJax.typesetPromise && target && target.classList.contains('show')){
+              MathJax.typesetPromise([target]).catch((e)=> console.warn('MathJax:',e));
+            }
+          }, 260);
+        });
+      });
+
+      // Quiz behavior
+      function handleQuiz(el){
+        const parent = el.closest('.card-body');
+        if (!parent) return;
+        const options = parent.querySelectorAll('.quiz-option');
+        if (!options.length) return;
+        // ignore if already disabled
+        if (el.dataset.disabled === 'true') return;
+        const isCorrect = el.dataset.correct === 'true';
+        options.forEach(o => {
+          o.classList.remove('correct','incorrect');
+          o.dataset.disabled = 'true';
+          o.tabIndex = -1;
+        });
+        el.classList.add(isCorrect ? 'correct' : 'incorrect');
+        const fb = parent.querySelector('[aria-live="polite"]') || parent.querySelector('.quiz-feedback');
+        if (fb) fb.textContent = isCorrect ? '✅ Correcto — buen trabajo.' : '❌ Incorrecto — revisá la explicación y volvé a intentarlo.';
+      }
+      document.querySelectorAll('.quiz-option').forEach(opt => {
+        opt.addEventListener('click', () => handleQuiz(opt));
+        opt.addEventListener('keydown', (ev) => { if (ev.key === 'Enter' || ev.key === ' ') { ev.preventDefault(); handleQuiz(opt); } });
+      });
+
+      // Download notes button
+      document.getElementById('download-notes').addEventListener('click', ()=>{
+        const text = [
+          'Guía de trabajo — Electromagnetismo 5º',
+          '',
+          'Nombre: ____________________',
+          'Fecha: ____________________',
+          '',
+          'Observaciones experimento A:',
+          '',
+          '',
+          'Observaciones experimento B:',
+          '',
+          '',
+          'Conclusiones:',
+          ''
+        ].join('\\n');
+        const blob = new Blob([text], {type:'text/plain;charset=utf-8'});
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url; a.download = 'guia_electromagnetismo_5ano.txt';
+        document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url);
+      });
+
+      // Keyboard shortcuts
+      document.addEventListener('keydown', (e) => {
+        if (e.key.toLowerCase() === 't') document.querySelector('.nav-link[data-bs-target="#intro"]').click();
+        if (e.key.toLowerCase() === 'f') document.querySelector('.nav-link[data-bs-target="#fund"]').click();
+        if (e.key.toLowerCase() === 'e') document.querySelector('.nav-link[data-bs-target="#exps"]').click();
+      });
+
+      // Initial progress update
+      (function(){ updateProgress(); })();
+
+    })();
+  </script>
 </body>
 </html>
