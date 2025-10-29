@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Análisis Estadístico - Ejercicios para 5° Año</title>
+    
+    <!-- --- INICIO DE LA CONFIGURACIÓN DE MATHJAX --- -->
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            },
+            options: {
+                ignoreHtmlClass: 'tex2jax_ignore',
+                processHtmlClass: 'tex2jax_process'
+            }
+        };
+    </script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <!-- --- FIN DE LA CONFIGURACIÓN DE MATHJAX --- -->
+    
+    <style>
+        /* --- ESTILOS CSS --- */
+        body {
+            font-family: 'Georgia', serif;
+            line-height: 1.7;
+            max-width: 900px;
+            margin: 20px auto;
+            padding: 0 20px;
+            color: #333;
+            background-color: #fdfdfd;
+        }
+
+        header {
+            text-align: center;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+
+        h1, h2, h3, h4 {
+            color: #2c3e50;
+        }
+
+        h1 {
+            font-size: 2.2em;
+            margin-bottom: 0.2em;
+        }
+
+        h2 {
+            font-size: 1.8em;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 5px;
+            margin-top: 40px;
+        }
+
+        h3 {
+            font-size: 1.4em;
+            margin-top: 30px;
+        }
+
+        h4 {
+            font-size: 1.2em;
+            margin-top: 25px;
+        }
+
+        p {
+            margin-bottom: 1em;
+        }
+
+        strong {
+            color: #16a085;
+        }
+
+        ul, ol {
+            padding-left: 25px;
+        }
+
+        li {
+            margin-bottom: 0.5em;
+        }
+
+        pre {
+            background-color: #f4f4f4;
+            border: 1px solid #ccc;
+            padding: 15px;
+            border-radius: 5px;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            font-family: 'Courier New', Courier, monospace;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+            font-size: 0.9em;
+        }
+
+        th, td {
+            padding: 10px 12px;
+            text-align: center;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #f9f9f9;
+            font-weight: bold;
+        }
+
+        thead th {
+            border-top: 2px solid #333;
+            border-bottom: 2px solid #333;
+        }
+        
+        thead tr:first-child th {
+            border-bottom: 1px solid #ddd;
+        }
+
+        tbody tr:last-child td {
+            border-bottom: 2px solid #333;
+        }
+        
+        caption {
+            caption-side: bottom;
+            text-align: center;
+            font-style: italic;
+            margin-top: 10px;
+            font-size: 0.9em;
+        }
+        
+        .math-display {
+            text-align: center;
+            margin: 20px 0;
+            font-size: 1.1em;
+            overflow-x: auto;
+            padding: 10px;
+        }
+
+        .clarification-box {
+            background-color: #e8f4f8;
+            border-left: 5px solid #3498db;
+            padding: 15px 20px;
+            margin: 20px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .clarification-box p {
+            margin: 0;
+        }
+        .clarification-box strong {
+            color: #2980b9;
+        }
+
+        .glosario {
+            background-color: #f0f9f0;
+            border: 1px solid #c3e6c3;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+        .glosario h4 {
+            margin-top: 0;
+            color: #27ae60;
+        }
+        .glosario dt {
+            font-weight: bold;
+            color: #2c3e50;
+        }
+        .glosario dd {
+            margin-bottom: 10px;
+        }
+
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Análisis Estadístico - Ejercicios para 5° Año</h1>
+        <p>Educación Secundaria - Córdoba, Argentina</p>
+    </header>
+
+    <main>
+        <h2>Introducción para estudiantes</h2>
+        <p>¡Hola! En este trabajo vamos a aprender a analizar datos estadísticos paso a paso. Veremos cómo organizar la información en tablas y calcular medidas que nos ayuden a entender mejor los datos. Trabajaremos con tres ejemplos diferentes para ver cómo la estadística nos ayuda a contar historias con números.</p>
+
+        <section>
+            <h2>1. Calificaciones de Matemática (50 alumnos)</h2>
+            
+            <h3>Paso 0: ¿Por qué agrupamos en intervalos?</h3>
+            <p>Cuando tenemos muchos datos diferentes (como 50 calificaciones), es difícil ver patrones. Agrupar los datos en intervalos (o "clases") nos permite resumir la información, ver dónde se concentran la mayoría de los valores y hacer cálculos más manejables. Es como organizar una biblioteca por estanterías en lugar de tener todos los libros amontonados en el suelo.</p>
+
+            <h3>Paso 1: Organizar los datos</h3>
+            <p>Primero ordenamos las calificaciones de menor a mayor para tener una visión general del rango.</p>
+            <pre><code>45, 48, 49, 50, 52, 53, 54, 55, 56, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 
+69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 
+89, 90, 91, 92, 93, 94, 95, 96, 97, 98</code></pre>
+
+            <h3>Paso 2: Crear la tabla de frecuencias</h3>
+            <p>Para construir la tabla, seguimos estos pasos:</p>
+            <ol>
+                <li><strong>Calcular el rango (R):</strong> Es la diferencia entre el valor máximo y el mínimo. $R = 98 - 45 = 53$.</li>
+                <li><strong>Elegir el número de intervalos (k):</strong> No hay una regla única, pero una guía común es la <strong>Regla de Sturges</strong>: $k \approx 1 + 3.322 \cdot \log_{10}(n)$. Para $n=50$, esto da unos 6-7 intervalos. Elegimos 6 por simplicidad.</li>
+                <li><strong>Calcular la amplitud (a):</strong> Dividimos el rango por el número de intervalos. $a = \frac{53}{6} \approx 8.83$. <strong>Siempre redondeamos al entero superior</strong> para que todos los datos quepan. Usamos $a = 10$.</li>
+            </ol>
+
+            <div class="clarification-box">
+                <p><strong>Aclaración:</strong> ¿Por qué redondeamos la amplitud hacia arriba? Si usáramos 8.83, los intervalos serían irregulares y difíciles de manejar. Al usar 10, nos aseguramos de que el intervalo final cubra hasta el 105, incluyendo holgadamente el valor máximo (98).</p>
+            </div>
+
+            <table>
+                <caption>Tabla de frecuencias para calificaciones de Matemática</caption>
+                <thead>
+                    <tr>
+                        <th colspan="2">Intervalo</th>
+                        <th>Frecuencia</th>
+                        <th>Frecuencia</th>
+                        <th>Frecuencia</th>
+                        <th>Frecuencia</th>
+                    </tr>
+                    <tr>
+                        <th>de Clases</th>
+                        <th>Marca de clase <br>($x_i$)</th>
+                        <th>absoluta <br>($f_i$)</th>
+                        <th>acumulada <br>($F_i$)</th>
+                        <th>relativa <br>($fr_i$)</th>
+                        <th>acumulada <br>($Fr_i$)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>[45-55)</td><td>50</td><td>8</td><td>8</td><td>0.16</td><td>0.16</td></tr>
+                    <tr><td>[55-65)</td><td>60</td><td>10</td><td>18</td><td>0.20</td><td>0.36</td></tr>
+                    <tr><td>[65-75)</td><td>70</td><td>12</td><td>30</td><td>0.24</td><td>0.60</td></tr>
+                    <tr><td>[75-85)</td><td>80</td><td>9</td><td>39</td><td>0.18</td><td>0.78</td></tr>
+                    <tr><td>[85-95)</td><td>90</td><td>8</td><td>47</td><td>0.16</td><td>0.94</td></tr>
+                    <tr><td>[95-105)</td><td>100</td><td>3</td><td>50</td><td>0.06</td><td>1.00</td></tr>
+                    <tr><td>Total</td><td>--</td><td>50</td><td>--</td><td>1.00</td><td>--</td></tr>
+                </tbody>
+            </table>
+
+            <div class="glosario">
+                <h4>Leyenda de la Tabla</h4>
+                <dl>
+                    <dt>Intervalo [a-b):</dt>
+                    <dd>Incluye todos los valores mayores o iguales a 'a' y menores que 'b'. Por ejemplo, [45-55) incluye el 45 pero no el 55.</dd>
+                    <dt>Marca de clase ($x_i$):</dt>
+                    <dd>El punto medio del intervalo. Lo usamos como representante de todo el intervalo en los cálculos.</dd>
+                    <dt>Frecuencia absoluta ($f_i$):</dt>
+                    <dd>El número de datos que caen en cada intervalo.</dd>
+                    <dt>Frecuencia acumulada ($F_i$):</dt>
+                    <dd>La suma de las frecuencias hasta ese intervalo. Nos ayuda a encontrar la mediana.</dd>
+                    <dt>Frecuencia relativa ($fr_i$):</dt>
+                    <dd>La proporción de datos en ese intervalo ($f_i / n$). Muestra el "peso" porcentual de cada clase.</dd>
+                </dl>
+            </div>
+
+            <h3>Paso 3: Calcular medidas de tendencia central</h3>
+            
+            <h4>Media aritmética ($\bar{x}$)</h4>
+            <div class="math-display">
+            \[
+            \begin{align*}
+            \bar{x} &= \frac{\sum x_i \cdot f_i}{n} \\
+            &= \frac{50\times8 + 60\times10 + 70\times12 + 80\times9 + 90\times8 + 100\times3}{50} \\
+            &= \frac{3580}{50} = 71.6
+            \end{align*}
+            \]
+            </div>
+
+            <h4>Mediana (Me)</h4>
+            <p>Buscamos el intervalo donde la frecuencia acumulada supera $\frac{n}{2} = 25$. Este es el intervalo [65-75).</p>
+            <div class="math-display">
+            \[ Me = L_i + \frac{\frac{n}{2} - F_{i-1}}{f_i} \cdot a = 65 + \frac{25 - 18}{12} \times 10 = 70.83 \]
+            </div>
+
+            <h4>Moda (Mo)</h4>
+            <p>El intervalo modal es [65-75) por tener mayor frecuencia (12).</p>
+            <div class="math-display">
+            \[ Mo = L_i + \frac{d_1}{d_1 + d_2} \cdot a = 65 + \frac{2}{2 + 3} \times 10 = 69 \]
+            </div>
+
+            <h3>Paso 4: Calcular medidas de dispersión</h3>
+            
+            <h4>Rango</h4>
+            <p>$R = 98 - 45 = 53$</p>
+
+            <h4>Varianza ($\sigma^2$) y Desviación estándar ($\sigma$)</h4>
+            <div class="math-display">
+            \[
+            \begin{align*}
+            \sigma^2 &= \frac{\sum f_i \cdot (x_i - \bar{x})^2}{n} = 217.44 \\
+            \sigma &= \sqrt{217.44} = 14.75
+            \end{align*}
+            \]
+            </div>
+
+            <h4>Coeficiente de variación (CV)</h4>
+            <p>$CV = \frac{\sigma}{\bar{x}} \times 100 = \frac{14.75}{71.6} \times 100 = 20.60\%$</p>
+
+            <h3>Paso 5: Análisis y conclusiones profundizadas</h3>
+            <ul>
+                <li><strong>Centralidad:</strong> El promedio del curso es <strong>71.6 puntos</strong>. La mediana de <strong>70.83</strong> nos dice que el 50% de la clase está por debajo de esa nota. La moda, que se sitúa en <strong>69</strong>, nos indica la zona de calificaciones más común. Los tres valores están relativamente cerca, lo que sugiere una distribución centrada.</li>
+                <li><strong>Forma de la distribución:</strong> Observamos que la media (71.6) es ligeramente mayor que la mediana (70.83). Esto es un indicio de <strong>asimetría positiva o hacia la derecha</strong>. Significa que hay unos pocos estudiantes con calificaciones muy altas que "jalan" el promedio hacia arriba, pero la mayor parte del grupo se agrupa en valores más bajos.</li>
+                <li><strong>Dispersión:</strong> Una desviación estándar de <strong>14.75 puntos</strong> nos dice que, en promedio, las calificaciones de los estudiantes se desvían unos 14.75 puntos de la media. Esto implica que la mayoría de las calificaciones se encuentran en el rango de $71.6 \pm 14.75$, es decir, aproximadamente entre <strong>57 y 86 puntos</strong>. El Coeficiente de Variación del 20.60% se considera una <strong>variabilidad moderada</strong>: no es un grupo homogéneo, pero tampoco extremadamente disperso.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>2. Minutos de ejercicio semanal (42 personas)</h2>
+            
+            <h3>Paso 1: Organizar los datos</h3>
+            <p>Datos ordenados:</p>
+            <pre><code>15, 18, 20, 25, 27, 28, 30, 32, 33, 35, 36, 37, 38, 40, 41, 42, 43, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 60, 62, 63, 65, 68, 70, 72, 75, 77, 78, 80</code></pre>
+
+            <h3>Paso 2: Tabla de frecuencias</h3>
+            <table>
+                <caption>Tabla de frecuencias para minutos de ejercicio semanal</caption>
+                <thead>
+                    <tr>
+                        <th colspan="2">Intervalo</th>
+                        <th>Frecuencia</th>
+                        <th>Frecuencia</th>
+                        <th>Frecuencia</th>
+                        <th>Frecuencia</th>
+                    </tr>
+                    <tr>
+                        <th>de Clases</th>
+                        <th>Marca de clase <br>($x_i$)</th>
+                        <th>absoluta <br>($f_i$)</th>
+                        <th>acumulada <br>($F_i$)</th>
+                        <th>relativa <br>($fr_i$)</th>
+                        <th>acumulada <br>($Fr_i$)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>[15-25)</td><td>20</td><td>3</td><td>3</td><td>0.07</td><td>0.07</td></tr>
+                    <tr><td>[25-35)</td><td>30</td><td>6</td><td>9</td><td>0.14</td><td>0.21</td></tr>
+                    <tr><td>[35-45)</td><td>40</td><td>11</td><td>20</td><td>0.26</td><td>0.47</td></tr>
+                    <tr><td>[45-55)</td><td>50</td><td>10</td><td>30</td><td>0.24</td><td>0.71</td></tr>
+                    <tr><td>[55-65)</td><td>60</td><td>6</td><td>36</td><td>0.14</td><td>0.85</td></tr>
+                    <tr><td>[65-75)</td><td>70</td><td>4</td><td>40</td><td>0.10</td><td>0.95</td></tr>
+                    <tr><td>[75-85)</td><td>80</td><td>2</td><td>42</td><td>0.05</td><td>1.00</td></tr>
+                    <tr><td>Total</td><td>--</td><td>42</td><td>--</td><td>1.00</td><td>--</td></tr>
+                </tbody>
+            </table>
+
+            <h3>Paso 3: Medidas de tendencia central</h3>
+            <h4>Media</h4>
+            <div class="math-display">
+            \[ \bar{x} = \frac{20\times3 + 30\times6 + 40\times11 + 50\times10 + 60\times6 + 70\times4 + 80\times2}{42} = \frac{1980}{42} = 47.14 \]
+            </div>
+
+            <h4>Mediana</h4>
+            <p>Buscamos el intervalo donde la frecuencia acumulada supera $\frac{n}{2} = 21$. Este es el intervalo [35-45).</p>
+            <div class="math-display">
+            \[ Me = 35 + \frac{21 - 9}{11} \times 10 = 35 + 10.91 = 45.91 \]
+            </div>
+
+            <h4>Moda</h4>
+            <p>El intervalo modal es [35-45) por tener mayor frecuencia (11).</p>
+            <div class="math-display">
+            \[ Mo = 35 + \frac{5}{5 + 1} \times 10 = 35 + 8.33 = 43.33 \]
+            </div>
+
+            <h3>Paso 4: Medidas de dispersión</h3>
+            <h4>Rango</h4>
+            <p>$R = 80 - 15 = 65$</p>
+
+            <h4>Varianza y Desviación estándar</h4>
+            <div class="math-display">
+            \[
+            \begin{align*}
+            \sigma^2 &= \frac{\sum f_i \cdot (x_i - \bar{x})^2}{n} = 234.95 \\
+            \sigma &= \sqrt{234.95} = 15.33
+            \end{align*}
+            \]
+            </div>
+
+            <h4>Coeficiente de variación</h4>
+            <p>$CV = \frac{15.33}{47.14} \times 100 = 32.52\%$</p>
+
+            <h3>Paso 5: Análisis y conclusiones</h3>
+            <ul>
+                <li><strong>Centralidad:</strong> En promedio, las personas hacen <strong>47.14 minutos</strong> de ejercicio a la semana. La mediana de <strong>45.91</strong> indica que la mitad de las personas hace menos de ese tiempo. La moda, en <strong>43.33</strong>, nos dice que el grupo de personas más común ejerce entre 35 y 45 minutos.</li>
+                <li><strong>Forma de la distribución:</strong> La media (47.14) es mayor que la mediana (45.91), lo que indica una <strong>asimetría positiva o hacia la derecha</strong>. Esto significa que la mayoría de las personas hace poco ejercicio, pero hay un grupo minoritario que hace mucho ejercicio (los valores altos de 70, 75, 78, 80 minutos) y "estira" la distribución hacia la derecha.</li>
+                <li><strong>Dispersión:</strong> El Coeficiente de Variación es de <strong>32.52%</strong>. Este valor se considera <strong>alto</strong>, lo que significa que hay una gran variabilidad en los hábitos de ejercicio. No es un grupo homogéneo: hay personas muy sedentarias y otras muy activas. La desviación estándar de 15.33 minutos confirma esta alta dispersión.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>3. Altura de plantas en cm (36 plantas)</h2>
+            
+            <h3>Paso 1: Organizar los datos</h3>
+            <p>Datos ordenados:</p>
+            <pre><code>11.9, 12.4, 13.2, 14.5, 15.2, 16.8, 17.1, 17.6, 18.3, 18.9, 19.1, 19.5, 19.8, 20.2, 20.7, 20.8, 21.3, 21.9, 22.2, 22.5, 22.8, 23.1, 23.5, 24.2, 24.6, 24.9, 25.1, 25.5, 25.8, 26.2, 26.7, 26.9, 27.1, 27.5, 28.3, 29.1</code></pre>
+
+            <h3>Paso 2: Tabla de frecuencias</h3>
+            <table>
+                <caption>Tabla de frecuencias para altura de plantas</caption>
+                <thead>
+                    <tr>
+                        <th colspan="2">Intervalo</th>
+                        <th>Frecuencia</th>
+                        <th>Frecuencia</th>
+                        <th>Frecuencia</th>
+                        <th>Frecuencia</th>
+                    </tr>
+                    <tr>
+                        <th>de Clases</th>
+                        <th>Marca de clase <br>($x_i$)</th>
+                        <th>absoluta <br>($f_i$)</th>
+                        <th>acumulada <br>($F_i$)</th>
+                        <th>relativa <br>($fr_i$)</th>
+                        <th>acumulada <br>($Fr_i$)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>[11-14)</td><td>12.5</td><td>3</td><td>3</td><td>0.08</td><td>0.08</td></tr>
+                    <tr><td>[14-17)</td><td>15.5</td><td>4</td><td>7</td><td>0.11</td><td>0.19</td></tr>
+                    <tr><td>[17-20)</td><td>18.5</td><td>8</td><td>15</td><td>0.22</td><td>0.42</td></tr>
+                    <tr><td>[20-23)</td><td>21.5</td><td>9</td><td>24</td><td>0.25</td><td>0.67</td></tr>
+                    <tr><td>[23-26)</td><td>24.5</td><td>7</td><td>31</td><td>0.19</td><td>0.86</td></tr>
+                    <tr><td>[26-29)</td><td>27.5</td><td>4</td><td>35</td><td>0.11</td><td>0.97</td></tr>
+                    <tr><td>[29-32)</td><td>30.5</td><td>1</td><td>36</td><td>0.03</td><td>1.00</td></tr>
+                    <tr><td>Total</td><td>--</td><td>36</td><td>--</td><td>1.00</td><td>--</td></tr>
+                </tbody>
+            </table>
+
+            <h3>Paso 3: Medidas de tendencia central</h3>
+            <h4>Media</h4>
+            <div class="math-display">
+            \[ \bar{x} = \frac{12.5\times3 + 15.5\times4 + 18.5\times8 + 21.5\times9 + 24.5\times7 + 27.5\times4 + 30.5\times1}{36} = \frac{753}{36} = 20.92 \]
+            </div>
+
+            <h4>Mediana</h4>
+            <p>Buscamos el intervalo donde la frecuencia acumulada supera $\frac{n}{2} = 18$. Este es el intervalo [20-23).</p>
+            <div class="math-display">
+            \[ Me = 20 + \frac{18 - 15}{9} \times 3 = 20 + 1 = 21 \]
+            </div>
+
+            <h4>Moda</h4>
+            <p>El intervalo modal es [20-23) por tener mayor frecuencia (9).</p>
+            <div class="math-display">
+            \[ Mo = 20 + \frac{1}{1 + 2} \times 3 = 20 + 1 = 21 \]
+            </div>
+
+            <h3>Paso 4: Medidas de dispersión</h3>
+            <h4>Rango</h4>
+            <p>$R = 29.1 - 11.9 = 17.2$</p>
+
+            <h4>Varianza y Desviación estándar</h4>
+            <div class="math-display">
+            \[
+            \begin{align*}
+            \sigma^2 &= \frac{\sum f_i \cdot (x_i - \bar{x})^2}{n} = 20.42 \\
+            \sigma &= \sqrt{20.42} = 4.52
+            \end{align*}
+            \]
+            </div>
+
+            <h4>Coeficiente de variación</h4>
+            <p>$CV = \frac{4.52}{20.92} \times 100 = 21.61\%$</p>
+
+            <h3>Paso 5: Análisis y conclusiones</h3>
+            <ul>
+                <li><strong>Centralidad:</strong> La altura promedio de las plantas es de <strong>20.92 cm</strong>. Tanto la mediana como la moda son exactamente <strong>21 cm</strong>. Esta coincidencia es un indicio muy fuerte de que la distribución de las alturas es muy simétrica.</li>
+                <li><strong>Forma de la distribución:</strong> Dado que $\bar{x} \approx Me \approx Mo$, podemos concluir que la distribución es <strong>aproximadamente simétrica</strong>. No hay una cola más larga que la otra; las plantas se distribuyen de manera bastante uniforme alrededor del centro. Esto sugiere un <strong>crecimiento homogéneo</strong> en la muestra.</li>
+                <li><strong>Dispersión:</strong> El Coeficiente de Variación es de <strong>21.61%</strong>, lo que indica una <strong>variabilidad moderada-baja</strong>. Las plantas no son todas idénticas, pero sus alturas no difieren enormemente unas de otras. Una desviación estándar de 4.52 cm significa que la mayoría de las plantas se encuentran en el rango de $20.92 \pm 4.52$, es decir, entre <strong>16.4 y 25.44 cm</strong>.</li>
+            </ul>
+        </section>
+
+        <h2>Conclusiones generales y aprendizaje</h2>
+        
+        <h3>¿Qué aprendimos?</h3>
+        <ul>
+            <li><strong>Organización de datos:</strong> Las tablas de frecuencia son una herramienta poderosa para resumir grandes volúmenes de datos y visualizar patrones.</li>
+            <li><strong>Medidas de tendencia central:</strong> La media, la mediana y la moda nos dan diferentes perspectivas del "centro" de los datos. Usarlas juntas nos da una imagen más completa.</li>
+            <li><strong>Medidas de dispersión:</strong> La desviación estándar y el coeficiente de variación nos dicen qué tan consistentes o variables son los datos, dándole contexto a la media.</li>
+            <li><strong>Análisis crítico:</strong> Los números por sí solos no significan nada. El verdadero poder está en interpretarlos para contar una historia y tomar decisiones informadas.</li>
+        </ul>
+
+        <h3>Reflexión Pedagógica (para el docente)</h3>
+        <p>Este ejercicio puede ser el punto de partida para debates más profundos en el aula:</p>
+        <ul>
+            <li><strong>Sensibilidad a los valores extremos:</strong> Preguntar: "¿Qué pasaría con la media si la calificación más alta fuera 150 en lugar de 98? ¿Cambiaría la mediana? ¿Por qué?". Esto ilustra la robustez de la mediana frente a valores atípicos.</li>
+            <li><strong>Comparación de conjuntos de datos:</strong> Comparar la dispersión de las calificaciones (CV=20.6%) con la de los minutos de ejercicio (CV=32.5%). ¿Qué nos dice esto sobre la consistencia de los hábitos de la gente versus el rendimiento académico en este grupo?</li>
+            <li><strong>Conexión con la probabilidad:</strong> Usar las frecuencias relativas para responder preguntas como: "Si elijo un alumno al azar, ¿cuál es la probabilidad de que su calificación esté entre 65 y 75?".</li>
+        </ul>
+
+    </main>
+
+</body>
+</html>
