@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Un espacio para Aprender - Matemáticas con AguggIA</title>
+    <title>Instituto San Francisco de Asís - Portal Educativo de Matemáticas</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
     <style>
@@ -379,8 +379,8 @@
             font-size: 0.95rem;
         }
         /* Estados de navegación */
-        #school-selection { display: block; }
-        #course-selection { display: none; }
+        #school-selection { display: none; }
+        #course-selection { display: block; }
         #topic-selection { display: none; }
         
         /* Botones de navegación */
@@ -534,17 +534,16 @@
     </div>
     <div class="container">
         <div class="header">
-            <h1>Portal Educativo - Matemáticas con AguggIA</h1>
-            <p>Selecciona tu escuela, curso y temas de estudio</p>
+            <h1>Instituto San Francisco de Asís</h1>
+            <p>Portal Educativo de Matemáticas</p>
         </div>
         
         <div class="breadcrumb">
             <a href="#" id="home-link"><i class="fas fa-home"></i> Inicio</a>
-            <span id="school-crumb" style="display: none;"><i class="fas fa-chevron-right"></i> <a href="#" id="school-link">Escuela</a></span>
             <span id="course-crumb" style="display: none;"><i class="fas fa-chevron-right"></i> <a href="#" id="course-link">Curso</a></span>
         </div>
         <div class="content">
-            <!-- Selección de Escuela -->
+            <!-- Selección de Escuela (oculta) -->
             <div id="school-selection" class="section-transition">
                 <div class="welcome-text">
                     <h2>Selecciona tu Escuela</h2>
@@ -559,16 +558,6 @@
                         <div class="card-body">
                             <p>Material educativo para estudiantes del Instituto San Francisco de Asís. El material es un complemento para las clases del cole.</p>
                             <a href="#" class="btn" onclick="selectSchool('Instituto San Francisco de Asís')">Seleccionar <i class="fas fa-arrow-right"></i></a>
-                        </div>
-                    </div>
-                    <div class="selection-card">
-                        <div class="card-header">
-                            <i class="fas fa-graduation-cap"></i>
-                            <h3>Colegio Alemán VGB</h3>
-                        </div>
-                        <div class="card-body">
-                            <p>Recursos complementarios para estudiantes del Colegio Alemán VGB. Contenido adaptado a nuestro programa.</p>
-                            <a href="#" class="btn" onclick="selectSchool('Colegio Alemán VGB')">Seleccionar <i class="fas fa-arrow-right"></i></a>
                         </div>
                     </div>
                 </div>
@@ -588,14 +577,11 @@
                     <p>Elige el curso en el que estás matriculado para ver los temas disponibles.</p>
                 </div>
                 <div class="selection-section" id="course-selection-content">
-                    <!-- Los cursos se cargarán dinámicamente según la escuela seleccionada -->
+                    <!-- Los cursos se cargarán dinámicamente -->
                 </div>
                 
                 <!-- Botones de navegación para la sección de curso -->
                 <div class="navigation-buttons">
-                    <button class="nav-btn back" onclick="goBackToSchool()">
-                        <i class="fas fa-arrow-left"></i> Volver a Escuelas
-                    </button>
                     <button class="nav-btn home" onclick="goToHome()">
                         <i class="fas fa-home"></i> Volver al Inicio
                     </button>
@@ -628,12 +614,12 @@
             </div>
         </div>
         <div class="footer">
-            <p>Portal Educativo - Matemáticas | Material diseñado para estudiantes de secundaria</p>
+            <p>Instituto San Francisco de Asís - Portal Educativo de Matemáticas | Material diseñado para estudiantes de secundaria</p>
         </div>
     </div>
     <script>
         // Variables para almacenar las selecciones
-        let selectedSchool = "";
+        let selectedSchool = "Instituto San Francisco de Asís"; // Preseleccionado
         let selectedCourse = "";
         
         // Datos de cursos y temas
@@ -643,9 +629,6 @@
                 "Cuarto Año", 
                 "Quinto Año", 
                 "Sexto Año"
-            ],
-            "Colegio Alemán VGB": [
-                "Quinto Año"
             ]
         };
         
@@ -724,23 +707,6 @@
                         description: "Explora conceptos más avanzados de estadística y sus aplicaciones prácticas.",
                         link: "TeoriaEstadistica.html"
                     }
-                ],
-                "Colegio Alemán VGB": [
-                    { 
-                        title: "Termodinámica", 
-                        description: "Estudio de la energía y su transformación en sistemas físicos.",
-                        subtopics: [
-                            { title: "Biomasa", link: "biomasa.html" },
-                            { title: "Eficiencia en ER", link: "EficienciaEnER.html" },
-                            { title: "Energía Hidroeléctrica", link: "posterfisica.html" },
-                            { title: "¿cómo se integra la termodinámica a la generación de energía?", link: "FisicaAvanzado.html" }
-                        ]
-                    },
-                    { 
-                        title: "Electrones en movimiento", 
-                        description: "Veamos cuánto podemos aprender de Electromagnetismo y electricidad por acá",
-                        link: "electro.html"
-                    }
                 ]
             },
             "Sexto Año": {
@@ -774,15 +740,6 @@
             selectedSchool = school;
             document.getElementById('school-selection').style.display = 'none';
             document.getElementById('course-selection').style.display = 'block';
-            
-            // Actualizar breadcrumb
-            document.getElementById('school-crumb').style.display = 'inline';
-            document.getElementById('school-link').textContent = school;
-            document.getElementById('school-link').onclick = function(e) {
-                e.preventDefault();
-                goBackToSchool();
-                return false;
-            };
             
             // Cargar cursos para esta escuela
             loadCourses(school);
@@ -829,7 +786,7 @@
             
             // Actualizar título de temas
             document.getElementById('topic-title').textContent = 
-                `Temas de Matemáticas - ${selectedCourse} (${selectedSchool})`;
+                `Temas de Matemáticas - ${selectedCourse}`;
             
             // Cargar temas para este curso
             loadTopics(course);
@@ -883,24 +840,17 @@
         }
         
         // Funciones de navegación
-        function goBackToSchool() {
-            document.getElementById('topic-selection').style.display = 'none';
-            document.getElementById('course-selection').style.display = 'none';
-            document.getElementById('school-selection').style.display = 'block';
-            document.getElementById('course-crumb').style.display = 'none';
-        }
-        
         function goBackToCourse() {
             document.getElementById('topic-selection').style.display = 'none';
             document.getElementById('course-selection').style.display = 'block';
             document.getElementById('school-selection').style.display = 'none';
+            document.getElementById('course-crumb').style.display = 'none';
         }
         
         function goToHome() {
             document.getElementById('topic-selection').style.display = 'none';
-            document.getElementById('course-selection').style.display = 'none';
-            document.getElementById('school-selection').style.display = 'block';
-            document.getElementById('school-crumb').style.display = 'none';
+            document.getElementById('course-selection').style.display = 'block';
+            document.getElementById('school-selection').style.display = 'none';
             document.getElementById('course-crumb').style.display = 'none';
         }
         
@@ -910,8 +860,11 @@
             goToHome();
         });
         
-        // Animación para los elementos matemáticos
+        // Inicialización: cargar cursos para el Instituto San Francisco de Asís
         document.addEventListener('DOMContentLoaded', function() {
+            loadCourses(selectedSchool);
+            
+            // Animación para los elementos matemáticos
             const mathElements = document.querySelectorAll('.math-element');
             
             mathElements.forEach(el => {
@@ -935,4 +888,3 @@
     </script>
 </body>
 </html>
-
